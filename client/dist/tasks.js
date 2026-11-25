@@ -78,14 +78,14 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
         <div class="task-row"><span class="task-meter"><i style="width:${pct}%"></i></span><b class="task-count">${hw.answered} / ${hw.total}</b></div>
         ${openHomework ? `<button type="button" class="task-hw-go">▶ ${tr('しゅくだいを する')}</button>` : ''}
         ${hw.more > 0 ? `<small>${tr('ほかに {0}こ', [hw.more])}</small>` : ''}
-        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
+        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : guide.task?.go?.ui ? `👆 ${tr('かわりに おして もらう')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
       </div>` : ''}
       ${first ? `<div class="task-now">
         <strong>${esc(text(first))}</strong>
         ${first.where && isJa() ? `<small>📍 ${esc(first.where)}</small>` : ''}
         <div class="task-row">${meter(first)}${reward(first)}</div>
-        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
+        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : guide.task?.go?.ui ? `👆 ${tr('かわりに おして もらう')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
         ${skipBtn(first)}
       </div>` : ''}
@@ -132,7 +132,9 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
     const el = e.target.closest?.('button, a, [data-quest], .mi-poi');
     if (!el) return;
     if (el.matches('#journal')) ui('wordbook');
-    else if (el.matches('#mapbtn, #flight-button')) ui('worldmap');
+    // 2D の 地図は 出なく した（2026-11）：「しまの ちず」も 🌍 せかいを えらぶ、「お店を おす」は その カード。
+    else if (el.matches('#mapbtn, #flight-button')) { ui('worldmap'); ui('homemap'); }
+    else if (el.closest('#rpg-dialog .wm-card, #mini-pick .mp-card')) ui('homemap_poi');
     else if (el.matches('[data-fish-tab="book"], [data-fw-tab="dex"], .fw-dexdock, .fw-dexdock *')) ui('fishdex');
     else if (el.matches('#rank-button')) ui('ranking');
     else if (el.matches('[data-ride]')) ui('ride');
@@ -152,7 +154,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   const watch = () => {
     // おつかいの 道しるべ（#errand-hud）が 出ている 間は そちらが 左の 主役。
     body.classList.toggle('errand-busy', !!document.querySelector('#errand-hud:not([hidden])'));
-    if (body.dataset.main) ui('homemap');
+    if (body.dataset.main || document.querySelector('#rpg-dialog[open][data-page="map"]')) ui('homemap');
     if (document.querySelector('#bag-dialog[open]')) ui('bag');
     const arcade = body.dataset.arcade || '';
     if (arcade && arcade !== lastArcade) ui(arcade === 'blockwild' ? 'blockwild' : 'minigame', false);

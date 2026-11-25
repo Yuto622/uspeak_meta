@@ -140,86 +140,6 @@
   ],
   "items": [
     {
-      "id": "av-cat",
-      "slot": "avatar",
-      "ja": "ねこ",
-      "en": "Cat",
-      "price": 80,
-      "level": 1,
-      "colour": "f2983a",
-      "kind": "av-cat"
-    },
-    {
-      "id": "av-panda",
-      "slot": "avatar",
-      "ja": "パンダ",
-      "en": "Panda",
-      "price": 150,
-      "level": 1,
-      "colour": "f7f7f2",
-      "kind": "av-panda"
-    },
-    {
-      "id": "av-ninja",
-      "slot": "avatar",
-      "ja": "にんじゃ",
-      "en": "Ninja",
-      "price": 220,
-      "level": 2,
-      "colour": "23262f",
-      "kind": "av-ninja"
-    },
-    {
-      "id": "av-princess",
-      "slot": "avatar",
-      "ja": "ひめ",
-      "en": "Princess",
-      "price": 280,
-      "level": 3,
-      "colour": "f07fae",
-      "kind": "av-princess"
-    },
-    {
-      "id": "av-hero",
-      "slot": "avatar",
-      "ja": "ヒーロー",
-      "en": "Hero",
-      "price": 290,
-      "level": 4,
-      "colour": "2c6fe0",
-      "kind": "av-hero"
-    },
-    {
-      "id": "av-knight",
-      "slot": "avatar",
-      "ja": "きし",
-      "en": "Knight",
-      "price": 520,
-      "level": 5,
-      "colour": "bfc8d2",
-      "kind": "av-knight"
-    },
-    {
-      "id": "av-dragon",
-      "slot": "avatar",
-      "ja": "ドラゴン",
-      "en": "Dragon",
-      "price": 700,
-      "level": 7,
-      "colour": "4fb35a",
-      "kind": "av-dragon"
-    },
-    {
-      "id": "av-unicorn",
-      "slot": "avatar",
-      "ja": "ユニコーン",
-      "en": "Unicorn",
-      "price": 900,
-      "level": 9,
-      "colour": "fdfcff",
-      "kind": "av-unicorn"
-    },
-    {
       "id": "av-dog",
       "slot": "avatar",
       "ja": "いぬ",
@@ -238,6 +158,16 @@
       "level": 1,
       "colour": "f7a8b8",
       "kind": "av-pig"
+    },
+    {
+      "id": "av-cat",
+      "slot": "avatar",
+      "ja": "ねこ",
+      "en": "Cat",
+      "price": 80,
+      "level": 1,
+      "colour": "f2983a",
+      "kind": "av-cat"
     },
     {
       "id": "av-koala",
@@ -260,6 +190,16 @@
       "kind": "av-monkey"
     },
     {
+      "id": "av-chef",
+      "slot": "avatar",
+      "ja": "コック",
+      "en": "Chef",
+      "price": 110,
+      "level": 1,
+      "colour": "fbfbf7",
+      "kind": "av-chef"
+    },
+    {
       "id": "av-cow",
       "slot": "avatar",
       "ja": "うし",
@@ -268,6 +208,16 @@
       "level": 2,
       "colour": "fbfbf7",
       "kind": "av-cow"
+    },
+    {
+      "id": "av-panda",
+      "slot": "avatar",
+      "ja": "パンダ",
+      "en": "Panda",
+      "price": 150,
+      "level": 1,
+      "colour": "f7f7f2",
+      "kind": "av-panda"
     },
     {
       "id": "av-tiger",
@@ -280,46 +230,6 @@
       "kind": "av-tiger"
     },
     {
-      "id": "av-bee",
-      "slot": "avatar",
-      "ja": "はち",
-      "en": "Bee",
-      "price": 180,
-      "level": 2,
-      "colour": "ffd447",
-      "kind": "av-bee"
-    },
-    {
-      "id": "av-owl",
-      "slot": "avatar",
-      "ja": "ふくろう",
-      "en": "Owl",
-      "price": 200,
-      "level": 3,
-      "colour": "8d6e4a",
-      "kind": "av-owl"
-    },
-    {
-      "id": "av-lion",
-      "slot": "avatar",
-      "ja": "ライオン",
-      "en": "Lion",
-      "price": 240,
-      "level": 3,
-      "colour": "e6b04a",
-      "kind": "av-lion"
-    },
-    {
-      "id": "av-chef",
-      "slot": "avatar",
-      "ja": "コック",
-      "en": "Chef",
-      "price": 110,
-      "level": 1,
-      "colour": "fbfbf7",
-      "kind": "av-chef"
-    },
-    {
       "id": "av-pirate",
       "slot": "avatar",
       "ja": "かいぞく",
@@ -328,6 +238,16 @@
       "level": 2,
       "colour": "b8323c",
       "kind": "av-pirate"
+    },
+    {
+      "id": "av-bee",
+      "slot": "avatar",
+      "ja": "はち",
+      "en": "Bee",
+      "price": 180,
+      "level": 2,
+      "colour": "ffd447",
+      "kind": "av-bee"
     },
     {
       "id": "av-police",
@@ -340,6 +260,16 @@
       "kind": "av-police"
     },
     {
+      "id": "av-owl",
+      "slot": "avatar",
+      "ja": "ふくろう",
+      "en": "Owl",
+      "price": 200,
+      "level": 3,
+      "colour": "8d6e4a",
+      "kind": "av-owl"
+    },
+    {
       "id": "av-fire",
       "slot": "avatar",
       "ja": "しょうぼうし",
@@ -348,6 +278,16 @@
       "level": 3,
       "colour": "d8323c",
       "kind": "av-fire"
+    },
+    {
+      "id": "av-ninja",
+      "slot": "avatar",
+      "ja": "にんじゃ",
+      "en": "Ninja",
+      "price": 220,
+      "level": 2,
+      "colour": "23262f",
+      "kind": "av-ninja"
     },
     {
       "id": "av-doctor",
@@ -360,6 +300,16 @@
       "kind": "av-doctor"
     },
     {
+      "id": "av-lion",
+      "slot": "avatar",
+      "ja": "ライオン",
+      "en": "Lion",
+      "price": 240,
+      "level": 3,
+      "colour": "e6b04a",
+      "kind": "av-lion"
+    },
+    {
       "id": "av-cowboy",
       "slot": "avatar",
       "ja": "カウボーイ",
@@ -370,6 +320,16 @@
       "kind": "av-cowboy"
     },
     {
+      "id": "av-princess",
+      "slot": "avatar",
+      "ja": "ひめ",
+      "en": "Princess",
+      "price": 280,
+      "level": 3,
+      "colour": "f07fae",
+      "kind": "av-princess"
+    },
+    {
       "id": "av-wizard",
       "slot": "avatar",
       "ja": "まほうつかい",
@@ -378,6 +338,16 @@
       "level": 4,
       "colour": "5a3a9a",
       "kind": "av-wizard"
+    },
+    {
+      "id": "av-hero",
+      "slot": "avatar",
+      "ja": "ヒーロー",
+      "en": "Hero",
+      "price": 290,
+      "level": 4,
+      "colour": "2c6fe0",
+      "kind": "av-hero"
     },
     {
       "id": "av-astro",
@@ -440,6 +410,16 @@
       "kind": "av-mummy"
     },
     {
+      "id": "av-knight",
+      "slot": "avatar",
+      "ja": "きし",
+      "en": "Knight",
+      "price": 520,
+      "level": 5,
+      "colour": "bfc8d2",
+      "kind": "av-knight"
+    },
+    {
       "id": "av-vampire",
       "slot": "avatar",
       "ja": "きゅうけつき",
@@ -478,6 +458,16 @@
       "level": 8,
       "colour": "b81f2f",
       "kind": "av-devil"
+    },
+    {
+      "id": "av-dragon",
+      "slot": "avatar",
+      "ja": "ドラゴン",
+      "en": "Dragon",
+      "price": 700,
+      "level": 7,
+      "colour": "4fb35a",
+      "kind": "av-dragon"
     },
     {
       "id": "av-king",
@@ -520,6 +510,16 @@
       "kind": "av-pumpkin"
     },
     {
+      "id": "av-unicorn",
+      "slot": "avatar",
+      "ja": "ユニコーン",
+      "en": "Unicorn",
+      "price": 900,
+      "level": 9,
+      "colour": "fdfcff",
+      "kind": "av-unicorn"
+    },
+    {
       "id": "av-gold",
       "slot": "avatar",
       "ja": "ゴールドナイト",
@@ -560,6 +560,56 @@
       "kind": "cap"
     },
     {
+      "id": "cap-green",
+      "slot": "hat",
+      "ja": "みどりの キャップ",
+      "en": "Green cap",
+      "price": 40,
+      "level": 1,
+      "colour": "3f9a5a",
+      "kind": "cap"
+    },
+    {
+      "id": "cap-yellow",
+      "slot": "hat",
+      "ja": "きいろの キャップ",
+      "en": "Yellow cap",
+      "price": 40,
+      "level": 1,
+      "colour": "f0c23c",
+      "kind": "cap"
+    },
+    {
+      "id": "cap-pink",
+      "slot": "hat",
+      "ja": "ピンクの キャップ",
+      "en": "Pink cap",
+      "price": 45,
+      "level": 1,
+      "colour": "ee7fa6",
+      "kind": "cap"
+    },
+    {
+      "id": "cap-white",
+      "slot": "hat",
+      "ja": "しろい キャップ",
+      "en": "White cap",
+      "price": 45,
+      "level": 1,
+      "colour": "f4f1e6",
+      "kind": "cap"
+    },
+    {
+      "id": "cap-orange",
+      "slot": "hat",
+      "ja": "オレンジの キャップ",
+      "en": "Orange cap",
+      "price": 45,
+      "level": 1,
+      "colour": "e27a2d",
+      "kind": "cap"
+    },
+    {
       "id": "beanie",
       "slot": "hat",
       "ja": "ニットぼう",
@@ -567,6 +617,26 @@
       "price": 55,
       "level": 1,
       "colour": "c76b6b",
+      "kind": "beanie"
+    },
+    {
+      "id": "beanie-blue",
+      "slot": "hat",
+      "ja": "あおい ニットぼう",
+      "en": "Blue beanie",
+      "price": 55,
+      "level": 1,
+      "colour": "4a7fc0",
+      "kind": "beanie"
+    },
+    {
+      "id": "beanie-green",
+      "slot": "hat",
+      "ja": "みどりの ニットぼう",
+      "en": "Green beanie",
+      "price": 55,
+      "level": 1,
+      "colour": "4f9a6a",
       "kind": "beanie"
     },
     {
@@ -580,6 +650,76 @@
       "kind": "bow"
     },
     {
+      "id": "beanie-yellow",
+      "slot": "hat",
+      "ja": "きいろの ニットぼう",
+      "en": "Yellow beanie",
+      "price": 60,
+      "level": 1,
+      "colour": "e8c04a",
+      "kind": "beanie"
+    },
+    {
+      "id": "bow-blue",
+      "slot": "hat",
+      "ja": "あおい リボン",
+      "en": "Blue ribbon",
+      "price": 60,
+      "level": 1,
+      "colour": "5a9be0",
+      "kind": "bow"
+    },
+    {
+      "id": "bow-yellow",
+      "slot": "hat",
+      "ja": "きいろの リボン",
+      "en": "Yellow ribbon",
+      "price": 60,
+      "level": 1,
+      "colour": "f2c94c",
+      "kind": "bow"
+    },
+    {
+      "id": "bow-purple",
+      "slot": "hat",
+      "ja": "むらさきの リボン",
+      "en": "Purple ribbon",
+      "price": 65,
+      "level": 2,
+      "colour": "9a6ad0",
+      "kind": "bow"
+    },
+    {
+      "id": "sprout",
+      "slot": "hat",
+      "ja": "ふたばの め",
+      "en": "Little sprout",
+      "price": 70,
+      "level": 1,
+      "colour": "6cc04a",
+      "kind": "sprout"
+    },
+    {
+      "id": "flower-pin",
+      "slot": "hat",
+      "ja": "はなの かみかざり",
+      "en": "Flower hair pin",
+      "price": 80,
+      "level": 1,
+      "colour": "f08fb0",
+      "kind": "flower"
+    },
+    {
+      "id": "flower-blue",
+      "slot": "hat",
+      "ja": "あおい はなの かみかざり",
+      "en": "Blue flower pin",
+      "price": 80,
+      "level": 2,
+      "colour": "6aa8f0",
+      "kind": "flower"
+    },
+    {
       "id": "straw",
       "slot": "hat",
       "ja": "むぎわらぼうし",
@@ -588,6 +728,26 @@
       "level": 2,
       "colour": "e0c070",
       "kind": "brim"
+    },
+    {
+      "id": "party",
+      "slot": "hat",
+      "ja": "パーティーぼうし",
+      "en": "Party hat",
+      "price": 95,
+      "level": 2,
+      "colour": "e0567a",
+      "kind": "party"
+    },
+    {
+      "id": "party-blue",
+      "slot": "hat",
+      "ja": "あおい パーティーぼうし",
+      "en": "Blue party hat",
+      "price": 95,
+      "level": 2,
+      "colour": "3d8fd1",
+      "kind": "party"
     },
     {
       "id": "wreath",
@@ -600,6 +760,16 @@
       "kind": "wreath"
     },
     {
+      "id": "bunny",
+      "slot": "hat",
+      "ja": "うさぎの みみ",
+      "en": "Bunny ears",
+      "price": 140,
+      "level": 3,
+      "colour": "fff4f0",
+      "kind": "bunny"
+    },
+    {
       "id": "ears",
       "slot": "hat",
       "ja": "ねこみみ",
@@ -608,6 +778,56 @@
       "level": 3,
       "colour": "3b3b40",
       "kind": "ears"
+    },
+    {
+      "id": "ears-fox",
+      "slot": "hat",
+      "ja": "きつねの みみ",
+      "en": "Fox ears",
+      "price": 150,
+      "level": 3,
+      "colour": "e08a3c",
+      "kind": "ears"
+    },
+    {
+      "id": "ears-bear",
+      "slot": "hat",
+      "ja": "くまの みみ",
+      "en": "Bear ears",
+      "price": 150,
+      "level": 3,
+      "colour": "8a5a3a",
+      "kind": "ears"
+    },
+    {
+      "id": "antenna",
+      "slot": "hat",
+      "ja": "うちゅうじんの アンテナ",
+      "en": "Alien antenna",
+      "price": 160,
+      "level": 3,
+      "colour": "6fe07a",
+      "kind": "antenna"
+    },
+    {
+      "id": "phones",
+      "slot": "hat",
+      "ja": "ヘッドホン",
+      "en": "Headphones",
+      "price": 170,
+      "level": 3,
+      "colour": "e2553f",
+      "kind": "phones"
+    },
+    {
+      "id": "propeller",
+      "slot": "hat",
+      "ja": "プロペラぼうし",
+      "en": "Propeller cap",
+      "price": 180,
+      "level": 3,
+      "colour": "3d8fd1",
+      "kind": "propeller"
     },
     {
       "id": "helmet",
@@ -620,6 +840,36 @@
       "kind": "helmet"
     },
     {
+      "id": "chef",
+      "slot": "hat",
+      "ja": "コックさんの ぼうし",
+      "en": "Chef hat",
+      "price": 190,
+      "level": 4,
+      "colour": "fbfaf4",
+      "kind": "chef"
+    },
+    {
+      "id": "cowboy",
+      "slot": "hat",
+      "ja": "カウボーイハット",
+      "en": "Cowboy hat",
+      "price": 220,
+      "level": 4,
+      "colour": "a8743c",
+      "kind": "cowboy"
+    },
+    {
+      "id": "santa",
+      "slot": "hat",
+      "ja": "サンタの ぼうし",
+      "en": "Santa hat",
+      "price": 240,
+      "level": 4,
+      "colour": "d13a43",
+      "kind": "santa"
+    },
+    {
       "id": "pirate",
       "slot": "hat",
       "ja": "かいぞくの ぼうし",
@@ -628,6 +878,26 @@
       "level": 4,
       "colour": "262a33",
       "kind": "pirate"
+    },
+    {
+      "id": "tophat",
+      "slot": "hat",
+      "ja": "シルクハット",
+      "en": "Top hat",
+      "price": 280,
+      "level": 4,
+      "colour": "2a2d33",
+      "kind": "tophat"
+    },
+    {
+      "id": "helmet-space",
+      "slot": "hat",
+      "ja": "うちゅうの ヘルメット",
+      "en": "Space helmet",
+      "price": 290,
+      "level": 4,
+      "colour": "dfe6ee",
+      "kind": "helmet"
     },
     {
       "id": "wizard",
@@ -640,6 +910,36 @@
       "kind": "wizard"
     },
     {
+      "id": "wizard-red",
+      "slot": "hat",
+      "ja": "あかい まほうつかいの ぼうし",
+      "en": "Red wizard hat",
+      "price": 340,
+      "level": 5,
+      "colour": "b23a4a",
+      "kind": "wizard"
+    },
+    {
+      "id": "viking",
+      "slot": "hat",
+      "ja": "バイキングの かぶと",
+      "en": "Viking helmet",
+      "price": 360,
+      "level": 5,
+      "colour": "b9c2cc",
+      "kind": "horns"
+    },
+    {
+      "id": "tiara",
+      "slot": "hat",
+      "ja": "おひめさまの ティアラ",
+      "en": "Princess tiara",
+      "price": 380,
+      "level": 6,
+      "colour": "f2ce72",
+      "kind": "tiara"
+    },
+    {
       "id": "crown",
       "slot": "hat",
       "ja": "おうさまの かんむり",
@@ -650,6 +950,46 @@
       "kind": "crown"
     },
     {
+      "id": "halo",
+      "slot": "hat",
+      "ja": "てんしの わ",
+      "en": "Angel halo",
+      "price": 420,
+      "level": 6,
+      "colour": "ffe27a",
+      "kind": "halo"
+    },
+    {
+      "id": "crown-silver",
+      "slot": "hat",
+      "ja": "ぎんの かんむり",
+      "en": "Silver crown",
+      "price": 450,
+      "level": 7,
+      "colour": "d0d6de",
+      "kind": "crown"
+    },
+    {
+      "id": "blush",
+      "slot": "face",
+      "ja": "ほっぺの ピンク",
+      "en": "Rosy cheeks",
+      "price": 40,
+      "level": 1,
+      "colour": "f59ab0",
+      "kind": "blush"
+    },
+    {
+      "id": "freckles",
+      "slot": "face",
+      "ja": "そばかす",
+      "en": "Freckles",
+      "price": 40,
+      "level": 1,
+      "colour": "b0703c",
+      "kind": "freckles"
+    },
+    {
       "id": "nose",
       "slot": "face",
       "ja": "ピエロの はな",
@@ -657,6 +997,36 @@
       "price": 45,
       "level": 1,
       "colour": "e0524a",
+      "kind": "nose"
+    },
+    {
+      "id": "plaster",
+      "slot": "face",
+      "ja": "ばんそうこう",
+      "en": "Plaster",
+      "price": 45,
+      "level": 1,
+      "colour": "f0d2a8",
+      "kind": "plaster"
+    },
+    {
+      "id": "nose-blue",
+      "slot": "face",
+      "ja": "あおい ピエロの はな",
+      "en": "Blue clown nose",
+      "price": 45,
+      "level": 1,
+      "colour": "3d8fd1",
+      "kind": "nose"
+    },
+    {
+      "id": "nose-green",
+      "slot": "face",
+      "ja": "みどりの ピエロの はな",
+      "en": "Green clown nose",
+      "price": 45,
+      "level": 1,
+      "colour": "4fb05a",
       "kind": "nose"
     },
     {
@@ -670,6 +1040,26 @@
       "kind": "round"
     },
     {
+      "id": "glasses-red",
+      "slot": "face",
+      "ja": "あかい まるメガネ",
+      "en": "Red round glasses",
+      "price": 60,
+      "level": 1,
+      "colour": "d13a43",
+      "kind": "round"
+    },
+    {
+      "id": "glasses-blue",
+      "slot": "face",
+      "ja": "あおい まるメガネ",
+      "en": "Blue round glasses",
+      "price": 60,
+      "level": 1,
+      "colour": "3d6fd1",
+      "kind": "round"
+    },
+    {
       "id": "paint",
       "slot": "face",
       "ja": "ほっぺの ほし",
@@ -677,6 +1067,36 @@
       "price": 70,
       "level": 1,
       "colour": "f2b544",
+      "kind": "paint"
+    },
+    {
+      "id": "paint-pink",
+      "slot": "face",
+      "ja": "ほっぺの ピンクの ほし",
+      "en": "Pink star paint",
+      "price": 70,
+      "level": 1,
+      "colour": "f07fb0",
+      "kind": "paint"
+    },
+    {
+      "id": "paint-blue",
+      "slot": "face",
+      "ja": "ほっぺの あおい ほし",
+      "en": "Blue star paint",
+      "price": 70,
+      "level": 1,
+      "colour": "5ab0f0",
+      "kind": "paint"
+    },
+    {
+      "id": "paint-green",
+      "slot": "face",
+      "ja": "ほっぺの みどりの ほし",
+      "en": "Green star paint",
+      "price": 70,
+      "level": 2,
+      "colour": "6cc86a",
       "kind": "paint"
     },
     {
@@ -690,6 +1110,56 @@
       "kind": "mask"
     },
     {
+      "id": "mask-pink",
+      "slot": "face",
+      "ja": "ピンクの マスク",
+      "en": "Pink mask",
+      "price": 80,
+      "level": 2,
+      "colour": "f6c6d6",
+      "kind": "mask"
+    },
+    {
+      "id": "mask-black",
+      "slot": "face",
+      "ja": "くろい マスク",
+      "en": "Black mask",
+      "price": 85,
+      "level": 2,
+      "colour": "30333a",
+      "kind": "mask"
+    },
+    {
+      "id": "glasses-gold",
+      "slot": "face",
+      "ja": "きんの まるメガネ",
+      "en": "Gold round glasses",
+      "price": 90,
+      "level": 2,
+      "colour": "d8b24a",
+      "kind": "round"
+    },
+    {
+      "id": "whiskers",
+      "slot": "face",
+      "ja": "ねこの ひげ",
+      "en": "Cat whiskers",
+      "price": 95,
+      "level": 2,
+      "colour": "3b3b40",
+      "kind": "whiskers"
+    },
+    {
+      "id": "tears",
+      "slot": "face",
+      "ja": "きらきら なみだ",
+      "en": "Sparkly tears",
+      "price": 100,
+      "level": 2,
+      "colour": "8fd8f8",
+      "kind": "tears"
+    },
+    {
       "id": "shades",
       "slot": "face",
       "ja": "サングラス",
@@ -700,6 +1170,46 @@
       "kind": "shades"
     },
     {
+      "id": "monocle",
+      "slot": "face",
+      "ja": "かためがね",
+      "en": "Monocle",
+      "price": 130,
+      "level": 3,
+      "colour": "d8b24a",
+      "kind": "monocle"
+    },
+    {
+      "id": "shades-pink",
+      "slot": "face",
+      "ja": "ピンクの サングラス",
+      "en": "Pink sunglasses",
+      "price": 130,
+      "level": 3,
+      "colour": "e8609a",
+      "kind": "shades"
+    },
+    {
+      "id": "shades-blue",
+      "slot": "face",
+      "ja": "あおい サングラス",
+      "en": "Blue sunglasses",
+      "price": 130,
+      "level": 3,
+      "colour": "2f6fd0",
+      "kind": "shades"
+    },
+    {
+      "id": "hearts",
+      "slot": "face",
+      "ja": "ハートの メガネ",
+      "en": "Heart glasses",
+      "price": 150,
+      "level": 3,
+      "colour": "e8507a",
+      "kind": "hearts"
+    },
+    {
       "id": "goggles",
       "slot": "face",
       "ja": "ゴーグル",
@@ -707,6 +1217,36 @@
       "price": 160,
       "level": 3,
       "colour": "c9a24a",
+      "kind": "goggles"
+    },
+    {
+      "id": "stars",
+      "slot": "face",
+      "ja": "ほしの メガネ",
+      "en": "Star glasses",
+      "price": 160,
+      "level": 3,
+      "colour": "f2c23c",
+      "kind": "stars"
+    },
+    {
+      "id": "cinema",
+      "slot": "face",
+      "ja": "3D メガネ",
+      "en": "3D glasses",
+      "price": 170,
+      "level": 3,
+      "colour": "f4f1e6",
+      "kind": "cinema"
+    },
+    {
+      "id": "goggles-red",
+      "slot": "face",
+      "ja": "あかい ゴーグル",
+      "en": "Red goggles",
+      "price": 170,
+      "level": 4,
+      "colour": "d1453a",
       "kind": "goggles"
     },
     {
@@ -720,6 +1260,16 @@
       "kind": "patch"
     },
     {
+      "id": "patch-red",
+      "slot": "face",
+      "ja": "あかい がんたい",
+      "en": "Red eye patch",
+      "price": 180,
+      "level": 4,
+      "colour": "b23a3a",
+      "kind": "patch"
+    },
+    {
       "id": "snorkel",
       "slot": "face",
       "ja": "シュノーケル",
@@ -727,6 +1277,16 @@
       "price": 200,
       "level": 4,
       "colour": "2196a3",
+      "kind": "snorkel"
+    },
+    {
+      "id": "snorkel-pink",
+      "slot": "face",
+      "ja": "ピンクの シュノーケル",
+      "en": "Pink snorkel",
+      "price": 200,
+      "level": 4,
+      "colour": "e8709a",
       "kind": "snorkel"
     },
     {
@@ -740,6 +1300,46 @@
       "kind": "stache"
     },
     {
+      "id": "stache-black",
+      "slot": "face",
+      "ja": "くろい つけひげ",
+      "en": "Black moustache",
+      "price": 240,
+      "level": 5,
+      "colour": "2a2622",
+      "kind": "stache"
+    },
+    {
+      "id": "beard",
+      "slot": "face",
+      "ja": "サンタの ひげ",
+      "en": "Santa beard",
+      "price": 260,
+      "level": 4,
+      "colour": "fbfaf4",
+      "kind": "beard"
+    },
+    {
+      "id": "beard-brown",
+      "slot": "face",
+      "ja": "もじゃもじゃの ひげ",
+      "en": "Bushy beard",
+      "price": 260,
+      "level": 4,
+      "colour": "7a4f2f",
+      "kind": "beard"
+    },
+    {
+      "id": "vr",
+      "slot": "face",
+      "ja": "VR ゴーグル",
+      "en": "VR goggles",
+      "price": 330,
+      "level": 5,
+      "colour": "f4f1e6",
+      "kind": "vr"
+    },
+    {
       "id": "visor",
       "slot": "face",
       "ja": "ひかる バイザー",
@@ -750,6 +1350,36 @@
       "kind": "visor"
     },
     {
+      "id": "visor-pink",
+      "slot": "face",
+      "ja": "ピンクの ひかる バイザー",
+      "en": "Pink glowing visor",
+      "price": 380,
+      "level": 6,
+      "colour": "f070c0",
+      "kind": "visor"
+    },
+    {
+      "id": "visor-gold",
+      "slot": "face",
+      "ja": "きんの ひかる バイザー",
+      "en": "Gold glowing visor",
+      "price": 420,
+      "level": 7,
+      "colour": "ffc84a",
+      "kind": "visor"
+    },
+    {
+      "id": "pom",
+      "slot": "back",
+      "ja": "うさぎの しっぽ",
+      "en": "Bunny tail",
+      "price": 70,
+      "level": 1,
+      "colour": "fff4f0",
+      "kind": "pom"
+    },
+    {
       "id": "tail",
       "slot": "back",
       "ja": "ふさふさの しっぽ",
@@ -757,6 +1387,36 @@
       "price": 90,
       "level": 1,
       "colour": "c98a4a",
+      "kind": "tail"
+    },
+    {
+      "id": "tail-gray",
+      "slot": "back",
+      "ja": "はいいろの しっぽ",
+      "en": "Grey tail",
+      "price": 90,
+      "level": 1,
+      "colour": "8f959c",
+      "kind": "tail"
+    },
+    {
+      "id": "tail-pink",
+      "slot": "back",
+      "ja": "ピンクの しっぽ",
+      "en": "Pink tail",
+      "price": 90,
+      "level": 1,
+      "colour": "f09ab8",
+      "kind": "tail"
+    },
+    {
+      "id": "tail-black",
+      "slot": "back",
+      "ja": "くろい しっぽ",
+      "en": "Black tail",
+      "price": 95,
+      "level": 2,
+      "colour": "33363c",
       "kind": "tail"
     },
     {
@@ -770,6 +1430,46 @@
       "kind": "pack"
     },
     {
+      "id": "backpack-red",
+      "slot": "back",
+      "ja": "あかい リュック",
+      "en": "Red backpack",
+      "price": 110,
+      "level": 2,
+      "colour": "d1453a",
+      "kind": "pack"
+    },
+    {
+      "id": "backpack-blue",
+      "slot": "back",
+      "ja": "あおい リュック",
+      "en": "Blue backpack",
+      "price": 110,
+      "level": 2,
+      "colour": "3d7fd1",
+      "kind": "pack"
+    },
+    {
+      "id": "backpack-pink",
+      "slot": "back",
+      "ja": "ピンクの リュック",
+      "en": "Pink backpack",
+      "price": 110,
+      "level": 2,
+      "colour": "f08fb0",
+      "kind": "pack"
+    },
+    {
+      "id": "backpack-yellow",
+      "slot": "back",
+      "ja": "きいろの リュック",
+      "en": "Yellow backpack",
+      "price": 110,
+      "level": 2,
+      "colour": "f0c23c",
+      "kind": "pack"
+    },
+    {
       "id": "cape-green",
       "slot": "back",
       "ja": "みどりの マント",
@@ -777,6 +1477,46 @@
       "price": 130,
       "level": 2,
       "colour": "429a54",
+      "kind": "cape"
+    },
+    {
+      "id": "cape-red",
+      "slot": "back",
+      "ja": "あかい マント",
+      "en": "Red cape",
+      "price": 130,
+      "level": 2,
+      "colour": "c8383a",
+      "kind": "cape"
+    },
+    {
+      "id": "cape-blue",
+      "slot": "back",
+      "ja": "あおい マント",
+      "en": "Blue cape",
+      "price": 130,
+      "level": 2,
+      "colour": "2f5fc0",
+      "kind": "cape"
+    },
+    {
+      "id": "cape-black",
+      "slot": "back",
+      "ja": "くろい マント",
+      "en": "Black cape",
+      "price": 140,
+      "level": 3,
+      "colour": "2a2d33",
+      "kind": "cape"
+    },
+    {
+      "id": "cape-pink",
+      "slot": "back",
+      "ja": "ピンクの マント",
+      "en": "Pink cape",
+      "price": 140,
+      "level": 3,
+      "colour": "f08ab0",
       "kind": "cape"
     },
     {
@@ -790,6 +1530,66 @@
       "kind": "balloon"
     },
     {
+      "id": "balloon-blue",
+      "slot": "back",
+      "ja": "あおい ふうせん",
+      "en": "Blue balloon",
+      "price": 150,
+      "level": 2,
+      "colour": "4a9be8",
+      "kind": "balloon"
+    },
+    {
+      "id": "balloon-yellow",
+      "slot": "back",
+      "ja": "きいろの ふうせん",
+      "en": "Yellow balloon",
+      "price": 150,
+      "level": 2,
+      "colour": "f2c94c",
+      "kind": "balloon"
+    },
+    {
+      "id": "balloon-green",
+      "slot": "back",
+      "ja": "みどりの ふうせん",
+      "en": "Green balloon",
+      "price": 150,
+      "level": 2,
+      "colour": "5cc06a",
+      "kind": "balloon"
+    },
+    {
+      "id": "kite",
+      "slot": "back",
+      "ja": "たこ",
+      "en": "Kite",
+      "price": 170,
+      "level": 3,
+      "colour": "e2553f",
+      "kind": "kite"
+    },
+    {
+      "id": "rod",
+      "slot": "back",
+      "ja": "つりざお",
+      "en": "Fishing rod",
+      "price": 180,
+      "level": 3,
+      "colour": "a8743c",
+      "kind": "rod"
+    },
+    {
+      "id": "quiver",
+      "slot": "back",
+      "ja": "やづつ",
+      "en": "Quiver",
+      "price": 200,
+      "level": 3,
+      "colour": "8b5a3a",
+      "kind": "quiver"
+    },
+    {
       "id": "shell",
       "slot": "back",
       "ja": "かめの こうら",
@@ -800,6 +1600,46 @@
       "kind": "shell"
     },
     {
+      "id": "spikes",
+      "slot": "back",
+      "ja": "きょうりゅうの とげ",
+      "en": "Dino spikes",
+      "price": 210,
+      "level": 3,
+      "colour": "5cb85a",
+      "kind": "spikes"
+    },
+    {
+      "id": "shell-blue",
+      "slot": "back",
+      "ja": "あおい こうら",
+      "en": "Blue shell",
+      "price": 210,
+      "level": 3,
+      "colour": "3f7fb0",
+      "kind": "shell"
+    },
+    {
+      "id": "surf",
+      "slot": "back",
+      "ja": "サーフボード",
+      "en": "Surfboard",
+      "price": 240,
+      "level": 4,
+      "colour": "4ac0d8",
+      "kind": "surf"
+    },
+    {
+      "id": "surf-pink",
+      "slot": "back",
+      "ja": "ピンクの サーフボード",
+      "en": "Pink surfboard",
+      "price": 240,
+      "level": 4,
+      "colour": "f08ab0",
+      "kind": "surf"
+    },
+    {
       "id": "guitar",
       "slot": "back",
       "ja": "ギター",
@@ -808,6 +1648,36 @@
       "level": 4,
       "colour": "b4632e",
       "kind": "guitar"
+    },
+    {
+      "id": "guitar-blue",
+      "slot": "back",
+      "ja": "あおい ギター",
+      "en": "Blue guitar",
+      "price": 260,
+      "level": 4,
+      "colour": "3d6fd1",
+      "kind": "guitar"
+    },
+    {
+      "id": "shield",
+      "slot": "back",
+      "ja": "たて",
+      "en": "Shield",
+      "price": 280,
+      "level": 4,
+      "colour": "b9c2cc",
+      "kind": "shield"
+    },
+    {
+      "id": "fairy",
+      "slot": "back",
+      "ja": "ようせいの はね",
+      "en": "Fairy wings",
+      "price": 290,
+      "level": 4,
+      "colour": "a8e8f8",
+      "kind": "fairy"
     },
     {
       "id": "sword",
@@ -830,6 +1700,56 @@
       "kind": "cape"
     },
     {
+      "id": "butterfly",
+      "slot": "back",
+      "ja": "ちょうの はね",
+      "en": "Butterfly wings",
+      "price": 320,
+      "level": 5,
+      "colour": "f0a03c",
+      "kind": "butterfly"
+    },
+    {
+      "id": "butterfly-blue",
+      "slot": "back",
+      "ja": "あおい ちょうの はね",
+      "en": "Blue butterfly wings",
+      "price": 320,
+      "level": 5,
+      "colour": "4a8ff0",
+      "kind": "butterfly"
+    },
+    {
+      "id": "bat",
+      "slot": "back",
+      "ja": "こうもりの はね",
+      "en": "Bat wings",
+      "price": 340,
+      "level": 5,
+      "colour": "3a3340",
+      "kind": "bat"
+    },
+    {
+      "id": "rocket",
+      "slot": "back",
+      "ja": "ロケット",
+      "en": "Rocket",
+      "price": 400,
+      "level": 6,
+      "colour": "f4f1e6",
+      "kind": "rocket"
+    },
+    {
+      "id": "sword-gold",
+      "slot": "back",
+      "ja": "きんの けん",
+      "en": "Golden sword",
+      "price": 420,
+      "level": 6,
+      "colour": "f2ce72",
+      "kind": "sword"
+    },
+    {
       "id": "jet",
       "slot": "back",
       "ja": "ジェットパック",
@@ -850,6 +1770,16 @@
       "kind": "wings"
     },
     {
+      "id": "angel",
+      "slot": "back",
+      "ja": "てんしの つばさ",
+      "en": "Angel wings",
+      "price": 550,
+      "level": 8,
+      "colour": "fffdf4",
+      "kind": "angel"
+    },
+    {
       "id": "badge-fish",
       "slot": "chest",
       "ja": "さかなの バッジ",
@@ -860,6 +1790,46 @@
       "kind": "badge"
     },
     {
+      "id": "heart",
+      "slot": "chest",
+      "ja": "ハートの バッジ",
+      "en": "Heart badge",
+      "price": 50,
+      "level": 1,
+      "colour": "e8507a",
+      "kind": "heart"
+    },
+    {
+      "id": "badge-apple",
+      "slot": "chest",
+      "ja": "あかい バッジ",
+      "en": "Red badge",
+      "price": 50,
+      "level": 1,
+      "colour": "d13a43",
+      "kind": "badge"
+    },
+    {
+      "id": "badge-leaf",
+      "slot": "chest",
+      "ja": "みどりの バッジ",
+      "en": "Green badge",
+      "price": 50,
+      "level": 1,
+      "colour": "4fae5a",
+      "kind": "badge"
+    },
+    {
+      "id": "star-pin",
+      "slot": "chest",
+      "ja": "ほしの ピン",
+      "en": "Star pin",
+      "price": 55,
+      "level": 1,
+      "colour": "f2ce72",
+      "kind": "star"
+    },
+    {
       "id": "scarf",
       "slot": "chest",
       "ja": "マフラー",
@@ -867,6 +1837,36 @@
       "price": 70,
       "level": 1,
       "colour": "d65f6f",
+      "kind": "scarf"
+    },
+    {
+      "id": "scarf-blue",
+      "slot": "chest",
+      "ja": "あおい マフラー",
+      "en": "Blue scarf",
+      "price": 70,
+      "level": 1,
+      "colour": "4a7fd0",
+      "kind": "scarf"
+    },
+    {
+      "id": "scarf-green",
+      "slot": "chest",
+      "ja": "みどりの マフラー",
+      "en": "Green scarf",
+      "price": 70,
+      "level": 1,
+      "colour": "4f9a5a",
+      "kind": "scarf"
+    },
+    {
+      "id": "scarf-yellow",
+      "slot": "chest",
+      "ja": "きいろの マフラー",
+      "en": "Yellow scarf",
+      "price": 70,
+      "level": 1,
+      "colour": "f0c23c",
       "kind": "scarf"
     },
     {
@@ -880,6 +1880,36 @@
       "kind": "bowtie"
     },
     {
+      "id": "bowtie-blue",
+      "slot": "chest",
+      "ja": "あおい ちょうネクタイ",
+      "en": "Blue bow tie",
+      "price": 75,
+      "level": 1,
+      "colour": "2f5fc0",
+      "kind": "bowtie"
+    },
+    {
+      "id": "bowtie-yellow",
+      "slot": "chest",
+      "ja": "きいろの ちょうネクタイ",
+      "en": "Yellow bow tie",
+      "price": 75,
+      "level": 1,
+      "colour": "f0c23c",
+      "kind": "bowtie"
+    },
+    {
+      "id": "scarf-white",
+      "slot": "chest",
+      "ja": "しろい マフラー",
+      "en": "White scarf",
+      "price": 75,
+      "level": 2,
+      "colour": "f4f1e6",
+      "kind": "scarf"
+    },
+    {
       "id": "badge-star",
       "slot": "chest",
       "ja": "ほしの バッジ",
@@ -888,6 +1918,36 @@
       "level": 2,
       "colour": "f2ce72",
       "kind": "badge"
+    },
+    {
+      "id": "bowtie-black",
+      "slot": "chest",
+      "ja": "くろい ちょうネクタイ",
+      "en": "Black bow tie",
+      "price": 80,
+      "level": 2,
+      "colour": "2a2d33",
+      "kind": "bowtie"
+    },
+    {
+      "id": "bell",
+      "slot": "chest",
+      "ja": "すず",
+      "en": "Bell collar",
+      "price": 90,
+      "level": 2,
+      "colour": "f2ce72",
+      "kind": "bell"
+    },
+    {
+      "id": "pocket",
+      "slot": "chest",
+      "ja": "えんぴつの ポケット",
+      "en": "Pencil pocket",
+      "price": 95,
+      "level": 2,
+      "colour": "4a7fd0",
+      "kind": "pocket"
     },
     {
       "id": "tie",
@@ -900,6 +1960,66 @@
       "kind": "tie"
     },
     {
+      "id": "tie-red",
+      "slot": "chest",
+      "ja": "あかい ネクタイ",
+      "en": "Red tie",
+      "price": 100,
+      "level": 2,
+      "colour": "c8383a",
+      "kind": "tie"
+    },
+    {
+      "id": "tie-green",
+      "slot": "chest",
+      "ja": "みどりの ネクタイ",
+      "en": "Green tie",
+      "price": 100,
+      "level": 2,
+      "colour": "3f8a5a",
+      "kind": "tie"
+    },
+    {
+      "id": "tie-pink",
+      "slot": "chest",
+      "ja": "ピンクの ネクタイ",
+      "en": "Pink tie",
+      "price": 100,
+      "level": 2,
+      "colour": "f08ab0",
+      "kind": "tie"
+    },
+    {
+      "id": "beads",
+      "slot": "chest",
+      "ja": "ビーズの ネックレス",
+      "en": "Bead necklace",
+      "price": 110,
+      "level": 2,
+      "colour": "f07fb0",
+      "kind": "beads"
+    },
+    {
+      "id": "beads-blue",
+      "slot": "chest",
+      "ja": "あおい ビーズの ネックレス",
+      "en": "Blue bead necklace",
+      "price": 110,
+      "level": 2,
+      "colour": "5ab0f0",
+      "kind": "beads"
+    },
+    {
+      "id": "whistle",
+      "slot": "chest",
+      "ja": "ホイッスル",
+      "en": "Whistle",
+      "price": 120,
+      "level": 3,
+      "colour": "d8dde3",
+      "kind": "whistle"
+    },
+    {
       "id": "corsage",
       "slot": "chest",
       "ja": "はなの コサージュ",
@@ -908,6 +2028,46 @@
       "level": 3,
       "colour": "e08bb0",
       "kind": "corsage"
+    },
+    {
+      "id": "rosette",
+      "slot": "chest",
+      "ja": "リボンの くんしょう",
+      "en": "Ribbon rosette",
+      "price": 140,
+      "level": 3,
+      "colour": "3d7fd1",
+      "kind": "rosette"
+    },
+    {
+      "id": "rosette-red",
+      "slot": "chest",
+      "ja": "あかい リボンの くんしょう",
+      "en": "Red ribbon rosette",
+      "price": 140,
+      "level": 3,
+      "colour": "d13a43",
+      "kind": "rosette"
+    },
+    {
+      "id": "corsage-yellow",
+      "slot": "chest",
+      "ja": "きいろの コサージュ",
+      "en": "Yellow corsage",
+      "price": 140,
+      "level": 3,
+      "colour": "f2c94c",
+      "kind": "corsage"
+    },
+    {
+      "id": "lei",
+      "slot": "chest",
+      "ja": "はなの くびかざり",
+      "en": "Flower lei",
+      "price": 160,
+      "level": 3,
+      "colour": "f08fb0",
+      "kind": "lei"
     },
     {
       "id": "apron",
@@ -920,6 +2080,46 @@
       "kind": "apron"
     },
     {
+      "id": "apron-pink",
+      "slot": "chest",
+      "ja": "ピンクの エプロン",
+      "en": "Pink apron",
+      "price": 170,
+      "level": 3,
+      "colour": "f6c6d6",
+      "kind": "apron"
+    },
+    {
+      "id": "apron-blue",
+      "slot": "chest",
+      "ja": "あおい エプロン",
+      "en": "Blue apron",
+      "price": 170,
+      "level": 3,
+      "colour": "a8c8f0",
+      "kind": "apron"
+    },
+    {
+      "id": "zip",
+      "slot": "chest",
+      "ja": "ジッパーの ベスト",
+      "en": "Zip vest",
+      "price": 190,
+      "level": 4,
+      "colour": "e27a2d",
+      "kind": "zip"
+    },
+    {
+      "id": "camera",
+      "slot": "chest",
+      "ja": "カメラ",
+      "en": "Camera",
+      "price": 220,
+      "level": 4,
+      "colour": "3b3b40",
+      "kind": "camera"
+    },
+    {
       "id": "sash",
       "slot": "chest",
       "ja": "ゆうしょうの たすき",
@@ -930,6 +2130,46 @@
       "kind": "sash"
     },
     {
+      "id": "binoculars",
+      "slot": "chest",
+      "ja": "そうがんきょう",
+      "en": "Binoculars",
+      "price": 230,
+      "level": 4,
+      "colour": "3f6a4a",
+      "kind": "binoculars"
+    },
+    {
+      "id": "sash-blue",
+      "slot": "chest",
+      "ja": "あおい たすき",
+      "en": "Blue sash",
+      "price": 230,
+      "level": 4,
+      "colour": "2f5fc0",
+      "kind": "sash"
+    },
+    {
+      "id": "sheriff",
+      "slot": "chest",
+      "ja": "ほあんかんの バッジ",
+      "en": "Sheriff badge",
+      "price": 300,
+      "level": 5,
+      "colour": "f2ce72",
+      "kind": "sheriff"
+    },
+    {
+      "id": "medal-bronze",
+      "slot": "chest",
+      "ja": "どうメダル",
+      "en": "Bronze medal",
+      "price": 300,
+      "level": 5,
+      "colour": "c8854a",
+      "kind": "medal"
+    },
+    {
       "id": "pendant",
       "slot": "chest",
       "ja": "ペンダント",
@@ -938,6 +2178,26 @@
       "level": 5,
       "colour": "6fd0c0",
       "kind": "pendant"
+    },
+    {
+      "id": "pendant-pink",
+      "slot": "chest",
+      "ja": "ピンクの ペンダント",
+      "en": "Pink pendant",
+      "price": 320,
+      "level": 5,
+      "colour": "f07fb0",
+      "kind": "pendant"
+    },
+    {
+      "id": "medal-silver",
+      "slot": "chest",
+      "ja": "ぎんメダル",
+      "en": "Silver medal",
+      "price": 450,
+      "level": 6,
+      "colour": "cfd6de",
+      "kind": "medal"
     },
     {
       "id": "medal",

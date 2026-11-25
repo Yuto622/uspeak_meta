@@ -155,7 +155,23 @@ const GO_RULES = [
   [/^spend:food/, { island: 'main', spot: 'shop_food0' }],
   [/^spend:block/, { island: 'main', spot: 'blocks' }],
   [/^ui:blockwild/, { island: 'main', spot: 'build_gate' }],
-  [/^ui:homemap/, { island: 'main' }],
+  // 画面の ボタンを おす タスク：道では なく その ボタンを 光らせる（ui＝ページの task-guide.js の 表の 名前）。
+  // 2D の 地図は 2026-11 に 出なく した：「しまの ちず」は 🌍 せかいを えらぶ、「お店を おす」は その カード。
+  [/^ui:homemap/, { ui: 'worldmap' }],
+  [/^ui:worldmap|^\$islands$/, { ui: 'worldmap' }],
+  [/^ui:fishdex/, { ui: 'fishdex' }],
+  [/^(ui:wordbook|a:review)/, { ui: 'wordbook' }],
+  [/^(ui:bag|eat)$/, { ui: 'bag' }],
+  [/^(ui:equip|buy|buyWand)$/, { ui: 'fishing' }],
+  [/^ui:ranking/, { ui: 'ranking' }],
+  [/^dash$/, { ui: 'dash' }],
+  [/^ui:buddy/, { ui: 'buddy' }],
+  // 場所が 書いて なかった タスク：いちばん 近い「それが できる 場所」へ。
+  [/^ui:talk/, { island: 'willow' }],
+  [/^(ok:spell|ok:listen|a:speak)$/, { island: 'school' }],
+  [/^(a:writing|done:eiken)/, { island: 'eiken5' }],
+  [/^\$clothes$/, { island: 'main', spot: 'clothes' }],
+  [/^\$(run|words|level|weekxp|coins|streak)$/, { island: 'main', spot: 'hut_easy' }],
   [/^convdone:(cafe|market|school|dream)$/, { island: 'conv' }],
   [/^(award|a|ok|done):(eiken|interview):g5/, { island: 'eiken5' }],
   [/^(award|a|ok|done):(eiken|interview):g4/, { island: 'eiken4' }],
@@ -170,7 +186,7 @@ const GO_RULES = [
   [/^(award|done):battle/, { island: 'arena' }],
   [/^award:(quiz|gym)/, { island: 'school' }],
   [/^(spend:ride|award:gp)/, { island: 'ride' }],
-  [/^fwcatch:/, { island: 'fishworld' }],
+  [/^fwcatch/, { island: 'fishworld' }],
   [/^ui:(emma|quest)/, { island: 'willow' }],
   [/^ui:ride/, { island: 'park' }],
   [/^ui:minigame/, { island: 'mini' }],
@@ -184,7 +200,7 @@ export function goOf(check) {
   if (enter) return HUBS.has(enter[1]) ? { island: enter[1] } : null;
   const shop = /^convdone:([a-z_]+)$/.exec(key);
   if (shop && MAIN.spots.has(shop[1])) return { island: MAIN.id, spot: shop[1], shop: 'talkshops' };
-  for (const [re, go] of GO_RULES) if (re.test(key)) return { ...go };
+  for (const [re, go] of GO_RULES) if (re.test(key)) { const g = { ...go }; if (g.island === MAIN.id && g.spot && !MAIN.spots.has(g.spot)) delete g.spot; return g; }
   return null;
 }
 
@@ -207,6 +223,8 @@ export function readRules(rows) {
 export function plan(rows, rules) {
   const list = [];
   for (const r of rows || []) {
+    // Web 版に まだ ない あそび（フォトブース・きせつの クイズ）の 行は 出さない：すませる 方法が なく、道も 出せない。
+    if (/^ui:(photo|season)\b/.test(String(r.check || ''))) continue;
     const check = parseCheck(r.check);
     if (!check) continue;
     list.push({ row: r, check });
@@ -242,6 +260,8 @@ export function settle(prog, plan, rules, stats, skip = null) {
     if (prog.paid.includes(i)) return;
     // じぶんで スキップした タスクが のこる 章は おわった ことに しない（章の ごほうびは 出ない。もどして すませば 出る）。
     const own = new Set(prog.skipped || []);
+    // 入れない 島の タスク だけの 章は、何も して いないので ごほうびを 出さない（1 つは じぶんで すませて いる こと）。
+    if (!ch.items.some((it) => done.has(it.row.id))) return;
     if (ch.items.every((it) => done.has(it.row.id) || (skip?.(it) && !own.has(it.row.id)))) { prog.paid.push(i); chaptersDone.push(i); }
   });
   return { finished, chaptersDone };

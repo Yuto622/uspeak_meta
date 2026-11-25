@@ -108,7 +108,20 @@ export function createTaskGuide({ scene, player, rpg }) {
     beaconOn = spot;
     try { rpg.main?.setTarget?.(spot || '', at); } catch { /* the island is still building */ }
   }
+  // 画面の ボタンを おす タスク（go.ui）：道の かわりに その ボタンを 光らせる。名前は 部屋の engine.js の GO_RULES と そろえる。
+  const UI = {
+    worldmap: '#mapbtn, #flight-button, #rail-toggle', wordbook: '#journal', fishdex: '.fw-dexdock, #fishing-button', fishing: '#fishing-button',
+    bag: '#hunger', ranking: '#rank-button', dash: '#record-button', buddy: '#rpg-buddy-button, #rpg-seek',
+  };
+  let uiOn = '';
+  function glowUi(name) {
+    if (name === uiOn) return;
+    if (uiOn) for (const el of document.querySelectorAll(UI[uiOn] || 'x-none')) el.classList.remove('task-glow');
+    uiOn = name || '';
+    if (uiOn) for (const el of document.querySelectorAll(UI[uiOn] || 'x-none')) el.classList.add('task-glow');
+  }
   function glowMap(on) {
+    if (uiOn === 'worldmap') return;
     for (const el of document.querySelectorAll('#flight-button, #mapbtn, #rail-toggle')) el.classList.toggle('task-glow', on);
   }
 
@@ -118,14 +131,35 @@ export function createTaskGuide({ scene, player, rpg }) {
   // 光の 道の つぎの 角へ むかう 向きを 返すだけ（歩かせるのは game.js＝当たり判定も いつもの まま）。
   // 自分で うごかす・ついた・道が きえた・3 秒 すすまない で 止まる。ほかの 島が 行き先なら ひこうきで とぶ。
   let auto = false; let autoAt = { x: 0, z: 0, t: 0 }; let arrived = null;
+  let closeBy = false;          // 行き先の すぐ そば（道は 消えて いる）＝ ついた
+  let pending = null;           // とんで いる あいだ おぼえて おく「ついたら 歩く」
+  let routeO = { x: 0, z: 0 };  // いまの 道の 原点（メインの島は 島の 位置、ほかの 島は 世界の 座標）
+  let isleOn = '';              // 光の柱を 立てた ほかの 島
+  // ほかの 島での 行き先：タスクの 場所、なければ その 島の はじめの 建物（世界の 座標）。
+  function isleSpot(here, g) {
+    if (!g || here !== g.island || here === 'main' || here === 'willow') return null;
+    const d = rpg[here]?.data; const s = d?.spots && (d.spots.find((x) => x.id === g.spot) || d.spots[0]);
+    return s && Number.isFinite(d.x + s.x) ? { x: d.x + s.x, z: d.z + s.z, id: s.id } : null;
+  }
+  function setIsleBeacon(here, id) {
+    const key = id ? `${here}:${id}` : '';
+    if (key === isleOn) return;
+    // おつかい島・ぼくじょう島は じぶんで 光の柱を うごかす（とりあわない）。
+    if (isleOn) { try { rpg[isleOn.split(':')[0]]?.setTarget?.(''); } catch { /* 島が まだ ない */ } }
+    isleOn = (here === 'errand' || here === 'farm') ? '' : key;
+    if (isleOn) { try { rpg[here]?.setTarget?.(id); } catch { /* 島が まだ ない */ } }
+  }
   function stopWalk() { auto = false; }
   function walk() {
     if (auto) { stopWalk(); return 'stop'; }
     const g = go(); const here = rpg.state?.current;
     if (!g) return 'none';
+    // ボタンを おす タスク：かわりに おして あげる（見えて いる さいしょの 1 つ）。
+    if (g.ui) { const el = [...document.querySelectorAll(UI[g.ui] || 'x-none')].find((e) => e.getClientRects().length); el?.click(); return 'ui'; }
     const neighbours = (g.island === 'willow' && here === 'main') || (g.island === 'main' && here === 'willow');
-    if (g.island !== here && !neighbours) { try { rpg.fly?.(g.island); } catch { /* 行けない 島 */ } return 'fly'; }
-    if (here !== 'main') return 'none';
+    // ほかの 島：ひこうきで とび、ついたら そのまま 入口まで 歩く（40 秒 まつ）。
+    if (g.island !== here && !neighbours) { try { rpg.fly?.(g.island); pending = { island: g.island, until: performance.now() + 40000 }; } catch { /* 行けない 島 */ } return 'fly'; }
+    if (here !== 'main' && !isleSpot(here, g)) return 'none';
     enabled = true; forced = true; auto = true; autoAt = { x: player.position.x, z: player.position.z, t: performance.now() };
     return 'walk';
   }
@@ -134,8 +168,9 @@ export function createTaskGuide({ scene, player, rpg }) {
     // 画面が ひらいた（つりば・お店に ついた）・家に 入った ＝ ついた。
     if (document.querySelector('dialog[open]') || rpg.insideBuilding || rpg.interiorScene) { auto = false; return null; }
     if (rpg.state?.mode === 'flight') return null;
-    if (route.length < 2) { auto = false; arrived?.(); return null; }
-    const o = rpg.main.origin();
+    // 道が まだ 引けて いない（おした ばかり・島を 読んで いる）：すこし 待つ。「ついたよ」とは 言わない。
+    if (route.length < 2) { if (closeBy) { auto = false; arrived?.(); } else if (performance.now() - autoAt.t > 6000) auto = false; return null; }
+    const o = routeO;
     const P = { x: player.position.x - o.x, z: player.position.z - o.z };
     // つぎの 角。近ければ その つぎ。
     let i = 1; while (i < route.length - 1 && Math.hypot(route[i].x - P.x, route[i].z - P.z) < 1.2) i += 1;
@@ -153,22 +188,31 @@ export function createTaskGuide({ scene, player, rpg }) {
   }
 
   function update(t) {
+    closeBy = false;
     const g = go();
     const show = wanted();
+    glowUi(show && g?.ui ? g.ui : '');
+    if (g?.ui) { setBeacon(''); setIsleBeacon('', ''); hide(); return; }
     const here = rpg.state?.current;
     const walking = rpg.state?.mode !== 'flight' && !rpg.insideBuilding && !rpg.interiorScene;
     // U-Speak島 と メインの島は 橋で つながっている：その あいだは 飛ばずに 歩く（✈ は 光らせない）。
     const neighbours = (g?.island === 'willow' && here === 'main') || (g?.island === 'main' && here === 'willow');
     glowMap(!!(show && g && g.island !== here && !neighbours && walking));
     const bridgeEnd = isle && { x: isle.dock?.x ?? 31, z: isle.dock?.z ?? 37, bridge: true };
-    const target = show && here === 'main' && (g?.island === 'willow' ? bridgeEnd : (g?.spot && g.island === 'main' && isle?.spots.get(g.spot)));
-    setBeacon(target ? (target.bridge ? 'bridge' : g.spot) : '', target?.bridge ? target : null);
+    const onMain = here === 'main';
+    const far = show && !onMain ? isleSpot(here, g) : null;
+    const target = far || (show && onMain && (g?.island === 'willow' ? bridgeEnd : (g?.spot && g.island === 'main' && isle?.spots.get(g.spot))));
+    setBeacon(target && !far ? (target.bridge ? 'bridge' : g.spot) : '', target?.bridge ? target : null);
+    setIsleBeacon(here, far && walking ? far.id : '');
+    // とんで ついた：そのまま 歩きはじめる。
+    if (pending) { if (performance.now() > pending.until) pending = null; else if (here === pending.island && walking && far) { pending = null; enabled = true; forced = true; auto = true; autoAt = { x: player.position.x, z: player.position.z, t: performance.now() }; } }
     if (!target || !walking) { hide(); return; }
-    const o = rpg.main.origin();
+    const o = far ? { x: 0, z: 0 } : rpg.main.origin();
+    routeO = o;
     const P = { x: player.position.x - o.x, z: player.position.z - o.z };
-    if (Math.hypot(target.x - P.x, target.z - P.z) < ARRIVE) { hide(); return; }
+    if (Math.hypot(target.x - P.x, target.z - P.z) < ARRIVE) { hide(); closeBy = true; return; }
     const now = performance.now();
-    if (!route.length || now - routeAt > 400) { route = plan(P, target); routeAt = now; } else route[0] = P;
+    if (!route.length || now - routeAt > 400) { route = far ? [P, target] : plan(P, target); routeAt = now; } else route[0] = P;
     // 線の 長さ と、つぶを ながす（行き先の ほうへ 動いて 見える）
     const segs = [];
     let total = 0;
@@ -184,7 +228,7 @@ export function createTaskGuide({ scene, player, rpg }) {
       const fade = Math.min(1, (s - 0.5) / 1.2, (total - s) / 2);
       const pulse = 1.15 + 0.3 * Math.sin(s * 0.9 - t * 5);
       sc.setScalar(Math.max(0.2, fade) * pulse);
-      v.set(x + o.x, lift(x, z) + 0.4, z + o.z);
+      v.set(x + o.x, (far ? 0 : lift(x, z)) + 0.4, z + o.z);
       // 矢じるしの 先（+z の 形）を 進む 向き（a → b）に むける
       q.setFromAxisAngle(UP, Math.atan2(b.x - a.x, b.z - a.z));
       m4.compose(v, q, sc);
@@ -208,7 +252,7 @@ export function createTaskGuide({ scene, player, rpg }) {
         if (!f || !lastKey.startsWith(`${f.id}:`)) forced = false;
         lastKey = key; stamp = performance.now();
       }
-      if (!data) { hide(); setBeacon(''); glowMap(false); }
+      if (!data) { hide(); setBeacon(''); setIsleBeacon('', ''); glowMap(false); glowUi(''); }
     },
     update,
     walk, steer, stopWalk,

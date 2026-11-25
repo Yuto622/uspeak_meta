@@ -30,7 +30,11 @@ test('光の道の 行き先：メインの島の 場所か、とぶ 島か。�
   assert.deepEqual(goOf(parseCheck('enter:willow')), { island: 'willow' });
   assert.deepEqual(goOf(parseCheck('convdone:books')), { island: 'main', spot: 'books', shop: 'talkshops' });
   assert.deepEqual(goOf(parseCheck('award:eiken:g4:reading')), { island: 'eiken4' });
-  assert.equal(goOf(parseCheck('$coins:100')), null);
+  // 2026-11：場所の 書いて ない タスクにも 行き先を つけた（コインを ためる＝英単語ハウスへ）。ボタンを おす タスクは ui。
+  assert.deepEqual(goOf(parseCheck('$coins:100')), { island: 'main', spot: 'hut_easy' });
+  assert.deepEqual(goOf(parseCheck('ui:homemap_poi')), { ui: 'worldmap' });
+  assert.deepEqual(goOf(parseCheck('ui:bag')), { ui: 'bag' });
+  assert.equal(goOf(parseCheck('award:login')), null);
   assert.equal(goOf(parseCheck('enter:in:main:books')), null);
 });
 
