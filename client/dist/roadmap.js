@@ -173,10 +173,12 @@ export function createRoadmapUI({ send, go = () => false, toast = () => {}, spea
 
   function render(v) {
     if (v.off) { body.innerHTML = `<p class="rm-wait">${bi('Roadmap is not available now', 'いまは ロードマップを ひらけないよ')}</p>`; return; }
-    body.innerHTML = `<div class="rm2">${hero(v)}${path(v)}
+    // かんたんに（2026-11：「もっと 簡単な UI に」）：ひらいて 見えるのは いまの 段階と 大きな「つぎは これ」だけ。
+    // 旅の 道・バッジ・今週の ★ は「みちと バッジ」、こまかい 数字は いままでどおり「くわしく」の 中（中身は 同じ）。
+    body.innerHTML = `<div class="rm2 rm2-simple">${hero(v)}<details class="rm2-more rm2-fold"><summary>${bi('Path & badges', 'みちと バッジを 見る')}</summary>${path(v)}
       <div class="rm2-row">${collection(v)}<section class="rm-card rm2-week">${bi(`${v.weekDays} day${v.weekDays === 1 ? '' : 's'} this week`, `今週 ${v.weekDays} 日 れんしゅう した`, 'rm-sub')}
         <div class="rm2-dots">${Array.from({ length: 7 }, (_, i) => `<i class="${i < v.weekDays ? 'on' : ''}">${i < v.weekDays ? '★' : ''}</i>`).join('')}</div>
-        <p>${bi('Little and often beats long and rare.', 'すこしずつ なんども が いちばん のびる')}</p></section></div>
+        <p>${bi('Little and often beats long and rare.', 'すこしずつ なんども が いちばん のびる')}</p></section></div></details>
       ${details(v)}</div>`;
     body.querySelectorAll('[data-go]').forEach((b) => {
       b.onclick = () => {

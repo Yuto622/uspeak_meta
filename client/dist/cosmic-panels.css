@@ -391,3 +391,19 @@
 #rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero h3 { color: #fff; }
 #rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero p { color: #cfe8d8; }
 #rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero .rpg-eyebrow { color: #ffb066; }
+
+/* ── U-Speak島の つりの 画面：つりばを えらぶ ページを かんたんに（fishing.js の renderSpots）。 ── */
+#fishing-dialog .fish-pick-title { margin: 4px 0 14px; font-size: clamp(24px, 4vw, 34px); }
+#fishing-dialog .fishing-zones.fish-simple { gap: 12px; margin: 0 0 18px; }
+#fishing-dialog .fishing-zones.fish-simple button { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; min-height: 150px; padding: 16px 10px; border-radius: 22px; border: 3px solid #d8cfb8; background: #fff; cursor: pointer; }
+#fishing-dialog .fishing-zones.fish-simple em { font-style: normal; font-size: 46px; line-height: 1.1; }
+#fishing-dialog .fishing-zones.fish-simple strong { font-size: 19px; margin: 4px 0 2px; }
+#fishing-dialog .fishing-zones.fish-simple span { font-size: 13px; color: #5d6d62; }
+#fishing-dialog .fishing-zones.fish-simple .selected { background: linear-gradient(160deg, #1b3a2f, #2a5a48); border-color: #e27a2d; color: #fff4d6; box-shadow: 0 0 0 3px #ffb06655; }
+#fishing-dialog .fishing-zones.fish-simple .selected span { color: #ffd9a8; }
+#fishing-dialog .fish-go #cast-line { width: 100%; min-height: 66px; font-size: 24px; font-weight: 900; border-radius: 999px; border: 0; background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; box-shadow: 0 4px 0 #a9541b; cursor: pointer; }
+#fishing-dialog .fish-go #cast-line:disabled { background: #d9d2c4; box-shadow: none; color: #6d6a62; }
+#fishing-dialog .fish-more { margin-top: 16px; }
+#fishing-dialog .fish-more > summary { display: inline-block; list-style: none; cursor: pointer; padding: 8px 18px; border-radius: 999px; border: 2px solid #1b3a2f44; font-size: 14px; font-weight: 700; color: #1b3a2f; }
+#fishing-dialog .fish-more > summary::-webkit-details-marker { display: none; }
+@media (max-width: 650px) { #fishing-dialog .fishing-zones.fish-simple button { min-height: 104px; padding: 8px 4px; } #fishing-dialog .fishing-zones.fish-simple em { font-size: 30px; } #fishing-dialog .fishing-zones.fish-simple strong { font-size: 14px; } }
