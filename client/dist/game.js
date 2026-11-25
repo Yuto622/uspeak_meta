@@ -1,4 +1,5 @@
 import * as THREE from './three.module.js';
+import {buildVillager} from './villager.js';
 import {createAtmosphere} from './atmosphere.js';
 import {untilNight} from './world-clock.js';
 import {createAmbience} from './ambience.js';
@@ -67,7 +68,7 @@ function fence(x,z,n,axis='x'){for(let i=0;i<n;i++){let xx=x+(axis==='x'?i*1.5:0
 for(let i=0;i<160;i++){let x=(rand()-.5)*48,z=(rand()-.5)*39;if(Math.abs(x)<4||Math.abs(z+1)<3||(z>7&&z<13&&x>0)||colliders.some(c=>c.w&&Math.abs(c.x-x)<c.w+1&&Math.abs(c.z-z)<c.d+1))continue;box(x,.35,z,.1,.5,.1,0x6e9147);box(x,.6,z,.25,.16,.25,[0xf1d58d,0xe6b9a2,0xf3e5bc][i%3])}
 for(let i=0;i<7;i++){let x=i%2?-5:8,z=-6+i*4;box(x,1.8,z,.12,3.3,.12,0x726b52);box(x,3.5,z,.65,.16,.65,0x5f6750);box(x,3.25,z,.4,.4,.4,0xffdc8c)}
 function person(color,x,z){let g=new THREE.Group();g.position.set(x,0,z);scene.add(g);box(-.23,.51,0,.33,.85,.42,0x505a4b,g);box(.23,.51,0,.33,.85,.42,0x505a4b,g);box(0,1.26,0,.92,.8,.5,color,g);box(-.6,1.26,0,.24,.73,.34,color,g);box(.6,1.26,0,.24,.73,.34,color,g);box(0,1.96,0,.72,.65,.65,0xe6c299,g);box(0,2.3,0,.8,.2,.73,0x73604b,g);box(-.17,2,.332,.065,.07,.025,0x3a4339,g);box(.17,2,.332,.065,.07,.025,0x3a4339,g);box(0,1.82,.34,.14,.04,.02,0xa16d56,g);return g}
-const npcs=lessons.map(q=>{let g=person(q.color,q.x,q.z);label(q.name,q.x,3.35,q.z,'#fff4d7',.45);let gem=new THREE.Mesh(new THREE.OctahedronGeometry(.22),new THREE.MeshStandardMaterial({color:0xf7d383,emissive:0xdbab4c,emissiveIntensity:.5}));gem.position.set(q.x,4.3,q.z);scene.add(gem);return {g,gem}});const player=person(0x526f66,3,8);box(0,1.4,-.37,.6,.68,.25,0xc69b66,player);
+const npcs=lessons.map(q=>{let g=new THREE.Group();g.position.set(q.x,0,q.z);scene.add(g);buildVillager(box,g,{color:q.color,seed:q.name+':'+q.x});label(q.name,q.x,3.35,q.z,'#fff4d7',.45);let gem=new THREE.Mesh(new THREE.OctahedronGeometry(.22),new THREE.MeshStandardMaterial({color:0xf7d383,emissive:0xdbab4c,emissiveIntensity:.5}));gem.position.set(q.x,4.3,q.z);scene.add(gem);return {g,gem}});const player=person(0x526f66,3,8);box(0,1.4,-.37,.6,.68,.25,0xc69b66,player);
 // Distant stepped islands and slow clouds.
 // 遠くの 山。メインの島（x -80..28, z -122..-36。bridge.js）に かさなる ものは 立てない（乱数は そのまま 進める）。
 for(let i=0;i<16;i++){let x=-120+i*16,z=-62-rand()*35;const h=7+rand()*15;if(x+7.5>-88&&x-7.5<36)continue;box(x,-1,z,15,h,12,0x8eaaa0);box(x,h/2,z,12,2,10,0x8da792);box(x+1,h/2+2,z,7,3,7,0xa0b29d)}const clouds=[];for(let i=0;i<13;i++){let g=new THREE.Group();g.position.set((rand()-.5)*190,28+rand()*18,-30-rand()*50);scene.add(g);for(let j=0;j<5;j++)box(j*3,rand()*1.1,rand()*2,5,1.2,3.5,0xedf0df,g);clouds.push(g)}

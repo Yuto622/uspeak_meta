@@ -135,3 +135,31 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 .wm-rec.two .wm-card.big .wm-icon { font-size: 62px; margin-bottom: 4px; }
 .wm-rec.two .wm-card.big .wm-name { font-size: 21px; }
 .wm-rec.two .wm-card.big .wm-ja { font-size: 15px; }
+
+/* ── ミニゲーム島の「どっちで あそぶ？」（mini-pick.js）。しまの ちずと 同じ 板と カード。display は [open] の 側に 書く。 ── */
+#mini-pick { width: min(760px, 94vw); padding: 26px 26px 22px; background: #faf5ec; color: #1b3a2f; border: 6px solid #1b3a2f; border-radius: 34px; text-align: center; }
+#mini-pick::backdrop { background: #14372ccc; }
+#mini-pick h2 { margin: 0 0 18px; font-size: clamp(28px, 5vw, 44px); font-weight: 500; letter-spacing: .04em; }
+#mini-pick h2 i, #mini-pick strong i, #mini-pick small i, #mini-pick .mp-walk i { font-style: normal; }
+#mini-pick .mp-close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 3px solid #fff; background: #e27a2d; color: #fff; font-size: 18px; cursor: pointer; }
+#mini-pick .mp-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+#mini-pick .mp-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 22px 12px 20px; border-radius: 28px; border: 5px solid #f2c14a; color: #fff; cursor: pointer; box-shadow: 0 10px 0 #1b3a2f22; }
+#mini-pick .mp-card { position: relative; background: linear-gradient(170deg, color-mix(in srgb, var(--c, #e27a2d) 82%, #fff), color-mix(in srgb, var(--c, #e27a2d) 78%, #000)); }
+#mini-pick[data-count="4"] .mp-card em { font-size: clamp(40px, 7vw, 60px); }
+#mini-pick[data-count="4"] .mp-card { padding: 14px 10px; }
+#mini-pick .en, #mini-pick .ja { font-size: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; }
+#mini-pick[data-count="5"] { width: min(900px, 96vw); }
+#mini-pick[data-count="5"] .mp-cards { grid-template-columns: repeat(6, 1fr); gap: 14px; }
+#mini-pick[data-count="5"] .mp-card { grid-column: span 2; padding: 12px 8px; }
+#mini-pick[data-count="5"] .mp-card:nth-child(4) { grid-column: 2 / span 2; }
+#mini-pick[data-count="5"] .mp-card em { font-size: clamp(36px, 6vw, 54px); }
+#mini-pick[data-count="5"] .mp-card strong { font-size: clamp(15px, 2.2vw, 20px); }
+#mini-pick .mp-tag { position: absolute; top: 10px; left: 12px; padding: 2px 10px; border-radius: 999px; background: #fff; color: #1b3a2f; font-size: 12px; font-weight: 800; }
+#mini-pick .mp-card.suika { background: linear-gradient(170deg, #ff9d4d, #d9534f); }
+#mini-pick .mp-card.puyo { background: linear-gradient(170deg, #5fd08a, #2f8f5b); }
+#mini-pick .mp-card:hover, #mini-pick .mp-card:focus-visible { transform: translateY(-4px); box-shadow: 0 0 0 5px #fff, 0 16px 28px #1b3a2f33; outline: 0; }
+#mini-pick .mp-card em { font-style: normal; font-size: clamp(56px, 12vw, 96px); line-height: 1.05; }
+#mini-pick .mp-card strong { font-size: clamp(18px, 3vw, 26px); text-shadow: 0 2px 0 #0003; }
+#mini-pick .mp-card small { font-size: 14px; opacity: .95; }
+#mini-pick .mp-walk { margin-top: 18px; padding: 10px 22px; min-height: 44px; border-radius: 999px; border: 2px solid #1b3a2f55; background: #fff; color: #1b3a2f; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+@media (max-height: 480px) { #mini-pick[data-count="5"] .mp-cards { grid-template-columns: repeat(5, 1fr); gap: 6px; } #mini-pick[data-count="5"] .mp-card, #mini-pick[data-count="5"] .mp-card:nth-child(4) { grid-column: auto; } #mini-pick[data-count="5"] .mp-card strong { font-size: 12px; } #mini-pick[data-count="4"] .mp-cards { grid-template-columns: repeat(4, 1fr); gap: 8px; } #mini-pick[data-count="4"] .mp-card strong { font-size: 13px; } #mini-pick { padding: 12px 18px; } #mini-pick h2 { font-size: 22px; margin-bottom: 8px; } #mini-pick .mp-card { padding: 8px; } #mini-pick .mp-card em { font-size: 44px; } #mini-pick .mp-card small { display: none; } #mini-pick .mp-walk { margin-top: 8px; min-height: 36px; } }

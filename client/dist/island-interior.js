@@ -10,6 +10,8 @@
 // One scene, rebuilt on entry: a child is only ever inside one building at a time, and a
 // classroom iPad should not carry twenty rooms it is not looking at.
 import * as THREE from './three.module.js';
+import { addProps, themeOf } from './interior-props.js';
+import { buildVillager, villagerSeed } from './villager.js';
 import { say, live } from './canvas-say.js';
 import { furnish } from './shop-interiors.js';
 
@@ -94,20 +96,12 @@ export function createIslandInteriors({ player, camera, toast }) {
 
   // The same voxel villager as outside, so the person behind the counter is the person
   // who was standing in front of the building.
-  function person(color, x, z) {
+  function person(color, x, z, seed) {
     const g = new THREE.Group();
     g.position.set(x, 0, z);
     root.add(g);
-    const P = (px, py, pz, w, h, d, c) => { const m = new THREE.Mesh(geo, mat(c)); m.position.set(px, py, pz); m.scale.set(w, h, d); m.castShadow = true; g.add(m); };
-    P(-0.23, 0.51, 0, 0.33, 0.85, 0.42, 0x505a4b);
-    P(0.23, 0.51, 0, 0.33, 0.85, 0.42, 0x505a4b);
-    P(0, 1.26, 0, 0.92, 0.8, 0.5, color);
-    P(-0.6, 1.26, 0, 0.24, 0.73, 0.34, color);
-    P(0.6, 1.26, 0, 0.24, 0.73, 0.34, color);
-    P(0, 1.96, 0, 0.72, 0.65, 0.65, 0xe6c299);
-    P(0, 2.3, 0, 0.8, 0.2, 0.73, 0x73604b);
-    for (const x2 of [-0.17, 0.17]) P(x2, 2, 0.332, 0.065, 0.07, 0.025, 0x3a4339);
-    return g;
+    const P = (px, py, pz, w, h, d, c, parent) => { const m = new THREE.Mesh(geo, mat(c)); m.position.set(px, py, pz); m.scale.set(w, h, d); m.castShadow = true; parent.add(m); return m; };
+    return buildVillager(P, g, { color, seed });
   }
 
   const state = { active: false, islandId: '', spot: null, counterAt: null };
@@ -162,7 +156,7 @@ export function createIslandInteriors({ player, camera, toast }) {
     const wall = 0x143a2c;
     const accent = Number(spot.color) || 0xcbbb95;
     // 床：光る 板の 上に こい 色の タイル（すきまが ネオンの 目地に 見える）。かべ：くらい ガラス＋上と 下に 光の 帯。
-    B(0, -0.2, 0, HALF_X * 2 + 1.2, 0.4, 19, 0xffb066, 0.28);
+    B(0, -0.2, 0, HALF_X * 2 + 1.2, 0.4, 19, 0xe0a060, 0.1);
     for (let x = -HALF_X + 1; x < HALF_X; x += 2) {
       for (let z = -7; z < 9; z += 2) B(x, 0.03, z, 1.88, 0.1, 1.88, (x + z) % 4 === 0 ? 0x1f5a45 : 0x163f31, 0.15);
     }
@@ -170,12 +164,12 @@ export function createIslandInteriors({ player, camera, toast }) {
     for (const x of [-HALF_X - 0.3, HALF_X + 0.3]) B(x, 2.6, 0.6, 0.4, 5.2, 17, wall, 0.2);
     for (const side of [-1, 1]) B(side * (HALF_X / 2 + 1.4), 2.6, DOOR_Z + 0.5, HALF_X - 1.4, 5.2, 0.4, wall, 0.2);
     B(0, 4.4, DOOR_Z + 0.5, 3.2, 1.6, 0.4, wall, 0.2);
-    B(0, 5.12, -7.15, HALF_X * 2 + 0.6, 0.14, 0.14, 0xffb066, 0.5); B(0, 0.22, -7.15, HALF_X * 2 + 0.6, 0.12, 0.12, 0x8ff0c8, 0.5);
-    for (const x of [-HALF_X - 0.05, HALF_X + 0.05]) { B(x, 5.12, 0.6, 0.14, 0.14, 16.6, 0xffb066, 0.5); B(x, 0.22, 0.6, 0.12, 0.12, 16.6, 0x8ff0c8, 0.5); }
+    B(0, 5.12, -7.15, HALF_X * 2 + 0.6, 0.14, 0.14, 0xffb066, 0.28); B(0, 0.22, -7.15, HALF_X * 2 + 0.6, 0.12, 0.12, 0x8ff0c8, 0.3);
+    for (const x of [-HALF_X - 0.05, HALF_X + 0.05]) { B(x, 5.12, 0.6, 0.14, 0.14, 16.6, 0xffb066, 0.28); B(x, 0.22, 0.6, 0.12, 0.12, 16.6, 0x8ff0c8, 0.3); }
     // まど＝べつの 次元が のぞく 門（むらさきの 光と 金の わく）。あかり＝うかぶ クリスタル。
     for (const x of [-HALF_X - 0.05, HALF_X + 0.05]) {
-      B(x, 3, 1.4, 0.15, 1.9, 3.4, 0xf2b04a, 0.55);
-      B(x, 3, 1.4, 0.2, 0.14, 3.5, 0xffd166, 0.4); B(x, 3.98, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.4); B(x, 2.02, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.4);
+      B(x, 3, 1.4, 0.15, 1.9, 3.4, 0xf2b04a, 0.3);
+      B(x, 3, 1.4, 0.2, 0.14, 3.5, 0xffd166, 0.25); B(x, 3.98, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.25); B(x, 2.02, 1.4, 0.2, 0.12, 3.5, 0xffd166, 0.25);
     }
     const gem = B(0, 5.0, 0.4, 0.8, 0.8, 0.8, 0xffffff, 0.8); gem.rotation.set(0.62, 0.78, 0); gem.castShadow = false;
     const lamp = new THREE.PointLight(0xfff0dc, 13, 22, 2);
@@ -185,14 +179,16 @@ export function createIslandInteriors({ player, camera, toast }) {
     // The counter, in the same place in every building.
     B(0, 0.95, COUNTER_Z, 7.4, 1.5, 1.6, cosmic(accent), 0.25);
     B(0, 1.78, COUNTER_Z, 7.8, 0.18, 1.9, 0xf2d9b0, 0.25);
-    B(0, 0.24, COUNTER_Z + 0.82, 7.4, 0.1, 0.06, 0x8ff0c8, 0.5);
+    B(0, 0.24, COUNTER_Z + 0.82, 7.4, 0.1, 0.06, 0x8ff0c8, 0.3);
     // メインの島の お店（spot.decor）は お店ごとの 内装（shop-interiors.js）。当たり判定も そこから。
     tinting = true;
     try {
       solid = spot.decor ? furnish(spot.decor, { B, root }) : [];
       if (!spot.decor) for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
     } finally { tinting = false; }
-    npc = person(accent, 0, COUNTER_Z - 1.5);
+    // 役わりの 小物（本の 山・スピーカー・えんぴつ…）。色は そのまま。お店ごとの 内装（decor）が ある ときは 足さない。
+    if (!spot.decor) solid = solid.concat(addProps(themeOf(islandId, spot), { B }));
+    npc = person(accent, 0, COUNTER_Z - 1.5, villagerSeed(spot));
     npc.rotation.y = Math.PI;
     sign(`${spot.tone || spot.icon || ''} ${spot.name}`.trim(), spot.character || '', 0, 4.2, -6.9);
     sign('でぐち · EXIT', '歩いて そとへ', 0, 3.5, DOOR_Z + 0.2);

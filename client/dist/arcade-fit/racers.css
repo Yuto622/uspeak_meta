@@ -40,3 +40,31 @@
   .showcase p { font-size: 11px !important; max-width: 260px; line-height: 1.6; }
   .course-tag { display: block !important; bottom: 14px !important; right: max(16px, env(safe-area-inset-right)); transform: scale(.7); transform-origin: right bottom; }
 }
+
+/* ── かんたん メニュー（racers.js の simpleMenu が body.uspeak-simple を つける）。えらぶ 3 つと スタートだけ 見せる。 ── */
+body.uspeak-simple .eyebrow, body.uspeak-simple #modes, body.uspeak-simple .mode-description:not(#modeDescription),
+body.uspeak-simple #courseMeta, body.uspeak-simple .tracks .rec, body.uspeak-simple #kartRole, body.uspeak-simple #kartStats,
+body.uspeak-simple #gradeHint, body.uspeak-simple #colorName, body.uspeak-simple .difficulty, body.uspeak-simple .preferences,
+body.uspeak-simple #best, body.uspeak-simple #profileStrip, body.uspeak-simple .menu-tip { display: none !important; }
+body.uspeak-simple.uspeak-more #modes, body.uspeak-simple.uspeak-more .difficulty, body.uspeak-simple.uspeak-more .preferences { display: flex !important; flex-wrap: wrap; }
+body.uspeak-simple #modeDescription { font-size: 17px; font-weight: 700; opacity: 1; margin: 6px 0 4px; }
+body.uspeak-simple .label-row { margin: 16px 0 8px; }
+body.uspeak-simple .label-row > span:first-child { font-size: 18px; font-weight: 800; letter-spacing: 0; color: #fff; }
+body.uspeak-simple .tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+body.uspeak-simple .tracks button { padding: 12px 12px; min-height: 64px; }
+body.uspeak-simple .tracks button > b { font-size: 24px; }
+body.uspeak-simple .tracks button span { font-size: 15px; }
+body.uspeak-simple .tracks button small { font-size: 12px; opacity: .9; }
+body.uspeak-simple .kart-tabs button { min-height: 52px; font-size: 16px; }
+body.uspeak-simple .colors { margin: 14px 0 6px; }
+body.uspeak-simple .colors > button { width: 38px; height: 38px; }
+body.uspeak-simple #start { font-size: 24px; font-weight: 900; min-height: 68px; margin-top: 10px; }
+body.uspeak-simple .uspeak-gear { display: block; margin: 12px 0 0; padding: 8px 16px; min-height: 40px; border-radius: 999px; border: 1px solid #ffffff55; background: #ffffff14; color: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 560px) {
+  body.uspeak-simple .label-row { margin: 8px 0 4px !important; } body.uspeak-simple .label-row > span:first-child { font-size: 14px; }
+  body.uspeak-simple .tracks button { min-height: 44px; padding: 6px 8px !important; } body.uspeak-simple .tracks button small { display: none; }
+  body.uspeak-simple .kart-tabs button { min-height: 38px; font-size: 13px; }
+  body.uspeak-simple .colors > button { width: 28px; height: 28px; }
+  body.uspeak-simple #start { font-size: 18px; min-height: 48px; }
+  body.uspeak-simple #modeDescription { font-size: 13px; }
+}

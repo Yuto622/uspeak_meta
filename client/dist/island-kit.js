@@ -5,6 +5,7 @@
 // same "am I standing at a place" question. Only the buildings and what happens at them
 // differ, so that is all each island module writes.
 import * as THREE from './three.module.js';
+import { buildVillager, villagerSeed } from './villager.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
@@ -161,18 +162,12 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   }
 
   // A voxel villager in the same style as the islanders on Willow.
-  function person(color, skin, x, z) {
+  function person(color, skin, x, z, seed) {
     const g = new THREE.Group();
     g.position.set(x, 0, z);
     root.add(g);
-    B(-0.23, 0.51, 0, 0.33, 0.85, 0.42, 0x4a4436, g);
-    B(0.23, 0.51, 0, 0.33, 0.85, 0.42, 0x4a4436, g);
-    B(0, 1.32, 0, 0.92, 0.92, 0.62, color, g);
-    for (const side of [-1, 1]) B(side * 0.62, 1.3, 0, 0.3, 0.82, 0.38, color, g);
-    B(0, 2.05, 0, 0.78, 0.62, 0.66, skin, g);
-    B(0, 2.36, -0.03, 0.86, 0.28, 0.74, 0x5a4632, g);
-    for (const side of [-1, 1]) B(side * 0.19, 2.08, 0.34, 0.1, 0.12, 0.06, 0x2b2b28, g);
-    return g;
+    // 見た目は 人ごとに ちがう（villager.js）。同じ たね＝同じ 人。家の 中の カウンターの 人も 同じ たねで 建つ。
+    return buildVillager(B, g, { color, seed: seed ?? `${x}:${z}` });
   }
 
   // A building with a front: plinth, timber framing, shuttered windows that light up at
@@ -515,7 +510,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
 
   // A resident with a nameplate, at one of the island's spots.
   function resident(def) {
-    const npc = person(Number(def.color), 0xe8c39a, def.x, def.z);
+    const npc = person(Number(def.color), 0xe8c39a, def.x, def.z, villagerSeed(def));
     // labelBg / labelWidth：札の 色と 幅（英検の つり場は 級の 色で「🎣 英検3級 · Sora」を 1 枚に）。
     const label = sprite(def.label || def.character, def.x, 3.5, def.z, { width: def.labelWidth || 4.4, size: def.labelSize || 40, depthTest: false, ...(def.labelBg ? { background: def.labelBg } : {}) });
     // 住人の下の一言。英語が無いデータもある（その時は日本語のまま出る）。

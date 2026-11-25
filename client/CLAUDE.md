@@ -2042,6 +2042,13 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   島を 足したら `QUICK_SPOT` に 1 行（書かなければ 何も ひらかない＝歩いて さがす）。
 - **ABC の 島**（`abc-island.js` + `abc-island.json`・HUBS / ACTIVITY_HUBS の `abc`・おすすめの 2 ばんめ）：つみきの いえに 入ると `abc.open()`。
 
+## 2026-11 の まとめて（住民・小物・パネル・カートの メニュー）
+- **住民は 人ごとに ちがう 見た目**（`villager.js`）：たね（`villagerSeed(spot)`＝なまえ＋id）から はだ・かみの 色と 形（12）・ぼうし・こもの（めがね・マフラー・エプロン・ひげ…）・せの 高さ・ズボンを 決める。服の 色は データの まま。乱数は 使わない＝同じ 人は いつも 同じ。島（`island-kit.js` の `person`）・家の 中（`island-interior.js`）・U-Speak島（`game.js`）が 同じ 関数。
+- **内装の 小物は 部屋の 役わり**（`interior-props.js`）：`themeOf(島, spot)` → books（本だな・本の 山）/ listening（スピーカー・音符）/ writing（つくえ・紙・えんぴつ）/ speaking（マイク・ふきだし）/ quiz（黒板・つくえ）/ gym / dojo / pet（たまご）/ ride（タイヤ・コーン）/ shop（たな・木箱）/ stars。色は 宇宙に よせない。通り道（|x| < 2.4）は あける。`decor` の ある お店（shop-interiors.js）には 足さない。
+- **島に ついたら えらぶ パネル**（`mini-pick.js` の `createIslandPick`・`net-client.js` の `PICKS`・見た目は `world-picker.css` の さいご）：ミニゲーム島＝どっちの ゲーム、英会話島＝どの 家、英検の 7 島＝どの 館。しまの ちずで えらんだ とき（`uspeak:mappick`）だけ 出る。とじれば 島を 歩ける。**英検の 島は もう すぐ 部屋に 入らない**。島を 足す ときは `QUICK_SPOT` に `'*'` と `PICKS` に 1 行。
+- **AURORA KART の かんたん メニュー**（`racers.js` の `simpleMenu`・`arcade-fit/racers.css` の `body.uspeak-simple`）：① コース ② くるま ③ えいごの レベル → ▶ スタート。ほかは「⚙ せってい」の 中（消して いない）。
+- **ランキング・ロードマップも ブランド色**（`rank.css`・`roadmap.css`）。
+
 ## きせかえ島で 買える すがた（アバター／2026-11）
 - **5 つめの スロット `avatar`（すがた）**：`wardrobe.json` の 先頭に 8 人（ねこ・パンダ・にんじゃ・ひめ・ヒーロー・きし・ドラゴン・ユニコーン。`kind` ＝ 体の id `av-…`）。島には 5 けんめの 店「すがたや」（`avatar-shop`）。
 - **体は `avatar-bodies.js`**（three だけ・サーバーの 検査からも 読める）。`buildPremiumAvatar(id)` は `buildAvatar` と 同じ 約束（`userData.limbs`・`anchors`）で 返すので、歩く うごきも ぼうし・めがね・かばんも そのまま。

@@ -2,6 +2,7 @@
 // avatars, reconnection (iPad background / lock / reload), server-authoritative wallet
 // mirroring, chat and teacher commands. Offline mode = this module stays idle.
 import { NET, STORAGE_KEYS, resolveServerUrl, defaultClassCode, storage } from './net-config.js';
+import { createIslandPick } from './mini-pick.js';
 import { hooks } from './net-hooks.js';
 import { createRemotePlayers } from './remote-players.js';
 import { createChat } from './chat.js';
@@ -392,9 +393,10 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // メインの島は どこにも 入れない：えらんだら 島に 出るだけ（リスポーン）。
     abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
     ride: 'start',   // のりもの島：スタートの そばに 立たせて、すぐ AURORA KART を ひらく
+    mini: '*', conv: '*', // ミニゲーム島・英会話島：ついたら すぐ「どれに する？」（mini-pick.js の PICKS）。とじれば 島を 歩ける
     town: 'plaza',   // まちづくり島：すぐ ブロックの 世界（BLOCKWILD）
     wear: 'avatar-shop', // きせかえ島：すぐ すがたや（アバターを 買う・きがえる）
-    eiken5: 'reading', eiken4: 'reading', eiken3: 'reading', eikenp2: 'reading', eiken2: 'reading', eikenp1: 'reading', eiken1: 'reading',
+    eiken5: '*', eiken4: '*', eiken3: '*', eikenp2: '*', eiken2: '*', eikenp1: '*', eiken1: '*', // 英検の 島：パネルで 館を えらぶ（PICKS）
   };
   let quickPick = null; // { id, until }
   addEventListener('uspeak:mappick', (e) => { const id = String(e.detail || ''); quickPick = QUICK_SPOT[id] ? { id, until: Date.now() + 30000 } : null; });
@@ -405,6 +407,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (document.querySelector('dialog[open]') || document.body.dataset.warp || document.body.dataset.classPause) return;
     const id = quickPick.id; quickPick = null;
     try {
+      if (PICKS[id]) { const cfg = PICKS[id](); if (cfg) islandPick.show(cfg); return; }
       const isl = rpg[id]?.data; const spot = isl?.spots?.find((x) => x.id === QUICK_SPOT[id]);
       if (!isl || !spot) return;
       // のりもの島の スタートは「はなす」で ひらく 場所（戸口では ない）ので、そばに 立たせて そのまま ひらく。
@@ -527,6 +530,22 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   });
   // ミニゲーム島: one house each, and the house is the menu.
   const arcades = { puyo: createPuyo(guest), suika: createSuika(guest) };
+  const islandPick = createIslandPick();
+  const hex = (n) => '#' + Number(n).toString(16).padStart(6, '0');
+  // 家を えらぶ パネル：島の データの spots を そのまま カードに する。えらぶと 戸口の すぐ 前に 立つ。
+  const housePick = (id, title, extra) => { const isl = rpg[id]?.data; if (!isl?.spots?.length) return null; return { title,
+    cards: isl.spots.map((sp) => ({ value: sp, icon: sp.tone || sp.icon || '🏠', en: sp.en, ja: sp.name, color: hex(sp.color), ...extra(sp) })),
+    onPick: (c) => { player.position.set(isl.x + c.value.x, 0, isl.z + c.value.z - 0.65); state.lastSent.s = ''; sendMove(); } }; };
+  const EIKEN_SUB = { reading: ['Read and choose', 'よんで えらぶ'], listening: ['Listen and choose', 'きいて えらぶ'], writing: ['Put words in order', 'ことばを ならべる'], speaking: ['Say it aloud', 'こえに だす'], interview: ['Interview practice', 'めんせつの れんしゅう'] };
+  const PICKS = {
+    mini: () => ({ title: { en: 'Which game?', ja: 'どっちで あそぶ？' }, onPick: (c) => arcades[c.value]?.open(), cards: [
+      { value: 'suika', cls: 'suika', icon: '🍉', en: 'Fruit Merge', ja: 'えいご スイカゲーム', subEn: 'Drop fruit and make words', subJa: 'くだものを おとして くっつけよう' },
+      { value: 'puyo', cls: 'puyo', icon: '🟢', en: 'PUYO U-SPEAK', ja: 'ぷよぷよ えいご', subEn: 'Line up letters to pop', subJa: 'もじを ならべて けそう' }] }),
+    // 英会話島：どの 家で 話すか。えらぶと その 家の 戸口へ（戸口の しくみで いつもどおり ひらく）。
+    conv: () => housePick('conv', { en: 'Where shall we talk?', ja: 'どこで はなす？' }, (sp) => ({ subEn: sp.enSub, subJa: sp.ja, tag: sp.grade ? `英検${sp.grade}級` : '' })),
+  };
+  // 英検の 島（7 つ）：すぐ 部屋に 入らず、どの 館に するかを えらぶ（2026-11）。
+  for (const g of ['eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1']) PICKS[g] = () => housePick(g, { en: 'Which skill?', ja: 'どれを れんしゅう する？' }, (sp) => ({ subEn: EIKEN_SUB[sp.kind]?.[0], subJa: EIKEN_SUB[sp.kind]?.[1] }));
   // のりもの島とまちづくり島では、島の中の扉に加えて左下にも入口を出す。理由は
   // guest-dock.js に書いてある（扉が「そこまで歩かないと見えない」ため）。
   const guestDock = createGuestDock({

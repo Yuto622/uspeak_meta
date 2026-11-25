@@ -33,7 +33,29 @@ export function createRacers({ toast, onOpen, onClose, kart }) {
       // ことばの ゲートの 問題・正解・コインは 教室の サーバーが 持つ（kart:*）。ゲームは これを 見つけたら サーバーの 問題で 走る。
       if (kart) doc.defaultView.USPEAK_KART = kart;
       doc.querySelector('[data-mode="uspeak"]')?.click();
+      try { simpleMenu(doc); } catch { /* もとの メニューの まま */ }
       return homeButton(doc, doc.querySelector('.top-actions'), close);
     },
   });
+}
+
+// メニューを かんたんに（2026-11：「もっと 簡単な UI に」）。えらぶのは 3 つだけ：① コース ② くるま ③ えいごの レベル → ▶ スタート。
+// モード・むずかしさ・オート加速・ミラー・周回・画質・音量 は「⚙ せってい」の 中（消して いない＝id の まま 動く）。
+// 見た目は arcade-fit/racers.css の `body.uspeak-simple`。ゲームの 中身（racers/）は さわらない。
+function simpleMenu(doc) {
+  const menu = doc.querySelector('#menu'); if (!menu || doc.body.classList.contains('uspeak-simple')) return;
+  doc.body.classList.add('uspeak-simple');
+  const rows = [...menu.querySelectorAll('.label-row > span:first-child')];
+  ['① コースを えらぶ', '② くるまを えらぶ', '③ えいごの レベル'].forEach((t, i) => { if (rows[i]) rows[i].textContent = t; });
+  const level = ['★ やさしい', '★★ ふつう', '★★★ むずかしい', '★★★★ とても むずかしい'];
+  menu.querySelectorAll('#tracks button').forEach((b, i) => { const sm = b.querySelector('small'); if (sm && level[i]) sm.textContent = level[i]; });
+  const desc = menu.querySelector('#modeDescription');
+  const say = () => { if (desc && desc.textContent !== 'ただしい えいごの レーンを はしろう！') desc.textContent = 'ただしい えいごの レーンを はしろう！'; };
+  say(); if (desc) new doc.defaultView.MutationObserver(say).observe(desc, { childList: true, characterData: true, subtree: true });
+  const start = menu.querySelector('#start');
+  const go = () => { if (start && !start.dataset.kid) { start.dataset.kid = '1'; } if (start && !/スタート/.test(start.textContent)) start.textContent = '▶ スタート'; };
+  go(); if (start) new doc.defaultView.MutationObserver(go).observe(start, { childList: true, characterData: true, subtree: true });
+  const gear = doc.createElement('button'); gear.type = 'button'; gear.className = 'uspeak-gear'; gear.textContent = '⚙ せってい';
+  gear.onclick = () => { const on = doc.body.classList.toggle('uspeak-more'); gear.textContent = on ? '⚙ せってい を とじる' : '⚙ せってい'; };
+  start?.before(gear);
 }
