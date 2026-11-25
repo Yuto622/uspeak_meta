@@ -78,12 +78,14 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
         <div class="task-row"><span class="task-meter"><i style="width:${pct}%"></i></span><b class="task-count">${hw.answered} / ${hw.total}</b></div>
         ${openHomework ? `<button type="button" class="task-hw-go">▶ ${tr('しゅくだいを する')}</button>` : ''}
         ${hw.more > 0 ? `<small>${tr('ほかに {0}こ', [hw.more])}</small>` : ''}
+        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
       </div>` : ''}
       ${first ? `<div class="task-now">
         <strong>${esc(text(first))}</strong>
         ${first.where && isJa() ? `<small>📍 ${esc(first.where)}</small>` : ''}
         <div class="task-row">${meter(first)}${reward(first)}</div>
+        ${guide?.available ? `<button type="button" class="task-walk-btn" aria-pressed="${!!guide.walking}">${guide.walking ? `⏹ ${tr('あるくのを とめる')}` : `🚶 ${tr('じどうで あるく')}`}</button>` : ''}
         ${guide?.available ? `<button type="button" class="task-guide-btn" aria-pressed="${guide.shown}">🧭 ${guide.shown ? tr('みちを けす') : tr('みちを 出す')}</button>` : ''}
         ${skipBtn(first)}
       </div>` : ''}
@@ -93,6 +95,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   }
 
   card.addEventListener('click', (e) => {
+    if (e.target.closest('.task-walk-btn')) { guide?.walk(); render(); return; }
     if (e.target.closest('.task-guide-btn')) { guide?.toggle(); render(); return; }
     if (e.target.closest('.task-hw-go')) { openHomework?.(); return; }
     const sk = e.target.closest('.task-skip-btn');
@@ -168,7 +171,7 @@ export function createTaskCard({ send = () => {}, isOnline = () => false, guide 
   setInterval(watch, 700);
   // 30 秒 すすまないと 道が 出る。ボタンの 文も それに あわせる。
   let lastShown = null;
-  setInterval(() => { const now = !!guide?.shown; if (now !== lastShown) { lastShown = now; if (data) render(); } }, 1000);
+  setInterval(() => { const now = `${!!guide?.shown}:${!!guide?.walking}`; if (now !== lastShown) { lastShown = now; if (data) render(); } }, 1000);
 
   return {
     set(payload) { data = payload || null; render(); },

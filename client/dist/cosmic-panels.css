@@ -327,3 +327,16 @@
 #mission-dialog .mission-cards button { min-height: 76px; }
 #mission-dialog .mission-cards button strong { font-size: 16px; }
 @media (max-width: 520px) { #mission-dialog .mission-steps { grid-template-columns: 1fr; } }
+
+/* ── 冒険ノートの かんたんな ならび（adventure.js の renderJourney）。 ── */
+#rpg-content .ad-chapter-hero { margin-top: 14px; }
+#rpg-content .ad-action-row .primary { min-height: 60px; padding: 0 30px; font-size: 20px; font-weight: 800; border-radius: 999px; background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; border: 0; }
+#rpg-content .ad-action-row button:not(.primary) { min-height: 48px; font-size: 15px; }
+#rpg-content .ad-more { margin-top: 18px; border-top: 1px solid #1b3a2f22; padding-top: 12px; }
+#rpg-content .ad-more > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 20px; min-height: 24px; border-radius: 999px; border: 2px solid #1b3a2f55; background: #fff; color: #1b3a2f; font-size: 15px; font-weight: 800; }
+#rpg-content .ad-more > summary::-webkit-details-marker { display: none; }
+#rpg-content .ad-more > summary::before { content: "▸ "; }
+#rpg-content .ad-more[open] > summary::before { content: "▾ "; }
+#rpg-content .ad-overview { margin: 14px 0 6px; }
+#rpg-content .ad-overview > div { padding: 12px 14px; }
+#rpg-content .ad-overview strong { font-size: 22px; margin-top: 4px; }

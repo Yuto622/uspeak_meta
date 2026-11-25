@@ -426,10 +426,12 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
   const label = (spot) => (LABEL[spot?.kind] || (() => tr('はいる')))(spot);
 
   // ホーム＝メインの島。はじめて クラスに入ったときは その場で島に立たせる（飛ばない）。
-  // あとで 🏠 を押したときは ひこうきで行く。島にいるときの 🏠 は 2D の地図（リストでも見られる）。
+  // あとで 🏠 を押したときは ひこうきで行く。島にいるときの 🏠 は スタートに もどる。
   const homeState = { homed: false, from: null };
   function goHome({ first = false } = {}) {
-    if (rpg.state.current === 'main') { if (!first) open(); return; }
+    // 島に いる ときの 🏠 は、前は 2D の 地図を ひらいて いた。2026-11 に「これ いらない」と 言われて やめた：スタート（⭐）に もどすだけ。
+    // 2D の 地図（open）は 消して いない（検査と 写真が 使う）。出す 入口が なくなった だけ。
+    if (rpg.state.current === 'main') { if (!first) { rpg.activate('main', true, true); toast(tr('スタートに もどったよ')); } return; }
     if (first) {
       if (player) homeState.from = { id: rpg.state.current, x: player.position.x, y: player.position.y, z: player.position.z };
       rpg.activate('main', true, true);

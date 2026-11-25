@@ -378,6 +378,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
   const taskGuide = createTaskGuide({ scene, player, rpg });
+  taskGuide.onArrive = () => toast('ついたよ！');
   // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
@@ -1365,6 +1366,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     get arcades() { return arcades; },
     // One question for the frame loop: is a whole-window guest game up?
     arcadeOpen: () => racers.isOpen || blockwild.isOpen || Object.values(arcades).some((g) => g.isOpen),
+    // じどうで あるく（タスクの カードの ボタン）。game.js が 毎フレーム 向きを もらう。
+    autoWalk: () => taskGuide.steer(),
+    autoWalkStop: () => taskGuide.stopWalk(),
     readingLabel: (spot) => `${spot?.tone || '📚'} ${tr('えほんを よむ')}`,
     abcLabel: (spot) => `${spot?.tone || '🔤'} ${tr('ABC と おと')}`,
     reading, abc,

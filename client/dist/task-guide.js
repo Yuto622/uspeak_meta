@@ -114,6 +114,44 @@ export function createTaskGuide({ scene, player, rpg }) {
 
   function hide() { dots.visible = halo.visible = false; dots.count = halo.count = 0; route = []; }
 
+  // じどうで あるく（2026-11：「歩き方が わからない 子も いる。ボタンを おせば とことこ 歩いて くれる」）。
+  // 光の 道の つぎの 角へ むかう 向きを 返すだけ（歩かせるのは game.js＝当たり判定も いつもの まま）。
+  // 自分で うごかす・ついた・道が きえた・3 秒 すすまない で 止まる。ほかの 島が 行き先なら ひこうきで とぶ。
+  let auto = false; let autoAt = { x: 0, z: 0, t: 0 }; let arrived = null;
+  function stopWalk() { auto = false; }
+  function walk() {
+    if (auto) { stopWalk(); return 'stop'; }
+    const g = go(); const here = rpg.state?.current;
+    if (!g) return 'none';
+    const neighbours = (g.island === 'willow' && here === 'main') || (g.island === 'main' && here === 'willow');
+    if (g.island !== here && !neighbours) { try { rpg.fly?.(g.island); } catch { /* 行けない 島 */ } return 'fly'; }
+    if (here !== 'main') return 'none';
+    enabled = true; forced = true; auto = true; autoAt = { x: player.position.x, z: player.position.z, t: performance.now() };
+    return 'walk';
+  }
+  function steer() {
+    if (!auto) return null;
+    // 画面が ひらいた（つりば・お店に ついた）・家に 入った ＝ ついた。
+    if (document.querySelector('dialog[open]') || rpg.insideBuilding || rpg.interiorScene) { auto = false; return null; }
+    if (rpg.state?.mode === 'flight') return null;
+    if (route.length < 2) { auto = false; arrived?.(); return null; }
+    const o = rpg.main.origin();
+    const P = { x: player.position.x - o.x, z: player.position.z - o.z };
+    // つぎの 角。近ければ その つぎ。
+    let i = 1; while (i < route.length - 1 && Math.hypot(route[i].x - P.x, route[i].z - P.z) < 1.2) i += 1;
+    const T = route[i]; const d = Math.hypot(T.x - P.x, T.z - P.z);
+    if (i === route.length - 1 && d < ARRIVE + 0.3) { auto = false; arrived?.(); return null; }
+    const now = performance.now();
+    if (Math.hypot(player.position.x - autoAt.x, player.position.z - autoAt.z) > 0.6) autoAt = { x: player.position.x, z: player.position.z, t: now };
+    const stuck = now - autoAt.t;
+    let ux = (T.x - P.x) / (d || 1); let uz = (T.z - P.z) / (d || 1);
+    // 引っかかった：まず よこに よける（1.2 秒ごとに 右・左）。それでも 4.5 秒 すすまなければ、つぎの 角まで はこぶ
+    //（かならず つく ことの ほうが、歩く 見た目より 大事：歩けない 子の ための ボタン）。
+    if (stuck > 4500) { player.position.x = T.x + o.x; player.position.z = T.z + o.z; autoAt = { x: player.position.x, z: player.position.z, t: now }; return null; }
+    if (stuck > 900) { const side = Math.floor(stuck / 1200) % 2 ? 1 : -1; const px = -uz * side; const pz = ux * side; ux = ux * 0.35 + px; uz = uz * 0.35 + pz; const l = Math.hypot(ux, uz) || 1; ux /= l; uz /= l; }
+    return { x: ux, z: uz };
+  }
+
   function update(t) {
     const g = go();
     const show = wanted();
@@ -173,6 +211,9 @@ export function createTaskGuide({ scene, player, rpg }) {
       if (!data) { hide(); setBeacon(''); glowMap(false); }
     },
     update,
+    walk, steer, stopWalk,
+    get walking() { return auto; },
+    set onArrive(fn) { arrived = fn; },
     get shown() { return wanted(); },
     get task() { return first(); },
     get available() { return !!go(); },

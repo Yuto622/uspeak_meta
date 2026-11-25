@@ -77,3 +77,7 @@ body[data-main] .quest-panel.has-tasks, body[data-warp] .quest-panel.has-tasks, 
 }
 /* 横向きの スマホの 先生は 左上が じゅぎょうモードの ボタンで いっぱい（class-mode.css と おなじく しまう）。 */
 @media (pointer: coarse) and (max-height: 560px) { body.cm-teacher .quest-panel.has-tasks { display: none !important; } }
+
+/* じどうで あるく：カードの いちばん 目立つ ボタン（歩き方が わからない 子の ため）。 */
+#task-card .task-walk-btn { margin-top: 8px; width: 100%; min-height: 44px; border-radius: 12px; border: 0; background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #a9541b; }
+#task-card .task-walk-btn[aria-pressed="true"] { background: #1b3a2f; color: #fff4d6; box-shadow: 0 3px 0 #0c241c; }
