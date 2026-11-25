@@ -104,16 +104,19 @@ export function createMissionUI({ send, speak, toast, isOnline, travel, here, se
         <small>${esc(s?.ja || m.character)} · ${esc(m.place)}</small>
         <span>◈ ${m.reward}</span></button>`;
     };
-    body().innerHTML = `<p class="mission-lead">おつかいは <b>おつかい島</b> で歩いてやります。広場のミアからうけとり、お店の人と英語で話し、広場にもどってとどけるとコインがもらえます。</p>
-      ${here() ? '' : '<p class="mission-warn">いまはおつかい島の外にいます。「おつかい島へ行く」で移動してください。</p>'}
-      ${featured ? `<section class="mission-featured">
-        <small>今日のおつかい</small>
-        <strong>${esc(featured.title)}</strong>
-        <span>${esc(spot(featured.spot)?.ja || featured.character)}</span>
-        <button type="button" class="primary" data-mission="${esc(featured.id)}">これにする →</button>
+    // かんたんに（2026-11：「もっと 操作性 簡単に」）：やる ことは 3 つの しるしで 見せ、いちばん 上に「つぎの おつかい」を 1 つ 大きく。
+    // 島の 外で カードを おしたら、そのまま おつかい島へ とぶ（choose）＝「いく」ボタンを さがさなくて いい。
+    const next = featured || data.missions.find((m) => !done.has(m.id));
+    body().innerHTML = `<ol class="mission-steps"><li><b>1</b><span>うけとる</span></li><li><b>2</b><span>えいごで はなす</span></li><li><b>3</b><span>とどける</span></li></ol>
+      ${next ? `<section class="mission-featured">
+        <small>${featured ? '今日のおつかい' : 'つぎの おつかい'}</small>
+        <strong>${esc(next.title)}</strong>
+        <span>${esc(spot(next.spot)?.ja || next.character)} · ◈ ${next.reward}</span>
+        <button type="button" class="primary" data-mission="${esc(next.id)}">これを やる →</button>
       </section>` : ''}
-      <p class="mission-lead">スタンプ ${done.size} / ${data.missions.length}</p>
-      <div class="mission-actions"><button type="button" class="primary" id="mission-travel">${here() ? 'おつかい島にいます' : '✈ おつかい島へ行く'}</button></div>
+      <div class="mission-stamps"><span>スタンプ ${done.size} / ${data.missions.length}</span><i><b style="width:${Math.round(done.size / Math.max(1, data.missions.length) * 100)}%"></b></i></div>
+      <div class="mission-actions"${here() ? ' hidden' : ''}><button type="button" id="mission-travel">${here() ? 'おつかい島にいます' : '✈ おつかい島へ いく'}</button></div>
+      <p class="mission-lead mission-tip">カードを おすと はじまるよ</p>
       ${grades.map((g) => `<h3 class="mission-grade">英検${esc(g)}級</h3><div class="mission-cards">${data.missions.filter((m) => m.grade === g).map(card).join('')}</div>`).join('')}`;
     const go = $('#mission-travel', dialog);
     go.disabled = here();
@@ -130,7 +133,8 @@ export function createMissionUI({ send, speak, toast, isOnline, travel, here, se
     renderHud();
     dialog.close();
     const from = spot(m.from);
-    toast(here() ? `${from?.ja || '広場'} に行って話しかけよう。` : 'おつかい島へ行って、広場のミアに話しかけよう。');
+    if (here()) toast(`${from?.ja || '広場'} に行って話しかけよう。`);
+    else { toast('おつかい島へ いくよ。ついたら 広場の ミアに 話しかけよう。'); goToIsland(); }
   }
 
   // ---- the request, handed over at the plaza --------------------------------------

@@ -24,11 +24,14 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   root.hidden = true;
   root.innerHTML = `<div class="net-chat-head"><strong>👩‍🏫 先生コンソール</strong><button type="button" id="net-teacher-close" aria-label="閉じる">×</button></div>
   <div class="net-teacher-actions">
+    <h4 class="net-t-group">① みんなを あつめる</h4>
     <button type="button" id="net-t-gather" class="primary">📣 全員をここに集合</button>
+    <h4 class="net-t-group">② クラスの ルール <small>おすと きりかわります</small></h4>
     <button type="button" id="net-t-chat">⏸ チャットを一時停止</button>
     <button type="button" id="net-t-free">✏ じゆうにゅうりょく：オン</button>
     <button type="button" id="net-t-voice">🎙 おはなし：どの島でも</button>
     <button type="button" id="net-t-eiken">📝 英検：ふつう</button>
+    <h4 class="net-t-group">③ どうぐ</h4>
     <button type="button" id="net-t-reports">📄 保護者レポートのリンク</button>
     <button type="button" id="net-t-register">🔄 めいぼを読み直す</button>
   </div>
@@ -36,9 +39,11 @@ export function createTeacherPanel({ send, toast, getPoint, getSpace, isInsideBu
   <div id="net-t-exam"></div>
   <div id="net-t-child" hidden></div>
   <div id="net-t-links" hidden></div>
-  <label class="net-t-field" for="net-t-mission">今日のおつかい</label>
+  <h4 class="net-t-group net-t-solo">④ 今日のおつかい</h4>
+  <label class="net-t-field" hidden for="net-t-mission">今日のおつかい</label>
   <select id="net-t-mission"><option value="">指定しない</option></select>
   <p class="net-fine" id="net-teacher-hint"></p>
+  <h4 class="net-t-group net-t-solo">⑤ いま いる 生徒</h4>
   <table class="net-roster"><thead><tr><th>名前</th><th>場所</th><th>Lv</th><th>◈</th><th>正解</th><th></th></tr></thead><tbody id="net-roster"></tbody></table>`;
   document.body.append(root);
   const button = document.createElement('button');
