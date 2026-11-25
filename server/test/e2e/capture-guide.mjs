@@ -84,7 +84,7 @@ async function join(page, name, { teacher = false } = {}) {
   await page.fill('#net-name', name);
   await page.fill('#net-class', KLASS);
   if (teacher) {
-    await page.evaluate(() => { document.querySelector('#net-teacher-details').open = true; });
+    await page.evaluate(() => { document.querySelector('#net-teacher-details').hidden = false; });
     await page.fill('#net-key', TEACHER_KEY);
   }
   await page.click('#net-join');
