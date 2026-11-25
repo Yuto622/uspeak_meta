@@ -175,7 +175,8 @@ export function createTaskGuide({ scene, player, rpg }) {
     // つぎの 角。近ければ その つぎ。
     let i = 1; while (i < route.length - 1 && Math.hypot(route[i].x - P.x, route[i].z - P.z) < 1.2) i += 1;
     const T = route[i]; const d = Math.hypot(T.x - P.x, T.z - P.z);
-    if (i === route.length - 1 && d < ARRIVE + 0.3) { auto = false; arrived?.(); return null; }
+    // じどうで あるく ときは 戸口の まん前まで（3 m 手前で 止まると お店の 画面が ひらかない ことが あった）。
+    if (i === route.length - 1 && d < 1.4) { auto = false; arrived?.(); return null; }
     const now = performance.now();
     if (Math.hypot(player.position.x - autoAt.x, player.position.z - autoAt.z) > 0.6) autoAt = { x: player.position.x, z: player.position.z, t: now };
     const stuck = now - autoAt.t;
@@ -210,7 +211,7 @@ export function createTaskGuide({ scene, player, rpg }) {
     const o = far ? { x: 0, z: 0 } : rpg.main.origin();
     routeO = o;
     const P = { x: player.position.x - o.x, z: player.position.z - o.z };
-    if (Math.hypot(target.x - P.x, target.z - P.z) < ARRIVE) { hide(); closeBy = true; return; }
+    if (Math.hypot(target.x - P.x, target.z - P.z) < (auto ? 1.1 : ARRIVE)) { hide(); closeBy = true; return; }
     const now = performance.now();
     if (!route.length || now - routeAt > 400) { route = far ? [P, target] : plan(P, target); routeAt = now; } else route[0] = P;
     // 線の 長さ と、つぶを ながす（行き先の ほうへ 動いて 見える）

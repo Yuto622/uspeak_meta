@@ -378,7 +378,15 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const plainSend = (type, payload) => { if (room && state.mode === 'online') room.send(type, payload); };
   // 左の「つぎに やること」。中身も すんだかも 部屋が 決める。
   const taskGuide = createTaskGuide({ scene, player, rpg });
-  taskGuide.onArrive = () => toast('ついたよ！');
+  // ついた：画面が ひらいて いなければ、出て いる「○○を 見る」を かわりに おす（歩けない 子の ための ボタンなので、さいごの 1 おしも いらなく する）。
+  taskGuide.onArrive = () => {
+    toast('ついたよ！');
+    setTimeout(() => {
+      if (document.querySelector('dialog[open]') || rpg.insideBuilding || rpg.interiorScene || document.body.dataset.arcade) return;
+      const near = document.querySelector('#near'); const btn = document.querySelector('#interact');
+      if (near && btn && near.style.display !== 'none' && btn.getClientRects().length) btn.click();
+    }, 900);
+  };
   // ⭐ プレミアムの おしらせ（🔒 の 島や お店を おした とき）。
   createPremiumPromo({ offline: () => state.mode !== 'online' && state.mode !== 'reconnecting' });
   // 宿題（しゅくだい島の いえ）。問題・判定・ごほうびは 部屋（hw:*）。
