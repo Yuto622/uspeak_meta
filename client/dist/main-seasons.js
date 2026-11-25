@@ -9,7 +9,7 @@
 //   ためしに 見る：URL に ?season=spring|summer|autumn|winter|xmas。
 // ・作るのは いまの 季節の 分だけ（1 回）。光る ものは 夜に 強く（setNight）。動くのは 小さな 点と 光の 強さ だけ。
 import * as THREE from './three.module.js';
-import { singleFir } from './real-trees.js';
+import { singleFir, singleBroad } from './real-trees.js';
 
 const JST = 9 * 3600 * 1000;
 export function seasonNow(now = Date.now()) {
@@ -84,16 +84,26 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     colours.forEach((c, k) => many(boxGeo, c, pts.filter((_, i) => i % colours.length === k).map((p) => [p[0], p[1] - 0.3, p[2]]), null, [0.42, 0.5, 0.08]));
   }
 
+  // 見せ場の まんなかの 大きな 木（どの 季節も 木）。
+  function bigTree(x, z, colour, scale = 1.7, seed = 21) {
+    const tree = singleBroad({ colour, seed });
+    tree.group.scale.setScalar(scale); tree.group.position.set(x, 0, z); group.add(tree.group);
+    tickers.push((t) => tree.update(t));
+    onObstacle?.({ x, z, w: 0.7, d: 0.7 });
+    return tree.height * scale;
+  }
+
   // ---- 春 ----
   function spring() {
     flags([0xf7a8c4, 0xfff4f7, 0xa9d873, 0xf9c6d8]);
-    // 見せ場：花の 山と ちょうちょ色の 花だん。
+    // 見せ場：大きな さくらの 木。根もとに 花。
     const { x, z } = spot;
-    box(x, 0.25, z, 4.2, 0.5, 4.2, 0x8a6a45);
+    bigTree(x, z, 0xf8b4cd);
     const beds = [];
-    for (let i = 0; i < 46; i += 1) beds.push([x + (Math.random() - 0.5) * 3.6, 0.72, z + (Math.random() - 0.5) * 3.6, 0.8 + Math.random() * 0.6]);
-    [0xf48fb1, 0xfff176, 0xffffff, 0xce93d8].forEach((c, k) => many(ballGeo, c, beds.filter((_, i) => i % 4 === k), null, [0.34, 0.3, 0.34]));
-    many(boxGeo, 0x5f8a3a, beds.map((b) => [b[0], 0.55, b[2]]), null, [0.06, 0.3, 0.06]);
+    for (let i = 0; i < 40; i += 1) { const a = Math.random() * 6.283, r = 1.6 + Math.random() * 2.2; beds.push([x + Math.cos(a) * r, 0.5, z + Math.sin(a) * r, 0.8 + Math.random() * 0.6]); }
+    [0xf48fb1, 0xfff176, 0xffffff, 0xce93d8].forEach((c, k) => many(ballGeo, c, beds.filter((_, i) => i % 4 === k), null, [0.3, 0.26, 0.3]));
+    many(boxGeo, 0x5f8a3a, beds.map((b) => [b[0], 0.34, b[2]]), null, [0.06, 0.3, 0.06]);
+    many(ballGeo, 0xf9c6d8, Array.from({ length: 70 }, () => { const a = Math.random() * 6.283, r = Math.random() * 4.6; return [x + Math.cos(a) * r, 0.24, z + Math.sin(a) * r]; }), null, [0.2, 0.03, 0.14]);   // おちた 花びら
     drift(260, 0xf9bcd2, 0.2, 0.9, 0.9);
   }
 
@@ -106,28 +116,19 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     // 大通り：赤と 白の ちょうちん。
     const main = along(street.ax, street.h + 0.3, street.az, street.bx, street.h + 0.3, street.bz, 1.5);
     cord(main); lantern(main.filter((_, i) => i % 2 === 0), true); lantern(main.filter((_, i) => i % 2 === 1), false);
-    // やぐら。
+    // 見せ場：大きな みどりの 木。その よこに たいこ。
     const { x, z } = spot;
-    box(x, 0.9, z, 3.4, 1.8, 3.4, 0x8a5a3a);
-    for (let i = 0; i < 8; i += 1) {                      // 紅白の 幕
-      const c = i % 2 ? 0xf7f1e1 : 0xd8342c, o = -1.49 + i * 0.425;
-      box(x + o, 1.25, z + 1.72, 0.425, 1.0, 0.06, c); box(x + o, 1.25, z - 1.72, 0.425, 1.0, 0.06, c);
-      box(x + 1.72, 1.25, z + o, 0.06, 1.0, 0.425, c); box(x - 1.72, 1.25, z + o, 0.06, 1.0, 0.425, c);
-    }
-    for (const [sx, sz] of [[-1.5, -1.5], [1.5, -1.5], [-1.5, 1.5], [1.5, 1.5]]) box(x + sx, 3.3, z + sz, 0.22, 3.0, 0.22, 0x6f4a30);
-    box(x, 1.86, z, 3.7, 0.12, 3.7, 0xa8794f);
-    box(x, 4.9, z, 4.2, 0.24, 4.2, 0xc7362c); box(x, 5.2, z, 2.8, 0.36, 2.8, 0xd8463a); box(x, 5.55, z, 1.2, 0.34, 1.2, 0xe2584a);
-    // たいこ。
-    const drum = new THREE.Mesh(drumGeo, mat(0x9a3b2a)); drum.scale.set(1.1, 0.9, 1.1); drum.rotation.z = Math.PI / 2; drum.position.set(x, 2.75, z); drum.castShadow = true; group.add(drum);
-    for (const sx of [-0.46, 0.46]) { const skin = new THREE.Mesh(drumGeo, mat(0xf2e6c8)); skin.scale.set(1.04, 0.04, 1.04); skin.rotation.z = Math.PI / 2; skin.position.set(x + sx, 2.75, z); group.add(skin); }
-    box(x, 2.1, z, 0.9, 0.4, 0.9, 0x6f4a30);
-    onObstacle?.({ x, z, w: 1.8, d: 1.8 });
-    // やぐらの 上から まわりの 柱へ、ちょうちんの ひも 6 本。
+    const top = bigTree(x, z, 0x58a548) * 0.52;
+    const dx = 2.6, dz = 1.8;
+    box(x + dx, 0.5, z + dz, 1.0, 1.0, 1.0, 0x6f4a30);
+    const drum = new THREE.Mesh(drumGeo, mat(0x9a3b2a)); drum.scale.set(1.2, 1.0, 1.2); drum.rotation.z = Math.PI / 2; drum.position.set(x + dx, 1.6, z + dz); drum.castShadow = true; group.add(drum);
+    for (const sx of [-0.51, 0.51]) { const skin = new THREE.Mesh(drumGeo, mat(0xf2e6c8)); skin.scale.set(1.14, 0.04, 1.14); skin.rotation.z = Math.PI / 2; skin.position.set(x + dx + sx, 1.6, z + dz); group.add(skin); }
+    // 木から まわりの 柱へ、ちょうちんの ひも 6 本。
     for (let i = 0; i < 6; i += 1) {
       const a = (i / 6) * Math.PI * 2 + 0.3, px = x + Math.cos(a) * 7, pz = z + Math.sin(a) * 7;
       if (!clear(px, pz)) continue;                     // 建物・道・水の 上には 立てない
       pole(px, pz, 3.6);
-      const pts = along(x, 5.4, z, px, 3.6, pz, 1.25, 0.5);
+      const pts = along(x, top, z, px, 3.6, pz, 1.25, 0.5);
       cord(pts); lantern(pts.slice(1).filter((_, k) => k % 2 === 0), i % 2 === 0); lantern(pts.slice(1).filter((_, k) => k % 2 === 1), i % 2 !== 0);
     }
     // 夜の 花火（点の かたまり 3 つ。ひらいて、おちて、きえる）。
@@ -161,9 +162,8 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     const pumpkins = [[-2.2, 0.42, 1.2, 1.1], [2.1, 0.36, 1.0, 0.9], [1.3, 0.3, 2.2, 0.75], [-1.2, 0.32, 2.3, 0.8], [0.2, 0.46, 2.6, 1.2], [-2.6, 0.28, -0.4, 0.7], [2.7, 0.3, -0.6, 0.75]].map((p) => [x + p[0], p[1], z + p[2], p[3]]);
     many(ballGeo, 0xe8811f, pumpkins, null, [0.95, 0.78, 0.95]);
     many(boxGeo, 0x5a7a3a, pumpkins.map((p) => [p[0], p[1] + 0.36 * p[3], p[2], p[3]]), null, [0.12, 0.2, 0.12]);
-    // かかし。
-    box(x, 1.9, z - 1.6, 0.16, 3.8, 0.16, 0x7a5a3a); box(x, 2.7, z - 1.6, 2.4, 0.14, 0.14, 0x7a5a3a);
-    box(x, 2.5, z - 1.6, 1.0, 1.1, 0.4, 0xb5523a); box(x, 3.45, z - 1.6, 0.7, 0.7, 0.6, 0xe8d3a2); box(x, 3.9, z - 1.6, 1.3, 0.14, 1.2, 0xc79a4a); box(x, 4.1, z - 1.6, 0.7, 0.36, 0.66, 0xc79a4a);
+    // うしろに 大きな もみじの 木。
+    bigTree(x, z - 2.4, 0xd9482b);
     onObstacle?.({ x, z: z + 0.3, w: 1.9, d: 1.1 });
     drift(240, 0xe8742a, 0.26, 1.3, 1.5);
   }
@@ -198,6 +198,10 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
       });
       onObstacle?.({ x, z, w: 0.9, d: 0.9 });
     } else {
+      // 雪を かぶった もみの 木と、雪だるま 2 つ。
+      const fir = singleFir({ height: 7.4, colour: 0xb9d8c2, seed: 9 });
+      fir.group.scale.setScalar(1.6); fir.group.position.set(x, 0, z - 2.2); group.add(fir.group);
+      tickers.push((t) => fir.update(t));
       // 雪だるま 2 つ。
       for (const [dx, dz, s] of [[-1.3, 0, 1], [1.5, 0.6, 0.72]]) {
         many(ballGeo, 0xf7fafd, [[x + dx, 0.75 * s, z + dz, 1.5 * s], [x + dx, 1.85 * s, z + dz, 1.1 * s], [x + dx, 2.65 * s, z + dz, 0.8 * s]]);

@@ -273,3 +273,15 @@ export function singleFir({ height = 7.4, colour = 0x3f7a48, seed = 5 } = {}) {
   for (const m of [wood, leaves]) { m.castShadow = true; m.receiveShadow = true; group.add(m); }
   return { group, height, update(t) { sway.value = t; } };
 }
+
+// ひろばの まんなかに 1 本だけ 立てる 大きな 木（春＝さくら・夏＝みどり・秋＝もみじ）。葉を こく して ある。
+export function singleBroad({ colour = 0x5aa646, seed = 21 } = {}) {
+  const k = broadleaf(seeded(seed), { trunk: 2.6, radius: 0.36, taper: 0.66, depth: 4, fork: 3, spread: 0.62, lift: 0.2, shrink: 0.66, cards: 5, puff: 1.5, leaf: 1.7, leader: false });
+  const sway = { value: 0 };
+  const group = new THREE.Group();
+  const wood = new THREE.Mesh(k.wood, new THREE.MeshStandardMaterial({ color: BARK.broad, map: barkTexture(seeded(seed + 2)), roughness: 0.95 }));
+  const mat = foliage(leafTexture(seeded(seed + 1)), sway); mat.color.setHex(colour);
+  const leaves = new THREE.Mesh(k.leaves, mat);
+  for (const m of [wood, leaves]) { m.castShadow = true; m.receiveShadow = true; group.add(m); }
+  return { group, height: k.height, update(t) { sway.value = t; } };
+}
