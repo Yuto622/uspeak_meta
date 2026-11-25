@@ -340,3 +340,54 @@
 #rpg-content .ad-overview { margin: 14px 0 6px; }
 #rpg-content .ad-overview > div { padding: 12px 14px; }
 #rpg-content .ad-overview strong { font-size: 22px; margin-top: 4px; }
+
+/* ── つり島の 問題（#fw-dialog の 7 つの 形）を 異次元・ブランド色に（2026-11：「もっと 魅力的な UI に」）。
+   formats-ui の 部品（.fmt-*）は 宿題・/dev/formats でも 使うので、**問題を 出して いる あいだ（#fw-dialog[data-view="ask"]）だけ** かえる。○×の 色（.right .wrong .ok .ng）は 字を こく して のこす。 ── */
+#fw-dialog[data-view="ask"] { background: radial-gradient(1px 1px at 10% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 84% 22%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 46% 86%, #fff4d6 50%, transparent 51%), radial-gradient(1px 1px at 70% 60%, #fff 50%, transparent 51%), linear-gradient(160deg, #0c241c, #123528 55%, #1b3a2f); color: #fff4d6; border: 2px solid #ff9d4d88; box-shadow: 0 0 0 3px #8ff0c822, 0 30px 80px #06120dcc; }
+#fw-dialog[data-view="ask"]::backdrop { background: #08160fcc; }
+#fw-dialog[data-view="ask"] #fw-body { background: transparent; color: #fff4d6; }
+#fw-dialog[data-view="ask"] .fmt { background: #ffffff0d; border: 1px solid #ffb06655; box-shadow: 0 0 26px #ff9d4d1f inset; }
+#fw-dialog[data-view="ask"] .fmt-head { background: linear-gradient(90deg, #e27a2d, #f2b04a) !important; color: #1b3a2f; }
+#fw-dialog[data-view="ask"] .fmt-title b { font-size: 20px; color: #1b3a2f; } #fw-dialog[data-view="ask"] .fmt-title small { color: #1b3a2f; opacity: .85; font-weight: 700; }
+#fw-dialog[data-view="ask"] .fmt-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: #1b3a2f; font-size: 24px; }
+#fw-dialog[data-view="ask"] .fmt-quit, #fw-dialog[data-view="ask"] .fmt-again { background: #1b3a2f33; color: #1b3a2f; }
+#fw-dialog[data-view="ask"] .fmt-body { color: #fff4d6; }
+#fw-dialog[data-view="ask"] .fmt-q, #fw-dialog[data-view="ask"] .fmt-ja, #fw-dialog[data-view="ask"] .fmt-sentence { color: #fff; }
+#fw-dialog[data-view="ask"] .fmt-word { color: #ffb066; text-shadow: 0 0 14px #ff9d4d66; }
+#fw-dialog[data-view="ask"] .fmt-sub, #fw-dialog[data-view="ask"] .fmt-slot i { color: #cfe8d8; }
+#fw-dialog[data-view="ask"] .fmt-hint { color: #8ff0c8; }
+#fw-dialog[data-view="ask"] .fmt-answer { color: #8ff0c8; }
+#fw-dialog[data-view="ask"] .fmt-mguide { background: #ffb0661f; border: 1px solid #ffb06666; }
+#fw-dialog[data-view="ask"] .fmt-mstep { color: #fff; } #fw-dialog[data-view="ask"] .fmt-mstep b { color: #ffb066; } #fw-dialog[data-view="ask"] .fmt-mstep em { color: #cfe8d8; }
+#fw-dialog[data-view="ask"] .fmt-mcount i { background: #ffffff2e; } #fw-dialog[data-view="ask"] .fmt-mcount i.on { background: #8ff0c8; box-shadow: 0 0 8px #8ff0c8; } #fw-dialog[data-view="ask"] .fmt-mcount b { color: #fff4d6; }
+/* えらぶ カード・せんつなぎの カード・もじの タイル：ガラスの 板に クリームの 字、ふちが 光る。 */
+#fw-dialog[data-view="ask"] .fmt-card, #fw-dialog[data-view="ask"] .fmt-choice, #fw-dialog[data-view="ask"] .fmt-tile, #fw-dialog[data-view="ask"] .fmt-slot.filled, #fw-dialog[data-view="ask"] .fmt-box, #fw-dialog[data-view="ask"] .fmt-key { background: linear-gradient(160deg, #1f5a45, #163a2e); color: #fff4d6; border-color: #3f8a6e; box-shadow: 0 3px 0 #0c241c; }
+#fw-dialog[data-view="ask"] .fmt-card { font-size: 20px; min-height: 58px; border-radius: 18px; }
+#fw-dialog[data-view="ask"] .fmt-right .fmt-card { background: linear-gradient(160deg, #2a5a48, #1b3a2f); }
+#fw-dialog[data-view="ask"] .fmt-card:hover, #fw-dialog[data-view="ask"] .fmt-choice:hover, #fw-dialog[data-view="ask"] .fmt-tile:hover { border-color: #ffb066; }
+#fw-dialog[data-view="ask"] .fmt-plug { background: #0c241c; border-color: #ffb066; box-shadow: 0 0 8px #ff9d4d88; }
+#fw-dialog[data-view="ask"] .fmt-right .fmt-plug { border-color: #8ff0c8; box-shadow: 0 0 8px #8ff0c888; }
+#fw-dialog[data-view="ask"] .fmt-card.picked, #fw-dialog[data-view="ask"] .fmt-choice.picked { border-color: #ffb066; background: linear-gradient(160deg, #e27a2d, #f2b04a); color: #1b3a2f; box-shadow: 0 0 0 4px #ffb06655, 0 0 22px #ff9d4d88; }
+#fw-dialog[data-view="ask"] .fmt-card.linked { border-color: var(--pair, #e27a2d); background: linear-gradient(160deg, color-mix(in srgb, var(--pair, #e27a2d) 55%, #163a2e), #163a2e); color: #fff; box-shadow: 0 0 14px color-mix(in srgb, var(--pair, #e27a2d) 60%, transparent); }
+#fw-dialog[data-view="ask"] .fmt-match .fmt-col .fmt-card.hover, #fw-dialog[data-view="ask"] .fmt-slot.fmt-over, #fw-dialog[data-view="ask"] .fmt-blank.fmt-over { background: linear-gradient(160deg, #e27a2d, #f2b04a) !important; color: #1b3a2f; border-color: #fff4d6 !important; }
+#fw-dialog[data-view="ask"] .fmt-slot { background: #ffffff10; border-color: #5f9a80; }
+#fw-dialog[data-view="ask"] .fmt-build { background: #ffffff0d; border-color: #5f9a80; }
+#fw-dialog[data-view="ask"] .fmt-tools button { color: #cfe8d8; } #fw-dialog[data-view="ask"] .fmt-tools button:hover { background: #ffffff1a; }
+#fw-dialog[data-view="ask"] .fmt-blank { border-color: #ffb066; } #fw-dialog[data-view="ask"] .fmt-blank.filled { color: #ffb066; }
+#fw-dialog[data-view="ask"] .fmt-key-del { background: #2f6b55; color: #fff4d6; } #fw-dialog[data-view="ask"] .fmt-key-enter { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; }
+/* ○×：明るい 地に こい 字。 */
+#fw-dialog[data-view="ask"] .fmt-choice.right, #fw-dialog[data-view="ask"] .fmt-card.right, #fw-dialog[data-view="ask"] .fmt-slot.ok, #fw-dialog[data-view="ask"] .fmt-box.ok { background: #bff3d8; border-color: #2f8f5b; color: #0c241c; }
+#fw-dialog[data-view="ask"] .fmt-choice.wrong, #fw-dialog[data-view="ask"] .fmt-card.wrong, #fw-dialog[data-view="ask"] .fmt-slot.ng, #fw-dialog[data-view="ask"] .fmt-box.ng { background: #ffd0c8; border-color: #c43d2e; color: #3a0c06; }
+#fw-dialog[data-view="ask"] .fmt-blank.right { color: #8ff0c8; border-color: #8ff0c8; }
+#fw-dialog[data-view="ask"] .fmt-foot { background: #08160fb3; border-top: 1px solid #ffb06644; }
+#fw-dialog[data-view="ask"] .fmt-howto, #fw-dialog[data-view="ask"] .fmt-foot p { background: #ffffff12; color: #fff4d6; }
+#fw-dialog[data-view="ask"] .fmt-check { background: linear-gradient(90deg, #f2b04a, #e27a2d); color: #1b3a2f; border: 0; box-shadow: 0 0 18px #ff9d4d66; font-weight: 900; }
+#fw-dialog[data-view="ask"] .fmt-check:disabled { background: #2f6b55; color: #9fc0b0; box-shadow: none; }
+#fw-dialog[data-view="ask"] .fmt-feedback { color: #fff; }
+#fw-dialog[data-view="ask"] .fmt-howto::before { border-right-color: #ffffff12; }
+/* ずかん いがいの タブは 明るい 紙の まま（字が こい 色なので）。物語の カードだけ ブランドの 緑に。 */
+#rpg-dialog:not([data-page="map"]) #rpg-content:not(:has(.rpg-cards)) { background: #f4f1e3; }
+#rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero { background: linear-gradient(120deg, #1b3a2f, #2a5a48); border-color: #ffb066; color: #fff4d6; }
+#rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero h3 { color: #fff; }
+#rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero p { color: #cfe8d8; }
+#rpg-dialog:not([data-page="map"]) #rpg-content .ad-chapter-hero .rpg-eyebrow { color: #ffb066; }

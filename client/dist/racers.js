@@ -45,6 +45,8 @@ export function createRacers({ toast, onOpen, onClose, kart }) {
 function simpleMenu(doc) {
   const menu = doc.querySelector('#menu'); if (!menu || doc.body.classList.contains('uspeak-simple')) return;
   doc.body.classList.add('uspeak-simple');
+  // 前へは じどうで すすむ（2026-11：「前には 勝手に 進む ように。左右の 操作バーのみ」）。あちらの「オート加速」を はじめから 入れる。
+  const gas = doc.querySelector('#autoGas'); if (gas && gas.getAttribute('aria-checked') !== 'true') gas.click();
   const rows = [...menu.querySelectorAll('.label-row > span:first-child')];
   ['① コースを えらぶ', '② くるまを えらぶ', '③ えいごの レベル'].forEach((t, i) => { if (rows[i]) rows[i].textContent = t; });
   const level = ['★ やさしい', '★★ ふつう', '★★★ むずかしい', '★★★★ とても むずかしい'];

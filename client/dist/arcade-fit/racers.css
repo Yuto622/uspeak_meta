@@ -68,3 +68,9 @@ body.uspeak-simple .uspeak-gear { display: block; margin: 12px 0 0; padding: 8px
   body.uspeak-simple #start { font-size: 18px; min-height: 48px; }
   body.uspeak-simple #modeDescription { font-size: 13px; }
 }
+
+/* 前へは じどう：指の ボタンは 左右だけ（大きく、画面の 左右の はしに）。GO・BRAKE・DRIFT・TRICK は 出さない。 */
+body.uspeak-simple #touch .touch-action { display: none !important; }
+body.uspeak-simple #touch .touch-steer { position: fixed; left: 0; right: 0; bottom: max(18px, env(safe-area-inset-bottom)); width: auto; display: flex; justify-content: space-between; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); pointer-events: none; }
+body.uspeak-simple #touch .touch-steer button { pointer-events: auto; width: clamp(84px, 16vw, 120px); height: clamp(84px, 16vw, 120px); border-radius: 50%; font-size: clamp(34px, 6vw, 48px); }
+body.uspeak-simple #driftLabel { display: none !important; }

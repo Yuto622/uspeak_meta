@@ -2057,6 +2057,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **先生コンソールは 番号つきの まとまり**（`teacher.js` の `.net-t-group`・見た目は `cosmic-panels.css`）：① あつめる ② クラスの ルール ③ どうぐ ④ 今日の おつかい ⑤ いま いる 生徒。ボタンの id は そのまま。
 - **おつかいクエストの 板は かんたんに**（`mission.js` の `renderBoard`）：3 つの しるし（うけとる → えいごで はなす → とどける）・「つぎの おつかい」を 1 つ 大きく・島の 外で カードを おすと そのまま おつかい島へ とぶ（`choose` が `goToIsland()`）。`#mission-travel` は のこして ある（e2e が 押す）。
 
+- **じどうで あるく**（`task-guide.js` の `walk / steer / stopWalk`・カードの `.task-walk-btn`）：光の 道の つぎの 角への 向きを `game.js` が 毎フレーム もらって 歩く（当たり判定は いつもの まま）。引っかかったら よこに よけ、4.5 秒 すすまなければ つぎの 角まで はこぶ。自分で うごかす・画面が ひらく・家に 入る・つく で 止まる。行き先が ほかの 島なら ひこうき。
+- **メインの島の 🏠 は スタートに もどる**（前は 2D の 地図）。2D の 地図（`main-island.js` の `open`）は 消して いない（検査・写真用）。
+- **冒険ノートの はじめの ページ**（`adventure.js` の `renderJourney`）：物語と 大きな「すすめる」が 上、数字が 下、ほかは `<details class="ad-more">`「もっと 見る」。
+- **つり島の 問題も 異次元・ブランド色**（`cosmic-panels.css` の `#fw-dialog[data-view="ask"]`。宿題の 同じ 部品は かえて いない）。
+- **AURORA KART は 前へ じどう**：`simpleMenu` が あちらの「オート加速」を 入れ、指の ボタンは 左右だけ（`arcade-fit/racers.css`）。
+
 ## きせかえ島で 買える すがた（アバター／2026-11）
 - **5 つめの スロット `avatar`（すがた）**：`wardrobe.json` の 先頭に 8 人（ねこ・パンダ・にんじゃ・ひめ・ヒーロー・きし・ドラゴン・ユニコーン。`kind` ＝ 体の id `av-…`）。島には 5 けんめの 店「すがたや」（`avatar-shop`）。
 - **体は `avatar-bodies.js`**（three だけ・サーバーの 検査からも 読める）。`buildPremiumAvatar(id)` は `buildAvatar` と 同じ 約束（`userData.limbs`・`anchors`）で 返すので、歩く うごきも ぼうし・めがね・かばんも そのまま。
