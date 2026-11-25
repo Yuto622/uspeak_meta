@@ -220,6 +220,326 @@
       "kind": "av-unicorn"
     },
     {
+      "id": "av-dog",
+      "slot": "avatar",
+      "ja": "いぬ",
+      "en": "Dog",
+      "price": 60,
+      "level": 1,
+      "colour": "c99a5b",
+      "kind": "av-dog"
+    },
+    {
+      "id": "av-pig",
+      "slot": "avatar",
+      "ja": "ぶた",
+      "en": "Pig",
+      "price": 70,
+      "level": 1,
+      "colour": "f7a8b8",
+      "kind": "av-pig"
+    },
+    {
+      "id": "av-koala",
+      "slot": "avatar",
+      "ja": "コアラ",
+      "en": "Koala",
+      "price": 90,
+      "level": 1,
+      "colour": "9aa3ad",
+      "kind": "av-koala"
+    },
+    {
+      "id": "av-monkey",
+      "slot": "avatar",
+      "ja": "さる",
+      "en": "Monkey",
+      "price": 100,
+      "level": 1,
+      "colour": "8a5a2e",
+      "kind": "av-monkey"
+    },
+    {
+      "id": "av-cow",
+      "slot": "avatar",
+      "ja": "うし",
+      "en": "Cow",
+      "price": 120,
+      "level": 2,
+      "colour": "fbfbf7",
+      "kind": "av-cow"
+    },
+    {
+      "id": "av-tiger",
+      "slot": "avatar",
+      "ja": "とら",
+      "en": "Tiger",
+      "price": 160,
+      "level": 2,
+      "colour": "f28a2e",
+      "kind": "av-tiger"
+    },
+    {
+      "id": "av-bee",
+      "slot": "avatar",
+      "ja": "はち",
+      "en": "Bee",
+      "price": 180,
+      "level": 2,
+      "colour": "ffd447",
+      "kind": "av-bee"
+    },
+    {
+      "id": "av-owl",
+      "slot": "avatar",
+      "ja": "ふくろう",
+      "en": "Owl",
+      "price": 200,
+      "level": 3,
+      "colour": "8d6e4a",
+      "kind": "av-owl"
+    },
+    {
+      "id": "av-lion",
+      "slot": "avatar",
+      "ja": "ライオン",
+      "en": "Lion",
+      "price": 240,
+      "level": 3,
+      "colour": "e6b04a",
+      "kind": "av-lion"
+    },
+    {
+      "id": "av-chef",
+      "slot": "avatar",
+      "ja": "コック",
+      "en": "Chef",
+      "price": 110,
+      "level": 1,
+      "colour": "fbfbf7",
+      "kind": "av-chef"
+    },
+    {
+      "id": "av-pirate",
+      "slot": "avatar",
+      "ja": "かいぞく",
+      "en": "Pirate",
+      "price": 170,
+      "level": 2,
+      "colour": "b8323c",
+      "kind": "av-pirate"
+    },
+    {
+      "id": "av-police",
+      "slot": "avatar",
+      "ja": "けいさつ",
+      "en": "Police",
+      "price": 190,
+      "level": 2,
+      "colour": "2c4a8a",
+      "kind": "av-police"
+    },
+    {
+      "id": "av-fire",
+      "slot": "avatar",
+      "ja": "しょうぼうし",
+      "en": "Firefighter",
+      "price": 210,
+      "level": 3,
+      "colour": "d8323c",
+      "kind": "av-fire"
+    },
+    {
+      "id": "av-doctor",
+      "slot": "avatar",
+      "ja": "おいしゃさん",
+      "en": "Doctor",
+      "price": 230,
+      "level": 3,
+      "colour": "fbfbf7",
+      "kind": "av-doctor"
+    },
+    {
+      "id": "av-cowboy",
+      "slot": "avatar",
+      "ja": "カウボーイ",
+      "en": "Cowboy",
+      "price": 250,
+      "level": 4,
+      "colour": "b8703a",
+      "kind": "av-cowboy"
+    },
+    {
+      "id": "av-wizard",
+      "slot": "avatar",
+      "ja": "まほうつかい",
+      "en": "Wizard",
+      "price": 280,
+      "level": 4,
+      "colour": "5a3a9a",
+      "kind": "av-wizard"
+    },
+    {
+      "id": "av-astro",
+      "slot": "avatar",
+      "ja": "うちゅうひこうし",
+      "en": "Astronaut",
+      "price": 320,
+      "level": 5,
+      "colour": "f2f4f7",
+      "kind": "av-astro"
+    },
+    {
+      "id": "av-samurai",
+      "slot": "avatar",
+      "ja": "さむらい",
+      "en": "Samurai",
+      "price": 380,
+      "level": 5,
+      "colour": "8a1f2a",
+      "kind": "av-samurai"
+    },
+    {
+      "id": "av-robot",
+      "slot": "avatar",
+      "ja": "ロボット",
+      "en": "Robot",
+      "price": 420,
+      "level": 5,
+      "colour": "8fa3b8",
+      "kind": "av-robot"
+    },
+    {
+      "id": "av-alien",
+      "slot": "avatar",
+      "ja": "うちゅうじん",
+      "en": "Alien",
+      "price": 460,
+      "level": 6,
+      "colour": "7a3fd0",
+      "kind": "av-alien"
+    },
+    {
+      "id": "av-ghost",
+      "slot": "avatar",
+      "ja": "おばけ",
+      "en": "Ghost",
+      "price": 480,
+      "level": 6,
+      "colour": "f4f6fb",
+      "kind": "av-ghost"
+    },
+    {
+      "id": "av-mummy",
+      "slot": "avatar",
+      "ja": "ミイラ",
+      "en": "Mummy",
+      "price": 500,
+      "level": 6,
+      "colour": "e8e0c8",
+      "kind": "av-mummy"
+    },
+    {
+      "id": "av-vampire",
+      "slot": "avatar",
+      "ja": "きゅうけつき",
+      "en": "Vampire",
+      "price": 560,
+      "level": 7,
+      "colour": "24272d",
+      "kind": "av-vampire"
+    },
+    {
+      "id": "av-fairy",
+      "slot": "avatar",
+      "ja": "ようせい",
+      "en": "Fairy",
+      "price": 600,
+      "level": 7,
+      "colour": "8fe0b0",
+      "kind": "av-fairy"
+    },
+    {
+      "id": "av-angel",
+      "slot": "avatar",
+      "ja": "てんし",
+      "en": "Angel",
+      "price": 650,
+      "level": 7,
+      "colour": "fbfbf7",
+      "kind": "av-angel"
+    },
+    {
+      "id": "av-devil",
+      "slot": "avatar",
+      "ja": "こあくま",
+      "en": "Little Devil",
+      "price": 680,
+      "level": 8,
+      "colour": "b81f2f",
+      "kind": "av-devil"
+    },
+    {
+      "id": "av-king",
+      "slot": "avatar",
+      "ja": "おうさま",
+      "en": "King",
+      "price": 760,
+      "level": 8,
+      "colour": "7a2ea0",
+      "kind": "av-king"
+    },
+    {
+      "id": "av-santa",
+      "slot": "avatar",
+      "ja": "サンタ",
+      "en": "Santa",
+      "price": 800,
+      "level": 8,
+      "colour": "d8323c",
+      "kind": "av-santa"
+    },
+    {
+      "id": "av-snowman",
+      "slot": "avatar",
+      "ja": "ゆきだるま",
+      "en": "Snowman",
+      "price": 840,
+      "level": 9,
+      "colour": "fbfdff",
+      "kind": "av-snowman"
+    },
+    {
+      "id": "av-pumpkin",
+      "slot": "avatar",
+      "ja": "かぼちゃ",
+      "en": "Pumpkin",
+      "price": 880,
+      "level": 9,
+      "colour": "2f8f5b",
+      "kind": "av-pumpkin"
+    },
+    {
+      "id": "av-gold",
+      "slot": "avatar",
+      "ja": "ゴールドナイト",
+      "en": "Gold Knight",
+      "price": 1500,
+      "level": 12,
+      "colour": "ffd447",
+      "kind": "av-gold"
+    },
+    {
+      "id": "av-rainbow",
+      "slot": "avatar",
+      "ja": "にじの りゅう",
+      "en": "Rainbow Dragon",
+      "price": 2000,
+      "level": 15,
+      "colour": "7ad0ff",
+      "kind": "av-rainbow"
+    },
+    {
       "id": "cap-red",
       "slot": "hat",
       "ja": "あかい キャップ",

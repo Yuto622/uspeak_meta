@@ -178,6 +178,115 @@ const BODIES = {
   },
 };
 
+// ── ふやした すがた（2026-11：「もっと レパートリー 爆増」）。1 体ずつ 手で 書かず、**とくちょうの 表**（SPECS）から 組み立てる。
+// 耳・はな・たてがみ・しま・しっぽ・つの・はね・ぼうし・マント・ひげ…を 表に 書けば 体に なる。足す ときは 表に 1 行＋wardrobe.json に 1 行。
+const SPECS = {
+  'av-dog': { body: 0xc99a5b, head: 0xc99a5b, hand: 0xfff3dd, legs: 0xc99a5b, shoes: 0xfff3dd, ears: ['flop',0x8a5a2e], snout: 0xfff3dd, nose: 0x24272d, tail: ['thin',0xc99a5b], collar: 0x3f6fd0, belly: 0xfff3dd },
+  'av-pig': { body: 0xf7a8b8, head: 0xf7a8b8, hand: 0xf28aa0, legs: 0xf7a8b8, shoes: 0xd96a86, ears: ['point',0xf28aa0], snout: 0xf28aa0, nose: 0xd96a86, tail: ['curl',0xf28aa0] },
+  'av-koala': { body: 0x9aa3ad, head: 0x9aa3ad, hand: 0x7d8791, legs: 0x9aa3ad, shoes: 0x7d8791, ears: ['big',0x7d8791,0xf2f2f2], nose: 0x24272d, belly: 0xe8ecef },
+  'av-monkey': { body: 0x8a5a2e, head: 0x8a5a2e, hand: 0xe8c39a, legs: 0x8a5a2e, shoes: 0xe8c39a, ears: ['round',0xe8c39a], snout: 0xe8c39a, tail: ['curl',0x8a5a2e], belly: 0xe8c39a },
+  'av-cow': { body: 0xfbfbf7, head: 0xfbfbf7, hand: 0x24272d, legs: 0xfbfbf7, shoes: 0x24272d, ears: ['flop',0x24272d], snout: 0xf7a8b8, horns: 0xe6d3a8, spots: 0x24272d, tail: ['thin',0x24272d], collar: 0xd8323c },
+  'av-tiger': { body: 0xf28a2e, head: 0xf28a2e, hand: 0xfff3dd, legs: 0xf28a2e, shoes: 0xfff3dd, ears: ['round',0xf28a2e,0xfff3dd], snout: 0xfff3dd, nose: 0xd96a86, stripes: 0x24272d, tail: ['thin',0xf28a2e], belly: 0xfff3dd },
+  'av-bee': { body: 0xffd447, head: 0xffd447, hand: 0x24272d, legs: 0x24272d, shoes: 0x24272d, stripes: 0x24272d, antenna: 0x24272d, wings: 0xdff4ff },
+  'av-owl': { body: 0x8d6e4a, head: 0x8d6e4a, hand: 0x6f5536, legs: 0xe6a03c, shoes: 0xe6a03c, ears: ['point',0x6f5536], bigeyes: 0xfff3dd, beak: 0xe6a03c, belly: 0xe6d3a8, wings: 0x6f5536 },
+  'av-lion': { body: 0xe6b04a, head: 0xe6b04a, hand: 0xfff3dd, legs: 0xe6b04a, shoes: 0xfff3dd, ears: ['round',0xe6b04a], snout: 0xfff3dd, nose: 0x8a5a2e, mane: 0xb86a1e, tail: ['thin',0xe6b04a], belly: 0xfff3dd },
+  'av-chef': { body: 0xfbfbf7, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x3a3f4a, shoes: 0x24272d, hat: ['chef',0xfbfbf7], buttons: 0x24272d, scarf: 0xd8323c, hair: 0x4a3426 },
+  'av-pirate': { body: 0xb8323c, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x24272d, shoes: 0x4a3426, hat: ['pirate',0x24272d], eyepatch: 1, belt: 0xffd447, beard: 0x24272d, stripes: 0xfbfbf7 },
+  'av-police': { body: 0x2c4a8a, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x1f3566, shoes: 0x24272d, hat: ['cap',0x1f3566,0xffd447], emblem: 0xffd447, belt: 0x24272d, hair: 0x24272d },
+  'av-fire': { body: 0xd8323c, head: 0xe6b68e, hand: 0xffd447, legs: 0x24272d, shoes: 0x24272d, hat: ['helmet',0xd8323c,0xffd447], bands: 0xffd447, belt: 0x24272d },
+  'av-doctor': { body: 0xfbfbf7, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x5aa6a0, shoes: 0xfbfbf7, hair: 0x4a3426, emblem: 0xd8323c, scarf: 0x5aa6a0, glasses: 1 },
+  'av-cowboy': { body: 0xb8703a, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x2c4a8a, shoes: 0x6a4326, hat: ['cowboy',0x8a5a2e], scarf: 0xd8323c, belt: 0xffd447, emblem: 0xffd447 },
+  'av-wizard': { body: 0x5a3a9a, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x3a2670, shoes: 0x24272d, hat: ['wizard',0x5a3a9a,0xffd447], beard: 0xfbfbf7, belt: 0xffd447, cape: 0x3a2670, stars: 0xffd447 },
+  'av-astro': { body: 0xf2f4f7, head: 0xe6b68e, hand: 0xf2f4f7, legs: 0xf2f4f7, shoes: 0xc8ced6, hat: ['bubble',0xf2f4f7,0x7ec8ff], emblem: 0x2c6fe0, bands: 0xe27a2d, pack: 0xc8ced6 },
+  'av-samurai': { body: 0x8a1f2a, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x24272d, shoes: 0x24272d, hat: ['kabuto',0x24272d,0xffd447], bands: 0xffd447, belt: 0xffd447, sword: 0xc8ced6 },
+  'av-robot': { body: 0x8fa3b8, head: 0xb8c8d8, hand: 0x5a6a7a, legs: 0x5a6a7a, shoes: 0x3a4654, antenna: 0xd8323c, visor: 0x7df9ff, emblem: 0x7df9ff, bands: 0x3a4654, nomouth: 1, noeyes: 1 },
+  'av-alien': { body: 0x7a3fd0, head: 0x7fe07a, hand: 0x7fe07a, legs: 0x5a2ea0, shoes: 0x3a1f70, antenna: 0x7fe07a, bigeyes: 0x24272d, emblem: 0xffd447, nomouth: 1 },
+  'av-ghost': { body: 0xf4f6fb, head: 0xf4f6fb, hand: 0xf4f6fb, legs: 0xf4f6fb, shoes: 0xdfe4ee, cheeks: 0xf7a8b8, tatters: 0xf4f6fb, glow: 0.25 },
+  'av-mummy': { body: 0xe8e0c8, head: 0xe8e0c8, hand: 0xe8e0c8, legs: 0xe8e0c8, shoes: 0xcfc5a8, wraps: 0xb8ad8a, eyes: 0xffd447 },
+  'av-vampire': { body: 0x24272d, head: 0xe8e0ea, hand: 0xe8e0ea, legs: 0x24272d, shoes: 0x24272d, hair: 0x24272d, cape: 0x8a1f2a, collarUp: 0x8a1f2a, emblem: 0xd8323c, fangs: 1 },
+  'av-fairy': { body: 0x8fe0b0, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x5fc08a, shoes: 0xf7a8b8, hair: 0xffd447, wings: 0xfff0ff, halo: 0xf7a8b8, stars: 0xffffff, skirt: 0x5fc08a },
+  'av-angel': { body: 0xfbfbf7, head: 0xe6b68e, hand: 0xe6b68e, legs: 0xfbfbf7, shoes: 0xffd447, hair: 0xffe08a, wings: 0xffffff, halo: 0xffd447, belt: 0xffd447, skirt: 0xfbfbf7 },
+  'av-devil': { body: 0xb81f2f, head: 0xd8323c, hand: 0xd8323c, legs: 0x8a1220, shoes: 0x24272d, horns: 0x24272d, tail: ['arrow',0x8a1220], wings: 0x5a0f18, emblem: 0xffd447 },
+  'av-king': { body: 0x7a2ea0, head: 0xe6b68e, hand: 0xe6b68e, legs: 0x24272d, shoes: 0x24272d, hat: ['crown',0xffd447,0xd8323c], beard: 0xfbfbf7, cape: 0xd8323c, fur: 0xfbfbf7, belt: 0xffd447, emblem: 0xffd447 },
+  'av-santa': { body: 0xd8323c, head: 0xe6b68e, hand: 0xfbfbf7, legs: 0xd8323c, shoes: 0x24272d, hat: ['santa',0xd8323c,0xfbfbf7], beard: 0xfbfbf7, fur: 0xfbfbf7, belt: 0x24272d, buttons: 0xffd447 },
+  'av-snowman': { body: 0xfbfdff, head: 0xfbfdff, hand: 0x8a5a2e, legs: 0xfbfdff, shoes: 0xe8eef5, hat: ['top',0x24272d,0xd8323c], carrot: 0xf28a2e, buttons: 0x24272d, scarf: 0x2f8f5b, nomouth: 1 },
+  'av-pumpkin': { body: 0x2f8f5b, head: 0xf28a2e, hand: 0x2f8f5b, legs: 0x24272d, shoes: 0x24272d, stem: 0x2f8f5b, jack: 0xffe08a, noeyes: 1, nomouth: 1, cape: 0x24272d },
+  'av-gold': { body: 0xffd447, head: 0xffe98a, hand: 0xe6b020, legs: 0xe6b020, shoes: 0xb88a10, hat: ['helmet',0xffd447,0xd8323c], cape: 0xd8323c, emblem: 0xffffff, bands: 0xb88a10, sword: 0xffffff, glow: 0.3, visor: 0x24272d, noeyes: 1, nomouth: 1 },
+  'av-rainbow': { body: 0x7ad0ff, head: 0x9a8aff, hand: 0xff9ad0, legs: 0x7ae0a0, shoes: 0xffe08a, horns: 0xffffff, wings: 0xff9ad0, tail: ['bushy',0xffe08a], spikes: 0xffffff, snout: 0xc8b8ff, belly: 0xfff3dd, glow: 0.25 },
+};
+
+function fromSpec(g, S) {
+  const { b, limbs } = base(g, { body: S.body, arm: S.arm ?? S.body, hand: S.hand, head: S.head, legs: S.legs, shoes: S.shoes, eyes: S.eyes ?? INK, mouth: S.nomouth || S.snout || S.beak ? null : 0x9b655a, face: !S.noeyes && !S.bigeyes });
+  const G = S.glow || 0; if (G) g.traverse((m) => { if (m.isMesh) m.material = material(m.material.color.getHex(), G); });
+  const both = (fn) => { fn(-1); fn(1); };
+  if (S.belly) b(0, 1.24, 0.275, 0.56, 0.58, 0.02, S.belly);
+  if (S.ears) { const [t, c, inner] = S.ears;
+    if (t === 'round') both((s) => { b(s * 0.3, 2.4, -0.02, 0.24, 0.22, 0.14, c); if (inner) b(s * 0.3, 2.4, 0.055, 0.13, 0.12, 0.02, inner); });
+    else if (t === 'point') both((s) => { b(s * 0.27, 2.42, -0.02, 0.2, 0.24, 0.14, c); b(s * 0.27, 2.58, -0.02, 0.1, 0.1, 0.1, c); });
+    else if (t === 'flop') both((s) => { b(s * 0.44, 2.05, -0.02, 0.14, 0.5, 0.36, c); });
+    else if (t === 'big') both((s) => { b(s * 0.48, 2.26, -0.02, 0.36, 0.4, 0.16, c); if (inner) b(s * 0.48, 2.26, 0.07, 0.2, 0.22, 0.02, inner); });
+    else if (t === 'long') both((s) => { b(s * 0.22, 2.75, -0.05, 0.18, 0.7, 0.14, c); });
+  }
+  if (S.mane) { b(0, 2.0, -0.12, 1.1, 1.0, 0.5, S.mane); b(0, 2.42, 0.1, 0.9, 0.2, 0.5, S.mane); both((s) => b(s * 0.46, 1.95, 0.16, 0.16, 0.7, 0.3, S.mane)); }
+  if (S.snout) { b(0, 1.88, 0.36, 0.36, 0.24, 0.08, S.snout); b(0, 1.95, 0.41, 0.12, 0.08, 0.03, S.nose ?? INK); }
+  else if (S.nose) b(0, 1.92, 0.35, 0.16, 0.12, 0.04, S.nose);
+  if (S.beak) b(0, 1.9, 0.38, 0.16, 0.12, 0.14, S.beak);
+  if (S.bigeyes) both((s) => { b(s * 0.18, 2.06, 0.345, 0.26, 0.26, 0.03, S.bigeyes); if (S.bigeyes !== INK) b(s * 0.18, 2.06, 0.365, 0.1, 0.1, 0.02, INK); else b(s * 0.14, 2.1, 0.365, 0.06, 0.06, 0.02, WHITE); });
+  if (S.visor) b(0, 2.03, 0.345, 0.6, 0.16, 0.03, S.visor, g, 0.6);
+  if (S.cheeks) both((s) => b(s * 0.27, 1.92, 0.345, 0.12, 0.07, 0.02, S.cheeks));
+  if (S.fangs) both((s) => b(s * 0.07, 1.78, 0.35, 0.05, 0.08, 0.02, WHITE));
+  if (S.glasses) { both((s) => b(s * 0.17, 2.03, 0.36, 0.2, 0.18, 0.02, INK)); both((s) => b(s * 0.17, 2.03, 0.372, 0.13, 0.11, 0.015, 0xcfe8f0)); }
+  if (S.eyepatch) { b(-0.17, 2.03, 0.365, 0.16, 0.15, 0.02, INK); b(0, 2.12, 0.35, 0.78, 0.04, 0.02, INK); }
+  if (S.carrot) b(0, 1.95, 0.46, 0.09, 0.09, 0.26, S.carrot);
+  if (S.jack) { both((s) => b(s * 0.17, 2.06, 0.345, 0.14, 0.14, 0.03, S.jack, g, 0.7)); b(0, 1.82, 0.345, 0.4, 0.08, 0.03, S.jack, g, 0.7); for (const x of [-0.24, -0.08, 0.08, 0.24]) b(x, 2.0, 0.34, 0.03, 0.66, 0.02, 0xc96a1a); }
+  if (S.stem) { b(0, 2.38, 0, 0.14, 0.16, 0.14, S.stem); b(0.12, 2.4, 0, 0.2, 0.05, 0.12, S.stem); }
+  if (S.hair) { b(0, 2.34, -0.02, 0.8, 0.14, 0.72, S.hair); b(0, 2.2, -0.31, 0.8, 0.3, 0.12, S.hair); }
+  if (S.beard) { b(0, 1.76, 0.33, 0.6, 0.3, 0.08, S.beard); both((s) => b(s * 0.34, 1.92, 0.3, 0.1, 0.34, 0.1, S.beard)); }
+  if (S.stripes) { for (const y of [1.52, 1.3, 1.08]) b(0, y, 0, 0.96, 0.08, 0.56, S.stripes); if (!S.hat) for (const x of [-0.2, 0, 0.2]) b(x, 2.32, 0.02, 0.08, 0.03, 0.5, S.stripes); }
+  if (S.spots) { b(-0.22, 1.42, 0.275, 0.3, 0.26, 0.02, S.spots); b(0.24, 1.14, 0.275, 0.24, 0.2, 0.02, S.spots); b(0.2, 2.2, 0.34, 0.26, 0.2, 0.02, S.spots); b(0, 1.3, -0.275, 0.4, 0.34, 0.02, S.spots); }
+  if (S.wraps) { for (const [y, r] of [[1.6, 0.08], [1.34, -0.1], [1.08, 0.06]]) b(0, y, 0, 0.97, 0.06, 0.57, S.wraps).rotation.z = r; for (const [y, r] of [[2.22, 0.1], [1.86, -0.08]]) b(0, y, 0, 0.78, 0.05, 0.7, S.wraps).rotation.z = r; }
+  if (S.bands) { both((s) => b(s * 0.6, 1.2, 0, 0.29, 0.08, 0.4, S.bands)); both((s) => b(s * 0.23, 0.36, 0, 0.36, 0.08, 0.45, S.bands)); }
+  if (S.buttons) for (const y of [1.5, 1.3, 1.1]) b(0, y, 0.28, 0.08, 0.08, 0.03, S.buttons);
+  if (S.emblem) b(0, 1.4, 0.28, 0.22, 0.22, 0.03, S.emblem, g, 0.3);
+  if (S.stars) for (const [x, y] of [[-0.28, 1.5], [0.26, 1.2], [0.1, 1.56]]) b(x, y, 0.28, 0.08, 0.08, 0.02, S.stars, g, 0.5);
+  if (S.belt) { b(0, 0.94, 0, 0.97, 0.12, 0.57, S.belt); b(0, 0.94, 0.29, 0.16, 0.14, 0.03, GOLD); }
+  if (S.collar) { b(0, 1.66, 0, 0.8, 0.09, 0.7, S.collar); b(0, 1.58, 0.36, 0.1, 0.1, 0.06, GOLD); }
+  if (S.scarf) { b(0, 1.68, 0.02, 0.86, 0.14, 0.72, S.scarf); b(0.2, 1.46, 0.31, 0.18, 0.36, 0.05, S.scarf); }
+  if (S.fur) { b(0, 1.66, 0, 0.98, 0.12, 0.6, S.fur); b(0, 0.92, 0, 0.98, 0.1, 0.58, S.fur); }
+  if (S.collarUp) both((s) => b(s * 0.36, 1.78, -0.2, 0.22, 0.36, 0.3, S.collarUp));
+  if (S.skirt) b(0, 0.9, 0, 1.06, 0.26, 0.66, S.skirt);
+  if (S.tatters) for (const x of [-0.3, 0, 0.3]) b(x, 0.12, 0, 0.22, 0.2, 0.4, S.tatters);
+  if (S.cape) { const c = b(0, 1.2, -0.34, 0.92, 1.1, 0.06, S.cape); c.rotation.x = 0.12; }
+  if (S.pack) b(0, 1.34, -0.4, 0.6, 0.66, 0.24, S.pack);
+  if (S.wings) both((s) => { const w = b(s * 0.56, 1.5, -0.36, 0.62, 0.74, 0.05, S.wings, g, 0.25); w.rotation.y = -s * 0.5; const w2 = b(s * 0.5, 1.02, -0.34, 0.42, 0.4, 0.05, S.wings, g, 0.25); w2.rotation.y = -s * 0.5; });
+  if (S.halo) { b(0, 2.72, 0, 0.6, 0.05, 0.12, S.halo, g, 0.8); b(0, 2.72, 0.24, 0.6, 0.05, 0.12, S.halo, g, 0.8).position.z = 0.24; b(0, 2.72, -0.24, 0.6, 0.05, 0.12, S.halo, g, 0.8); both((s) => b(s * 0.3, 2.72, 0, 0.12, 0.05, 0.6, S.halo, g, 0.8)); }
+  if (S.horns) both((s) => { b(s * 0.26, 2.42, 0, 0.12, 0.2, 0.12, S.horns); b(s * 0.32, 2.56, 0, 0.09, 0.14, 0.09, S.horns); });
+  if (S.spikes) for (let i = 0; i < 4; i += 1) b(0, 2.44 - i * 0.02, 0.2 - i * 0.18, 0.1, 0.18, 0.12, S.spikes);
+  if (S.antenna) both((s) => { b(s * 0.2, 2.5, 0, 0.05, 0.36, 0.05, INK); b(s * 0.2, 2.72, 0, 0.14, 0.14, 0.14, S.antenna, g, 0.5); });
+  if (S.sword) { const sw = b(0.34, 1.3, -0.36, 0.08, 1.2, 0.06, S.sword, g, 0.2); sw.rotation.z = -0.5; b(0.06, 1.72, -0.36, 0.26, 0.07, 0.08, GOLD).rotation.z = -0.5; }
+  if (S.tail) { const [t, c] = S.tail;
+    if (t === 'thin') { b(0, 1.0, -0.36, 0.13, 0.13, 0.3, c); b(0, 1.26, -0.5, 0.13, 0.56, 0.13, c); }
+    else if (t === 'bushy') { const m = b(0, 1.1, -0.56, 0.32, 0.32, 0.7, c); m.rotation.x = 0.5; }
+    else if (t === 'curl') { b(0, 1.0, -0.34, 0.12, 0.12, 0.2, c); b(0, 1.12, -0.44, 0.12, 0.3, 0.12, c); b(0, 1.24, -0.36, 0.12, 0.12, 0.2, c); }
+    else if (t === 'arrow') { b(0, 1.0, -0.36, 0.1, 0.1, 0.3, c); b(0, 1.3, -0.52, 0.1, 0.66, 0.1, c); b(0, 1.68, -0.52, 0.28, 0.2, 0.1, c); }
+  }
+  if (S.hat) { const [t, c, c2] = S.hat;
+    if (t === 'chef') { b(0, 2.38, 0, 0.8, 0.14, 0.72, c); b(0, 2.66, 0, 0.94, 0.42, 0.84, c); }
+    else if (t === 'pirate') { b(0, 2.36, 0, 1.2, 0.12, 0.8, c); b(0, 2.52, 0, 0.8, 0.26, 0.5, c); b(0, 2.5, 0.26, 0.2, 0.16, 0.03, WHITE); }
+    else if (t === 'cap') { b(0, 2.38, 0, 0.82, 0.2, 0.74, c); b(0, 2.3, 0.42, 0.7, 0.06, 0.24, c); b(0, 2.4, 0.375, 0.16, 0.12, 0.03, c2); }
+    else if (t === 'helmet') { b(0, 2.4, 0, 0.86, 0.26, 0.78, c); b(0, 2.3, 0.02, 0.98, 0.08, 0.92, c); b(0, 2.6, 0, 0.14, 0.18, 0.6, c2); }
+    else if (t === 'cowboy') { b(0, 2.34, 0, 1.36, 0.07, 1.2, c); b(0, 2.5, 0, 0.72, 0.28, 0.64, c); b(0, 2.4, 0, 0.75, 0.07, 0.67, 0x4a3426); }
+    else if (t === 'wizard') { b(0, 2.34, 0, 1.2, 0.07, 1.1, c); b(0, 2.5, 0, 0.7, 0.28, 0.64, c); b(0, 2.78, -0.02, 0.46, 0.3, 0.42, c); b(0, 3.04, -0.06, 0.24, 0.26, 0.24, c); b(0, 2.42, 0, 0.73, 0.08, 0.67, c2); }
+    else if (t === 'bubble') { b(0, 2.38, 0, 0.98, 0.14, 0.9, c); both((s) => b(s * 0.45, 2.0, 0, 0.12, 0.74, 0.86, c)); b(0, 2.0, -0.4, 0.98, 0.74, 0.12, c); b(0, 1.6, 0, 0.98, 0.1, 0.9, c); b(0, 2.12, 0.37, 0.66, 0.2, 0.04, c2, g, 0.3); }
+    else if (t === 'kabuto') { b(0, 2.38, 0, 0.9, 0.22, 0.8, c); b(0, 2.26, -0.1, 1.1, 0.1, 0.9, c); both((s) => { const h = b(s * 0.28, 2.66, 0.2, 0.08, 0.5, 0.06, c2); h.rotation.z = -s * 0.5; }); }
+    else if (t === 'crown') { b(0, 2.38, 0, 0.8, 0.16, 0.72, c, g, 0.3); for (const x of [-0.3, 0, 0.3]) b(x, 2.54, 0.3, 0.14, 0.18, 0.1, c, g, 0.3); b(0, 2.4, 0.365, 0.1, 0.1, 0.03, c2, g, 0.4); }
+    else if (t === 'santa') { b(0, 2.34, 0, 0.9, 0.14, 0.8, c2); b(0, 2.52, 0, 0.74, 0.26, 0.66, c); b(0.16, 2.74, 0, 0.44, 0.22, 0.4, c); b(0.42, 2.7, 0, 0.2, 0.2, 0.2, c2); }
+    else if (t === 'top') { b(0, 2.34, 0, 1.0, 0.06, 0.9, c); b(0, 2.62, 0, 0.62, 0.5, 0.56, c); b(0, 2.42, 0, 0.65, 0.09, 0.59, c2); }
+  }
+  return limbs;
+}
+for (const id of Object.keys(SPECS)) { BODIES[id] = (g) => fromSpec(g, SPECS[id]); PREMIUM_AVATARS.push(id); IS.add(id); }
+
 // 体を 1つ 作る。avatars.js の buildAvatar と 同じ 約束（userData.limbs・anchors・worn）で 返す。
 export function buildPremiumAvatar(id) {
   const make = BODIES[id];

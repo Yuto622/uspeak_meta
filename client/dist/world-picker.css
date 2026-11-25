@@ -148,6 +148,9 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 #mini-pick[data-count="4"] .mp-card em { font-size: clamp(40px, 7vw, 60px); }
 #mini-pick[data-count="4"] .mp-card { padding: 14px 10px; }
 #mini-pick .en, #mini-pick .ja { font-size: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; }
+#mini-pick[data-count="3"] .mp-cards { grid-template-columns: repeat(3, 1fr); }
+#mini-pick[data-count="3"] .mp-card em { font-size: clamp(44px, 8vw, 70px); }
+#mini-pick[data-count="3"] .mp-card strong { font-size: clamp(16px, 2.4vw, 22px); }
 #mini-pick[data-count="5"] { width: min(900px, 96vw); }
 #mini-pick[data-count="5"] .mp-cards { grid-template-columns: repeat(6, 1fr); gap: 14px; }
 #mini-pick[data-count="5"] .mp-card { grid-column: span 2; padding: 12px 8px; }

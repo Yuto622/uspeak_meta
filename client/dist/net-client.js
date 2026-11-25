@@ -393,7 +393,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // メインの島は どこにも 入れない：えらんだら 島に 出るだけ（リスポーン）。
     abc: 'abchouse', reading: 'library', homework: 'desk', fishworld: 'pond', school: 'easy', arena: 'easy',
     ride: 'start',   // のりもの島：スタートの そばに 立たせて、すぐ AURORA KART を ひらく
-    mini: '*', conv: '*', // ミニゲーム島・英会話島：ついたら すぐ「どれに する？」（mini-pick.js の PICKS）。とじれば 島を 歩ける
+    mini: '*', conv: '*', land: '*', farm: '*', // ミニゲーム島・英会話島：ついたら すぐ「どれに する？」（mini-pick.js の PICKS）。とじれば 島を 歩ける
     town: 'plaza',   // まちづくり島：すぐ ブロックの 世界（BLOCKWILD）
     wear: 'avatar-shop', // きせかえ島：すぐ すがたや（アバターを 買う・きがえる）
     eiken5: '*', eiken4: '*', eiken3: '*', eikenp2: '*', eiken2: '*', eikenp1: '*', eiken1: '*', // 英検の 島：パネルで 館を えらぶ（PICKS）
@@ -544,6 +544,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     // 英会話島：どの 家で 話すか。えらぶと その 家の 戸口へ（戸口の しくみで いつもどおり ひらく）。
     conv: () => housePick('conv', { en: 'Where shall we talk?', ja: 'どこで はなす？' }, (sp) => ({ subEn: sp.enSub, subJa: sp.ja, tag: sp.grade ? `英検${sp.grade}級` : '' })),
   };
+  // 土地島・ぼくじょう島：どの 建物に 行くか。
+  PICKS.land = () => housePick('land', { en: 'Where to?', ja: 'どこに いく？' }, (sp) => ({ subJa: sp.ja, subEn: { office: 'Buy or change your island', ferry: 'Sail to your island', board: "See the class's islands" }[sp.kind] }));
+  PICKS.farm = () => housePick('farm', { en: 'What shall we do?', ja: 'なにを する？' }, (sp) => ({ subJa: sp.ja, subEn: { shop: 'Buy seeds and animals', field: 'Look after the field', barn: 'Look after the animals', ship: 'Ship for coins', kitchen: 'Cook a dish' }[sp.kind] }));
   // 英検の 島（7 つ）：すぐ 部屋に 入らず、どの 館に するかを えらぶ（2026-11）。
   for (const g of ['eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1']) PICKS[g] = () => housePick(g, { en: 'Which skill?', ja: 'どれを れんしゅう する？' }, (sp) => ({ subEn: EIKEN_SUB[sp.kind]?.[0], subJa: EIKEN_SUB[sp.kind]?.[1] }));
   // のりもの島とまちづくり島では、島の中の扉に加えて左下にも入口を出す。理由は
