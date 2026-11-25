@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U-Speak 島の キャラクター（デザイン案）</title>
+<style>
+  body{margin:0;background:#0c241c;color:#fff4d6;font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+  h1{margin:0;padding:26px 30px 4px;font-size:30px;letter-spacing:.04em}
+  h1 small{font-size:15px;color:#8ff0c8;font-weight:500;margin-left:12px}
+  .rules{padding:6px 30px 16px;font-size:14px;color:#d8e8dc;display:flex;gap:10px;flex-wrap:wrap}
+  .rules span{background:#1b3a2f;border:1px solid #2f5a48;border-radius:999px;padding:5px 12px}
+  #grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:0 30px 34px}
+  .card{background:#14332a;border:1px solid #2f5a48;border-radius:18px;overflow:hidden;position:relative}
+  .card img.main{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+  .card img.sil{position:absolute;right:8px;top:8px;width:21%;border-radius:10px;border:2px solid #fff4d6;background:#fff}
+  .isle{position:absolute;left:10px;top:10px;background:#0c241cd9;color:#8ff0c8;font-size:12px;padding:4px 10px;border-radius:999px}
+  .txt{padding:10px 14px 14px}
+  .name{font-size:19px;font-weight:800;color:#ffb066}
+  .name i{font-style:normal;font-size:12px;color:#cfe0d4;font-weight:500;margin-left:8px}
+  .role{font-size:13px;color:#8ff0c8;margin:2px 0 6px}
+  .note{font-size:12.5px;line-height:1.55;color:#f0e6c8}
+</style>
+</head>
+<body>
+<h1>島の キャラクター <small>デザイン案 20 人 ・ 右上は シルエット</small></h1>
+<div class="rules"><span>① 黒く ぬっても だれか わかる 形</span><span>② 2.4 頭身（顔が 遠くでも 読める）</span><span>③ 色は 60・30・10</span><span>④ 役わりは 道具 1 つで つたえる</span><span>⑤ 大きな 目に ひかり 2 つ</span></div>
+<div id="grid"></div>
+<script type="module">
+import * as THREE from './three.module.js';
+import { CAST, buildCastMember } from './island-cast.js';
+const W = 560, H = 700;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const only = new URLSearchParams(location.search).get('only');
+const grid = document.querySelector('#grid');
+for (const c of CAST) {
+  if (only && !only.split(',').includes(c.id)) continue;
+  const scene = new THREE.Scene();
+  const bg = new THREE.Color(c.bg);
+  scene.background = bg;
+  scene.add(new THREE.HemisphereLight(0xffffff, bg.clone().multiplyScalar(0.7), 1.5));
+  const sun = new THREE.DirectionalLight(0xfff2dc, 2.2); sun.position.set(3.5, 6, 5); sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, { left: -3, right: 3, top: 4, bottom: -1, near: 1, far: 20 }); sun.shadow.bias = -0.0015; scene.add(sun);
+  const rim = new THREE.DirectionalLight(0xbfe0ff, 1.1); rim.position.set(-4, 3, -4); scene.add(rim);
+  const floor = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.62, 0.16, 48), new THREE.MeshStandardMaterial({ color: bg.clone().lerp(new THREE.Color(0xffffff), 0.45), roughness: 0.9 }));
+  floor.position.y = -0.08; floor.receiveShadow = true; scene.add(floor);
+  const model = buildCastMember(c.id); model.rotation.y = -0.38; scene.add(model);
+  const cam = new THREE.PerspectiveCamera(26, W / H, 0.1, 50); cam.position.set(1.2, 2.1, 8.4); cam.lookAt(0.12, 1.42, 0);
+  renderer.render(scene, cam);
+  const main = renderer.domElement.toDataURL('image/jpeg', 0.92);
+  // シルエット：ぜんぶ 黒・地は 白。
+  scene.background = new THREE.Color(0xffffff); floor.visible = false;
+  scene.overrideMaterial = new THREE.MeshBasicMaterial({ color: 0x111111 });
+  renderer.render(scene, cam);
+  const sil = renderer.domElement.toDataURL('image/jpeg', 0.8);
+  const card = document.createElement('div'); card.className = 'card';
+  card.innerHTML = `<img class="main" src="${main}"><img class="sil" src="${sil}"><span class="isle">${c.island}</span><div class="txt"><div class="name">${c.name}<i>${c.en}</i></div><div class="role">${c.role}</div><div class="note">${c.note}</div></div>`;
+  grid.append(card);
+}
+document.body.dataset.ready = '1';
+</script>
+</body>
+</html>
