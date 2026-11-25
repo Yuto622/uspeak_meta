@@ -24,3 +24,6 @@ docs/tour*/.toc.mp4
 docs/tour*/.joined.mp4
 docs/tour*/.concat.txt
 docs/tour*/.chapters.txt
+
+# Roblox を 歩いた 生の 録画（切りだした ものだけ docs/clips/ に 入れる）
+docs/.rbwalk-raw/
