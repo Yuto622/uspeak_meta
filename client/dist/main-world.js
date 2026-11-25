@@ -10,6 +10,8 @@
 // P2 / P3 の建物は 建っているだけで、札に 🔜 が付く（戸口は無い）。
 // ふつうの島より大きいので、createIsland に size / power / land / dock を渡している。
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
+import { createRealTrees } from './real-trees.js';
+import { createMainSeasons, seasonNow } from './main-seasons.js';
 import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
 
@@ -34,6 +36,7 @@ const START = { x: 10.5, z: 21 };
 const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
 
 export function createMainWorld({ scene }) {
+  let seasons = null, realTrees = null; // 季節の かざり（main-seasons.js）と リアルな 木（real-trees.js）。島が 建ったあと。
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   const island = createIsland({
     scene,
@@ -424,7 +427,9 @@ export function createMainWorld({ scene }) {
       }
 
       // 広場の小物：大通りの ベンチと 旗。
-      bunting(-6, 13.2, 20, 13.2, 3.8);
+      // 大通りの 旗と、ひろばの 見せ場（やぐら・クリスマスツリー…）は 季節ごと（main-seasons.js）。場所は 屋台の 南の しばふ。
+      const FEST = { x: 34.5, z: 28 };
+      keep(FEST.x, FEST.z, 4.5, 4.5);
       bench(26, 12.5, 0);
       bench(-20, 12.5, 0);
 
@@ -433,16 +438,24 @@ export function createMainWorld({ scene }) {
         && !data.spots.some((sp) => Math.hypot(x - sp.x, z - sp.z) < 6)
         && Math.hypot(x - st.x, z - st.z) > 6 && !(Math.abs(x - 31) < 5 && z > 30);
       const onLand = (x, z) => Math.abs(x / 52) ** 4 + Math.abs(z / 41) ** 4 < 0.9 && !inBay(x, z);
+      const woods = [];
       for (let i = 0; i < 420; i += 1) {
         const x = (rand() - 0.5) * 104;
         const z = (rand() - 0.5) * 84;
         if (!onLand(x, z) || !free(x, z)) continue;
         const roll = rand();
-        if (roll > 0.8) tree(x, z, 0.75 + rand() * 0.55);
+        if (roll > 0.8) woods.push({ x, z, scale: 0.75 + rand() * 0.55, kind: Math.floor(rand() * 3) });
         else if (roll > 0.62) bush(x, z, 0.7 + rand() * 0.6);
         else if (roll > 0.56) rock(x, z, 0.5 + rand() * 0.5);
         else flowers(x, z, [0xf0d98a, 0xe89bb0, 0xdfe4ef, 0xe7b06a][Math.floor(rand() * 4)]);
       }
+      // 木は リアルな 木（えだわかれの 幹＋葉の 板）。葉の 色は 季節で かわる。
+      const now = seasonNow();
+      realTrees = createRealTrees({ root, trees: woods, seed: 4242 });
+      realTrees.setSeason(now.season);
+      seasons = createMainSeasons({ root, spot: FEST, street: { ax: -6, az: 13.2, bx: 20, bz: 13.2, h: 3.8 },
+        onObstacle: (o) => obstacles.push(o), clear: (x, z) => onLand(x, z) && !boxes.some((b) => b.x !== FEST.x && Math.abs(x - b.x) < b.w + 0.3 && Math.abs(z - b.z) < b.d + 0.3) });
+      seasons.setSeason(now);
     },
   });
 
@@ -544,12 +557,17 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); }
   }
+  const baseNight = island.setNight;
+  function setNight(n) { baseNight(n); seasons?.setNight(n); }
+  // 検査・写真用：季節を その場で かえる（'spring' | 'summer' | 'autumn' | 'winter' | 'xmas'）。当たり判定は 入りなおすまで 前の まま。
+  function setSeason(id) { const s = id === 'xmas' ? { season: 'winter', xmas: true } : { season: id, xmas: false }; realTrees?.setSeason(s.season); seasons?.setSeason(s); }
 
   // あらわれる 場所は スタートの ほし（island-kit の 既定は 船着き場）。
   island.arrival = { x: START.x, z: START.z };
   const out = Object.assign(island, {
-    drawMap, update,
+    drawMap, update, setNight, setSeason,
     ready: loadMainWorld().then((d) => { island.receive(d.island); return d; }),
     startCast,
     bite: () => fx?.bite(),
