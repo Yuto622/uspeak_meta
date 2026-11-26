@@ -85,7 +85,7 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
   }
 
   // 見せ場の まんなかの 大きな 木（どの 季節も 木）。
-  function bigTree(x, z, colour, scale = 1.7, seed = 21) {
+  function bigTree(x, z, colour, scale = 1.35, seed = 21) {
     const tree = singleBroad({ colour, seed });
     tree.group.scale.setScalar(scale); tree.group.position.set(x, 0, z); group.add(tree.group);
     tickers.push((t) => tree.update(t));
@@ -179,7 +179,7 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     many(boxGeo, 0xf4f8fc, [[x, 0.3, z, 1], [x + 3.6, 0.28, z + 2.6, 0.5], [x - 3.8, 0.28, z - 2.0, 0.6], [x - 2.4, 0.28, z + 3.6, 0.4]], null, [7.6, 0.14, 7.6]);   // 雪の つもった 地面
     if (xmas) {
       const fir = singleFir({ height: 7.4, colour: 0x62ad6e, seed: 9 });
-      const S = 1.75; fir.group.scale.setScalar(S); fir.group.position.set(x, 0, z); group.add(fir.group);
+      const S = 1.5; fir.group.scale.setScalar(S); fir.group.position.set(x, 0, z); group.add(fir.group);
       tickers.push((t) => fir.update(t));
       box(x, 0.35, z, 1.5, 0.7, 1.5, 0xb5322c); box(x, 0.72, z, 1.62, 0.1, 1.62, 0xf2c14e);
       const H = fir.height * S;
@@ -200,7 +200,7 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     } else {
       // 雪を かぶった もみの 木と、雪だるま 2 つ。
       const fir = singleFir({ height: 7.4, colour: 0xb9d8c2, seed: 9 });
-      fir.group.scale.setScalar(1.6); fir.group.position.set(x, 0, z - 2.2); group.add(fir.group);
+      fir.group.scale.setScalar(1.35); fir.group.position.set(x, 0, z - 2.2); group.add(fir.group);
       tickers.push((t) => fir.update(t));
       // 雪だるま 2 つ。
       for (const [dx, dz, s] of [[-1.3, 0, 1], [1.5, 0.6, 0.72]]) {

@@ -7,6 +7,8 @@
 import * as THREE from './three.module.js';
 import { buildVillager, villagerSeed } from './villager.js';
 import { placeHost } from './island-cast.js';
+import { createHouseBatch } from './real-house.js';
+import { groundMaterial } from './ground-fx.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
@@ -79,11 +81,14 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   // Left casting, every blade of the island shadows the one beside it and the whole
   // place goes dark.
   const G = (x, y, z, w, h, d, color) => D(x, y, z, w, h, d, color, 0, true);
+  const houses = createHouseBatch();
   function flushDeco() {
+    if (houses.count) lit.push(...houses.flush(root));
     for (const { color, glow, flat, list } of deco.values()) {
       // Each lit colour gets its own material instance, so turning the lights up at
       // night does not also make the roofs glow.
-      const material = glow ? mat(color, 0).clone() : mat(color);
+      // 地面（flat）は 草・土・道の 手ざわりを かける（ground-fx.js）。色ごとに 1 つ・描く 回数は かわらない。
+      const material = glow ? mat(color, 0).clone() : flat ? groundMaterial(mat(color)) : mat(color);
       if (glow) { material.emissive = new THREE.Color(color); material.emissiveIntensity = 0; lit.push({ material, glow }); }
       const mesh = new THREE.InstancedMesh(geo, material, list.length);
       list.forEach((m, i) => mesh.setMatrixAt(i, m));
@@ -183,49 +188,9 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     const beam = 0x6f5b3e;
     const ridge = shade(roof, -0.18);
 
-    // Plinth and a step up to the door.
-    D(x, 0.35, z, w + 0.9, 0.7, d + 0.9, 0xa89d84);
-    D(x, 0.2, front + 0.85, 2.6, 0.4, 1.1, 0xbdb193);
-    D(x, 0.35, z, w + 0.2, 0.12, d + 0.2, shade(0xa89d84, 0.12));
-
-    // Walls, with corner posts and a beam under the eaves.
-    D(x, 2.5, z, w, 3.8, d, wall);
-    for (const sx of [-hx, hx]) for (const sz of [-hz, hz]) D(x + sx, 2.5, z + sz, 0.42, 3.9, 0.42, beam);
-    D(x, 4.42, z, w + 0.25, 0.3, d + 0.25, beam);
-    D(x, 0.75, z, w + 0.12, 0.5, d + 0.12, dark);          // a darker course along the bottom
-
-    // Roof: overhanging eaves, then courses in, then a ridge along the top.
-    for (let i = 0; i < 5; i += 1) {
-      D(x, 4.75 + i * 0.44, z, w + 1.5 - i * 0.56, 0.44, d + 1.5 - i * 0.56, i % 2 ? roof : shade(roof, -0.07));
-    }
-    D(x, 6.95, z, Math.max(1, w - 1.6), 0.3, Math.max(1, d - 1.6), ridge);
-    // Rafter ends under the front eave: the detail that says "built" rather than "boxed".
-    for (let i = 0; i * 1.1 < w - 0.6; i += 1) D(x - hx + 0.6 + i * 1.1, 4.62, front + 0.62, 0.22, 0.22, 0.5, beam);
-    // Chimney, on the back half so it never hides the sign.
-    D(x + hx * 0.55, 6.4, z - hz * 0.5, 0.9, 2.6, 0.9, 0x8c7b63);
-    D(x + hx * 0.55, 7.75, z - hz * 0.5, 1.15, 0.3, 1.15, 0x6f6152);
-
-    // Door, recessed, with a frame, a handle and a porch over it.
-    D(x, 1.5, front + 0.02, 1.5, 2.8, 0.3, shade(beam, -0.1));
-    D(x, 1.45, front + 0.14, 1.2, 2.5, 0.16, 0x50412f);
-    D(x + 0.42, 1.45, front + 0.24, 0.14, 0.14, 0.12, 0xf1d489, 1.4);
-    D(x, 3.15, front + 0.55, 2.4, 0.22, 1.1, roof);
-    for (const sx of [-1.0, 1.0]) D(x + sx, 2.9, front + 1.0, 0.16, 0.5, 0.16, beam);
-
-    // Windows: frame, glass that lights at night, shutters, and a sill.
-    for (const sx of [-hx * 0.55, hx * 0.55]) {
-      D(x + sx, 2.75, front + 0.06, 1.35, 1.35, 0.14, beam);
-      D(x + sx, 2.75, front + 0.15, 1.05, 1.05, 0.1, 0xffe6ad, 1.25);
-      D(x + sx, 2.75, front + 0.2, 1.1, 0.1, 0.06, beam);
-      D(x + sx, 2.75, front + 0.2, 0.1, 1.1, 0.06, beam);
-      D(x + sx, 2.05, front + 0.22, 1.5, 0.16, 0.42, beam);
-      for (const shutter of [-0.78, 0.78]) D(x + sx + shutter, 2.75, front + 0.12, 0.42, 1.4, 0.12, shade(roof, 0.05));
-    }
-    // A window on each side too, so the building has more than one face.
-    for (const side of [-1, 1]) {
-      D(x + side * (hx + 0.06), 2.8, z - hz * 0.3, 0.14, 1.2, 1.2, beam);
-      D(x + side * (hx + 0.14), 2.8, z - hz * 0.3, 0.1, 0.95, 0.95, 0xffe6ad, 1.1);
-    }
+    // 2026-11：家は real-house.js（かわらの 屋根・しっくいと 木の ほねぐみ・ガラスの まど）。島の 家を まとめて 4 回で 描く。
+    // 前の 箱の 家（だんだんの 屋根）は やめた。色（wall・roof）と 大きさは データの まま。
+    houses.add(x, z, w, d, wall, roof);
 
     obstacles.push({ x, z, w: hx + 0.4, d: hz + 0.4 });
     // The name hangs from a bracket by the door, at reading height.

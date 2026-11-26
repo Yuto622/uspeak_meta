@@ -197,3 +197,6 @@
   .wear-card { padding: 9px 6px 8px; border-radius: 16px; } .wear-card b { font-size: 13px; } .wear-card small { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .wear-card, .wear-do, .wear-slots button { transition: none; } }
+
+/* タブの リアルな 絵（wear-real.js）。 */
+.wear-slots button span.wear-tab-pic img { width: 52px; height: 52px; display: block; margin: -8px auto -6px; -webkit-user-drag: none; }

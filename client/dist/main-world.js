@@ -431,7 +431,7 @@ export function createMainWorld({ scene }) {
 
       // 広場の小物：大通りの ベンチと 旗。
       // 大通りの 旗と、ひろばの 見せ場（やぐら・クリスマスツリー…）は 季節ごと（main-seasons.js）。場所は 屋台の 南の しばふ。
-      const FEST = { x: 34.5, z: 28 };
+      const FEST = { x: -23, z: 23.5 };
       keep(FEST.x, FEST.z, 4.5, 4.5);
       bench(26, 12.5, 0);
       bench(-20, 12.5, 0);

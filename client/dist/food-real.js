@@ -137,14 +137,13 @@ export function realFood(id, { envMap = null } = {}) {
 }
 export const REAL_FOODS = Object.keys(BUILD);
 
-// 9 まいの 絵（data URL）。1 回だけ 描いて おぼえる。
-let shots = null;
-export function foodShots() {
-  if (shots) return shots;
-  shots = new Promise((resolve) => {
+// 絵（data URL）に する：小さな レンダラーを 作って 描き、すぐ 捨てる。build(id, env) は 底が y = 0・大きさ 1 くらいの Group を 返す。
+// ほかの 商品（wear-real.js）も これを 使う。失敗したら null。
+export function renderShots(ids, build, { size = 256, look = 0.44, turn = -0.5 } = {}) {
+  return new Promise((resolve) => {
     let renderer = null;
     try {
-      const S = 256; renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+      const S = size; renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
       renderer.setSize(S, S); renderer.setPixelRatio(1); renderer.setClearColor(0x000000, 0);
       renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
@@ -155,21 +154,37 @@ export function foodShots() {
       panel(0, 5.5, 0, 8, 8, 0xffffff); panel(-5, 2, 3, 5, 6, 0xffffff); panel(5, 1.5, 2, 3, 5, 0xfff0d8); panel(0, -5.5, 0, 12, 12, 0xcdb89a);
       const pm = new THREE.PMREMGenerator(renderer); const env = pm.fromScene(room, 0.03).texture;
       const out = {};
-      for (const id of REAL_FOODS) {
+      for (const id of ids) {
+        const model = build(id, env); if (!model) continue;
         const scene = new THREE.Scene(); scene.environment = env;
         const key = new THREE.DirectionalLight(0xfff4e2, 2.4); key.position.set(-2.2, 4, 2.6); key.castShadow = true; key.shadow.mapSize.set(512, 512);
         Object.assign(key.shadow.camera, { left: -1.5, right: 1.5, top: 1.5, bottom: -1.5, near: 0.5, far: 12 }); key.shadow.radius = 6; key.shadow.bias = -0.002; scene.add(key);
         const floor = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.ShadowMaterial({ opacity: 0.22 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
-        const model = realFood(id, { envMap: env }); model.rotation.y = -0.5; scene.add(model);
-        const cam = new THREE.PerspectiveCamera(26, 1, 0.1, 30); cam.position.set(0.2, 1.55, 2.9); cam.lookAt(0, 0.44, 0);
+        model.rotation.y = turn; scene.add(model);
+        const cam = new THREE.PerspectiveCamera(26, 1, 0.1, 30); cam.position.set(0.2, 1.55, 2.9); cam.lookAt(0, look, 0);
         renderer.render(scene, cam);
         out[id] = renderer.domElement.toDataURL('image/png');
         model.traverse((o) => { o.geometry?.dispose(); for (const m of [].concat(o.material || [])) { m.map?.dispose(); m.dispose(); } });
       }
       env.dispose(); pm.dispose();
       resolve(out);
-    } catch (err) { console.warn('[food] 3D の 絵が 作れない', err); resolve(null); }
+    } catch (err) { console.warn('[shots] 3D の 絵が 作れない', err); resolve(null); }
     finally { try { renderer?.dispose(); renderer?.forceContextLoss(); } catch { /* 捨てるだけ */ } }
   });
+}
+// 形を 1 くらいの 大きさに そろえて 底を y = 0 に（ほかの 商品も 使う）。
+export function fitUnit(inner, envMap = null) {
+  const g = new THREE.Group(); g.add(inner);
+  const box = new THREE.Box3().setFromObject(inner), size = box.getSize(new THREE.Vector3()), k = 1 / Math.max(size.x, size.y, size.z);
+  inner.scale.multiplyScalar(k); box.setFromObject(inner); const c = box.getCenter(new THREE.Vector3());
+  inner.position.x -= c.x; inner.position.z -= c.z; inner.position.y -= box.min.y;
+  if (envMap) g.traverse((o) => { for (const m of [].concat(o.material || [])) { m.envMap = envMap; m.needsUpdate = true; } });
+  return g;
+}
+
+// たべもの 9 まいの 絵（data URL）。1 回だけ 描いて おぼえる。
+let shots = null;
+export function foodShots() {
+  if (!shots) shots = renderShots(REAL_FOODS, (id, env) => realFood(id, { envMap: env }));
   return shots;
 }

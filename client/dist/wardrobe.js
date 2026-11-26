@@ -14,6 +14,7 @@
 // from the room, and buying is a request the room can refuse.
 import * as THREE from './three.module.js';
 import { buildAvatar, dressAvatar, bodyConfig } from './avatars.js';
+import { wearTabShots } from './wear-real.js';
 import { itemModel } from './wardrobe-models.js';
 import { loadWardrobe } from './wardrobe-data.js';
 
@@ -262,12 +263,15 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   }
 
   // ---- the cards -------------------------------------------------------------------------
+  // タブの 絵：リアルな 3D（wear-real.js）。1 回 作って おぼえる。まだの あいだ・作れない 端末は 絵文字。
+  let tabPics = null, tabAsked = false;
   function render() {
     if (!shop) return;
+    if (!tabAsked) { tabAsked = true; wearTabShots().then((p) => { if (p) { tabPics = p; if (dialog.open) render(); } }); }
     $('#wear-coins', dialog).textContent = (shop.coins || 0).toLocaleString();
     $('#wear-slots', dialog).innerHTML = (shop.slots || []).map((s) => `
       <button type="button" data-slot="${esc(s.id)}" class="${s.id === slot ? 'on' : ''}" aria-pressed="${s.id === slot}">
-        <span>${esc(s.icon)}</span><b>${esc(s.ja)}</b>
+        <span class="wear-tab-pic" data-tab="${esc(s.id)}">${tabPics?.[s.id] ? `<img src="${tabPics[s.id]}" alt="" draggable="false">` : esc(s.icon)}</span><b>${esc(s.ja)}</b>
       </button>`).join('');
     dialog.querySelectorAll('[data-slot]').forEach((b) => {
       b.onclick = () => { slot = b.dataset.slot; trying = null; render(); redress(); };
