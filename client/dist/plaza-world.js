@@ -10,6 +10,7 @@
 import * as THREE from './three.module.js';
 import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
+import { blockGeometry, blockMaterial } from './town-real.js';
 
 const CELL = 1;                 // one block, one metre
 const REACH = 6;                // how far the crosshair carries, in blocks
@@ -60,7 +61,8 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
 
   function addCell(cell) {
     const block = state.palette.get(cell.b);
-    const mesh = new THREE.Mesh(geo, mat(block ? Number(block.color) : 0xaaaaaa));
+    // 石・レンガ・木の いた などの 質感つき（town-real.js）。箱も 材質も みんなで つかう＝1 ブロック 1 回の 描画の まま。
+    const mesh = new THREE.Mesh(blockGeometry(), blockMaterial(cell.b, block ? Number(block.color) : 0xaaaaaa));
     mesh.position.set(cell.x, cell.y + CELL / 2, cell.z);
     mesh.castShadow = true;
     mesh.receiveShadow = true;

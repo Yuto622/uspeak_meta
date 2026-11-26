@@ -9,6 +9,8 @@ import { buildVillager, villagerSeed } from './villager.js';
 import { placeHost } from './island-cast.js';
 import { createHouseBatch } from './real-house.js';
 import { groundMaterial } from './ground-fx.js';
+import { createRealTrees } from './real-trees.js';
+import { seasonNow } from './main-seasons.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
@@ -82,8 +84,11 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   // place goes dark.
   const G = (x, y, z, w, h, d, color) => D(x, y, z, w, h, d, color, 0, true);
   const houses = createHouseBatch();
+  const woods = [];
+  let realTrees = null;
   function flushDeco() {
     if (houses.count) lit.push(...houses.flush(root));
+    if (woods.length && !realTrees) { try { realTrees = createRealTrees({ root, trees: woods, seed: 900 + woods.length }); realTrees.setSeason(seasonNow().season); } catch { realTrees = null; } }
     for (const { color, glow, flat, list } of deco.values()) {
       // Each lit colour gets its own material instance, so turning the lights up at
       // night does not also make the roofs glow.
@@ -236,22 +241,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   // chosen from the position, so an island looks the same every time it is built.
   function tree(x, z, scale = 1, kind = -1) {
     const k = kind >= 0 ? kind : Math.floor(rand() * 3);
-    const trunk = 0x7a6448;
-    if (k === 0) {                                   // broad and round
-      D(x, 1.4 * scale, z, 0.55 * scale, 2.8 * scale, 0.55 * scale, trunk);
-      D(x, 3.1 * scale, z, 3.2 * scale, 1.6 * scale, 3.2 * scale, 0x6d9d5e);
-      D(x, 4.1 * scale, z, 2.3 * scale, 1.1 * scale, 2.3 * scale, 0x7fb069);
-      D(x - 0.7 * scale, 3.4 * scale, z + 0.6 * scale, 1.5 * scale, 1.0 * scale, 1.5 * scale, 0x87b872);
-    } else if (k === 1) {                            // a pine, in steps
-      D(x, 1.6 * scale, z, 0.5 * scale, 3.2 * scale, 0.5 * scale, shade(trunk, -0.1));
-      for (let i = 0; i < 4; i += 1) {
-        D(x, (2.9 + i * 0.85) * scale, z, (3.2 - i * 0.7) * scale, 0.9 * scale, (3.2 - i * 0.7) * scale, i % 2 ? 0x4f7850 : 0x5c8854);
-      }
-    } else {                                         // tall, with a leaning crown
-      D(x, 2.1 * scale, z, 0.45 * scale, 4.2 * scale, 0.45 * scale, trunk);
-      D(x, 4.3 * scale, z, 2.4 * scale, 1.2 * scale, 2.4 * scale, 0x719453);
-      D(x + 0.5 * scale, 5.1 * scale, z - 0.3 * scale, 1.7 * scale, 0.9 * scale, 1.7 * scale, 0x86a95e);
-    }
+    // 2026-11：箱の 木を やめて、メインの島と 同じ リアルな 木（real-trees.js）。島 1 つで まとめて 描く。
+    woods.push({ x, z, scale: scale * 0.78, kind: k });
     // A little shadow of undergrowth at the foot, which hides the join with the ground.
     D(x + (rand() - 0.5), 0.25, z + (rand() - 0.5), 1.1 * scale, 0.3, 1.1 * scale, 0x5f7a4a);
   }
@@ -515,6 +506,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   }
 
   function update(t, player) {
+    if (realTrees && root.visible) realTrees.update(t);
     if (!root.visible || !built) return;
     if (host) { const d = host.update(t, player.position.x - root.position.x, player.position.z - root.position.z); if (hostLabel) hostLabel.visible = labelsOn && d < 12; }
     for (const sp of spots) {

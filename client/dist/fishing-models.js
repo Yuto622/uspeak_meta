@@ -1,4 +1,5 @@
 import * as THREE from './three.module.js';
+import {realWeapon} from './weapon-real.js';
 const bodyGeo=new THREE.SphereGeometry(1,12,8),cubeGeo=new THREE.BoxGeometry(1,1,1),finGeo=new THREE.ConeGeometry(1,1,3),mats=new Map();
 function mat(color,glow=0){const key=color+':'+glow;if(!mats.has(key))mats.set(key,new THREE.MeshStandardMaterial({color,roughness:.45,metalness:.18,emissive:color,emissiveIntensity:glow}));return mats.get(key)}
 function part(parent,geo,x,y,z,w,h,d,c,glow=0){const m=new THREE.Mesh(geo,mat(c,glow));m.position.set(x,y,z);m.scale.set(w,h,d);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
@@ -9,6 +10,8 @@ export function fishModel(f){const g=new THREE.Group(),colors=[0xe4bd66,0xdca08e
 export function equipmentModel(item){const glow=item.glow??(item.id==='sunblade'?.35:0),g=new THREE.Group(),B=(x,y,z,w,h,d,c,gl=0)=>part(g,cubeGeo,x,y,z,w,h,d,c,gl),c=item.color,a=item.accent||0xe0c68d;
  if(item.kind==='outfit'){B(0,1.29,0,.96,.82,.56,c);if(item.style==='vest'){for(const x of[-.3,.3]){B(x,1.27,.31,.3,.64,.09,c);B(x,1.17,.38,.23,.22,.1,a)}B(0,1.01,.34,.94,.12,.1,0x81694c)}if(item.style==='sailor'){for(const x of[-.27,.27])B(x,1.65,.34,.27,.2,.1,a);B(0,1.43,.38,.14,.44,.07,a);B(0,1.68,-.34,.84,.16,.18,a)}if(['cape','royal','captain'].includes(item.style)){B(0,1.12,-.53,1.03,1.02,.1,c);for(const x of[-.51,.51])B(x,1.67,0,.28,.14,.6,a);B(0,1.53,.34,.17,.16,.1,a)}if(item.style==='royal'){B(0,2.49,0,.88,.15,.75,a);for(const x of[-.34,0,.34])B(x,2.64,.27,.12,.26,.14,a)}if(item.style==='captain'){B(0,2.47,0,1.15,.13,.83,c);B(0,2.66,-.03,.82,.32,.6,c);B(0,2.69,.3,.23,.16,.04,a)}return g}
  // ぶき（ぶきや の 100 本：形 10 × 素材 10）。持つ ところは 下（y=0）、上へ のびる。上の だんの 素材は 刃・先っぽが 光る（glow）。
+ // 形は weapon-real.js の リアルな モデル（なめらかな 形・金ぞくや 木の 材質）。知らない 形・作れない ときだけ 下の 箱の 形に もどる。
+ const real=realWeapon(item);if(real)return real;
  const st=item.style,G=glow,grip=0x756043;
  if(st!=='shield'&&st!=='boomerang')B(0,0,0,.13,.34,.13,grip);
  if(st==='sword'){B(0,.23,0,.52,.09,.14,a);B(0,.77,0,.19,1,.07,c,G);part(g,finGeo,0,1.36,0,.12,.24,.065,c,G?Math.max(G,.4):0)}

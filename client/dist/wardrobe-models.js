@@ -15,6 +15,7 @@
 import * as THREE from './three.module.js';
 import { PREMIUM_AVATARS, buildPremiumAvatar } from './avatar-bodies.js';
 import { buildChibiAvatar } from './avatar-chibi.js';
+import { realModel } from './wardrobe-real.js';
 
 const geometry = new THREE.BoxGeometry();
 const mats = new Map();
@@ -592,8 +593,12 @@ for (const id of PREMIUM_AVATARS) KINDS[id] = (g) => { const body = buildChibiAv
 export function itemModel(item) {
   const make = KINDS[item?.kind];
   if (!make) return null;
+  const colour = Number.parseInt(item.colour, 16) || 0xcccccc;
+  // リアルな 形（wardrobe-real.js）が あれば そちら。ない kind・作れなかった ときは 下の 箱の 形。
+  const real = realModel(item.kind, colour);
+  if (real) { real.userData.itemId = item.id; return real; }
   const g = new THREE.Group();
-  make(g, Number.parseInt(item.colour, 16) || 0xcccccc);
+  make(g, colour);
   g.userData.itemId = item.id;
   return g;
 }

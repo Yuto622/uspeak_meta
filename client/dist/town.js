@@ -95,13 +95,38 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     $('#town-done', dialog).onclick = close;
   }
 
+  // かぐの カードの 絵：本物の 3D モデル（furniture-real.js）を 1 回だけ 絵に して おぼえる。
+  // three.js を 使うので、かぐ屋を ひらいた ときに はじめて 読む。かけなければ 色の 四角の まま。
+  let propShots = null;
+  let propShotsAsked = false;
+  function loadPropShots() {
+    if (propShotsAsked || !state.props?.furniture?.length) return;
+    propShotsAsked = true;
+    import('./furniture-real.js')
+      .then((m) => m.furnitureShots(state.props.furniture))
+      .then((shots) => {
+        if (!shots) return;
+        propShots = shots;
+        // いま 出て いる カードに そのまま さしこむ（描きなおすと 押した ボタンの 状態が もどる）。
+        for (const el of dialog.querySelectorAll('[data-shot]')) {
+          const url = shots[el.dataset.shot];
+          if (!url || el.firstElementChild) continue;
+          el.style.background = '';
+          el.innerHTML = `<img src="${url}" alt="" draggable="false">`;
+        }
+        if (builder() === room) refreshHud();
+      })
+      .catch(() => { /* 色の 四角の まま */ });
+  }
+
   function renderProps(note = '') {
     if (!state.props) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
+    loadPropShots();
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
       <p class="daily-note">かった かぐは、マイルームに いつでも おけます。</p>
       <div class="town-blocks">${state.props.furniture.map((f) => `
         <button type="button" class="town-block ${f.owned ? 'owned' : ''}" data-prop="${f.id}" ${f.owned ? 'disabled' : ''}>
-          <span class="town-swatch" style="background:${hex(f.color)}"></span>
+          <span class="town-swatch" data-shot="${f.id}" ${propShots?.[f.id] ? '' : `style="background:${hex(f.color)}"`}>${propShots?.[f.id] ? `<img src="${propShots[f.id]}" alt="" draggable="false">` : ''}</span>
           <strong>${esc(f.word)}</strong><small>${esc(f.ja)}</small>
           <b>${f.owned ? 'もっている' : f.price === 0 ? 'むりょう' : `◈ ${f.price}`}</b>
         </button>`).join('')}</div>
@@ -171,9 +196,13 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     return owned.map((id) => {
       const item = list.find((x) => x.id === id) || active.state.palette.get(id);
       const color = item ? hex(item.color) : '#999';
+      // 手に もつ ものの 絵：ブロックは お店と 同じ 立方体の 絵、かぐは 3D の 絵（できて いれば）。なければ 色。
+      let pic = '';
+      try { pic = active === room ? (propShots?.[id] || '') : (item ? blockIcon(id, Number(item.color), 26) : ''); } catch { pic = ''; }
+      const look = pic ? `background:url(${pic}) center/contain no-repeat` : `background:${color}`;
       const slot = owned.indexOf(id) + 1;
       return `<button type="button" data-hand="${id}" class="${active.hand === id ? 'on' : ''}" title="${esc(item?.word || id)}">
-        <i>${slot <= 9 ? slot : ''}</i><span style="background:${color}"></span><small>${esc(item?.word || id)}</small></button>`;
+        <i>${slot <= 9 ? slot : ''}</i><span style="${look}"></span><small>${esc(item?.word || id)}</small></button>`;
     }).join('');
   }
 

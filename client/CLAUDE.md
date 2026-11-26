@@ -2123,3 +2123,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **地面**（`ground-fx.js`）：草・土・道の タイル（flat の 箱）に、世界の 位置で ひく こまかい もようを かけ算（描く 回数・頂点は そのまま）。
 - **きせかえの タブの 絵**（`wear-real.js`）：すがた・ぼうし・かお・せなか・むねの 5 つを リアルな 3D の 絵に（`food-real.js` の `renderShots` を 使う）。**きせかえの 品 167 点・ぶき 100 本・ブロック・かぐは まだ 箱の まま。**
 - 季節の 大きな 木（`FEST`）は 西の しばふ（-23, 23.5）へ うつした：屋台の 南だと カメラの 手前に 入って 画面を かくした。
+
+## 2026-11 の おわり その 2（かんばん・ゲート・島の 木・ぶき・きせかえの 品・ブロック・かぐ）
+- **屋根の かんばん と ゲート**（`roof-signs.js`）：`roofSign(kind, color)` が 12 しゅるいの なめらかな かんばん（さかな・スマホ・いなずま・えんぴつと ノート・本・ピザ・バーガー・Tシャツ・ブロック・たてと けん・家と かぎ・ABC）。`main-world.js` の `facade` は かんばんが あれば 屋根の 上の 箱（y が 7 より 上）を 置かない（わきの 小物は 箱の まま）。お店を 足したら `SIGN` に 1 つ。
+  `gateModel(color)`＝石の 柱と アーチ・うずを まく 光の まく（`userData.spin(t)` を `main-world.js` の update が 回す）。当たり判定・立つ 場所は 前と 同じ。
+- **ほかの 島の 木も リアル**：`island-kit.js` の `tree()` は 場所を ためるだけで、`flushDeco` が 島 1 つぶんを `createRealTrees` に わたす（季節は `seasonNow()`）。ぼくじょう島・土地島・U-Speak島の 木は じぶんの 箱の まま。
+- **ぶき 100 本**（`weapon-real.js` の `realWeapon(item)`）：`fishing-models.js` の `equipmentModel` が さきに 呼ぶ（だめなら 前の 箱）。形 10 × 素材 10。形と 材質は 共有（**dispose しない・envMap を 上書きしない**）。弓は にぎりが 原点。一覧は `/dev-weapons.html`。
+- **きせかえの 品 87 しゅるい**（`wardrobe-real.js` の `realModel(kind, colour)`）：`wardrobe-models.js` の `itemModel` が さきに 呼ぶ。まるい 体に 合わせて ある（ぼうしは 頭に かぶさる・バッジは 左むね）。一覧は `/dev-wear.html`。フードの 体では ぼうしが 少し 高い。
+- **ブロックと かぐ**：ブロックの もよう＝`town-block-tex.js`（canvas）、3D＝`town-real.js`、棚の 絵＝`town-block-icon.js`（2D の まま）。かぐ 11 こ＝`furniture-real.js`（`room-world.js` の `model()`・お店の 絵は `furnitureShots()`）。
+  **かぐは 向きを かえると 形ごと 回る**（前は はばと おくゆきを 入れかえた 箱）。しめる マスは 前と 同じ（サーバーと 同じ 計算）。一覧は `/dev-town.html`。

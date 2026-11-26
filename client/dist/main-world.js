@@ -15,6 +15,7 @@ import { waterPatch } from './water-fx.js';
 import { createMainSeasons, seasonNow } from './main-seasons.js';
 import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
+import { roofSign, gateModel } from './roof-signs.js';
 
 export { NEAR_DISTANCE };
 
@@ -38,6 +39,7 @@ const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
 
 export function createMainWorld({ scene }) {
   let seasons = null, realTrees = null; // 季節の かざり（main-seasons.js）と リアルな 木（real-trees.js）。島が 建ったあと。
+  let spinGates = null;
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   const island = createIsland({
     scene,
@@ -48,6 +50,9 @@ export function createMainWorld({ scene }) {
     hills: [{ x: -46, z: -32, r: 7 }],
     land: (x, z) => !inBay(x, z),
     build({ island: data, B, D, sprite, house, path, resident, door, tree, bush, flowers, rock, bench, lamp, fence, bunting, obstacles, rand, root }) {
+      const boxD = D;
+      const gates = [];
+      spinGates = (t) => { for (const g of gates) g.userData.spin(t); };
       const boxes = [];          // 木や花を置かない場所（建物・道・水）
       const keep = (x, z, w, d) => boxes.push({ x, z, w, d });
 
@@ -192,6 +197,10 @@ export function createMainWorld({ scene }) {
       // 戸口の 両わきの 小物で「なんの お店か」を 遠くから 分かるように する。D（まとめて 描く 箱）だけで 作る＝重くならない。
       // 戸口の 前（x が ±1.4）と 道は あけておく。大きい 物だけ 当たり判定。
       function facade(kind, x, z, w, d, color) {
+        // 屋根の かんばんは なめらかな 形（roof-signs.js）。あれば 屋根の 上の 箱（y が 7 より 上）は 置かない。わきの 小物は そのまま。
+        const sign = roofSign(kind, color);
+        if (sign) { sign.position.set(x, 4.4 + Math.min(2.7, Math.max(1.5, d * 0.36)) + 0.2, z); sign.scale.multiplyScalar(1.2); root.add(sign); }
+        const D = (...a) => (sign && a[1] > 7 ? null : boxD(...a));
         const hx = w / 2;
         const front = z + d / 2;
         const fz = front + 1.1;          // 戸口の 両わきに 置く 物の 奥行き
@@ -376,12 +385,7 @@ export function createMainWorld({ scene }) {
         const westward = def.path.x > def.x;
         const gx = westward ? def.x - 3.4 : def.x;
         const gz = westward ? def.z : def.z + 3;
-        const along = (o, y, h, wid, glow = 0, col = color) => (westward
-          ? D(gx, y, gz + o, 0.7, h, wid, col, glow)
-          : D(gx + o, y, gz, wid, h, 0.7, col, glow));
-        for (const o of [-2.3, 2.3]) along(o, 2.2, 4.4, 0.8, 0, 0xe8e2d0);
-        along(0, 4.6, 0.7, 5.4, 0, 0xe8e2d0);
-        along(0, 2.2, 3.6, 3.8, 0.9);
+        const gm = gateModel(color); gm.position.set(gx, 0.1, gz); if (westward) gm.rotation.y = Math.PI / 2; root.add(gm); gates.push(gm);
         for (const o of [-2.3, 2.3]) obstacles.push(westward ? { x: gx, z: gz + o, w: 0.45, d: 0.45 } : { x: gx + o, z: gz, w: 0.45, d: 0.45 });
         D(def.x, 0.18, def.z, 3.4, 0.12, 3.4, 0xe0d6bd, 0, true);
         sprite({ en: `🌀 ${def.character}`, ja: `🌀 ${def.ja.replace(/への ゲート$/, '')}` }, gx, 5.8, gz, { width: 6.5, size: 30 });
@@ -561,7 +565,7 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
-    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); }
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); }
   }
   const baseNight = island.setNight;
   function setNight(n) { baseNight(n); seasons?.setNight(n); }

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U-Speak ぶきの 3D モデル</title>
+<style>
+  body{margin:0;background:#fffaf0;color:#17332a;font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+  h1{margin:0;padding:18px 24px 6px;font-size:22px}
+  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;padding:0 24px 16px}
+  .card{background:#fff;border:2px solid #efe6d2;border-radius:12px;text-align:center;padding:4px 2px 6px}
+  #hand{grid-template-columns:repeat(5,1fr)}
+  .card.dark{background:#22352e;color:#fff4d6;border-color:#1b3a2f}
+  .card img{width:100%;aspect-ratio:1;display:block}
+  .card b{display:block;font-size:11px}
+</style>
+</head>
+<body>
+<!-- ひらきかた：/dev-weapons.html（?tiers=wood,gold で だんを しぼる・?cols=5 で 大きく・?hand=iron で 手に もつ だん・?mode=shop で お店と 同じ 描きかた だけ） -->
+<h1>ぶきの 3D モデル（形 10 × 素材）</h1>
+<div id="grid" class="grid"></div>
+<h1>お店の カードと 同じ 描きかた（bag-preview）</h1>
+<div id="shop" class="grid"></div>
+<h1>手に もった ところ</h1>
+<div id="hand" class="grid"></div>
+<script type="module">
+import * as THREE from './three.module.js';
+import { renderShots, fitUnit } from './food-real.js';
+import { ITEMS, ITEM_BY_ID } from './fishing-data.js';
+import { WEAPON_STYLES, WEAPON_TIERS } from './weapons-data.js';
+import { equipmentModel } from './fishing-models.js';
+import { buildAvatar } from './avatars.js';
+
+const q = new URLSearchParams(location.search);
+if (q.get('cols')) for (const id of ['grid', 'shop']) document.querySelector('#' + id).style.gridTemplateColumns = `repeat(${Number(q.get('cols')) || 10},1fr)`;
+const tiers = (q.get('tiers') || 'wood,stone,copper,iron,silver,gold,crystal,fire,ice,star').split(',');
+const weapons = ITEMS.filter((i) => i.kind === 'weapon');
+const pick = tiers.flatMap((m) => WEAPON_STYLES.map((s) => weapons.find((w) => w.style === s.id && w.material === m)).filter(Boolean));
+const card = (into, url, label, dark = false) => { const d = document.createElement('div'); d.className = 'card' + (dark ? ' dark' : ''); d.innerHTML = (url ? `<img src="${url}" alt="">` : '') + `<b>${label}</b>`; document.querySelector(into).append(d); };
+const tilt = (item) => { const g = new THREE.Group(); const w = equipmentModel(item); w.rotation.z = -0.35; g.add(w); return g; };
+
+// 1) スタジオの 光で（food-real の renderShots）。うつりこみは ぶきの 材質が 自分で 持つので env は わたさない。
+if (q.get('mode') !== 'shop') {
+  const shots = await renderShots(pick.map((w) => w.id), (id) => fitUnit(tilt(ITEM_BY_ID[id])), { size: 256, look: 0.5 });
+  for (const w of pick) card('#grid', shots?.[w.id], w.en);
+}
+
+// 2) お店（bag-preview.js）と 同じ 光・同じ わくどり。environment は ない。
+try {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setSize(160, 160); renderer.setPixelRatio(1); renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x6b7d88, 2.4));
+  const key = new THREE.DirectionalLight(0xfff3dc, 2.6); key.position.set(-2.4, 3.2, 4); scene.add(key);
+  const cam = new THREE.PerspectiveCamera(30, 1, 0.05, 400);
+  const frame = (group) => {
+    const b = new THREE.Box3().setFromObject(group), size = b.getSize(new THREE.Vector3()), mid = b.getCenter(new THREE.Vector3());
+    const reach = Math.max(size.x, size.y, size.z, 0.2), away = reach * 2.3;
+    cam.position.set(mid.x + away * 0.5, mid.y + away * 0.45, mid.z + away * 0.85); cam.near = reach * 0.02; cam.far = reach * 20; cam.lookAt(mid); cam.updateProjectionMatrix();
+  };
+  for (const w of pick) {
+    const g = tilt(w); g.rotation.y = -0.6; scene.add(g); frame(g); renderer.render(scene, cam);
+    card('#shop', renderer.domElement.toDataURL('image/png'), w.en, true); scene.remove(g);
+  }
+  // 3) アバターの 右うでに つけた ところ（fishing.js の syncGear と 同じ 位置）。
+  const handTier = q.get('hand') || 'gold';
+  cam.fov = 30; renderer.setSize(360, 360);
+  for (const st of WEAPON_STYLES) {
+    const w = weapons.find((x) => x.style === st.id && x.material === handTier); if (!w) continue;
+    const av = buildAvatar({ id: 'av-hero' }); const model = equipmentModel(w); model.position.set(0, -0.56, 0.16); av.userData.limbs?.[3]?.add(model);
+    av.rotation.y = -0.5; scene.add(av);
+    cam.position.set(1.0, 1.7, 4.6); cam.near = 0.1; cam.far = 50; cam.lookAt(0, 1.25, 0); cam.updateProjectionMatrix();
+    renderer.render(scene, cam); card('#hand', renderer.domElement.toDataURL('image/png'), w.en, true); scene.remove(av);
+  }
+  renderer.dispose(); renderer.forceContextLoss();
+} catch (err) { console.warn('[dev-weapons]', err); document.body.dataset.error = String(err); }
+document.body.dataset.ready = '1';
+</script>
+</body>
+</html>

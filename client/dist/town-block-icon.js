@@ -12,6 +12,11 @@
 // 絵はブロック屋の色（`town.json`）から作る。BLOCKWILD 側のドット絵を持ってくることも
 // できるが、あちらのテクスチャ生成は three.js を import しているので、**この世界に
 // 2本目の three.js を持ち込む**ことになる。それは iframe で隔離した意味を失う。
+//
+// 2026-11：面に もよう（石・レンガ・木の いた・ガラス…）を はった。もようは `town-block-tex.js` が canvas に かく
+// （three.js は 読まない）。やっぱり WebGL は 使わない：面は 平行四辺形 なので 2D の 変形で はれる。
+import { blockTexture, BLOCK_LOOK, TILE } from './town-block-tex.js';
+
 const cache = new Map();
 
 // 面の明るさ。上が明るく、右が中くらい、左が暗い — 光が左上から来ている世界の約束。
@@ -47,9 +52,8 @@ const speck = (seed) => {
   return () => ((s = s * 16807 % 2147483647) / 2147483647);
 };
 
-export function blockIcon(id, colour, size = 56) {
-  const key = `${id}:${colour}:${size}`;
-  if (cache.has(key)) return cache.get(key);
+// 前の 絵：色を 3 面に ぬりわけた 立方体。もようが かけない ときの 予備。
+function flatIcon(id, colour, size) {
   const skin = SKIN[id] || {};
   const cv = document.createElement('canvas');
   const dpr = Math.min(globalThis.devicePixelRatio || 1, 2);
@@ -130,7 +134,105 @@ export function blockIcon(id, colour, size = 56) {
     ctx.fillRect(0, 0, size, size);
   }
 
-  const url = cv.toDataURL('image/png');
+  return cv.toDataURL('image/png');
+}
+
+// 立方体の 3 面に、town-block-tex.js の もよう（石・レンガ・木の いた…）を はる。
+// 面は 平行四辺形 なので、2D の 変形（setTransform）だけで ぴったり はれる＝WebGL は いらない。
+// そのあと 光（上が 明るい・左が 暗い）、地面に 近い ところの かげ、角の ハイライト、足もとの かげを かさねる。
+function richIcon(id, colour, size) {
+  const atlas = blockTexture(id, colour);
+  if (!atlas) return null;
+  const look = BLOCK_LOOK[id] || {};
+  const cv = document.createElement('canvas');
+  const dpr = Math.min(globalThis.devicePixelRatio || 1, 2);
+  cv.width = cv.height = Math.round(size * dpr);
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  const w = size * 0.8;
+  const h = w * 0.5;
+  const cx = size / 2;
+  const top = size * 0.06;
+  const side = w * 0.55;
+  // かど：T＝上、R＝右、C＝まんなか、L＝左、下の 3 つ。
+  const T = [cx, top], R = [cx + w / 2, top + h / 2], C = [cx, top + h], L = [cx - w / 2, top + h / 2];
+  const LB = [L[0], L[1] + side], CB = [C[0], C[1] + side], RB = [R[0], R[1] + side];
+  const path = (pts) => { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (const p of pts.slice(1)) ctx.lineTo(p[0], p[1]); ctx.closePath(); };
+  const base = () => ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  base();
+
+  // 足もとの かげ。
+  const sh = ctx.createRadialGradient(cx, CB[1] - h * 0.42, w * 0.1, cx, CB[1] - h * 0.42, w * 0.66);
+  sh.addColorStop(0, 'rgba(20,30,25,.38)'); sh.addColorStop(1, 'rgba(20,30,25,0)');
+  ctx.save(); ctx.translate(0, CB[1] - h * 0.42); ctx.scale(1, 0.5); ctx.translate(0, -(CB[1] - h * 0.42));
+  ctx.fillStyle = sh; ctx.fillRect(0, 0, size, size * 2); ctx.restore();
+
+  // すけない ブロックは 先に 形を ぬって おく（面と 面の あいだに すきまが 見えない ように）。
+  if (!look.alpha) { path([T, R, RB, CB, LB, L]); ctx.fillStyle = shade(colour, 0.6); ctx.fill(); }
+
+  // 面を はる：o＝左上の かど、u＝よこの 辺、v＝たての 辺。sx＝絵の どちらの 半分か。
+  const face = (o, u, v, sx) => {
+    ctx.setTransform(u[0] / TILE * dpr, u[1] / TILE * dpr, v[0] / TILE * dpr, v[1] / TILE * dpr, o[0] * dpr, o[1] * dpr);
+    ctx.drawImage(atlas, sx, 0, TILE, TILE, 0, 0, TILE, TILE);
+    base();
+  };
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
+  face(L, sub(C, L), [0, side], 0);
+  face(C, sub(R, C), [0, side], 0);
+  face(T, sub(R, T), sub(L, T), TILE);
+
+  // 光：左の 面は かげ、右は 少し かげ、上は 明るい。
+  path([L, C, CB, LB]); ctx.fillStyle = `rgba(8,14,24,${look.glow ? 0.16 : 0.36})`; ctx.fill();
+  path([C, R, RB, CB]); ctx.fillStyle = `rgba(8,14,24,${look.glow ? 0.05 : 0.14})`; ctx.fill();
+  path([T, R, C, L]); ctx.fillStyle = 'rgba(255,255,240,.12)'; ctx.fill();
+  // 地面に 近い ほど 暗い（かこまれた ところの かげ）。
+  for (const pts of [[L, C, CB, LB], [C, R, RB, CB]]) {
+    path(pts);
+    const ao = ctx.createLinearGradient(0, C[1] + side * 0.45, 0, CB[1]);
+    ao.addColorStop(0, 'rgba(0,0,0,0)'); ao.addColorStop(1, `rgba(0,0,0,${look.glow ? 0.12 : 0.3})`);
+    ctx.fillStyle = ao; ctx.fill();
+  }
+  // まんなかの 角：左の 面は 角に むかって 少し 明るく（まるみ）。
+  path([L, C, CB, LB]);
+  const edge = ctx.createLinearGradient(C[0] - w * 0.14, 0, C[0], 0);
+  edge.addColorStop(0, 'rgba(255,255,255,0)'); edge.addColorStop(1, 'rgba(255,255,255,.12)');
+  ctx.fillStyle = edge; ctx.fill();
+
+  // 角の ハイライト と りんかく。
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.strokeStyle = 'rgba(255,255,255,.62)'; ctx.lineWidth = Math.max(0.8, size * 0.016);
+  ctx.beginPath(); ctx.moveTo(L[0], L[1]); ctx.lineTo(C[0], C[1]); ctx.lineTo(R[0], R[1]); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,.3)'; ctx.beginPath(); ctx.moveTo(C[0], C[1]); ctx.lineTo(CB[0], CB[1]); ctx.stroke();
+  path([T, R, RB, CB, LB, L]);
+  ctx.strokeStyle = look.alpha ? shade(colour, 0.55, 0.55) : shade(colour, 0.36, 0.7); ctx.lineWidth = Math.max(0.8, size * 0.014); ctx.stroke();
+
+  // ガラスと 水は つるつる：左の 面に 白い 光の すじ。
+  if (look.alpha) {
+    ctx.save(); path([L, C, CB, LB]); ctx.clip();
+    ctx.fillStyle = 'rgba(255,255,255,.34)';
+    ctx.beginPath(); ctx.moveTo(L[0] + w * 0.06, L[1] + side * 0.16); ctx.lineTo(L[0] + w * 0.16, L[1] + side * 0.2); ctx.lineTo(L[0] + w * 0.16, L[1] + side * 0.72); ctx.lineTo(L[0] + w * 0.06, L[1] + side * 0.6); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  // ランプは 光る：まわりに あたたかい 光を 足す。
+  if (look.glow) {
+    ctx.globalCompositeOperation = 'lighter';
+    const gy = top + h + side * 0.35;
+    const g = ctx.createRadialGradient(cx, gy, size * 0.04, cx, gy, size * 0.58);
+    g.addColorStop(0, shade(colour, 1.2, 0.5)); g.addColorStop(0.5, shade(colour, 1.1, 0.16)); g.addColorStop(1, shade(colour, 1, 0));
+    ctx.fillStyle = g; ctx.fillRect(0, 0, size, size);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  return cv.toDataURL('image/png');
+}
+
+export function blockIcon(id, colour, size = 56) {
+  const key = `${id}:${colour}:${size}`;
+  if (cache.has(key)) return cache.get(key);
+  let url = null;
+  try { url = richIcon(id, Number(colour), size); } catch { url = null; }
+  if (!url) url = flatIcon(id, colour, size);
   cache.set(key, url);
   return url;
 }

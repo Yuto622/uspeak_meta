@@ -10,6 +10,7 @@
 import * as THREE from './three.module.js';
 import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
+import { furnitureModel } from './furniture-real.js';
 
 const CELL = 1;                 // one floor square, one metre
 const REACH = 8;                // how far the crosshair carries, in squares
@@ -65,80 +66,27 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   // ---- the furniture itself ----------------------------------------------------------
 
-  // One recipe per kind, built out of boxes in the footprint the shop sold. Everything is
-  // drawn in a w × d box anchored at its near corner, so a sofa turned sideways is the
-  // same sofa.
+  // かぐの 形は furniture-real.js（まるい クッション・ろくろの 脚・木目・ぬの）。大きさは お店が 売った w × d マスの まま。
+  // モデルは w × d で 1 回 作って あり、むき r は **90° ずつ 回す**だけ：しめる マス（turned）は 前と 同じで、
+  // サーバーの 計算とも 同じ。前は 回さずに たてよこを 入れかえた 箱だった（ソファの 背が いつも 同じ むき）。
+  // 知らない 形・作れない ときは 前と 同じ 色の 箱。
   function model(item, rot) {
     const g = new THREE.Group();
-    const { w, d } = turned(item, rot);
-    const color = Number(item.color) || 0xb0a08a;
-    const dark = new THREE.Color(color).multiplyScalar(0.72).getHex();
-    const B = (x, y, z, sx, sy, sz, c = color, glow = 0) => {
-      const m = new THREE.Mesh(geo, mat(c, glow));
-      m.position.set(x, y, z);
-      m.scale.set(sx, sy, sz);
-      m.castShadow = true;
-      m.receiveShadow = true;
-      g.add(m);
-      return m;
-    };
-    const legs = (top, thick = 0.14) => {
-      for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
-        B(sx * (w / 2 - 0.22), top / 2, sz * (d / 2 - 0.22), thick, top, thick, dark);
-      }
-    };
-    switch (item.shape) {
-      case 'rug': B(0, 0.03, 0, w - 0.1, 0.06, d - 0.1); B(0, 0.05, 0, w - 0.6, 0.04, d - 0.6, dark); break;
-      case 'chair':
-        legs(0.45); B(0, 0.5, 0, w - 0.2, 0.12, d - 0.2);
-        B(0, 0.85, -(d / 2 - 0.16), w - 0.24, 0.6, 0.12);
-        break;
-      case 'table': legs(0.7); B(0, 0.76, 0, w - 0.1, 0.14, d - 0.1); break;
-      case 'sofa':
-        B(0, 0.28, 0, w - 0.1, 0.5, d - 0.1);
-        B(0, 0.62, -(d / 2 - 0.2), w - 0.3, 0.28, 0.34, dark);
-        B(0, 0.85, -(d / 2 - 0.12), w - 0.1, 0.8, 0.22);
-        for (const sx of [-1, 1]) B(sx * (w / 2 - 0.16), 0.7, 0, 0.3, 0.5, d - 0.2);
-        break;
-      case 'bed':
-        B(0, 0.22, 0, w - 0.1, 0.4, d - 0.1, dark);
-        B(0, 0.5, 0.2, w - 0.2, 0.22, d - 0.9);
-        B(0, 0.58, -(d / 2 - 0.5), w - 0.35, 0.24, 0.7, 0xf3ece0);
-        B(0, 0.95, -(d / 2 - 0.06), w - 0.1, 1.1, 0.16, dark);
-        break;
-      case 'shelf':
-        B(0, 1, 0, w - 0.1, 2, 0.34, dark);
-        for (let i = 0; i < 3; i += 1) B(0, 0.45 + i * 0.55, 0.06, w - 0.28, 0.1, 0.3, color);
-        for (let i = 0; i < 5; i += 1) B(-w / 2 + 0.4 + i * ((w - 0.8) / 4), 1.15, 0.1, 0.16, 0.42, 0.2, [0xc4553f, 0x3f6ac4, 0xd0a02c, 0x4aa06a, 0x8b5fb0][i]);
-        break;
-      case 'lamp':
-        B(0, 0.06, 0, 0.5, 0.12, 0.5, dark);
-        B(0, 0.8, 0, 0.12, 1.5, 0.12, dark);
-        B(0, 1.7, 0, 0.7, 0.5, 0.7, color, 1.1);
-        break;
-      case 'plant':
-        B(0, 0.28, 0, 0.6, 0.56, 0.6, 0xb07b52);
-        B(0, 0.7, 0, 0.45, 0.4, 0.45, color);
-        B(0, 1.1, 0, 0.8, 0.5, 0.8, color);
-        B(0, 1.45, 0, 0.5, 0.4, 0.5, color);
-        break;
-      case 'clock':
-        B(0, 0.9, 0, 0.5, 1.8, 0.35, 0x8d6642);
-        B(0, 1.55, 0.2, 0.42, 0.42, 0.06, color, 0.5);
-        break;
-      case 'tv':
-        B(0, 0.25, 0, 0.5, 0.5, 0.4, dark);
-        B(0, 0.95, 0, w - 0.2, 0.9, 0.16, color);
-        B(0, 0.95, 0.1, w - 0.4, 0.68, 0.06, 0x9fd0dc, 0.6);
-        break;
-      case 'piano':
-        B(0, 0.55, -(d / 2 - 0.3), w - 0.2, 1.1, 0.5, color);
-        B(0, 0.62, 0.1, w - 0.24, 0.16, d - 0.6, color);
-        B(0, 0.72, 0.16, w - 0.5, 0.06, 0.4, 0xf3ece0);
-        legs(0.5, 0.16);
-        break;
-      default: B(0, (item.h || 1) / 2, 0, w - 0.15, item.h || 1, d - 0.15);
+    let real = null;
+    try { real = furnitureModel(item); } catch { real = null; }
+    if (real) {
+      real.rotation.y = (rot % 4) * Math.PI / 2;
+      g.add(real);
+      return g;
     }
+    const { w, d } = turned(item, rot);
+    const h = item.h || 1;
+    const m = new THREE.Mesh(geo, mat(Number(item.color) || 0xb0a08a));
+    m.position.set(0, h / 2, 0);
+    m.scale.set(w - 0.15, h, d - 0.15);
+    m.castShadow = true;
+    m.receiveShadow = true;
+    g.add(m);
     return g;
   }
 
