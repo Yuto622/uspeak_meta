@@ -137,10 +137,13 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
   // — so the ONE renderer the stage already owns draws each item once into an offscreen
   // target, the pixels are read back into an ordinary image, and the card shows that. Baked
   // once per item per session; after that a card costs nothing.
-  const THUMB = 132;
+  const THUMB = 384;                  // 大きく 描いて、カードには 192px に ちぢめて のせる（ふちが なめらかに なる）
+  const SHOT = 192;
+  let mannequin = null;               // かおの 品を のせて 見せる 頭（ほっぺ・そばかす・めがねは 顔に ないと 何か 分からない）
   const shots = new Map();            // item id -> data URL
   let target = null;
   let pixels = null;
+  let small = null;
   let flat = null;                    // the 2D canvas the pixels are painted into
   const shotScene = new THREE.Scene();
   shotScene.add(new THREE.HemisphereLight(0xffffff, 0x6b7d88, 2.5));
@@ -161,21 +164,33 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
       flat = document.createElement('canvas');
       flat.width = THUMB;
       flat.height = THUMB;
+      small = document.createElement('canvas'); small.width = small.height = SHOT;
     }
     // Turned a little before it is framed, so flat things — a cape, a badge, a pair of
     // glasses — show an edge instead of reading as a coloured rectangle.
     const whole = item.slot === 'avatar'; // すがたは 体ごと：顔と むねを 大きく
-    model.rotation.set(whole ? 0 : 0.1, whole ? -0.42 : -0.52, 0);
-    model.updateMatrixWorld(true);
-    shotScene.add(model);
+    const onFace = item.slot === 'face';  // かおの 品は 頭に のせて、顔を 大きく
+    let shown = model;
+    if (onFace) {
+      try {
+        if (!mannequin) mannequin = buildAvatar({ id: 'noa' });
+        dressAvatar(mannequin, [item], () => model);
+        mannequin.rotation.set(0, -0.3, 0);
+        shown = mannequin;
+      } catch { shown = model; }
+    }
+    if (shown === model) model.rotation.set(whole ? 0 : 0.1, whole ? -0.42 : -0.52, 0);
+    shown.updateMatrixWorld(true);
+    shotScene.add(shown);
     // Frame whatever it is. A wizard hat is a metre tall and a badge is two centimetres;
     // one fixed camera would show the badge as a dot and crop the hat.
     const bounds = new THREE.Box3().setFromObject(model);
     const size = bounds.getSize(new THREE.Vector3());
     const mid = bounds.getCenter(new THREE.Vector3());
     const reach = Math.max(size.x, size.y, size.z, 0.2);
-    const away = reach * 2.5;
-    if (whole) { const look = new THREE.Vector3(mid.x, bounds.min.y + size.y * 0.68, mid.z); const far = size.y * 1.4; shotCam.position.set(look.x + far * 0.18, look.y + far * 0.12, look.z + far); shotCam.lookAt(look); }
+    const away = reach * 2.2;
+    if (shown !== model) { const look = shown.userData.anchors.face.getWorldPosition(new THREE.Vector3()); look.y -= 0.02; shotCam.position.set(look.x + 0.25, look.y + 0.18, look.z + 2.7); shotCam.lookAt(look); }
+    else if (whole) { const look = new THREE.Vector3(mid.x, bounds.min.y + size.y * 0.68, mid.z); const far = size.y * 1.4; shotCam.position.set(look.x + far * 0.18, look.y + far * 0.12, look.z + far); shotCam.lookAt(look); }
     else { shotCam.position.set(mid.x + away * 0.5, mid.y + away * 0.42, mid.z + away * 0.88); shotCam.lookAt(mid); }
     shotCam.updateProjectionMatrix();
 
@@ -199,13 +214,15 @@ export function createWardrobe({ send, isOnline, toast, avatars }) {
       }
       ctx.clearRect(0, 0, THUMB, THUMB);
       ctx.putImageData(image, 0, 0);
-      url = flat.toDataURL('image/png');
+      const sc = small.getContext('2d'); sc.clearRect(0, 0, SHOT, SHOT); sc.imageSmoothingQuality = 'high'; sc.drawImage(flat, 0, 0, SHOT, SHOT);
+      url = small.toDataURL('image/png');
     } catch {
       url = null;                     // no picture today; the colour swatch stands in
     }
     renderer.setClearColor(wasClear, wasAlpha);
     renderer.setRenderTarget(wasTarget);
-    shotScene.remove(model);
+    shotScene.remove(shown);
+    if (shown !== model) dressAvatar(shown, [], () => null);
     shots.set(item.id, url);
     return url;
   }
