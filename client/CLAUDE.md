@@ -2184,3 +2184,7 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   中＝`planetarium.js` + `planetarium.css`（`rpg.attachPlanetarium()`＝図書館と 同じ 作り・`in:planetarium`・夜も あいて いる）。まるい ホール・リクライニングの 席・まんなかの 投影機・ドームに 同じ 星空。投影機の そばで「⭐ せいざを みる」→ Orion・Big Dipper・Cassiopeia・Scorpius・Cygnus を じゅんに（空が 回って 正面に・線と 星が 明るく・英語の 名前を 読む・英語と 日本語を 両方 出す＝`translate="no"`）。
   石だんは 見た目だけ（`floorY` なし）。もう 1 つの バトルアリーナ 2 は かざりの まま。
 - **メインの島の ミニマップは 下絵を とって おく（2026-11）**：`main-world.js` の `drawMap` は 下絵（`paintMap(…, true)`）を 1 回だけ 描き、8 コマごとには はりつけと「きみ」だけ。前は 毎回 絵文字 40 こ ほどを 描きなおして、歩くと かたかた した。場所・道・ひろばの 絵を かえたら 鍵（`mapKey`）に 入って いるか 見る こと。
+- **かぐは 1,231 しゅるい（2026-11）**：前からの 31（`town.json`・id も 値段も 見た目も そのまま）＋ 形 50 × スタイル 24 ＝ 1,200（`furniture-data.js`＝ページと サーバーが 同じ ものを 読む・three も DOM も 使わない）。id は `<形>-<スタイル>`（`sofa-pink`・`bed_king-royal`）。**id は かえない**。
+  スタイル＝木（pine・oak・white・black・cherry・walnut）・布（red・blue・stripe・check・dots・denim・floral・velvet）・テーマ（mint・pink・sea・forest・mono・candy・royal）・金属（silver・rosegold・gold）。値段＝形の もとの 値段 × スタイルの 倍率（pine 1 〜 royal 5）。ベッドは 149（ぜんぶ ねられる）。
+  お店（かぐ屋・へやの パソコン・`town.js`）：しゅるいの タブ・スタイル・さがす・ならべかえ・「もっている」・24 まいずつの ページ。**買うのは 2 回 おす**（カードを えらぶ → 下の「かう」。1,000 しゅるいを スクロール中の おしまちがいで コインが へらない ように）。
+  絵は `furnitureShot()` が 見えて いる カードだけ 焼く（1 コマ 14ms まで・420 まいまで とって おく・5 秒 つかわないと レンダラーを はなす）。`prop:shop` は 前からの 31 件＋ `owned`（id）だけ 送る（8KB より 小さい こと を 検査）。へやの 下の バーは 横に スクロール。一覧は `/dev-town.html?sheet=designs&style=pink`・`?sheet=styles&design=sofa`。
