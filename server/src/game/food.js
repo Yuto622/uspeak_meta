@@ -120,7 +120,10 @@ export function eat(f, id, now = Date.now()) {
 export const HEARTS_MAX = 10;
 export const POINTS_PER_HEART = 3;
 export const FRIEND_CAP = HEARTS_MAX * POINTS_PER_HEART;
-export const GIFTS_PER_DAY = 3;
+// 検査だけ ふやせる（ブラウザの 検査で ❤ 3 こまで あげる ため。FOOD_RATE_MS と 同じ 考えかた）。ふだんは 3。
+export const GIFTS_PER_DAY = Math.max(1, Math.min(99, Math.floor(Number(process.env.FOOD_GIFTS_PER_DAY)) || 3));
+// ❤ が この 数に なると、その 住民の いえに よんで もらえる（npc-home.js）。きめるのは ここ（部屋の home:visit）。
+export const INVITE_HEARTS = 3;
 export const GIFT_GAP_MS = 1000;
 const FRIENDS_MAX = 300;
 const FRIEND_KEY = /^[a-z0-9_]{1,24}:[a-z0-9_-]{1,40}$/;
@@ -170,14 +173,24 @@ export function friendsPayload(f, now = Date.now()) {
   const today = giftDay(now);
   const out = {};
   for (const [key, v] of Object.entries(f.friends || {})) {
-    out[key] = { points: v.p, hearts: heartsOf(v.p), left: v.d === today ? Math.max(0, GIFTS_PER_DAY - v.n) : GIFTS_PER_DAY, ...(v.f ? { favourite: favouriteOf(key) } : {}) };
+    out[key] = { points: v.p, hearts: heartsOf(v.p), left: v.d === today ? Math.max(0, GIFTS_PER_DAY - v.n) : GIFTS_PER_DAY, ...(v.f ? { favourite: favouriteOf(key) } : {}), ...(heartsOf(v.p) >= INVITE_HEARTS ? { invited: true } : {}) };
   }
   return out;
 }
 
+// いえに あそびに いく：❤ が INVITE_HEARTS こ 以上の 住民だけ。何も へらない・何も ふえない（コインも XP も）。1 秒に 1 回。
+export function visitHome(f, key, now = Date.now()) {
+  if (typeof key !== 'string' || !FRIEND_KEY.test(key)) throw new FoodError('no such villager');
+  if (f.visitAt && now - f.visitAt < GIFT_GAP_MS) throw new FoodError('too fast');
+  f.visitAt = now;
+  const hearts = heartsOf(f.friends?.[key]?.p || 0);
+  if (hearts < INVITE_HEARTS) throw new FoodError('not friends yet');
+  return { key, hearts };
+}
+
 export function foodPayload(f, now = Date.now()) {
   return {
-    friends: friendsPayload(f, now), friendRules: { max: HEARTS_MAX, per: POINTS_PER_HEART, perDay: GIFTS_PER_DAY },
+    friends: friendsPayload(f, now), friendRules: { max: HEARTS_MAX, per: POINTS_PER_HEART, perDay: GIFTS_PER_DAY, invite: INVITE_HEARTS },
     hunger: Math.round(hungerNow(f, now) * 100) / 100, max: MAX, rateMs: f.at ? RATE_MS : 0, slow: SLOW, hungerOn: HUNGER_ON,
     bag: Object.entries(f.bag).map(([id, n]) => { const it = ITEMS.get(id); return { id, n, icon: it.icon, en: it.en, ja: it.ja, fill: it.fill }; }),
   };

@@ -119,3 +119,45 @@ test('部屋: food:give → food:gave（かばんが へる・コインは う�
   assert.equal(w2.wallet.coins, welcome.wallet.coins);
   await again.leave();
 });
+
+// ---- いえに よんで もらう（❤ 3 こから）----
+test('いえ: ❤ が たりないと ことわる・たりると 入れる・表に invited が のる・1 秒に 1 回', async () => {
+  const { INVITE_HEARTS, visitHome } = await import('../src/game/food.js');
+  assert.equal(INVITE_HEARTS, 3);
+  const need = INVITE_HEARTS * POINTS_PER_HEART;
+  const f = sanitizeFood({ bag: {}, friends: { 'farm:mia': { p: need - 1, d: '', n: 0 }, 'farm:taro': { p: need, d: '', n: 0 } } });
+  assert.throws(() => visitHome(f, 'farm:mia', T), /not friends yet/);
+  assert.throws(() => visitHome(f, 'farm:taro', T + 10), /too fast/);
+  assert.deepEqual(visitHome(f, 'farm:taro', T + 2000), { key: 'farm:taro', hearts: INVITE_HEARTS });
+  assert.throws(() => visitHome(f, 'farm:nobody', T + 4000), /not friends yet/);
+  assert.throws(() => visitHome(f, 'bad key', T + 6000), /no such villager/);
+  assert.throws(() => visitHome(f, { toString: () => 'farm:taro' }, T + 8000), /no such villager/);
+  const pay = foodPayload(f, T);
+  assert.equal(pay.friends['farm:mia'].invited, undefined, 'one point short: no invitation');
+  assert.equal(pay.friends['farm:taro'].invited, true);
+  assert.equal(pay.friendRules.invite, INVITE_HEARTS);
+  assert.equal(forSave(f, T).visitAt, undefined, 'the one-second gap is not saved');
+});
+
+test('部屋: home:visit → なかよしで なければ home:visit:error、❤ 3 こで home:visit:ok（コインは うごかない）', async () => {
+  const { matchMaker } = (await import('colyseus')).default || (await import('colyseus'));
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'home1', name: 'Kai' });
+  const welcome = await nextMessage(room, 'welcome');
+  room.onMessage('*', () => {});
+  room.send('home:visit', { key: 'farm:mia' });
+  assert.deepEqual(await nextMessage(room, 'home:visit:error'), { key: 'farm:mia', reason: 'not friends yet' });
+  // ❤ 3 こ ぶんの 点を 部屋の 中の 記録に 入れる（1 日 3 回の きまりは ゆるめない）。
+  const live = matchMaker.getRoomById(room.roomId) || matchMaker.getLocalRoomById?.(room.roomId);
+  const priv = live.priv.get(room.sessionId);
+  priv.food.friends['farm:mia'] = { p: 9, d: '', n: 0 };
+  priv.food.visitAt = 0;
+  room.send('home:visit', { key: 'farm:mia' });
+  assert.deepEqual(await nextMessage(room, 'home:visit:ok'), { key: 'farm:mia', hearts: 3 });
+  room.send('home:visit', { key: 'farm:mia' });
+  assert.equal((await nextMessage(room, 'home:visit:error')).reason, 'too fast');
+  room.send('bag:get', {});
+  const bag = await nextMessage(room, 'bag:state');
+  assert.equal(bag.food.friends['farm:mia'].invited, true);
+  assert.equal(bag.wallet?.coins ?? welcome.wallet.coins, welcome.wallet.coins, 'no coins move');
+  await room.leave();
+});

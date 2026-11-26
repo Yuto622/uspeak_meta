@@ -17,6 +17,8 @@ import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
 import { roofSign, gateModel } from './roof-signs.js';
 import { SHOP_KINDS, shopsOpen } from './shop-hours.js';
+import { PLAZA, buildPlaza, drawPlazaMap } from './main-plaza.js';
+import { createPlazaWalkers } from './plaza-walkers.js';
 
 export { NEAR_DISTANCE };
 
@@ -44,6 +46,7 @@ export function createMainWorld({ scene }) {
   let shopHouses = [];
   let shopsLit = null;
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
+  let plaza = null, walkers = null; // 東の ひろば（main-plaza.js）と 歩く 人たち（plaza-walkers.js）。島が 建ったあと。
   const island = createIsland({
     scene,
     seed: 4242,
@@ -52,6 +55,7 @@ export function createMainWorld({ scene }) {
     dock: { x: 31, z: 37 },
     hills: [{ x: -46, z: -32, r: 7 }],
     land: (x, z) => !inBay(x, z),
+    annex: PLAZA.annex,   // 東の ひろば：島の 形の 外へ つき出す 土地（island-kit.js）
     build({ island: data, B, D, sprite, house, path, resident, door, tree, bush, flowers, rock, bench, lamp, fence, bunting, obstacles, rand, root }) {
       const boxD = D;
       const gates = [];
@@ -471,6 +475,11 @@ export function createMainWorld({ scene }) {
         else if (roll > 0.56) rock(x, z, 0.5 + rand() * 0.5);
         else flowers(x, z, [0xf0d98a, 0xe89bb0, 0xdfe4ef, 0xe7b06a][Math.floor(rand() * 4)]);
       }
+      // 東の ひろば（時計台・ふんすい・ぶたい・フリーマーケット）と、そこを 歩く 人たち。木は 下の リアルな 木に まぜる。
+      try {
+        plaza = buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods, keep });
+        walkers = createPlazaWalkers({ root, sprite, plaza });
+      } catch (err) { console.warn('[main] ひろばが 建てられない', err); }
       // 木は リアルな 木（えだわかれの 幹＋葉の 板）。葉の 色は 季節で かわる。
       const now = seasonNow();
       realTrees = createRealTrees({ root, trees: woods, seed: 4242 });
@@ -488,8 +497,9 @@ export function createMainWorld({ scene }) {
     const d = island.data;
     if (!d || !island.visible) return baseDraw(ctx, player);
     const o = island.origin();
-    const k = 1.5;
-    const px = (x) => 90 + x * k;
+    // 2026-11：東に ひろばが ついたので、島ぜんたい（x -56〜88）が 入るように 1.5 倍 → 1.2 倍、まんなかを x 16 に（前は `90 + x*1.5`）。
+    const k = 1.2;
+    const px = (x) => 90 + (x - 16) * k;
     const py = (z) => 70 + z * k;
     ctx.clearRect(0, 0, 180, 140);
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(0, 0, 180, 140);
@@ -504,7 +514,13 @@ export function createMainWorld({ scene }) {
       ctx.fill();
     };
     land(56, 45, '#e8d6a8');
-    land(54, 43, '#a9cf7c');
+    {
+      // 東の ひろば：すなはまの ふち → 草 → 石だたみ（main-plaza.js）。
+      const a = PLAZA.annex;
+      ctx.fillStyle = '#e8d6a8'; ctx.beginPath(); ctx.roundRect(px(a.x0), py(a.z0), (a.x1 - a.x0) * k, (a.z1 - a.z0) * k, a.r * k); ctx.fill();
+      land(54, 43, '#a9cf7c');
+      ctx.fillStyle = '#a9cf7c'; ctx.beginPath(); ctx.roundRect(px(a.x0), py(a.z0 + 2), (a.x1 - a.x0 - 2) * k, (a.z1 - a.z0 - 4) * k, (a.r - 2) * k); ctx.fill();
+    }
     const bay = d.bay || BAY;
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(px(bay.minX), py(bay.minZ), (bay.maxX - bay.minX) * k, 80);
     // 道。
@@ -541,14 +557,15 @@ export function createMainWorld({ scene }) {
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     for (const sp of d.spots) {
       const x = px(sp.x); const y = py(sp.z);
-      const r = sp.id === target ? 6.5 : 5.2;
+      const r = sp.id === target ? 5.8 : 4.4;
       ctx.fillStyle = sp.id === target ? '#ffd246' : '#ffffff';
-      ctx.beginPath(); ctx.arc(x, y, r + 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, r + 1.2, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = sp.kind === 'eiken_pier' ? `#${Number(sp.color).toString(16).padStart(6, '0')}` : COLORS[sp.kind] || '#4fae6b';
       ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
       ctx.font = '7px sans-serif';
       ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);
     }
+    drawPlazaMap(ctx, px, py, k);
     // スタートの ほし。
     const st = d.start || START;
     ctx.font = '8px sans-serif'; ctx.fillText('⭐', px(st.x), py(st.z));
@@ -579,11 +596,11 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
-    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); }
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); }
     const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;
-  function setNight(n) { baseNight(n); seasons?.setNight(n); }
+  function setNight(n) { baseNight(n); seasons?.setNight(n); plaza?.setNight(n); }
   // 検査・写真用：季節を その場で かえる（'spring' | 'summer' | 'autumn' | 'winter' | 'xmas'）。当たり判定は 入りなおすまで 前の まま。
   function setSeason(id) { const s = id === 'xmas' ? { season: 'winter', xmas: true } : { season: id, xmas: false }; realTrees?.setSeason(s.season); seasons?.setSeason(s); }
 
@@ -597,7 +614,13 @@ export function createMainWorld({ scene }) {
     endCast: () => fx?.end(),
     splash: (fish) => fx?.splash(fish),
     chase: (camera, player, dt) => (fx && island.visible ? fx.chase(camera, player, dt) : false),
+    // ひろばの 人に 話しかける つなぎ口（plaza-walkers.js）。nearestNpc → { id, name, personality, lines, object3D, distance, role } か null。
+    nearestNpc: (player) => walkers?.nearest(player) || null,
+    talkNpc: (id) => walkers?.talk(id) ?? false,
+    sayNpc: (id, text, seconds) => walkers?.say(id, text, seconds) ?? false,
   });
+  Object.defineProperty(out, 'npcs', { get: () => walkers?.npcs || [], enumerable: true });
+  Object.defineProperty(out, 'plaza', { get: () => plaza, enumerable: true });
   // Object.assign は getter を 値に して しまうので defineProperty で。
   Object.defineProperty(out, 'casting', { get: () => !!fx?.casting, enumerable: true });
   return out;

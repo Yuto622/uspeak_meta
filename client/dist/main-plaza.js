@@ -66,7 +66,7 @@ function fit(obj, size) {
 export function clockTower() {
   const g = new THREE.Group();
   const add = (geo, m, x = 0, y = 0, z = 0, shadow = true) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = shadow; o.receiveShadow = true; g.add(o); return o; };
-  const sq = (rt, rb, h) => { const c = new THREE.CylinderGeometry(rt * Math.SQRT1_2 * 2 / 2 * Math.SQRT2, rb * Math.SQRT1_2 * 2 / 2 * Math.SQRT2, h, 4); c.rotateY(Math.PI / 4); return c; };   // 上の 辺 rt×2・下の 辺 rb×2 の 四角い 台
+  const sq = (rt, rb, h) => { const c = new THREE.CylinderGeometry(rt * Math.SQRT2, rb * Math.SQRT2, h, 4); c.rotateY(Math.PI / 4); return c; };   // 上の 辺 rt×2・下の 辺 rb×2 の 四角い 台（4 角の 円柱は 半径 ＝ 辺の 半分 × √2）
   const stone = P({ color: 0xb9b3a4, roughness: 0.9 });
   const brickMap = tex(256, 256, (c, W, H) => {
     c.fillStyle = '#c9b79c'; c.fillRect(0, 0, W, H);
@@ -95,12 +95,12 @@ export function clockTower() {
   add(merge([bell, at(new THREE.SphereGeometry(0.1, 10, 8), 0, -0.02, 0), at(new THREE.CylinderGeometry(0.04, 0.04, 0.4, 6), 0, 0.8, 0)]), P({ color: 0xd9a43a, roughness: 0.32, metalness: 0.85, side: THREE.DoubleSide }), 0, 12.25, 0);
   const roof = new THREE.ConeGeometry(2.75, 3.4, 4); roof.rotateY(Math.PI / 4);
   add(roof, slate, 0, 13.48 + 1.7, 0);                                       // とんがり 屋根
-  add(merge([at(new THREE.SphereGeometry(0.2, 14, 10), 0, 17.2, 0), at(new THREE.ConeGeometry(0.07, 0.7, 8), 0, 17.7, 0)]), gold);
+  add(merge([at(new THREE.SphereGeometry(0.22, 14, 10), 0, 16.92, 0), at(new THREE.ConeGeometry(0.07, 0.7, 8), 0, 17.42, 0)]), gold);
   // 戸口（南）と、どうの 小さな まど（4 面・夜に 灯る）。
   add(merge([at(new THREE.BoxGeometry(1.2, 2.0, 0.14), 0, 0.9 + 1.0, 1.36), at(new THREE.BoxGeometry(1.5, 0.16, 0.2), 0, 2.98, 1.38)]), wood);
   const win = S({ color: 0x9cc4d8, roughness: 0.2, emissive: 0xffd68a, emissiveIntensity: 0 });
   const wins = [];
-  for (let k = 0; k < 4; k += 1) for (const y of [5.6, 6.9]) { if (k === 0 && y < 3) continue; wins.push(at(at(new THREE.BoxGeometry(0.5, 0.8, 0.08), 0, y, 1.36), 0, 0, 0, k * Math.PI / 2)); }
+  for (let k = 0; k < 4; k += 1) for (const y of [5.6, 6.9]) { wins.push(at(at(new THREE.BoxGeometry(0.5, 0.8, 0.08), 0, y, 1.36), 0, 0, 0, k * Math.PI / 2)); }
   add(merge(wins), win, 0, 0, 0, false);
 
   // 時計の 面 4 つ（1 メッシュ）・ふち（1 メッシュ）・はり（面ごとに 2 本）。
@@ -200,7 +200,7 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
   bench(63.5, 4.7, 0); bench(78.5, 4.7, 0);
   for (const [lx, lz] of [[57.8, 12.3], [57.8, 19.7], [67, 7.5], [75, 7.5], [84.2, 4.4], [84.3, 22.6], [57.9, 4.6]]) lamp(lx, lz);
   const PETAL = [0xf08fb0, 0xf2c94c, 0xffffff, 0xe86f6f];
-  [[67.2, 4.4], [74.8, 4.4], [60, 4.4], [82, 4.4], [78.6, 10], [78.6, 22]].forEach(([px, pz], i) => {
+  [[67.2, 4.4], [74.8, 4.4], [60, 4.4], [82, 4.4], [80.4, 10.4], [80.4, 21.6]].forEach(([px, pz], i) => {
     D(px, 0.5, pz, 1.5, 0.56, 1.5, 0xb9b3a4); D(px, 0.8, pz, 1.3, 0.1, 1.3, 0x6b5238);
     D(px, 0.98, pz, 1.05, 0.34, 1.05, 0x5d8b4f);
     for (const [ox, oz] of [[-0.3, -0.25], [0.28, -0.2], [0, 0.3], [-0.25, 0.25], [0.32, 0.22]]) D(px + ox, 1.2, pz + oz, 0.22, 0.2, 0.22, PETAL[(i + Math.round(ox * 10 + 9)) % 4]);
@@ -259,10 +259,10 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
     }
     const T = 1.11, G = 0.3;     // 台の 上・しきものの 上の 高さ
     if (st.id === 'fruit') {
-      ['apple', 'banana', 'watermelon', 'cookie', 'donut'].forEach((id, i) => put(() => realFood(id), id === 'watermelon' ? 0.62 : 0.42, x - 1.1 + i * 0.56, T, z + (i % 2 ? 0.2 : -0.18), i * 0.9));
+      ['apple', 'banana', 'watermelon', 'apple', 'milk'].forEach((id, i) => put(() => realFood(id), id === 'watermelon' ? 0.62 : 0.42, x - 1.1 + i * 0.56, T, z + (i % 2 ? 0.2 : -0.18), i * 0.9));
       D(x - 1.9, 0.5, z + 0.3, 0.7, 0.6, 0.7, 0xb08655); for (const [ox, oz] of [[-0.14, -0.12], [0.14, 0.1], [-0.1, 0.16]]) D(x - 1.9 + ox, 0.88, z + 0.3 + oz, 0.22, 0.2, 0.22, 0xd9483b);
     } else if (st.id === 'hats') {
-      [['cowboy', 0xa9744a], ['tophat', 0x2a2a33], ['cap', 0x3f6fd0], ['wreath', 0x5fc04a], ['party', 0xe86fa0]].forEach(([k, c], i) => {
+      [['cowboy', 0xa9744a], ['tophat', 0x2a2a33], ['cap', 0x3f6fd0], ['cap', 0xd9483b], ['party', 0xe86fa0]].forEach(([k, c], i) => {
         D(x - 1.16 + i * 0.58, T + 0.14, z + 0.12, 0.2, 0.28, 0.2, 0xe6d9bd);
         put(() => realModel(k, c), 0.5, x - 1.16 + i * 0.58, T + 0.26, z + 0.12, 0);
       });
@@ -279,12 +279,13 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
       put(() => realModel('guitar', 0xc98a5e), 1.15, x - 0.85, G, z - 0.3, 0.3);
       put(() => realModel('camera', 0x2a2a33), 0.42, x - 0.05, G, z - 0.55, -0.3);
       put(() => realModel('bell', 0xe8b93c), 0.4, x + 0.5, G, z - 0.2, 0);
-      put(() => realModel('crown', 0xe8b93c), 0.46, x + 1.05, G, z - 0.6, 0);
-      put(() => realModel('binoculars', 0x39445e), 0.4, x + 0.1, G, z + 0.3, 0.5);
+      // レコードの 箱と ふるい ラジオ（箱）。
+      D(x + 1.05, G + 0.2, z - 0.55, 0.6, 0.4, 0.5, 0xb08655); for (let i = 0; i < 4; i += 1) D(x + 0.84 + i * 0.14, G + 0.46, z - 0.55, 0.05, 0.4, 0.42, [0x2a2a33, 0xd9483b, 0x2f6fbf, 0xf2b630][i]);
+      D(x + 0.1, G + 0.18, z + 0.3, 0.6, 0.36, 0.3, 0x8a5a3a); D(x + 0.1, G + 0.2, z + 0.14, 0.24, 0.22, 0.04, 0xe6d9bd);
     }
     stalls.push({ id: st.id, x, z, type: st.type, keeper: { x, z: z + 1.25, face: Math.PI }, front: { x, z: 23.2 } });
   }
-  sprite({ en: '🧺 Flea Market', ja: '🧺 フリーマーケット' }, cx, 4.5, STALL_Z + 2.2, { width: 7.4, size: 38 });
+  sprite({ en: '🧺 Flea Market', ja: '🧺 フリーマーケット' }, cx, 4.2, STALL_Z + 2.2, { width: 6.4, size: 38 });
 
   let lastHour = -1;
   return {
