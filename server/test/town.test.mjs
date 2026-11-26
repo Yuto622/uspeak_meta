@@ -349,9 +349,10 @@ test('パソコン：あたらしい へやにも 前から ある へやにも 
 });
 
 test('かぐ 31 しゅるい：ベッドは ねられる 形で、どの へやにも 置ける', async () => {
-  const { propPayload, footprint } = await import('../src/game/town.js');
-  assert.equal(PROPS.size, 31);
-  const beds = [...PROPS.values()].filter((f) => f.bed === true).map((f) => f.id).sort();
+  const { propPayload, footprint, LEGACY_PROP_IDS } = await import('../src/game/town.js');
+  assert.equal(LEGACY_PROP_IDS.length, 31);
+  const LEGACY = LEGACY_PROP_IDS.map((id) => PROPS.get(id));
+  const beds = LEGACY.filter((f) => f.bed === true).map((f) => f.id).sort();
   assert.deepEqual(beds, ['bed', 'bed_bunk', 'bed_canopy', 'bed_king', 'bed_princess']);
   const small = ROOMS[0].grid / 2;
   for (const id of beds) {
@@ -370,15 +371,80 @@ test('かぐ 31 しゅるい：ベッドは ねられる 形で、どの へや�
   // ベッドで ない ものは ベッドとして 送らない。
   assert.equal(propPayload(PROPS.get('sofa'), true).bed, undefined);
   // 形は ぜんぶ ちがう・ねだんは 0〜3000・あたらしい 品にも やすい ものが ある。
-  const shapes = [...PROPS.values()].map((f) => f.shape);
+  const shapes = LEGACY.map((f) => f.shape);
   assert.equal(new Set(shapes).size, shapes.length);
-  for (const f of PROPS.values()) assert.ok(f.price >= 0 && f.price <= 3000 && f.h > 0, `${f.id} is priced and has a height`);
+  for (const f of LEGACY) assert.ok(f.price >= 0 && f.price <= 3000 && f.h > 0, `${f.id} is priced and has a height`);
   assert.equal(PROPS.get('bed_king').price, 3000);
-  assert.ok([...PROPS.values()].filter((f) => f.price > 0 && f.price <= 100).length >= 3);
+  assert.ok(LEGACY.filter((f) => f.price > 0 && f.price <= 100).length >= 3);
   // こわれた ベッド（ねる 高さが ない）は 読まない。
   const broken = JSON.parse(readFileSync(DATA_PATH, 'utf8'));
   delete broken.furniture.find((f) => f.id === 'bed_king').sleepY;
   const file = join(dir, 'bad-bed.json');
   writeFileSync(file, JSON.stringify(broken));
   assert.throws(() => loadTown(file), /not somewhere to lie down/);
+});
+
+// 2026-11 の おわり：かぐは 1000 しゅるい いじょう（形 × スタイル・client/dist/furniture-data.js を ページと 部屋が 読む）。
+test('かぐ 1000 しゅるい：前からの 31 は そのまま・あたらしい 品は 形 × スタイル', async () => {
+  const { propPayload, footprint, LEGACY_PROP_IDS, sanitizeProps: clean } = await import('../src/game/town.js');
+  const data = await import('../../client/dist/furniture-data.js');
+  const real = readFileSync(new URL('../../client/dist/furniture-real.js', import.meta.url), 'utf8');
+  assert.ok(PROPS.size >= 1000, `${PROPS.size} pieces`);
+  assert.equal(PROPS.size, 31 + data.FURNITURE_DESIGNS.length * data.FURNITURE_STYLES.length);
+  assert.equal(new Set(PROPS.keys()).size, PROPS.size);
+  // 前からの 31：id・値段・しめる マスは 子どもの セーブの まま（ここに 書いた 数が かわったら セーブが こわれる）。
+  const legacy = {
+    chair: [0, 1, 1], rug: [60, 2, 2], plant: [100, 1, 1], table: [120, 2, 1], shelf: [180, 2, 1], lamp: [150, 1, 1], clock: [200, 1, 1],
+    sofa: [300, 3, 1], tv: [400, 2, 1], bed: [500, 2, 3], piano: [800, 2, 1], pc: [0, 2, 1], cushion: [60, 1, 1], vase: [90, 1, 1],
+    sidetable: [110, 1, 1], teddy: [160, 1, 1], beanbag: [200, 1, 1], floorlamp: [220, 1, 1], tree: [240, 1, 1], armchair: [260, 1, 1],
+    toybox: [280, 2, 1], starlight: [320, 1, 1], curtain: [350, 2, 1], mirror: [380, 1, 1], dresser: [650, 2, 1], wardrobe: [700, 2, 1],
+    fishtank: [900, 2, 1], bed_bunk: [900, 2, 3], bed_princess: [1200, 2, 3], bed_canopy: [1800, 2, 3], bed_king: [3000, 3, 3],
+  };
+  assert.deepEqual([...LEGACY_PROP_IDS].sort(), Object.keys(legacy).sort());
+  for (const [id, [price, w, d]] of Object.entries(legacy)) {
+    const f = PROPS.get(id);
+    assert.deepEqual([f.price, f.w, f.d], [price, w, d], `${id} is what it was`);
+    assert.equal(f.style, undefined, `${id} keeps its own look`);
+  }
+  assert.deepEqual(STARTER_PROPS, ['chair', 'pc'], 'nothing new is free');
+  // あたらしい 品：id は <形>-<スタイル>、形は 組み立てられる もの、スタイルは 表に ある もの、値段は 形 × スタイル。
+  const styles = new Map(data.FURNITURE_STYLES.map((s) => [s.id, s])), designs = new Map(data.FURNITURE_DESIGNS.map((d) => [d.id, d]));
+  const cats = new Set(data.FURNITURE_CATEGORIES.map((c) => c.id));
+  const words = new Set();
+  for (const f of PROPS.values()) {
+    if (legacy[f.id]) continue;
+    const d = designs.get(f.design), s = styles.get(f.style);
+    assert.ok(d && s, `${f.id} is a design in a style`);
+    assert.equal(f.id, `${d.id}-${s.id}`);
+    assert.equal(f.shape, d.id);
+    assert.ok(new RegExp(`\\n  ${d.id}\\(K`).test(real), `${d.id} has a model`);
+    assert.deepEqual([f.w, f.d, f.h], [d.w, d.d, d.h]);
+    assert.equal(f.price, Math.max(10, Math.round(d.base * s.mult / 10) * 10));
+    assert.ok(f.price >= 40 && f.price <= 15000, `${f.id} costs ${f.price}`);
+    assert.ok(cats.has(f.cat));
+    assert.ok(/^[a-z ]+$/.test(f.word) && !words.has(f.word), `${f.word} is a plain, unique English name`);
+    words.add(f.word);
+    assert.ok(f.ja.includes(' '), `${f.ja} is written with spaces`);
+    assert.ok(Number.isInteger(f.color));
+  }
+  // 前からの 形は 表でも 同じ 大きさ（スタイルちがいが 同じ マスに 入る）。
+  for (const id of LEGACY_PROP_IDS) { const d = designs.get(id), f = PROPS.get(id); if (d) assert.deepEqual([d.w, d.d, d.h], [f.w, f.d, f.h], id); }
+  // ベッドは どの スタイルでも ねられる。
+  const beds = [...PROPS.values()].filter((f) => f.bed === true);
+  assert.equal(beds.length, 5 + 6 * styles.size);
+  for (const f of beds) {
+    const pay = propPayload(f, true);
+    assert.ok(pay.bed === true && pay.sleepY > 0.5 && pay.sleepY < 2.2 && pay.sleepZ > 0 && pay.sleepZ < f.d / 2 && f.d >= 3, `${f.id} can be slept in`);
+  }
+  for (const f of PROPS.values()) if (f.shape.startsWith('bed')) assert.equal(f.bed, true, `${f.id} is a bed`);
+  // 買った あたらしい 品は セーブに のこり、置ける。知らない id は 落ちる。
+  assert.deepEqual(clean(['sofa-pink', 'nope-gold', 'sofa-nope', 'bed_king-royal']), ['chair', 'pc', 'sofa-pink', 'bed_king-royal']);
+  const state = room();
+  assert.deepEqual(footprint(PROPS.get('bed_king-royal'), 1), { r: 1, w: 3, d: 3 });
+  placeProp(state, ['sofa-pink'], { f: 'sofa-pink', x: -4, z: -4, r: 0 });
+  assert.throws(() => placeProp(state, ['sofa-pink'], { f: 'sofa-pink', x: -2, z: -4, r: 0 }), /something is there/);
+  assert.throws(() => placeProp(state, ['sofa-pink'], { f: 'sofa-gold', x: 0, z: 0, r: 0 }), /not bought/);
+  assert.throws(() => placeProp(state, ['sofa-pink'], { f: 'sofa-nope', x: 0, z: 0, r: 0 }), /no such furniture/);
+  assert.equal(PROPS.get('sofa-pink').price, 660);
+  assert.equal(PROPS.get('bed_king-royal').price, 15000);
 });

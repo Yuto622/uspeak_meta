@@ -1485,6 +1485,21 @@
     "character": "Dr. Stella",
     "en": "Planetarium",
     "ja": "プラネタリウム"
+   },
+   {
+    "id": "land_boat",
+    "kind": "land_ferry",
+    "en": "Boat to My Island",
+    "ja": "じぶんの しまへの ボート",
+    "icon": "⛵",
+    "x": -6,
+    "z": -38.8,
+    "color": 2067110,
+    "character": "Captain Nami",
+    "path": {
+     "x": -6,
+     "z": -36
+    }
    }
   ],
   "deco": [

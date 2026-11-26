@@ -217,6 +217,14 @@ export function createMainWorld({ scene }) {
           obstacles.push({ x: def.x, z: kz, w: 1.8, d: 1.1 });
           sprite({ en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` }, def.x, 3.9, kz, { width: 6 });
           keep(def.x, kz, 2.6, 2);
+        } else if (def.kind === 'land_ferry') {
+          // じぶんの しまへの ボートのりば（2026-11）：北の 岸から 海へ のびる さんばしと 小さな ボート。かざり＋戸口（入ると land.boat()）。
+          for (let i = 0; i < 11; i += 1) D(def.x, 0.2, def.z + 0.6 - i * 1.0, 2.6, 0.2, 0.92, i % 2 ? 0xc0a077 : 0xb79768);
+          for (const sx of [-1.25, 1.25]) for (const pz of [0, -5, -9.4]) { D(def.x + sx, 0.1, def.z + pz, 0.24, 1.5, 0.24, 0x7a5a3a); D(def.x + sx, 0.92, def.z + pz, 0.34, 0.14, 0.34, 0xf7f1e1); }
+          const bx = def.x + 2.9, bz = def.z - 7.6;
+          D(bx, -0.05, bz, 1.7, 0.5, 3.6, 0xf7f1e1); D(bx, 0.22, bz, 1.9, 0.14, 3.8, 0xd9483b); D(bx, 0.05, bz - 2.0, 1.1, 0.4, 0.6, 0xf7f1e1);
+          D(bx, 0.3, bz + 0.2, 1.3, 0.1, 0.5, 0xb79768); D(bx, 1.5, bz - 0.5, 0.1, 2.6, 0.1, 0x7a5a3a); D(bx + 0.55, 1.75, bz - 0.5, 1.0, 1.5, 0.05, 0xfff4d6);
+          sprite({ en: '⛵ Boat to My Island', ja: '⛵ じぶんの しまへ' }, def.x, 3.4, def.z - 0.4, { width: 7 });
         } else if (def.kind === 'gate') {
           gate(def, color);
         }
@@ -623,9 +631,9 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', bike_shop: '#e27a2d', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
+    const COLORS = { land_ferry: '#1f8aa6', word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', bike_shop: '#e27a2d', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { bike_shop: '🚲', word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
+    const ICON = { land_ferry: '⛵', bike_shop: '🚲', word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');

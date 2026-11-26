@@ -338,7 +338,9 @@ export function createLandUI({ send, toast, isOnline, world, goOffice = null }) 
       : tr('{emoji} {name}を かった！ ⛵ の いえから いこう。', { emoji: isle.emoji || '', name: name(isle) }));
   }
   function onBoard(m) { state.board = m; render(); }
-  function onIsland(m) { state.busy = false; close(); world.enter(m); }
+  // メインの島の ボートのりば から（部屋は 持ち物からと 同じ 道＝どこからでも じぶんの しまへ 行ける）。
+  function boat() { state.fromBoat = true; send('land:enter', { from: 'bag' }); return true; }
+  function onIsland(m) { state.busy = false; state.fromBoat = false; close(); world.enter(m); }
   function onError(m) {
     state.busy = false;
     const said = {
@@ -346,6 +348,12 @@ export function createLandUI({ send, toast, isOnline, world, goOffice = null }) 
       'no island': m?.name ? tr('{who} は まだ しまを もっていない。', { who: m.name }) : tr('まだ しまを もっていない。ふどうさんで かおう。'),
       'same look': tr('もう その しま だよ。'), 'no such look': tr('その しまは いま えらべない。'), 'no such child': tr('その 子は クラスに いない。'),
     }[m?.reason];
+    if (m?.reason === 'no island' && !m?.name && state.fromBoat) {
+      state.fromBoat = false; state.confirm = false;
+      toast(tr('⛵ いえの おみせで しまを かったら、ここから ボートで 行けるよ。'));
+      return;
+    }
+    state.fromBoat = false;
     if (said) toast(said);
     // ⛵ で「まだ しまが ない」：小さな おしらせ だけでは 気づかれず「Enter を おしても 行けない」に なった（2026-11）。
     // ふどうさんの 前へ つれて いって、しまを えらぶ 画面を そのまま ひらく。
@@ -354,5 +362,5 @@ export function createLandUI({ send, toast, isOnline, world, goOffice = null }) 
     render();
   }
 
-  return { state, dialog, label, enter, onState, onBought, onBoard, onIsland, onError, close, shots };
+  return { state, dialog, label, enter, boat, onState, onBought, onBoard, onIsland, onError, close, shots };
 }

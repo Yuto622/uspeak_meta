@@ -31,10 +31,47 @@
 import * as THREE from './three.module.js';
 import { blockIcon } from './town-block-icon.js';
 import { blockGeometry, blockMaterial } from './town-real.js';
-import { furnitureModel, furnitureShots } from './furniture-real.js';
+import { furnitureModel, furnitureShots, furnitureShot } from './furniture-real.js';
+import { fullFurniture, FURNITURE_DESIGNS, FURNITURE_STYLES } from './furniture-data.js';
 
 const town = await (await fetch('./town.json')).json();
-const only = new URLSearchParams(location.search).get('only');
+const Q = new URLSearchParams(location.search);
+const only = Q.get('only');
+const ALL = fullFurniture(town.furniture), BY = new Map(ALL.map((f) => [f.id, f]));
+
+// ---- 1000 しゅるいの 見本（2026-11 の おわり）----
+// ?sheet=designs&style=pine   … 形 50 を 1 つずつ（その スタイルで）
+// ?sheet=styles&design=sofa   … 1 つの 形を 24 の スタイル ぜんぶで
+// ?sheet=room&design=sofa     … へやと 同じ 光で 3D（スタイル ぜんぶ）／ ?sheet=room&style=pink … 形 ぜんぶ
+// sheet が あれば 見本だけを 出す（下の 前からの 一覧は 出さない）。
+if (Q.get('sheet')) {
+  for (const el of [...document.body.children]) if (el.tagName !== 'SCRIPT') el.remove();
+  const sheet = Q.get('sheet'), style = Q.get('style') || 'pine', design = Q.get('design') || 'sofa';
+  const list = Q.get('design') || sheet === 'styles' ? FURNITURE_STYLES.map((s) => BY.get(`${design}-${s.id}`)) : FURNITURE_DESIGNS.map((d) => BY.get(`${d.id}-${style}`));
+  const h = document.createElement('h1'); h.textContent = sheet === 'styles' || Q.get('design') ? `${design} × スタイル ${FURNITURE_STYLES.length}` : `形 ${FURNITURE_DESIGNS.length} × ${style}`; document.body.append(h);
+  if (sheet !== 'room') {
+    const grid = document.createElement('div'); grid.className = 'grid'; grid.style.gridTemplateColumns = 'repeat(auto-fill,minmax(138px,1fr))'; document.body.append(grid);
+    for (const f of list) {
+      const d = document.createElement('div'); d.className = 'card';
+      const url = await furnitureShot(f);
+      d.innerHTML = `${url ? `<img class="big" src="${url}" alt="">` : '<b>（かけない）</b>'}<b>${f.word}</b><small>${f.ja}・◈${f.price}</small>`;
+      grid.append(d);
+    }
+  } else {
+    const rep = [];
+    for (let i = 0; i < list.length; i += 8) {
+      const canvas = document.createElement('canvas'); canvas.className = 'stage'; canvas.width = 1180; canvas.height = 520; document.body.append(canvas);
+      const row = list.slice(i, i + 8), total = row.reduce((n, f) => n + f.w + 0.7, -0.7);
+      const S = stage(canvas, [0, 4.4, Math.max(9.8, total * 0.72)], [0, 0.95, 0]);
+      let x = -total / 2;
+      for (const f of row) { rep.push(place(S, f, Math.round(x), -Math.floor(f.d / 2), 0)); x += f.w + 0.7; }
+      S.draw();
+    }
+    document.body.dataset.report = JSON.stringify(rep);
+  }
+  document.body.dataset.ready = '1';
+  await new Promise(() => {});   // 下の 前からの 一覧は 出さない
+}
 
 // 1. カードの 絵。
 for (const b of town.blocks) {

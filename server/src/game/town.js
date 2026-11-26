@@ -13,6 +13,8 @@
 // be stored per child is a short list of kinds and a list of where things are. Every
 // cell is checked here — inside, on the grid, a kind that was bought, within capacity.
 import { readFileSync } from 'node:fs';
+// かぐの 品ぞろえ（形 × スタイル＝1000 しゅるい いじょう）。ページと 同じ 定義を 読む（weapons-data.js と 同じ 考え）。
+import { GENERATED_FURNITURE } from '../../../client/dist/furniture-data.js';
 
 export class TownError extends Error {}
 
@@ -70,7 +72,10 @@ export function loadTown(file = DATA_PATH) {
 
   const props = new Map();
   let freeProps = 0;
-  for (const f of raw.furniture || []) {
+  // 前からの 31 しゅるい（town.json・id も 値段も そのまま）の あとに、あたらしい 品（`<形>-<スタイル>`）を つづける。
+  const legacyIds = [];
+  for (const f of [...(raw.furniture || []), ...GENERATED_FURNITURE]) {
+    if (f.design === undefined) legacyIds.push(f.id);
     if (!f.id || props.has(f.id)) throw new Error(`town.json: duplicate or missing furniture id "${f.id}"`);
     if (!f.word || !f.ja) throw new Error(`town.json: furniture ${f.id} carries no word`);
     if (!Number.isFinite(f.price) || f.price < 0) throw new Error(`town.json: furniture ${f.id} has no price`);
@@ -107,7 +112,7 @@ export function loadTown(file = DATA_PATH) {
 
   return {
     island: { ...island, spotById },
-    blocks, blockIds: [...blocks.keys()], props, propIds: [...props.keys()], plaza: { ...plaza }, rooms,
+    blocks, blockIds: [...blocks.keys()], props, propIds: [...props.keys()], legacyPropIds: legacyIds, plaza: { ...plaza }, rooms,
     starters: [...blocks.values()].filter((b) => b.price === 0).map((b) => b.id),
     propStarters: [...props.values()].filter((f) => f.price === 0).map((f) => f.id),
   };
@@ -117,6 +122,9 @@ export const TOWN = loadTown();
 export const TOWN_ISLAND = TOWN.island;
 export const BLOCKS = TOWN.blocks;
 export const PROPS = TOWN.props;
+// 前からの 31 しゅるい（town.json に 書いて ある 品）。お店の へんじに きろくごと 入れるのは これだけ：
+// のこり（1000 いじょう）は ページが 同じ furniture-data.js から 作るので、送るのは「もっている id」だけ。
+export const LEGACY_PROP_IDS = TOWN.legacyPropIds;
 export const PLAZA = TOWN.plaza;
 export const ROOMS = TOWN.rooms;
 export const STARTER_BLOCKS = TOWN.starters;

@@ -22,7 +22,7 @@ const bodyOf = (holder) => holder.children.find((c) => c.userData?.limbs) || nul
 // 体の 大きさに 合わせた じてんしゃの 大きさと、体を もちあげる 高さ。まるい 体（あしの つけね 0.56）が きほん。
 function fit(body) {
   const hip = body?.userData?.limbs?.[0]?.position.y || 0.56;
-  const scale = Math.min(1.6, Math.max(1, hip / 0.56));
+  const scale = Math.min(1.6, Math.max(1, hip / 0.56)) * 1.15;   // 頭の 大きい 体に 合わせて 少し 大きく
   const seat = SADDLE_Y * scale;                 // サドルの 上
   const bottom = hip - 0.13;                     // 体の いちばん 下（おしり）
   return { scale, lift: seat - bottom + 0.02 };

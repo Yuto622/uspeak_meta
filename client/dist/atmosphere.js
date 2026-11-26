@@ -14,7 +14,7 @@ export function createAtmosphere({scene,camera,renderer,sun,water,box,colliders,
  void main(){vec3 d=normalize(vDirection);float h=max(d.y,0.);vec3 horizon=mix(vec3(.99,.70,.43),vec3(.065,.13,.21),uNight);vec3 zenith=mix(vec3(.19,.45,.61),vec3(.008,.022,.07),uNight);vec3 c=mix(horizon,zenith,pow(h,.48));float a=max(dot(d,uSun),0.);c+=vec3(1.,.64,.30)*pow(a,10.)*.30*(1.-uNight);c+=vec3(1.,.84,.53)*smoothstep(.9986,.9995,a)*(1.-uNight)*2.;vec3 md=normalize(vec3(.38,.55,-.7));float moon=smoothstep(.9990,.9994,dot(d,md));c+=vec3(.73,.85,1.)*moon*uNight*1.6;gl_FragColor=vec4(c,1.);}` }));sky.frustumCulled=false;scene.add(sky);
  // 星空（starfield.js）：まるく やわらかい 星 8000 こ あまり・ほんものの 星座の 位置・天の川。描画 2 回、夜だけ。前は 空の シェーダーの 四角い 点。
  // 北緯 35°・冬の 夜（恒星時 4 時＝オリオンが 南東、カシオペヤと 北極星が 北）。ゆっくり 西へ まわる。
- const starSky=createStarfield({count:mobile?3600:5200,band:mobile?2200:3200,radius:215,milkySize:mobile?1024:2048});starSky.setFade(0);scene.add(starSky.group);
+ const starSky=createStarfield({count:mobile?3600:5200,band:mobile?2200:3200,radius:215,milkySize:mobile?1024:2048,scale:1.3,gain:1.35});starSky.setFade(0);scene.add(starSky.group);
 scene.add(sun.target);scene.background=null;scene.fog=new THREE.FogExp2(0xd3b99b,.0075);
  // Open water: animated normals, Fresnel sky reflection, sun glints and coastal foam.
  // 海は water-fx.js（波・空の うつりこみ・きらめき）。時間・夜・太陽は SEA を みんなで 使う。

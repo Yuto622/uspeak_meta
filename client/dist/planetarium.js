@@ -40,7 +40,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     hall = buildPlanetariumInterior();
     scene.add(hall.group);
     const R = hall.radius - 0.4;
-    sky = createStarfield({ count: 7000, band: 4200, radius: R, seed: 11, horizon: [0.0, 0.07], scale: 1.4, gain: 1.2, milkyGain: 0.3, twinkle: 0.45, milkySize: 2048 });
+    sky = createStarfield({ count: 7000, band: 4200, radius: R, seed: 11, horizon: [0.0, 0.07], scale: 1.4, gain: 1.2, milkyGain: 0.2, twinkle: 0.45, milkySize: 2048 });
     sky.group.position.copy(hall.center);
     scene.add(sky.group);
     // 星座の 線（ぜんぶで 描画 1 回）。星に かさならない ように 両はしを 少し ちぢめる。
@@ -301,8 +301,11 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     // 見上げる カメラ：じぶんの 後ろ・ひくい 位置から、ドームを 大きく。画角を ひろげる（ゲームは 毎フレーム 43 へ もどそうと する）。
     camera.fov = FOV; camera.updateProjectionMatrix();
     desired.set(px - fx * 7.5, 2.1, pz - fz * 7.5);
-    const d = Math.hypot(desired.x, desired.z), max = hall.radius - 1.1;
+    // かべの そば（入った ところ）では 後ろに さがれない：その ぶん 上へ あげる（じぶんの 頭で 空が かくれない ように）。
+    const d = Math.hypot(desired.x, desired.z), max = hall.radius - 0.8;
     if (d > max) { desired.x *= max / d; desired.z *= max / d; }
+    const behind = Math.hypot(desired.x - px, desired.z - pz);
+    desired.y = 2.1 + Math.max(0, 7.5 - behind) * 0.5;
     if (!eyeSet) { eye.copy(desired); eyeSet = true; } else eye.lerp(desired, 1 - Math.exp(-(dt || 0.016) * 5));
     camera.position.copy(eye);
     const e = THREE.MathUtils.clamp(0.4 + pitch * 0.8, 0.08, 1.25);

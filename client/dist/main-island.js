@@ -423,6 +423,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'wear_shop') shops.wardrobe?.open({});
     if (spot.kind === 'block_shop') shops.town?.enter({ kind: 'shop' });
     if (spot.kind === 'land_shop') shops.land?.enter({ kind: 'office' });
+    // ボートのりば：いえの おみせで 買った じぶんの しまへ（まだ ない 子には 買いかたの おしらせ・land.js の boat()）。
+    if (spot.kind === 'land_ferry') shops.land?.boat?.();
     // じぶんの いえ：まちづくり島の マイルーム入口と 同じ へや（部屋が いえの 前か 見る。出ると この いえの 前に もどる＝net-client.js の myRoom の onLeave）。
     if (spot.kind === 'my_home') shops.town?.enter({ kind: 'door' });
     if (spot.kind === 'weapon_shop') shops.weapons?.open();
@@ -440,6 +442,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     wear_shop: () => tr('👕 ふくを 見る'),
     block_shop: () => tr('🧱 ブロックを 見る'),
     land_shop: () => tr('🏠 いえを 見る'),
+    land_ferry: () => tr('⛵ じぶんの しまへ いく'),
     my_home: () => tr('🏡 じぶんの いえに はいる'),
     weapon_shop: () => tr('⚔️ ぶきを 見る'),
     bike_shop: () => (isJa() ? '🚲 じてんしゃを 見る' : '🚲 Look at the bikes'),

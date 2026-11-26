@@ -47,7 +47,7 @@ import {
   MAX_RACERS as GP_MAX, XP_ITEM, GP_TICK_MS,
 } from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
-import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError, MAIN_HOME, starterRoom } from '../game/town.js';
+import { TOWN_ISLAND, BLOCKS, PROPS, LEGACY_PROP_IDS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError, MAIN_HOME, starterRoom } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
 import * as reading from '../game/reading.js';
@@ -3269,7 +3269,10 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(sessionId);
     if (!priv) return { furniture: [] };
     return {
-      furniture: [...PROPS.values()].map((f) => propPayload(f, priv.props.includes(f.id))),
+      // 品は 1000 を こえる：きろくごと 送るのは 前からの 31 だけ。のこりは ページが 同じ 定義（furniture-data.js）から 作る。
+      // 値段と もちものを 決めるのは ここ（onPropBuy）の まま。
+      furniture: LEGACY_PROP_IDS.map((id) => propPayload(PROPS.get(id), priv.props.includes(id))),
+      owned: [...priv.props], total: PROPS.size,
       coins: priv.wallet.coins,
     };
   }
@@ -3291,7 +3294,7 @@ export class ClassRoom extends Room {
     priv.props.push(item.id);
     this.persist(client.sessionId);
     client.send('prop:bought', {
-      id: item.id, word: item.word, ja: item.ja,
+      id: item.id, word: item.word, ja: item.ja, price: item.price,
       ...this.propShopPayload(client.sessionId), ...this.walletPayload(client.sessionId),
     });
     log.info(`[room ${this.roomId}] ${who(priv.name)} bought the ${item.id}`);

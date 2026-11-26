@@ -1045,7 +1045,12 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   // Furniture is its own shop, at its own counter, and its own free thing to start with.
   a.room.send('prop:list', {});
   const kaguList = await nextMessage(a.room, 'prop:shop');
-  assert.equal(kaguList.furniture.length, PROPS.size);
+  // 品は 1000 を こえる：きろくごと 来るのは 前からの 31、のこりは ページが 同じ 定義から 作る（来るのは もっている id）。
+  assert.equal(kaguList.furniture.length, 31);
+  assert.equal(kaguList.total, PROPS.size);
+  assert.ok(kaguList.total >= 1000);
+  assert.deepEqual([...kaguList.owned].sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
+  assert.ok(JSON.stringify(kaguList).length < 8000, 'the shop list stays small');
   // 2026-11：だれでも はじめの かぐ（ベッド・テーブル・いす・しょくぶつ・ラグ）を もって いる（town.js の starterRoom）。
   assert.deepEqual(kaguList.furniture.filter((f) => f.owned).map((f) => f.id).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
   a.room.send('prop:buy', { id: 'table' });
@@ -2265,7 +2270,9 @@ test('オンライン ショップ：じぶんの へやの 中から かぐを 
   const got = await nextMessage(a.room, 'prop:bought');
   assert.equal(got.id, cheap.id);
   assert.equal(got.wallet.coins, coins - cheap.price);
-  assert.ok(got.furniture.find((f) => f.id === cheap.id).owned);
+  assert.ok(got.owned.includes(cheap.id));
+  assert.equal(got.price, cheap.price);
+  assert.match(cheap.id, /^[a-z_]+-[a-z]+$/, 'the cheapest thing is one of the generated pieces');
   // 買った ものは すぐ 置ける。
   a.room.send('room:place', { f: cheap.id, x: 2, z: 1, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:placed')).f, cheap.id);

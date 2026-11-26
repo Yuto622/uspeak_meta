@@ -94,7 +94,7 @@ void main(){
 const MW_VERT = `varying vec3 vLocal; varying float vUp; uniform vec2 uHorizon;
 void main(){ vLocal = position; vec3 dir = normalize(mat3(modelMatrix) * position); vUp = smoothstep(uHorizon.x, uHorizon.y + .1, dir.y);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`;
-const MW_FRAG = `precision mediump float;
+const MW_FRAG = `precision highp float;
 varying vec3 vLocal; varying float vUp; uniform sampler2D uMap; uniform mat3 uGal; uniform float uFade, uGain;
 void main(){
   vec3 g = uGal * normalize(vLocal);
@@ -137,7 +137,11 @@ function milkyTexture(seed, size) {
       blob(x, y, H * (0.012 + rnd() * 0.04), '0,0,0', 0.12 + rnd() * 0.2);
     }
     for (let i = 0; i < 70; i += 1) blob(rnd() * W, H / 2 + gauss() * H * 0.06, H * (0.02 + rnd() * 0.05), '0,0,0', 0.25);
-    const t = new THREE.CanvasTexture(c);
+    // うすい 色を かさねた 絵は 8 ビットの だんだん（輪の もよう）が 出る：1/4 に ちぢめて なめらかに する（メモリも 1/16）。
+    const small = document.createElement('canvas'); small.width = W / 4; small.height = H / 4;
+    const sg = small.getContext('2d'); sg.imageSmoothingEnabled = true; sg.imageSmoothingQuality = 'high';
+    sg.drawImage(c, 0, 0, W, H, 0, 0, W / 4, H / 4);
+    const t = new THREE.CanvasTexture(small);
     t.wrapS = THREE.RepeatWrapping; t.wrapT = THREE.ClampToEdgeWrapping; t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter;
     return t;
   } catch { return null; }
@@ -152,7 +156,7 @@ function milkyTexture(seed, size) {
  * 返す：{ group, points, milky, uniforms, update(t), setFade(n), setSky(緯度°, 恒星時 h), highlight(番号, 強さ) }
  */
 export function createStarfield({ count = 5200, band = 3200, radius = 200, seed = 11, catalog = true, milkyWay = true, milkySize = 2048,
-  horizon = [0.015, 0.2], scale = 1, gain = 1, milkyGain = 0.26, twinkle = 1, auto = false } = {}) {
+  horizon = [0.015, 0.2], scale = 1, gain = 1, milkyGain = 0.2, twinkle = 1, auto = false } = {}) {
   let s = seed; const rnd = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
   const gauss = () => (rnd() + rnd() + rnd() + rnd() - 2) * 0.87;
   const named = catalog ? CONSTELLATIONS.reduce((n, c) => n + c.stars.length, 0) + BRIGHT.length : 0;
