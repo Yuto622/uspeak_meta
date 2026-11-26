@@ -29,6 +29,9 @@
 <script type="module">
 import * as THREE from './three.module.js';
 import { CAST, buildCastMember } from './island-cast.js';
+import { CHIBI, buildChibiAvatar } from './avatar-chibi.js';
+const AV = new URLSearchParams(location.search).get('set') === 'avatars';
+if (AV) { document.querySelector('h1').innerHTML = 'アバター <small>デザイン案 ' + CHIBI.length + ' 体 ・ 右上は シルエット ・ いまの アバターは まだ かえて いません</small>'; document.querySelector('#grid').style.gridTemplateColumns = 'repeat(8,1fr)'; }
 const W = 560, H = 700;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H); renderer.setPixelRatio(1);
@@ -36,7 +39,8 @@ renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadow
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 const only = new URLSearchParams(location.search).get('only');
 const grid = document.querySelector('#grid');
-for (const c of CAST) {
+for (const c0 of (AV ? CHIBI : CAST)) {
+  let c = c0;
   if (only && !only.split(',').includes(c.id)) continue;
   const scene = new THREE.Scene();
   const bg = new THREE.Color(c.bg);
@@ -47,7 +51,7 @@ for (const c of CAST) {
   const rim = new THREE.DirectionalLight(0xbfe0ff, 1.1); rim.position.set(-4, 3, -4); scene.add(rim);
   const floor = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.62, 0.16, 48), new THREE.MeshStandardMaterial({ color: bg.clone().lerp(new THREE.Color(0xffffff), 0.45), roughness: 0.9 }));
   floor.position.y = -0.08; floor.receiveShadow = true; scene.add(floor);
-  const model = buildCastMember(c.id); model.rotation.y = -0.38; scene.add(model);
+  const model = AV ? buildChibiAvatar(c.id) : buildCastMember(c.id); if (AV) c = model.userData.cast; model.rotation.y = -0.38; scene.add(model);
   const cam = new THREE.PerspectiveCamera(26, W / H, 0.1, 50); cam.position.set(1.2, 2.1, 8.4); cam.lookAt(0.12, 1.42, 0);
   renderer.render(scene, cam);
   const main = renderer.domElement.toDataURL('image/jpeg', 0.92);
@@ -57,7 +61,7 @@ for (const c of CAST) {
   renderer.render(scene, cam);
   const sil = renderer.domElement.toDataURL('image/jpeg', 0.8);
   const card = document.createElement('div'); card.className = 'card';
-  card.innerHTML = `<img class="main" src="${main}"><img class="sil" src="${sil}"><span class="isle">${c.island}</span><div class="txt"><div class="name">${c.name}<i>${c.en}</i></div><div class="role">${c.role}</div><div class="note">${c.note}</div></div>`;
+  card.innerHTML = `<img class="main" src="${main}"><img class="sil" src="${sil}"><span class="isle">${c.island}</span><div class="txt"><div class="name">${c.name}<i>${c.en}</i></div>${c.role ? `<div class="role">${c.role}</div>` : ''}${c.note ? `<div class="note">${c.note}</div>` : ''}</div>`;
   grid.append(card);
 }
 document.body.dataset.ready = '1';

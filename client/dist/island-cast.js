@@ -43,23 +43,24 @@ function body(add, c) {
     add('C', c.pants, [s * 0.2, 0.32, 0], [0.27, 0.5, 0.3]);
     add('S', c.shoe ?? 0x4a3b34, [s * 0.2, 0.09, 0.07], [0.34, 0.2, 0.48]);
     add('P', c.sleeve ?? c.top, [s * 0.5, 0.98, 0.02], [0.2, 0.2, 0.2], [0, 0, s * 0.42]);
-    add('S', c.skin, [s * 0.63, 0.74, 0.04], [0.2, 0.2, 0.2]);
+    add('S', c.hand ?? c.skin, [s * 0.63, 0.74, 0.04], [0.2, 0.2, 0.2]);
   }
   add('S', c.top, [0, 0.92, 0], [0.88, 0.96, 0.72]);
   if (c.coat) add('K', c.coat === true ? c.top : c.coat, [0, 0.74, 0], [1.12, 0.78, 0.94]);
   // 頭と 顔。
   add('S', c.skin, [0, 1.74, 0], [1.24, 1.12, 1.14]);
-  for (const s of [-1, 1]) add('S', c.skin, [s * 0.62, 1.7, -0.02], [0.2, 0.26, 0.16]);
+  if (!c.noEars) for (const s of [-1, 1]) add('S', c.skin, [s * 0.62, 1.7, -0.02], [0.2, 0.26, 0.16]);
   for (const s of [-1, 1]) {
-    if (c.eye === 'smile') add('A', INK, [s * 0.21, 1.7, 0.53], [0.2, 0.2, 0.2], [0, s * 0.3, 0]);
+    if (c.noEyes) { /* その 子だけの 目を build が かく */ }
+    else if (c.eye === 'smile') add('A', INK, [s * 0.21, 1.7, 0.53], [0.2, 0.2, 0.2], [0, s * 0.3, 0]);
     else {
-      add('S', INK, [s * 0.21, 1.72, 0.5], [0.17, 0.23, 0.1], [0, s * 0.32, 0]);
+      add('S', c.eyeColor ?? INK, [s * 0.21, 1.72, 0.5], [0.17, 0.23, 0.1], [0, s * 0.32, 0]);
       add('S', WHITE, [s * 0.21 + 0.035, 1.78, 0.545], [0.07, 0.08, 0.03]);
       add('S', WHITE, [s * 0.21 - 0.03, 1.67, 0.55], [0.035, 0.04, 0.02]);
     }
-    add('S', BLUSH, [s * 0.38, 1.58, 0.44], [0.17, 0.09, 0.05], [0, s * 0.6, 0]);
+    if (!c.noBlush) add('S', BLUSH, [s * 0.38, 1.58, 0.44], [0.17, 0.09, 0.05], [0, s * 0.6, 0]);
   }
-  add('A', 0xa5483f, [0, 1.56, 0.555], [0.13, 0.11, 0.13], [Math.PI, 0, 0]);
+  if (!c.noMouth) add('A', 0xa5483f, [0, 1.56, 0.555], [0.13, 0.11, 0.13], [Math.PI, 0, 0]);
   hair(add, c);
 }
 function hair(add, c) {
@@ -219,3 +220,6 @@ export function placeHost(parent, islandId, x, z, { scale = 1.12, face = 0 } = {
     },
   };
 }
+
+// アバターの デザイン案（avatar-chibi.js）も 同じ 体・同じ 部品を 使う。
+export { maker as chibiMaker, body as chibiBody, INK as CHIBI_INK };
