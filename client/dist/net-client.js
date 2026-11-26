@@ -474,6 +474,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
   let bikeRide = null;   // じてんしゃに のる（bike-ride.js。下で 作る）
+  let bikeShop = null;   // じてんしゃや の 画面（bike-shop.js。下で 作る）
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
   // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
@@ -511,7 +512,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     && !fishing.isOpen && !fishing.state.busy && !fishworld.isOpen && !fishworld.busy && !rpg.fishworld?.casting && !rpg.main?.casting
     && document.body.dataset.classPause !== '1' && !document.body.dataset.npcTalk && !document.body.dataset.sleeping && !document.body.dataset.warp;
   bikeRide = createBikeRide({ player, store: fishing.store, send: plainSend, isOnline: () => state.mode === 'online', toast, canRide: canRideBike });
-  const bikeShop = createBikeShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }), ride: bikeRide });
+  bikeShop = createBikeShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }), ride: bikeRide });
   bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer, hold: foodGive, bike: bikeRide });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
@@ -1209,6 +1210,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       fishing.store.reconcile?.(w);
       fishing.refreshWallet?.();
     } catch (err) { console.warn('[net] wallet reconcile failed', err); }
+    bikeShop?.refresh();   // じてんしゃや が ひらいて いれば 値札と ボタンを なおす
   }
   // テーマパークの のりもの代。オンラインは 部屋が はらう（へんじを まつ）。オフラインは null（ページの さいふで はらう）。
   function parkPay(id) {

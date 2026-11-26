@@ -73,7 +73,7 @@ export function createBikeShop({ store, toast = () => {}, renderer = null, speak
     $('.bs-pick').innerHTML = `<h3>${esc(b.en)} <button type="button" class="bs-say" aria-label="よむ">🔊</button></h3><p>${esc(b.ja)}</p>`;
     $('.bs-say').onclick = () => speak?.(b.en);
     // はやさの くらべ：あるく・はしる・この じてんしゃ（いちばん 速い 金の じてんしゃを 100% に）。
-    const row = (icon, en, ja, v, cls = '') => `<div class="bs-row ${cls}"><span>${icon} ${bi(en, ja)}</span><i style="--p:${Math.round((v / TOP) * 100)}%"></i><b>${v % 1 ? v.toFixed(1) : v}</b></div>`;
+    const row = (icon, en, ja, v, cls = '') => `<div class="bs-row ${cls}"><span class="bs-what">${icon} ${bi(en, ja)}</span><span class="bs-bar"><em style="width:${Math.round((v / TOP) * 100)}%"></em></span><b>${v % 1 ? v.toFixed(1) : v}</b></div>`;
     $('.bs-speed').innerHTML = row('🚶', 'Walk', 'あるく', WALK) + row('🏃', 'Run', 'はしる', RUN_PACE) + row('🚲', 'This bike', 'この じてんしゃ', pace(b), 'me');
     const have = owned(b.id); const riding = ride?.riding === b.id; const short = b.price - coins();
     $('.bs-acts').innerHTML = riding
