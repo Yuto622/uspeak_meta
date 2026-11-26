@@ -2156,3 +2156,9 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   住民の そばで「💬 はなす」（T）。広場の 人は `uspeak:npc-talk` を 受けて 同じ 画面。好感度の 鍵は `<島>:<spot の id>`（広場の 人は `main:<id>`）。
 - **家への まねき**：ハート 3 つ（`INVITE_HEARTS`）で 会話の 中で さそわれる。`home:visit {key}` → 部屋が `home:visit:ok` / `home:visit:error`（`not friends yet`・`too fast`・`no such villager`）。**入れるかは 部屋が 決める**。コイン・XP・保存は なし。
   家の 中は `npc-home.js`（木の あたたかい 部屋・個性で 色と 小物・`rpg.attachHome()`＝マイルームと 同じ 作り）。いる 場所は `in:home.<sessionId>`（通話に ならない）。出口は 戸口か「🚪 そとへ」。
+- **会話の ふきだしは 英語が 主役**（`npc-talk.js`）：英語を 大きく・日本語を 下に 小さく。画面の 言語に かかわらず 同じ（英語を 学ぶ ための 会話）。
+- **図書館**（広場の 北・`main-plaza.js` の `LIBRARY`＝まんなか (70, -14)・南むき）：外がわ＝`library-real.js`、中＝`library-interior.js`、つなぎと 画面＝`library.js` + `library.css`。土地は `PLAZA.annex.z0` を -30 まで のばした。
+  入口は `main_island.json` の spot `library`（70, -8.5＝石だんの 上）。お店では ない＝夜も あいて いる。石だんの 高さは `main.floorY`（`rpg.floorY()` が 島の `floorY` も 見る。**となりの 子には まだ 効かない**＝石だんに うまって 見える）。
+  中は `rpg.attachLibrary()`（マイルーム・住民の 家と 同じ 作り）。場所は `in:library`（みんな 同じ 部屋・通話なし）。カメラは 南から・左右 ±0.7 rad まで（天井を かくして 南がわを 切って 見せて いるので）。出口は 玄関か「🚪 そとへ」。
+  中で できる こと：西の 読書の 部屋の 本だな → `reading.open()`（よみもの島の 本）／東の 自習室の つくえ → `#library-dialog`（しゅくだい＝`homework.open()`・ふくしゅう＝`review:start`・たんごちょう）／司書に 話しかける（あいさつの トースト）。
+  サーバーの 変更は なし。2D の 地図（`main-island.js` の 一覧）には まだ のって いない。
