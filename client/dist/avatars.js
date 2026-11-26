@@ -4,6 +4,7 @@ import * as THREE from './three.module.js';
 // `update(t, moving)` の `t` とぶつかるので、`t as tr` として import する（game.js と同じ）。
 import {t as tr, onLangChange, isJa} from './i18n.js';
 import {buildPremiumAvatar,isPremiumAvatar} from './avatar-bodies.js';
+import {buildChibiAvatar,isChibiAvatar} from './avatar-chibi.js';
 import {addStars} from './cosmic-kit.js';
 // きせかえで「すがた」を きて いれば、体は その すがた（買った アバター）。なければ はじめに えらんだ 体。
 export const bodyConfig=(config,items)=>{const it=(items||[]).find(i=>i&&i.slot==='avatar'&&isPremiumAvatar(i.kind));return it?{...config,id:it.kind}:config};
@@ -30,7 +31,7 @@ export const AVATARS=[
  {id:'bolt',icon:'🤖',name:'Bolt',type:'とくべつ',style:'ロボット・ことばの あいぼう',hair:0x425d6b,skin:0xadc4c7,shirt:0x5396ab,cut:'robot'}
 ];
 const geometry=new THREE.BoxGeometry(),materials=new Map();const material=c=>{if(!materials.has(c))materials.set(c,new THREE.MeshStandardMaterial({color:c,roughness:.7}));return materials.get(c)};
-export function buildAvatar(config){if(isPremiumAvatar(config?.id))return buildPremiumAvatar(config.id);const a=AVATARS.find(a=>a.id===config.id)||AVATARS[0],skin=config.skin??a.skin,shirt=config.shirt??a.shirt,g=new THREE.Group();
+export function buildAvatar(config){if(isChibiAvatar(config?.id))return buildChibiAvatar(config.id,{skin:config.skin,shirt:config.shirt});if(isPremiumAvatar(config?.id))return buildPremiumAvatar(config.id);const a=AVATARS.find(a=>a.id===config.id)||AVATARS[0],skin=config.skin??a.skin,shirt=config.shirt??a.shirt,g=new THREE.Group();
  function b(x,y,z,w,h,d,c,parent=g){const m=new THREE.Mesh(geometry,material(c));m.position.set(x,y,z);m.scale.set(w,h,d);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
  const kigu=a.cut==='kigu',feet=kigu?(a.kigu==='penguin'||a.kigu==='chick'?0xf2a03c:a.belly):0x35454b;
  const limbs=[];for(const side of[-1,1]){const leg=new THREE.Group();leg.position.set(side*.23,.91,0);g.add(leg);b(0,-.34,0,.34,.72,.43,kigu?shirt:a.cut==='space'?0xd0dadb:0x43515c,leg);b(0,-.75,.07,.39,.2,.57,feet,leg);limbs.push(leg)}

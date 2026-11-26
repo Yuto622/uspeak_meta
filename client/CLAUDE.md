@@ -2108,5 +2108,7 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 
 ## アバターの デザイン案（まるい 体・56 体／2026-11）
 - `avatar-chibi.js`：はじめの すがた 16（きぐるみ 8・人 8）と すがたやの 40 体を、島の キャラクターと 同じ まるい 2.4 頭身で（`CHIBI`・`buildChibiAvatar(id)`・とくちょうの 部品は `FEAT`）。id は いまの アバターと 同じ。
-- **いまの アバター（`avatars.js`・`avatar-bodies.js` の 箱の 体）は かえて いない。** 見るのは `/dev-cast.html?set=avatars`。
-- おきかえる ときに いる こと：`userData.limbs`（歩く うごき）と `anchors`（ぼうし・かお・せなか・むね・手）を `buildAvatar` と 同じ 約束で 出す・きせかえの 品（箱）の 大きさ合わせ・すがた えらび／お店の プレビュー／となりの 子／一人称の 手。
+- **ゲームの アバターは これに おきかえた**（2026-11）：`avatars.js` の `buildAvatar` が さいしょに `buildChibiAvatar(id, {skin, shirt})` を 呼ぶ（すがた えらび・じぶん・となりの 子・お店の プレビュー・つりの 画面は ぜんぶ ここを 通る）。お店の カードの 絵（`wardrobe-models.js`）も 同じ。
+  前の 箱の 体（`buildAvatar` の のこり・`avatar-bodies.js`）は 消して いない：表に ない id の ときの 予備。もどすなら `buildAvatar` の 1 行目を 外す。
+- 約束は 前と 同じ：`userData.limbs`（左あし・右あし・左うで・右うで の Group・つけねで ふれる）・`anchors`（head・face・chest・back・hand）・`worn`。きせかえの 品は 箱の 体の 大きさで 作って あるので、anchor を 大きく して ある（頭 1.5 倍・顔 1.25 倍）。
+  手に もつ もの・うでの はね（`HELD`・`inArm`）は うでの Group の 中＝うでと いっしょに ふれる。一覧は `/dev-cast.html?set=avatars`。

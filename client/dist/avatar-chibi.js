@@ -4,10 +4,15 @@
 //
 // 1 体は 表の 1 行。`f` は とくちょうの 部品（下の FEAT）を 上から 順に かさねる：[名前, 色, 色 2…]。
 import * as THREE from './three.module.js';
-import { chibiMaker, chibiBody, CHIBI_INK as INK } from './island-cast.js';
+import { chibiMaker, chibiBody, CHIBI_INK as INK, CHIBI_ARM as ARM } from './island-cast.js';
 
 const W = 0xffffff, GOLD = 0xf2c14e, PINK = 0xf7a8b8, CREAM = 0xfff3dd, DARK = 0x24272d, RED = 0xd8323c;
 const both = (fn) => { fn(-1); fn(1); };
+
+// うでの Group の 中に 置く（うでと いっしょに ふれる）。座標は 体の 座標の まま 書ける。
+const inArm = (a, c, s) => (g, col, p, sc, r, gl) => a(g, col, [p[0] - s * ARM.x, p[1] - ARM.y, p[2]], sc, r, gl, c._limbs?.[s < 0 ? 2 : 3]);
+// 右手に もつ もの（うでと いっしょに ふれる）。
+const HELD = new Set(['sword', 'wand', 'staff', 'ladle', 'hose', 'lasso', 'shuriken', 'honey', 'banana', 'balloon', 'gift', 'broom', 'lantern']);
 
 const FEAT = {
   // ---- 耳・フード ----
@@ -70,7 +75,7 @@ const FEAT = {
   stripes: (a, c, col) => { for (const y of [0.72, 0.96, 1.18]) a('C', col, [0, y, 0], [0.9 - Math.abs(y - 0.92) * 0.5, 0.08, 0.74 - Math.abs(y - 0.92) * 0.4]); },
   headStripes: (a, c, col) => { for (const x of [-0.2, 0, 0.2]) a('S', col, [x, 2.26, 0.14], [0.08, 0.1, 0.36]); },
   spots: (a, c, col) => { [[0.26, 1.04, 0.3], [-0.24, 0.76, 0.3], [0.34, 2.12, 0.3], [-0.4, 1.94, 0.34]].forEach((p, i) => a('S', col, p, [0.26 + (i % 2) * 0.08, 0.22, 0.12])); },
-  bands: (a, c, col) => { a('C', col, [0, 0.66, 0], [0.86, 0.08, 0.72]); both((s) => a('C', col, [s * 0.56, 0.88, 0.03], [0.24, 0.07, 0.24], [0, 0, s * 0.42])); },
+  bands: (a, c, col) => { a('C', col, [0, 0.66, 0], [0.86, 0.08, 0.72]); both((s) => inArm(a, c, s)('C', col, [s * 0.56, 0.88, 0.03], [0.24, 0.07, 0.24], [0, 0, s * 0.42])); },
   belt: (a, c, col) => { a('C', col, [0, 0.62, 0], [0.86, 0.11, 0.72]); a('B', GOLD, [0, 0.62, 0.36], [0.16, 0.14, 0.04]); },
   buttons: (a, c, col) => { for (const y of [1.12, 0.92, 0.72]) a('S', col, [0, y, 0.36], [0.09, 0.09, 0.06]); },
   emblem: (a, c, col) => a('O', col, [0, 1.02, 0.35], [0.26, 0.26, 0.07], null, 0.35),
@@ -83,7 +88,7 @@ const FEAT = {
   pack: (a, c, col) => { a('B', col, [0, 0.96, -0.42], [0.62, 0.72, 0.3]); a('B', col, [0, 1.26, -0.4], [0.5, 0.2, 0.34]); },
   wings: (a, c, col) => both((s) => { a('S', col, [s * 0.62, 1.3, -0.42], [0.7, 1.0, 0.1], [0, s * 0.5, s * -0.5]); a('S', col, [s * 0.5, 0.82, -0.42], [0.5, 0.6, 0.1], [0, s * 0.5, s * 0.5]); }),
   batWings: (a, c, col) => both((s) => { a('K', col, [s * 0.62, 1.28, -0.4], [0.5, 0.7, 0.08], [0, s * 0.4, s * -1.0]); a('K', col, [s * 0.56, 0.98, -0.4], [0.36, 0.5, 0.08], [0, s * 0.4, s * -1.5]); }),
-  armWings: (a, c, col) => both((s) => a('S', col, [s * 0.6, 0.9, 0], [0.26, 0.7, 0.5], [0, 0, s * 0.5])),
+  armWings: (a, c, col) => both((s) => inArm(a, c, s)('S', col, [s * 0.6, 0.9, 0], [0.26, 0.7, 0.5], [0, 0, s * 0.5])),
   tail: (a, c, kind, col, tip) => {
     if (kind === 'thin') { a('P', col, [0, 0.66, -0.52], [0.1, 0.3, 0.1], [-1.0, 0, 0]); if (tip) a('S', tip, [0, 0.86, -0.84], [0.2, 0.2, 0.2]); }
     else if (kind === 'curl') a('T', col, [0, 0.76, -0.5], [0.34, 0.34, 0.5], [0, Math.PI / 2, 0]);
@@ -182,12 +187,30 @@ export const CHIBI = [
   HU('av-gold', 'おうごんの きし', 'Golden Knight', { skin: 0xffe98a, style: 'none', top: 0xffd447, pants: 0xe6b020, shoe: 0xb88a10, hand: 0xe6b020, noEars: true, noEyes: true, noMouth: true, noBlush: true, f: [['helmet', 0xffd447, RED], ['plume', RED], ['visor', DARK], ['cape', RED], ['emblem', W], ['bands', 0xb88a10], ['sword', W]] }),
 ];
 
-export function buildChibiAvatar(id) {
-  const c = CHIBI.find((m) => m.id === id); if (!c) return null;
+const HUMAN = new Set([0xf1c9a2, 0xe6b68e, 0xdba57e, 0xc68d65, 0xb98059, 0xa9714d, 0x865738, 0xf0d0b2, 0xe8c39a]);
+export const isChibiAvatar = (id) => CHIBI.some((m) => m.id === id);
+
+// avatars.js の buildAvatar と 同じ 約束で 返す：userData.limbs（左あし・右あし・左うで・右うで）・anchors（head・face・chest・back・hand）・worn。
+// skin・shirt は すがた えらびで かえた 色（あれば）。
+export function buildChibiAvatar(id, { skin, shirt } = {}) {
+  let c = CHIBI.find((m) => m.id === id); if (!c) return null;
+  if (Number.isInteger(shirt) && shirt !== c.top) { const from = c.top, swap = (v) => (v === from ? shirt : v); c = { ...c, top: shirt, pants: swap(c.pants), hand: swap(c.hand), sleeve: swap(c.sleeve), coat: swap(c.coat), f: (c.f || []).map((row) => row.map(swap)) }; }
+  if (Number.isInteger(skin) && HUMAN.has(c.skin)) c = { ...c, skin };
   const group = new THREE.Group();
   const add = chibiMaker(group);
-  chibiBody(add, { accent: GOLD, ...c });
-  for (const [name, ...args] of c.f || []) FEAT[name]?.(add, c, ...args);
+  c = { accent: GOLD, ...c };
+  const limbs = chibiBody(add, c, group);
+  c._limbs = limbs;
+  for (const [name, ...args] of c.f || []) FEAT[name]?.(HELD.has(name) ? inArm(add, c, 1) : add, c, ...args);
+  // きせかえの 品（箱の 体に 合わせて ある）を のせる 場所。頭が 大きいので 少し 大きく する。
+  const hood = (c.f || []).some((r) => r[0] === 'hood' || r[0] === 'bubble');
+  const anchors = {};
+  for (const [name, x, y, z, k] of [['head', 0, hood ? 2.42 : 2.22, -0.02, 1.5], ['face', 0, 1.72, 0.58, 1.25], ['chest', 0, 1.0, 0.37, 1], ['back', 0, 1.05, -0.4, 1.1]]) {
+    const a = new THREE.Group(); a.position.set(x, y, z); a.scale.setScalar(k); anchors[name] = a; group.add(a);
+  }
+  anchors.hand = new THREE.Group(); anchors.hand.position.set(0.63 - ARM.x, 0.74 - ARM.y, 0.04); limbs[3].add(anchors.hand);
+  group.userData.limbs = limbs; group.userData.anchors = anchors; group.userData.worn = new Map();
+  if (id.startsWith('av-')) group.userData.premium = id;
   group.userData.cast = { ...c, island: c.group, role: '', note: '', bg: lighten(c.top) };
   return group;
 }

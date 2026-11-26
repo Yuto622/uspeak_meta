@@ -14,6 +14,7 @@
 //
 import * as THREE from './three.module.js';
 import { PREMIUM_AVATARS, buildPremiumAvatar } from './avatar-bodies.js';
+import { buildChibiAvatar } from './avatar-chibi.js';
 
 const geometry = new THREE.BoxGeometry();
 const mats = new Map();
@@ -586,7 +587,7 @@ const KINDS = {
 // One item's model. Returns null for an item this build does not know how to draw, so a
 // data file that runs ahead of the code degrades to "not wearing it" rather than a crash.
 // すがた（買える アバター）は 体ごと：avatar-bodies.js が 作る。
-for (const id of PREMIUM_AVATARS) KINDS[id] = (g) => { const body = buildPremiumAvatar(id); if (body) g.add(body); };
+for (const id of PREMIUM_AVATARS) KINDS[id] = (g) => { const body = buildChibiAvatar(id) || buildPremiumAvatar(id); if (body) g.add(body); };
 
 export function itemModel(item) {
   const make = KINDS[item?.kind];

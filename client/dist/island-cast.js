@@ -29,21 +29,30 @@ function maker(group) {
     if (!mats.has(key)) { const m = new THREE.MeshStandardMaterial({ color, roughness: 0.62, metalness: 0.02 }); if (glow) { m.emissive = new THREE.Color(color); m.emissiveIntensity = glow; } mats.set(key, m); }
     return mats.get(key);
   };
-  return (g, color, p, s = [1, 1, 1], r = null, glow = 0) => {
+  return (g, color, p, s = [1, 1, 1], r = null, glow = 0, parent = group) => {
     const m = new THREE.Mesh(G[g], mat(color, glow));
     m.position.set(p[0], p[1], p[2]); m.scale.set(s[0], s[1], s[2]);
     if (r) m.rotation.set(r[0], r[1], r[2]);
-    m.castShadow = true; m.receiveShadow = true; group.add(m); return m;
+    m.castShadow = true; m.receiveShadow = true; (parent || group).add(m); return m;
   };
 }
 
 // どの 子にも 同じ 体。spec：skin・hair・style・top・pants・shoe・eye（'round' | 'smile' | 'star'）・coat（すその ひろがり）。
-function body(add, c) {
-  for (const s of [-1, 1]) {
-    add('C', c.pants, [s * 0.2, 0.32, 0], [0.27, 0.5, 0.3]);
-    add('S', c.shoe ?? 0x4a3b34, [s * 0.2, 0.09, 0.07], [0.34, 0.2, 0.48]);
-    add('P', c.sleeve ?? c.top, [s * 0.5, 0.98, 0.02], [0.2, 0.2, 0.2], [0, 0, s * 0.42]);
-    add('S', c.hand ?? c.skin, [s * 0.63, 0.74, 0.04], [0.2, 0.2, 0.2]);
+const LEG = { x: 0.2, y: 0.56 }, ARM = { x: 0.46, y: 1.18 };
+function body(add, c, group = null) {
+  // 手足は つけねを 中心に ふれる Group（歩く うごき・手に もつ もの）。順番は 左あし・右あし・左うで・右うで（avatars.js と 同じ 約束）。
+  const limbs = [];
+  if (group) {
+    for (const s of [-1, 1]) {
+      const leg = new THREE.Group(); leg.position.set(s * LEG.x, LEG.y, 0); group.add(leg); limbs.push(leg);
+      add('C', c.pants, [0, 0.32 - LEG.y, 0], [0.27, 0.5, 0.3], null, 0, leg);
+      add('S', c.shoe ?? 0x4a3b34, [0, 0.09 - LEG.y, 0.07], [0.34, 0.2, 0.48], null, 0, leg);
+    }
+    for (const s of [-1, 1]) {
+      const arm = new THREE.Group(); arm.position.set(s * ARM.x, ARM.y, 0); group.add(arm); limbs.push(arm);
+      add('P', c.sleeve ?? c.top, [s * (0.5 - ARM.x), 0.98 - ARM.y, 0.02], [0.2, 0.2, 0.2], [0, 0, s * 0.42], 0, arm);
+      add('S', c.hand ?? c.skin, [s * (0.63 - ARM.x), 0.74 - ARM.y, 0.04], [0.2, 0.2, 0.2], null, 0, arm);
+    }
   }
   add('S', c.top, [0, 0.92, 0], [0.88, 0.96, 0.72]);
   if (c.coat) add('K', c.coat === true ? c.top : c.coat, [0, 0.74, 0], [1.12, 0.78, 0.94]);
@@ -62,6 +71,7 @@ function body(add, c) {
   }
   if (!c.noMouth) add('A', 0xa5483f, [0, 1.56, 0.555], [0.13, 0.11, 0.13], [Math.PI, 0, 0]);
   hair(add, c);
+  return limbs;
 }
 function hair(add, c) {
   const h = c.hair, st = c.style || 'short';
@@ -192,7 +202,7 @@ export function buildCastMember(id) {
   const c = CAST.find((m) => m.id === id); if (!c) return null;
   const group = new THREE.Group();
   const add = maker(group);
-  body(add, c);
+  body(add, c, group);
   c.build(add, c);
   group.userData.cast = c;
   return group;
@@ -222,4 +232,4 @@ export function placeHost(parent, islandId, x, z, { scale = 1.12, face = 0 } = {
 }
 
 // アバターの デザイン案（avatar-chibi.js）も 同じ 体・同じ 部品を 使う。
-export { maker as chibiMaker, body as chibiBody, INK as CHIBI_INK };
+export { maker as chibiMaker, body as chibiBody, INK as CHIBI_INK, ARM as CHIBI_ARM };
