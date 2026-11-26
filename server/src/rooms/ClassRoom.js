@@ -352,7 +352,12 @@ export class ClassRoom extends Room {
     this.onMessage('home:visit', (client, msg) => this.onHomeVisit(client, msg));
     this.onMessage('park:ride', (client, msg) => this.onParkRide(client, msg));
     this.onMessage('main:leave', (client) => this.onMainLeave(client.sessionId));
-    this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
+    this.onMessage('prop:list', (client) => {
+      // 工事が おわって いたら、かぐ屋・へやの パソコンを ひらいた ときにも 大きく して しらせる。
+      this.settleRoom(client.sessionId);
+      client.send('prop:shop', this.propShopPayload(client.sessionId));
+      if (this.priv.get(client.sessionId)?.room?.built) client.send('build:state', this.buildState(client.sessionId));
+    });
     this.onMessage('prop:buy', (client, msg) => this.onPropBuy(client, msg));
     this.onMessage('plaza:enter', (client) => this.onPlazaEnter(client));
     this.onMessage('plaza:place', (client, msg) => this.onPlazaPlace(client, msg));
@@ -3316,6 +3321,8 @@ export class ClassRoom extends Room {
     }
     this.settleRoom(client.sessionId);   // 工事が おわって いたら、大きく なった へやに 入る
     client.send('room:state', roomPayload(priv.room, priv.props));
+    // できあがりを まだ 言って いなければ、ここで 言う（トースト「いえが ひろく なったよ」）。
+    if (priv.room.built) client.send('build:state', this.buildState(client.sessionId));
   }
 
   // Furniture goes in when the child is inside their own room. Rooms are not shared, so

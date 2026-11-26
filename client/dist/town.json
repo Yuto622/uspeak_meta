@@ -206,7 +206,7 @@
     {
       "tier": 2,
       "id": "medium",
-      "name": "ひろい部屋",
+      "name": "ひろい へや",
       "en": "Wide Room",
       "grid": 12,
       "height": 5,
@@ -218,7 +218,7 @@
     {
       "tier": 3,
       "id": "large",
-      "name": "おおきな家",
+      "name": "おおきな いえ",
       "en": "Big House",
       "grid": 16,
       "height": 6,
@@ -230,7 +230,7 @@
     {
       "tier": 4,
       "id": "grand",
-      "name": "りっぱな 家",
+      "name": "りっぱな いえ",
       "en": "Grand House",
       "grid": 20,
       "height": 6,

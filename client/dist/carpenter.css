@@ -89,10 +89,10 @@
   .cp-body { padding: 8px; gap: 8px; }
   .cp-row { min-height: 52px; grid-template-columns: 50px minmax(0, 1fr) auto; padding: 3px 10px 3px 4px; }
   .cp-pic { width: 50px; height: 46px; }
-  .cp-big { height: 84px; }
+  .cp-big { display: none; }   /* 絵は 左の 列に ある。ボタンが 下に かくれない ように */
   .cp-detail { padding: 8px 10px; gap: 5px; }
   #carpenter-dialog .cp-info h3 { font-size: 16px; }
   #carpenter-dialog .cp-about span { font-size: 13px; }
   .cp-btns button { min-height: 44px; padding: 8px 16px; font-size: 15px; }
-  #carpenter-talk { bottom: auto; top: 64px; }
+  #carpenter-talk { bottom: auto; top: 80px; }
 }

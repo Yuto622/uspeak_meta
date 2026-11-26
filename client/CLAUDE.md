@@ -2192,3 +2192,9 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   品は `bikes-data.js`（`kind:'bike'`・6 台・150〜2500 コイン・はしるの 1.5〜2.2 倍）＝ぶきと 同じ 道で 買う（値段と 持ち主は 部屋）。形は `bike-models.js`、お店は `bike-shop.js` + `bike-shop.css`、のるのは `bike-ride.js`。
   **のる**：`#bike-toggle`（PC は B）・持ち物の「🚲 のりもの」・お店。`bike:ride {id}` → 部屋が 持って いるか・外か を 見て `bike:on`／`bike:error`。のって いる ことは `player.avatar` の `bike`（部屋が 入れる・`profile` では 入れられない）＝ほかの 子にも 見える。
   **自動で おりる**：戸口・家の 中・ひこうき・つり・レース・全画面の ゲーム・授業の ストップ・会話・ねる。テーマパークでは のれない。のりもの島の のりもの（`ride.js`）とは べつの しくみ。U-Speak島の 遠くの 山を 立てない 範囲も 西へ ひろげた（`game.js`）。
+
+## だいくさん（増築）
+- じぶんの いえの となりに だいくの ケンさん（carpenter.js/.css）。はなすと 6 だんかいの いえ（town.json `rooms`: ワンルーム 8 → ひろい へや 12 → おおきな いえ 16 → りっぱな いえ 20 → べっそう 24 → だいごうてい 28 マス、かぐ 10/20/34/50/70/95、800/2,500/6,000/12,000/25,000 コイン）。
+- サーバーが きめる：`orderBuild` は つぎの だん だけ・1 つずつ・コイン不足は ことわる。`build:{tier,doneAt}`、こうじは 1 にち（CYCLE_SEC 705 s、テストは BUILD_DAY_SEC）。`settleBuild` は build:peek / build:order / room:enter / prop:list で おわった こうじを はんえい、`build:state` の finished を 1 かい だけ おくる。かぐは そのまま。
+- こうじちゅうは あしば・シート・「こうじちゅう m:ss」。外見の 増築は じぶんの がめん だけ。
+- まちの しまの ふどうさんも おなじ メニュー（room:move → onBuildOrder）。テスト：server/test/carpenter.test.mjs。

@@ -140,6 +140,22 @@ test('the carpenter beside the house: order, wait a day, and the room is bigger 
   assert.equal(st.finished, 3, 'told the next time they are online');
   assert.deepEqual(st.room.furniture, furnitureBefore);
   assert.equal(st.coins, coins - ROOMS[2].price);
+
+  // へやに 入った ときにも おわって いれば 大きく なり、しらせ（build:state の finished）が いっしょに 来る。
+  await stand(b.room, home.wx + 6, home.wz + 0.5, main);
+  b.room.send('build:order', { tier: 4 });
+  st = await nextMessage(b.room, 'build:state');
+  assert.equal(st.ordered, 4);
+  await sleep(1100);
+  await stand(b.room, home.wx, home.wz, main);
+  const told = nextMessage(b.room, 'build:state');
+  b.room.send('room:enter', {});
+  roomState = await nextMessage(b.room, 'room:state');
+  assert.equal(roomState.tier, 4);
+  assert.equal(roomState.grid, ROOMS[3].grid);
+  assert.deepEqual(roomState.furniture, furnitureBefore);
+  st = await told;
+  assert.equal(st.finished, 4, 'told on walking in');
   await b.room.leave();
   await sleep(100);
 });

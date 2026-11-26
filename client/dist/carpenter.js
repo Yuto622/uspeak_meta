@@ -398,7 +398,7 @@ export function createCarpenter({ player, rpg, send, toast = () => {}, speak = n
   const close = () => { try { dialog.close(); } catch { /* もう とじて いる */ } };
   $('.cp-close').onclick = close;
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
-  dialog.addEventListener('close', () => { state.confirm = false; state.note = ''; });
+  dialog.addEventListener('close', () => { state.confirm = false; state.note = ''; state.justDone = false; });   // 「できたよ」は 1 回 言えば いい
   $('.cp-voice').onclick = () => sayLine(true);
 
   const left = () => (state.build ? Math.max(0, state.build.left - (performance.now() - state.got)) : 0);
