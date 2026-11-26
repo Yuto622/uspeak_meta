@@ -2178,3 +2178,8 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   おすと `foodGive.giveTo(info, id)` → いつもの `food:give`（きめるのは 部屋・1 日 3 こ などの きまりも 同じ）→ お礼の ひとことに かわる。頭の 上に かかげる（🙌 もつ）道も のこして ある。
 - **じぶんの しまへの ボートのりば（2026-11）**：メインの島の 北の 岸（`main_island.json` の spot `land_boat`・kind `land_ferry`・(-6, -38.8)＝テーマパークの ゲートの 東・たての 道の 先）。入ると `land.boat()`＝`land:enter {from:'bag'}`（部屋は 持ち物からと 同じ 道）。
   しまを もって いない 子には「⛵ いえの おみせで しまを かったら、ここから ボートで 行けるよ。」（土地島へは とばさない）。さんばしと ボートは かざり（`main-world.js`）。
+- **リアルな 星空（`starfield.js`・2026-11）**：`createStarfield()`＝まるい 星の Points 1 つ＋天の川の 球 1 つ（光なし・後処理なし）。明るさは 本物に 近い 分布・色温度（青白〜だいだい）・またたき。明るい 星 15 と 星座 5 つは 本物の 位置（`CONSTELLATIONS`）。
+  外の 夜空は `atmosphere.js`（前の シェーダーの 四角い 点は やめた・夜の 値で うすく なる・ゆっくり 回る）。内装の `cosmic-kit.js` の `addStars` も これ（呼びかたは 同じ）。`battle-stage.js` の 星だけ 前の まま。天の川の 強さは `milkyGain`。
+- **プラネタリウム（グリフィス天文台の 形）**：メインの島の 前の「バトルアリーナ（SOON）」の 場所。spot `planetarium`（戸口 -28, -24.6・道は x -6 から）。外がわ＝`planetarium-real.js`（白い アールデコの 横長・黒い 銅の ドーム 3 つ・みどりの ロタンダ・しばふと 白い オベリスク・描画 5 回・夜は `setNight`）、置く 場所は `main-world.js` の `PLANETARIUM_AT`。
+  中＝`planetarium.js` + `planetarium.css`（`rpg.attachPlanetarium()`＝図書館と 同じ 作り・`in:planetarium`・夜も あいて いる）。まるい ホール・リクライニングの 席・まんなかの 投影機・ドームに 同じ 星空。投影機の そばで「⭐ せいざを みる」→ Orion・Big Dipper・Cassiopeia・Scorpius・Cygnus を じゅんに（空が 回って 正面に・線と 星が 明るく・英語の 名前を 読む・英語と 日本語を 両方 出す＝`translate="no"`）。
+  石だんは 見た目だけ（`floorY` なし）。もう 1 つの バトルアリーナ 2 は かざりの まま。
