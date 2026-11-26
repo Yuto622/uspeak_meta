@@ -8,7 +8,7 @@ import * as THREE from './three.module.js';
 import { buildVillager, villagerSeed } from './villager.js';
 import { placeHost } from './island-cast.js';
 import { createHouseBatch } from './real-house.js';
-import { groundMaterial } from './ground-fx.js';
+import { groundMaterial, groundKind, grassTufts } from './ground-fx.js';
 import { createRealTrees } from './real-trees.js';
 import { seasonNow } from './main-seasons.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
@@ -86,14 +86,41 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   const houses = createHouseBatch();
   const woods = [];
   let realTrees = null;
+  let tuftsMesh = null;
+  // 草むら（ground-fx.js の grassTufts）：草の タイルの 上に、道・小物・建物を さけて 立てる。島 1 つで 900 まで・描く 回数は 1。
+  function plantTufts() {
+    if (tuftsMesh) return null;
+    try {
+      const taken = new Set(), cell = (x, z) => `${Math.round(x)}:${Math.round(z)}`, tops = [];
+      for (const { color, flat, list } of deco.values()) {
+        for (const m of list) {
+          const e = m.elements, x = e[12], y = e[13], z = e[14], w = e[0], h = e[5], d = e[10];
+          if (flat === true && h > 0.6 && h < 0.8 && groundKind(color) === 'grass') { tops.push({ x, y: y + h / 2, z, color }); continue; }
+          if (y - h / 2 > 1.2 || h > 2.5) continue;                       // 高い ところの 物・土の 柱は 関係ない
+          for (let ax = Math.floor(x - w / 2 - 0.4); ax <= Math.ceil(x + w / 2 + 0.4); ax += 1) for (let az = Math.floor(z - d / 2 - 0.4); az <= Math.ceil(z + d / 2 + 0.4); az += 1) taken.add(cell(ax, az));
+        }
+      }
+      let q = 4711; const r = () => ((q = (q * 16807) % 2147483647) - 1) / 2147483646;
+      const every = Math.max(1, tops.length * 2 / 900), out = [];
+      for (const t of tops) for (let k = 0; k < 2; k += 1) {
+        if (r() * every > 1) continue;
+        const x = t.x + (r() - 0.5) * 1.8, z = t.z + (r() - 0.5) * 1.8;
+        if (taken.has(cell(x, z)) || obstacles.some((o) => Math.abs(x - o.x) < o.w + 0.5 && Math.abs(z - o.z) < o.d + 0.5)) continue;
+        out.push({ x, y: t.y - 0.02, z, s: 0.55 + r() * 0.5, tall: 0.5 + r() * 0.5, turn: r() * 3.14, color: t.color });
+      }
+      return grassTufts(out);
+    } catch { return null; }
+  }
   function flushDeco() {
     if (houses.count) lit.push(...houses.flush(root));
     if (woods.length && !realTrees) { try { realTrees = createRealTrees({ root, trees: woods, seed: 900 + woods.length }); realTrees.setSeason(seasonNow().season); } catch { realTrees = null; } }
+    tuftsMesh = plantTufts();
+    if (tuftsMesh) root.add(tuftsMesh);
     for (const { color, glow, flat, list } of deco.values()) {
       // Each lit colour gets its own material instance, so turning the lights up at
       // night does not also make the roofs glow.
       // 地面（flat）は 草・土・道の 手ざわりを かける（ground-fx.js）。色ごとに 1 つ・描く 回数は かわらない。
-      const material = glow ? mat(color, 0).clone() : flat ? groundMaterial(mat(color)) : mat(color);
+      const material = glow ? mat(color, 0).clone() : flat ? groundMaterial(mat(color), flat === true ? undefined : flat) : mat(color);
       if (glow) { material.emissive = new THREE.Color(color); material.emissiveIntensity = 0; lit.push({ material, glow }); }
       const mesh = new THREE.InstancedMesh(geo, material, list.length);
       list.forEach((m, i) => mesh.setMatrixAt(i, m));
@@ -218,7 +245,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       const px = ax + (bx - ax) * t;
       const pz = az + (bz - az) * t;
       const wobble = (rand() - 0.5) * 0.5;
-      D(px + nx * wobble, 0.17, pz + nz * wobble, 1.5 + rand() * 0.5, 0.14, 1.5 + rand() * 0.5, i % 3 ? 0xd9c9a2 : 0xcdbc8f);
+      D(px + nx * wobble, 0.17, pz + nz * wobble, 1.5 + rand() * 0.5, 0.14, 1.5 + rand() * 0.5, i % 3 ? 0xd9c9a2 : 0xcdbc8f, 0, 'cobble');
       // Loose gravel either side, so the path has an edge rather than a border.
       for (const side of [-1, 1]) {
         if (rand() > 0.55) continue;
@@ -507,6 +534,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
 
   function update(t, player) {
     if (realTrees && root.visible) realTrees.update(t);
+    if (tuftsMesh && root.visible) tuftsMesh.userData.update(t);
     if (!root.visible || !built) return;
     if (host) { const d = host.update(t, player.position.x - root.position.x, player.position.z - root.position.z); if (hostLabel) hostLabel.visible = labelsOn && d < 12; }
     for (const sp of spots) {

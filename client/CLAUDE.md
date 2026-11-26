@@ -2132,3 +2132,5 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **きせかえの 品 87 しゅるい**（`wardrobe-real.js` の `realModel(kind, colour)`）：`wardrobe-models.js` の `itemModel` が さきに 呼ぶ。まるい 体に 合わせて ある（ぼうしは 頭に かぶさる・バッジは 左むね）。一覧は `/dev-wear.html`。フードの 体では ぼうしが 少し 高い。
 - **ブロックと かぐ**：ブロックの もよう＝`town-block-tex.js`（canvas）、3D＝`town-real.js`、棚の 絵＝`town-block-icon.js`（2D の まま）。かぐ 11 こ＝`furniture-real.js`（`room-world.js` の `model()`・お店の 絵は `furnitureShots()`）。
   **かぐは 向きを かえると 形ごと 回る**（前は はばと おくゆきを 入れかえた 箱）。しめる マスは 前と 同じ（サーバーと 同じ 計算）。一覧は `/dev-town.html`。
+- **地面（2026-11 の 作りなおし・`ground-fx.js`）**：もようは 4 しゅるい（grass・asphalt・cobble・sand＝512px の canvas を 1 まいずつ）。色から 決める（`groundKind`：みどり＝草・くらい 灰色＝アスファルト・ほか＝すな）。`D(…, flat)` の `flat` に `'cobble'` などを わたすと 名ざし（`island-kit.js` の `path()` の 石だたみ）。
+  明るさの かけ算＋法線を 少し かたむける でこぼこ。**強さは `KIND` の 表**（強く しすぎると 遠くで ざらつく）。草むら（`grassTufts`）は 草の タイルの 上に 道・小物・建物を さけて 900 まで（InstancedMesh 1 つ・影なし・風で ゆれる・`island-kit.js` の `plantTufts`）。
