@@ -107,3 +107,24 @@ test('reports: the next word, words waiting, and graduated words count as learne
   assert.deepEqual(CUSTOM.review_next(events), [{ word: 'river' }]);
   assert.equal(CUSTOM.words_mastered(events), 1, 'pen graduated from review');
 });
+
+test('ぜんぶの ことばを ふくしゅう：つりで 出会った ことばも 出る・にがて が 先・コインは にがて だけ', async () => {
+  const { metWords, makeAllSet, boxFromEvents: box, answer: ans, PER_ALL } = await import('../src/game/review.js');
+  const t0 = Date.UTC(2026, 10, 1);
+  const ev = (word, correct, ts, world = 'fishing') => ({ type: 'quiz', ts, data_json: JSON.stringify({ word, correct, world }) });
+  const events = [ev('salmon', true, t0), ev('river', true, t0 + 1), ev('boat', false, t0 + 2), ev('12', true, t0 + 3), { type: 'session', ts: t0 }];
+  const met = metWords(events);
+  assert.deepEqual(met.sort(), ['boat', 'river', 'salmon']);
+  const set = makeAllSet(box(events), met, t0 + 2 * 86400 * 1000);
+  assert.equal(set.mode, 'all');
+  assert.equal(set.items[0].word, 'boat');                      // にがて が 先
+  assert.equal(set.items[0].pay, true);
+  assert.deepEqual(set.items.slice(1).map((x) => x.word).sort(), ['river', 'salmon']);
+  assert.ok(set.items.slice(1).every((x) => x.pay === false)); // 出会っただけの ことばは コインなし
+  assert.ok(set.items.every((x) => x.options.includes(x.word) && x.options.length === 4));
+  assert.equal(ans(set, 1, set.items[1].word).pay, false);
+  assert.equal(ans(set, 0, 'boat').pay, true);
+  assert.equal(makeAllSet(box([]), [], t0), null);
+  const many = Array.from({ length: 30 }, (_, i) => ev('word' + String.fromCharCode(97 + i % 26) + (i > 25 ? 'x' : ''), true, t0 + i));
+  assert.equal(makeAllSet(box(many), metWords(many), t0 + 99).items.length, PER_ALL);
+});

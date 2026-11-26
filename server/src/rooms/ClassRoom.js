@@ -88,7 +88,7 @@ function applyOp(wallet, op) {
   try { WALLET_WATCH.get(wallet)?.(op); } catch (err) { log.warn('[tasks] could not count an op:', err.message); }
   return entry;
 }
-import { boxFromEvents, optionsFor as reviewOptions, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError } from '../game/review.js';
+import { boxFromEvents, optionsFor as reviewOptions, makeSet as makeReviewSet, publicSet as reviewPublic, answer as reviewAnswer, dueCount as reviewDue, jstDay, COIN as REVIEW_COIN, PER_QUIZ as REVIEW_PER, ReviewError, metWords as reviewMet, makeAllSet as makeAllReview } from '../game/review.js';
 import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, placeLabel } from '../game/class-mode.js';
 import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
@@ -4912,6 +4912,15 @@ export class ClassRoom extends Room {
         return;
       }
     }
+    // 図書館の 自習室：出会った ことば ぜんぶから（つり・英単語ハウス・宿題…）。どの ことばかは サーバーが きめる。
+    if (msg?.all) {
+      const events = (await this.store.listRobloxEvents?.({ username: this.reviewUsername(priv) })) ?? [];
+      const set = makeAllReview(boxFromEvents(events), reviewMet(events), Date.now());
+      if (!set) { client.send('review:none', { mode: 'all' }); return; }
+      priv.review = set;
+      client.send('review:start', reviewPublic(set));
+      return;
+    }
     await this.startReview(client.sessionId);
   }
 
@@ -4930,14 +4939,15 @@ export class ClassRoom extends Room {
     }
     this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `review:${r.word}`.slice(0, 160), 'review', String(msg?.choice ?? '').slice(0, 40), r.ok ? 1 : 0, 0, client.sessionId]);
     priv.stats.attempts += 1;
-    if (r.ok) {
-      priv.stats.correct += 1;
+    const paid = r.ok && r.pay;   // 「ぜんぶの ことば」で 出た、にがてで ない ことばは コインなし
+    if (r.ok) priv.stats.correct += 1;
+    if (paid) {
       const entry = applyOp(priv.wallet, { type: 'award', amount: REVIEW_COIN, id: 'review_correct' });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
     }
     // Roblox と 同じ 形の 記録（world=review・level=Review）。これが また 箱を 進める。
     this.robloxEvent(client.sessionId, 'quiz', 'review', { correct: r.ok, word: r.word, level: 'Review', fast: false, retry: false }, now);
-    client.send('review:result', { i, ok: r.ok, word: r.word, coins: r.ok ? REVIEW_COIN : 0, ...this.walletPayload(client.sessionId) });
+    client.send('review:result', { i, ok: r.ok, word: r.word, coins: paid ? REVIEW_COIN : 0, ...this.walletPayload(client.sessionId) });
     const run = set.classRun && this.classMode.run?.id === set.classRun ? this.classMode.run : null;
     if (run) {
       run.total += 1;

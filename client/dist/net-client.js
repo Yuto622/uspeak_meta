@@ -476,7 +476,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   library = createLibrary({
     player, camera, toast, rpg, isOnline: () => state.mode === 'online',
     openReading: () => reading.open(), openHomework: () => homework.open(),
-    openReview: () => plainSend('review:start', {}), openWordbook: () => $('#journal')?.click(),
+    openReview: () => plainSend('review:start', { all: true }), openWordbook: () => $('#journal')?.click(),
     look: (y, p) => globalThis.uspeak?.view?.look(y, p),
   });
   try { rpg.attachLibrary?.(library); } catch { /* 古い rpg.js */ }

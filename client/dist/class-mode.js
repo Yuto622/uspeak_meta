@@ -209,9 +209,9 @@ export function createClassMode({ send, toast, speak, getHere, getGatherPoint, g
       setTimeout(() => rv.close(), 2500);
     }, 1300);
   }
-  function onNone() {
+  function onNone(m) {
     for (const d of document.querySelectorAll('dialog[open]')) if (d !== rv && d.id !== 'net-lobby') d.close();
-    rv.innerHTML = `<div class="rv-end"><span>🌟</span>${bi('No weak words!', 'にがてな たんごは ありません')}</div>`;
+    rv.innerHTML = `<div class="rv-end"><span>🌟</span>${m?.mode === 'all' ? bi('No words yet. Go fishing or play first!', 'まだ ことばが ないよ。つりなどで あそんでから きてね') : bi('No weak words!', 'にがてな たんごは ありません')}</div>`;
     if (!rv.open) rv.showModal();
     setTimeout(() => rv.close(), 2500);
   }

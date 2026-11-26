@@ -87,7 +87,7 @@ export function createLibrary({
       <p class="lib-lead">${bi('What will you study today?', 'きょうは なにを べんきょう する？')}</p>
       <div class="lib-acts">
         <button type="button" class="lib-act" data-act="homework"><i>📝</i><span>${bi('Homework', 'しゅくだい')}<small>${bi('From your teacher', 'せんせいからの しゅくだいを する')}</small></span></button>
-        <button type="button" class="lib-act" data-act="review"><i>🔁</i><span>${bi('Review', 'ふくしゅう')}<small>${bi('Practice your weak words', 'にがてな たんごを もう いちど')}</small></span></button>
+        <button type="button" class="lib-act" data-act="review"><i>🔁</i><span>${bi('Review', 'ふくしゅう')}<small>${bi('All the words from fishing and more', 'つりなどで 出た ことばを ぜんぶ')}</small></span></button>
         <button type="button" class="lib-act" data-act="wordbook"><i>📒</i><span>${bi('Word Book', 'たんごちょう')}<small>${bi('Words you have learned', 'おぼえた ことばを 見る')}</small></span></button>
       </div>`;
     document.body.appendChild(menu);

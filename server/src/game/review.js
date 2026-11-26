@@ -105,6 +105,33 @@ export function makeSet(state, now, { teacher = false, rand = Math.random, class
   if (!words.length) return null;
   return { items: words.map((w) => ({ word: w, options: optionsFor(state, w, rand), done: false })), correct: 0, mode: teacher ? 'teacher' : 'self', classRun, at: now };
 }
+// ---- ぜんぶの ことばを ふくしゅう（図書館の 自習室）----------------------------------------
+// つり・英単語ハウス・宿題・Roblox…で 出会った ことばを ぜんぶ 出せる（まちがえた ものに かぎらない）。
+// ならべる 順：いま 時期の にがて → まだ 時期前の にがて → 出会っただけの ことば（まぜる）。1 回 PER_ALL 問。
+// コインが 出るのは にがての 箱に ある ことば だけ（`pay`）：出会った ことばは 何回でも 出せるので、はらうと コインを ほり放題に なる。
+export const PER_ALL = 10;
+export function metWords(events) {
+  const out = new Set();
+  for (const e of events || []) {
+    if (!e || e.type !== 'quiz') continue;
+    let data = {};
+    try { data = typeof e.data_json === 'string' ? JSON.parse(e.data_json) : (e.data || {}); } catch { data = {}; }
+    const w = englishWord(data.word);
+    if (w) out.add(w);
+  }
+  return [...out];
+}
+export function makeAllSet(state, met, now, { rand = Math.random } = {}) {
+  const words = dueWords(state, now);
+  const later = Object.entries(state.box).filter(([w, b]) => b.d > now && !words.includes(w)).sort((a, b) => (b[1].n || 0) - (a[1].n || 0)).map(([w]) => w);
+  const rest = (met || []).filter((w) => !state.box[w]);
+  for (let i = rest.length - 1; i > 0; i -= 1) { const j = Math.floor(rand() * (i + 1)); [rest[i], rest[j]] = [rest[j], rest[i]]; }
+  const picked = [...words, ...later, ...rest].slice(0, PER_ALL);
+  if (!picked.length) return null;
+  const pool = { ...state, seen: [...new Set([...(met || []), ...state.seen])] };
+  return { items: picked.map((w) => ({ word: w, options: optionsFor(pool, w, rand), done: false, pay: !!state.box[w] })), correct: 0, mode: 'all', classRun: 0, at: now };
+}
+
 // 🔊 で 読み上げる ために `say` だけは 送る（ブラウザーの 声で 読むので、どの 単語かは ページに 要る。つり島の listen と 同じ）。
 // どれが 正解かの 判定は サーバーだけ。
 export const publicSet = (set) => ({ mode: set.mode, items: set.items.map((it) => ({ say: it.word, options: it.options })) });
@@ -117,7 +144,7 @@ export function answer(set, i, choice) {
   item.done = true;
   const ok = String(choice ?? '').trim().toLowerCase() === item.word;
   if (ok) set.correct += 1;
-  return { ok, word: item.word, done: set.items.every((x) => x.done), correct: set.correct, total: set.items.length };
+  return { ok, word: item.word, pay: item.pay !== false, done: set.items.every((x) => x.done), correct: set.correct, total: set.items.length };
 }
 
 // 保護者レポート：つぎに おぼえる 単語（時期が 近い 順に 1 つ）と、復習で 卒業した 単語。
