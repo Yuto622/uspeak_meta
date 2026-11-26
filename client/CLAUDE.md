@@ -2183,3 +2183,4 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **プラネタリウム（グリフィス天文台の 形）**：メインの島の 前の「バトルアリーナ（SOON）」の 場所。spot `planetarium`（戸口 -28, -24.6・道は x -6 から）。外がわ＝`planetarium-real.js`（白い アールデコの 横長・黒い 銅の ドーム 3 つ・みどりの ロタンダ・しばふと 白い オベリスク・描画 5 回・夜は `setNight`）、置く 場所は `main-world.js` の `PLANETARIUM_AT`。
   中＝`planetarium.js` + `planetarium.css`（`rpg.attachPlanetarium()`＝図書館と 同じ 作り・`in:planetarium`・夜も あいて いる）。まるい ホール・リクライニングの 席・まんなかの 投影機・ドームに 同じ 星空。投影機の そばで「⭐ せいざを みる」→ Orion・Big Dipper・Cassiopeia・Scorpius・Cygnus を じゅんに（空が 回って 正面に・線と 星が 明るく・英語の 名前を 読む・英語と 日本語を 両方 出す＝`translate="no"`）。
   石だんは 見た目だけ（`floorY` なし）。もう 1 つの バトルアリーナ 2 は かざりの まま。
+- **メインの島の ミニマップは 下絵を とって おく（2026-11）**：`main-world.js` の `drawMap` は 下絵（`paintMap(…, true)`）を 1 回だけ 描き、8 コマごとには はりつけと「きみ」だけ。前は 毎回 絵文字 40 こ ほどを 描きなおして、歩くと かたかた した。場所・道・ひろばの 絵を かえたら 鍵（`mapKey`）に 入って いるか 見る こと。

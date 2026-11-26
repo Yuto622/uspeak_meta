@@ -151,7 +151,8 @@ const cloth0 = (c) => M(`cloth:${c}`, () => std({ color: c, map: fabricTex(), ro
 const flat = (c, rough = 0.7, extra = null) => M(`flat:${c}:${rough}:${extra ? JSON.stringify(extra) : ''}`, () => std({ color: c, roughness: rough, ...extra }));
 // 金ぞく：この 部屋には うつりこむ 空が ないので、metalness は ひかえめ（高いと まっ黒に なる）。
 const brass0 = () => M('brass', () => std({ color: 0xd4a84a, roughness: 0.3, metalness: 0.35 }));
-const metalMat = (c) => M(`metal:${c}`, () => std({ color: c, roughness: 0.3, metalness: 0.35 }));
+// スタイルの きんぞく：へやには うつりこむ 空が ないので metalness を 下げ、その 色で 少し 光らせる（金が からし色に しずまない ように）。
+const metalMat = (c) => M(`metal:${c}`, () => std({ color: c, roughness: 0.3, metalness: 0.2, emissive: c, emissiveIntensity: 0.2 }));
 const glow = (c, k, map = null) => M(`glow:${c}:${k}:${map ? map.uuid : ''}`, () => std({ color: map ? 0x111111 : c, emissive: map ? 0xffffff : c, emissiveMap: map, emissiveIntensity: k, roughness: 0.5 }));
 
 // ---- スタイル（2026-11 の おわり：かぐ 1000 しゅるい） ------------------------------------

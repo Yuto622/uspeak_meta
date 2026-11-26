@@ -575,15 +575,37 @@ export function createMainWorld({ scene }) {
   // 右上の ちいさな 地図：点ではなく 2D の 地図（main-island.js）と 同じ 見た目 ─ 草・入り江・灰色の 道・
   // 建物の タイル・場所ごとの 色の まるに 絵・オレンジの「きみ」。島の 外では ほかの 島と 同じく 描かない。
   const baseDraw = island.drawMap;
+  // 2026-11：下絵（陸・道・建物・場所の まると 絵文字）は 1 回だけ 描いて とって おく。前は 8 コマごとに ぜんぶ（絵文字 40 こ ほど）を
+  // 描きなおして いて、歩くと 画面が かたかた した。毎回 描くのは 下絵の はりつけと「きみ」だけ。言語・行き先・場所の 数が かわったら 描きなおす。
+  let mapCache = null, mapKey = '', mapXY = null;
   function drawMap(ctx, player) {
     const d = island.data;
     if (!d || !island.visible) return baseDraw(ctx, player);
+    let ok = false;
+    try {
+      const key = `${isJa() ? 'ja' : 'en'}|${island.target || ''}|${d.spots.length}|${(d.roads || []).length}`;
+      if (!mapCache || mapKey !== key) {
+        const c = document.createElement('canvas'); c.width = 360; c.height = 280;
+        const g = c.getContext('2d'); g.setTransform(2, 0, 0, 2, 0, 0);
+        paintMap(g, player, true); mapCache = c; mapKey = key;
+      }
+      if (mapXY && ctx.drawImage) { ctx.clearRect(0, 0, 180, 140); ctx.drawImage(mapCache, 0, 0, 180, 140); ok = true; }
+    } catch { ok = false; mapCache = null; }
+    if (!ok) return paintMap(ctx, player, false);
+    const o = island.origin(); const mx = mapXY.px(player.position.x - o.x), mz = mapXY.py(player.position.z - o.z);
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(mx, mz, 4.6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(mx, mz, 3.2, 0, Math.PI * 2); ctx.fill();
+    return true;
+  }
+  function paintMap(ctx, player, baseOnly) {
+    const d = island.data;
     const o = island.origin();
     // 2026-11：東に ひろばが ついたので、島ぜんたい（x -56〜88）が 入るように 1.5 倍 → 1.2 倍、まんなかを x 16 に（前は `90 + x*1.5`）。
     // 2026-11 その 2：西に じてんしゃやの 土地（x -70 まで）が ついたので 1.2 倍 → 1.1 倍、まんなかを x 9 に（x -72〜90 が 入る）。
     const k = 1.1;
     const px = (x) => 90 + (x - 9) * k;
     const py = (z) => 70 + z * k;
+    mapXY = { px, py };
     ctx.clearRect(0, 0, 180, 140);
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(0, 0, 180, 140);
     // 陸（角の丸い四角）と すなはま。
@@ -669,8 +691,10 @@ export function createMainWorld({ scene }) {
     ctx.font = '8px sans-serif'; ctx.fillText('⭐', px(st.x), py(st.z));
     // きみ（オレンジ）。
     const me = { x: player.position.x - o.x, z: player.position.z - o.z };
-    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 4.6, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 3.2, 0, Math.PI * 2); ctx.fill();
+    if (!baseOnly) {
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 4.6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#e27a2d'; ctx.beginPath(); ctx.arc(px(me.x), py(me.z), 3.2, 0, Math.PI * 2); ctx.fill();
+    }
     // 島の 名前。
     ctx.textAlign = 'left'; ctx.fillStyle = '#12333a'; ctx.font = 'bold 9px sans-serif';
     ctx.fillText(isJa() ? d.name : (d.en || d.name), 6, 8);

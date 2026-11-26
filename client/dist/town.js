@@ -184,12 +184,13 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
 .kg-card.poor b{color:#8a8f96}
 .kg-tag{position:absolute;top:5px;right:5px;background:#1b3a2f;color:#8ff0c8;border-radius:999px;font-size:11px;font-weight:800;padding:2px 7px}
 .kg-none{grid-column:1/-1;padding:28px 10px;text-align:center;color:#5d6d62;font-size:14px}
-.kg-foot{flex:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kg-foot{flex:none;display:flex;align-items:center;gap:8px;position:relative}
+#town-dialog.kagu .eyebrow{font-size:11px}
 .kg-pager{display:flex;align-items:center;gap:6px}
 .kg-pager button{min-width:44px;min-height:44px;border-radius:12px;border:0;background:#1b3a2f;color:#fff4d6;font:800 18px/1 inherit;cursor:pointer}
 .kg-pager button:disabled{opacity:.35;cursor:default}
 .kg-pager span{font-weight:800;font-size:14px;min-width:64px;text-align:center;color:#263d33}
-.kg-buy{flex:1;display:flex;align-items:center;gap:10px;min-width:240px;background:#0c241c;color:#fff4d6;border-radius:14px;padding:6px 8px 6px 10px;min-height:56px}
+.kg-buy{flex:1;display:flex;align-items:center;gap:10px;min-width:0;background:#0c241c;color:#fff4d6;border-radius:14px;padding:6px 8px 6px 10px;min-height:56px}
 .kg-buy .kg-pic{width:44px;height:44px;border-radius:9px;background-color:rgba(255,255,255,.08)}
 .kg-buy div{flex:1;min-width:0;display:grid}
 .kg-buy strong{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -197,7 +198,8 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
 .kg-buy button{flex:none;min-height:44px;padding:8px 18px;border:0;border-radius:12px;background:#ffb066;color:#1b3a2f;font:800 15px/1.1 inherit;cursor:pointer}
 .kg-buy button:disabled{background:#3a5347;color:#b9c9bf;cursor:default}
 .kg-buy.empty{background:#f1eede;color:#5d6d62;font-size:13px;justify-content:center}
-.kg-flash{flex:none;margin:0;padding:7px 12px;border-radius:12px;background:#8ff0c8;color:#0c241c;font-weight:800;font-size:14px}
+.kg-flash{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);max-width:100%;margin:0;padding:7px 14px;border-radius:999px;background:#8ff0c8;color:#0c241c;font-weight:800;font-size:14px;box-shadow:0 6px 16px rgba(12,36,28,.3);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3}
+.kg-pager{flex:none}
 .kg-close{flex:none;min-height:44px;padding:8px 16px;border:0;border-radius:12px;background:#f1eede;color:#263d33;font:700 14px/1.1 inherit;cursor:pointer}
 .room-palette{scrollbar-width:thin;max-width:min(720px,calc(100vw - 48px))}
 .room-palette button small{font-size:11px;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
