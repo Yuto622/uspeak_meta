@@ -31,7 +31,7 @@ export function buildVillager(box, g, { color, seed }) {
   const L = villagerLook(seed);
   const add = chibiMaker(g);
   const c = { skin: L.skin, hair: L.hair, style: HAIRDO[L.style] || 'short', top: color, pants: L.pants, accent: L.hat, shoe: 0x4a3b34 };
-  chibiBody(add, c, g);
+  g.userData.limbs = chibiBody(add, c, g);   // 左あし・右あし・左うで・右うで（アバターと 同じ 約束。ひろばを 歩く 人が ふる）
   const st = L.style, ex = L.extra;
   if (st === 'cap') FEAT.cap(add, c, L.hat);
   else if (st === 'straw') { add('C', 0xe6cd86, [0, 2.3, 0], [1.9, 0.06, 1.8]); add('D', 0xe6cd86, [0, 2.3, 0], [1.1, 0.6, 1.04]); add('C', L.hat, [0, 2.37, 0], [1.12, 0.12, 1.06]); }

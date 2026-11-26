@@ -189,7 +189,7 @@ body[data-arcade] .top-dock, body[data-race] .top-dock, body[data-gp] .top-dock,
 .gv-hearts b { color: #ff6f91; font-weight: 400; }
 .gv-hearts i { color: #ffffff77; font-style: normal; }
 .gv-bar { width: 64px; height: 8px; border-radius: 99px; background: #0d211a; overflow: hidden; }
-.gv-bar i { display: block; height: 100%; width: var(--p); background: linear-gradient(90deg, #ff6f91, #ffb066); border-radius: 99px; transition: width .4s; }
+.gv-bar i { display: block; height: 100%; width: var(--gv); background: linear-gradient(90deg, #ff6f91, #ffb066); border-radius: 99px; transition: width .4s; }
 .gv-note, .gv-fav { margin: 0; font-size: 13px; font-weight: 700; color: #dff0d4; text-align: center; }
 .gv-btn { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 10px; min-height: 48px; padding: 8px 18px; border: 0; border-radius: 14px; background: #e27a2d; color: #fff; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #a9541b; }
 .gv-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #a9541b; }

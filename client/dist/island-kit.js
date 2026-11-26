@@ -47,10 +47,17 @@ export function shade(hex, amount) {
 // 大きい島（メインの島）は `size`（半分の幅と奥行き）・`power`（2＝だ円、4＝角の丸い四角）・
 // `land(x, z)`（false のところは陸を作らない＝入り江）・`dock`（船着き場の いちばん陸よりの点）・`hills` を渡す。
 // 渡さなければ いままでの 60×50 の だ円の島。
-export function createIsland({ scene, build, seed = 20250910, size = null, power = 2, land = null, dock = null, hills = null }) {
+// `annex`（{x0,x1,z0,z1,r}＝かどの まるい 四角）は 島の 形の 外へ つき出す 土地（メインの島の 東の ひろば・2026-11）。そこも 陸に なり、歩ける。
+export function createIsland({ scene, build, seed = 20250910, size = null, power = 2, land = null, dock = null, hills = null, annex = null }) {
   const HX = size?.x ?? HALF_X;
   const HZ = size?.z ?? HALF_Z;
   const DOCK = { x: dock?.x ?? 0, z: dock?.z ?? 21 };
+  // つき出した 土地の 中か（m だけ 内がわに ちぢめて 見る。マイナスなら 外へ ひろげる）。
+  const inAnnex = annex ? (x, z, m = 0) => {
+    const r = Math.max(0, (annex.r ?? 4) - m), hx = (annex.x1 - annex.x0) / 2 - m, hz = (annex.z1 - annex.z0) / 2 - m;
+    const dx = Math.abs(x - (annex.x0 + annex.x1) / 2) - (hx - r), dz = Math.abs(z - (annex.z0 + annex.z1) / 2) - (hz - r);
+    return dx <= 0 ? dz <= r : dz <= 0 ? dx <= r : dx * dx + dz * dz <= r * r;
+  } : () => false;
   const root = new THREE.Group();
   root.visible = false;
   scene.add(root);
@@ -383,12 +390,19 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
 
     // Each tile is a face of grass or sand on a column of soil, the way a voxel world
     // shows its ground: the cliff at the shore is then soil, not a slab of lawn.
-    for (let x = -RX; x <= RX; x += 2) {
-      for (let z = -RZ; z <= RZ; z += 2) {
+    // つき出した 土地（annex）が あれば そこまで 同じ マス目で ひろげる。annex の 中は「となりが 陸で ない」マスだけ すなはま。
+    const NB = [[2, 0], [-2, 0], [0, 2], [0, -2]];
+    const isLand = (x, z) => inAnnex(x, z) || (edge(x, z) <= 1.04 && (!land || land(x, z)));
+    const more = (n) => 2 * Math.max(0, Math.ceil(n / 2));
+    const X0 = -RX - (annex ? more(-RX - annex.x0) : 0), X1 = RX + (annex ? more(annex.x1 - RX) : 0);
+    const Z0 = -RZ - (annex ? more(-RZ - annex.z0) : 0), Z1 = RZ + (annex ? more(annex.z1 - RZ) : 0);
+    for (let x = X0; x <= X1; x += 2) {
+      for (let z = Z0; z <= Z1; z += 2) {
         const e = edge(x, z);
-        if (e > 1.04) continue;
-        if (land && !land(x, z)) continue;
-        const beach = e > 0.94 || (land && [[2, 0], [-2, 0], [0, 2], [0, -2]].some(([dx, dz]) => !land(x + dx, z + dz)));
+        const ann = inAnnex(x, z);
+        if (!ann && e > 1.04) continue;
+        if (!ann && land && !land(x, z)) continue;
+        const beach = ann ? NB.some(([dx, dz]) => !isLand(x + dx, z + dz)) : e > 0.94 || (land && NB.some(([dx, dz]) => !land(x + dx, z + dz)));
         const y = beach ? 0 : lift(x, z);
         const top = beach ? sand : (x * 7 + z * 3) % 5 === 0 ? grassTop : grass;
         mapTiles.push([x, z, beach]);
@@ -410,7 +424,20 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       G(cx * (RX + 2.4), -1.1, cz * (RZ + 2.4), 1.8 + rand(), 0.5, 1.8 + rand(), 0xd8e7dd);
       if (rand() > 0.85) {
         const s = 0.6 + rand() * 0.7;
-        D(cx * (RX + 1.6), -0.35, cz * (RZ + 1.6), 1.5 * s, 1.3 * s, 1.4 * s, rand() > 0.5 ? 0x8d9aa0 : 0x9a9585);
+        const tone = rand() > 0.5 ? 0x8d9aa0 : 0x9a9585;   // 乱数は いつも 同じ 数だけ 使う（annex の 中の 岩だけ 置かない）
+        if (!inAnnex(cx * (RX + 1.6), cz * (RZ + 1.6), -2)) D(cx * (RX + 1.6), -0.35, cz * (RZ + 1.6), 1.5 * s, 1.3 * s, 1.4 * s, tone);
+      }
+    }
+    // つき出した 土地の なみうちぎわ（ぬれた 砂 → あわ → 岩）。島の 乱数（rand）は 使わない＝ほかの 物の 場所は かわらない。
+    if (annex) {
+      let q = 9173; const r2 = () => ((q = (q * 16807) % 2147483647) - 1) / 2147483646;
+      const near = (x, z, n) => { for (let dx = -n; dx <= n; dx += 2) for (let dz = -n; dz <= n; dz += 2) if (inAnnex(x + dx, z + dz)) return true; return false; };
+      for (let x = X0 - 6; x <= X1 + 6; x += 2) for (let z = Z0 - 6; z <= Z1 + 6; z += 2) {
+        if (isLand(x, z) || edge(x, z) <= 1.12) continue;
+        if (near(x, z, 2)) {
+          G(x, -0.55, z, 2.4, 0.8, 2.4, shade(sand, -0.06));
+          if (r2() > 0.9) { const s = 0.6 + r2() * 0.7; D(x + r2() - 0.5, -0.35, z + r2() - 0.5, 1.5 * s, 1.3 * s, 1.4 * s, r2() > 0.5 ? 0x8d9aa0 : 0x9a9585); }
+        } else if (near(x, z, 4)) G(x, -1.1, z, 1.8 + r2(), 0.5, 1.8 + r2(), 0xd8e7dd);
       }
     }
 
@@ -587,7 +614,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     if (!built) return false;   // nothing to collide with until the island exists
     const lx = x - root.position.x;
     const lz = z - root.position.z;
-    if (Math.abs(lx) > HX || Math.abs(lz) > HZ) return true;
+    if ((Math.abs(lx) > HX || Math.abs(lz) > HZ) && !inAnnex(lx, lz, 0.9)) return true;
     return obstacles.some((o) => Math.abs(lx - o.x) < o.w + 0.35 && Math.abs(lz - o.z) < o.d + 0.35);
   }
 

@@ -21,3 +21,13 @@ export function opensIn(now = Date.now() + skew) {
 }
 export const isShop = (spot) => !!spot && SHOP_KINDS.has(spot.kind);
 export const NIGHT_SECONDS = PHASES.find((p) => p.id === 'night')?.seconds || 0;
+
+// 世界の 時計を 24 時間の 時計に なおす（ひろばの 時計台の はり・2026-11）。0〜24 の 小数（7.5 ＝ 7:30）。
+// ひるま 300 秒 ＝ 7:00〜17:00 ／ ゆうがた 120 秒 ＝ 17:00〜19:00 ／ よる 240 秒 ＝ 19:00〜5:30 ／ あさ 45 秒 ＝ 5:30〜7:00（それぞれの 中は まっすぐ）。
+// お店と 同じ ずれ（setClockSkew）を 使うので、クラスの みんなが 同じ 時こくを 見る。
+const HOUR_SPAN = { day: [7, 17], dusk: [17, 19], night: [19, 29.5], dawn: [5.5, 7] };
+export function worldHour(now = Date.now() + skew) {
+  const p = phaseAt(now), [a, b] = HOUR_SPAN[p.id] || [0, 24];
+  const h = a + (b - a) * (p.seconds ? p.into / p.seconds : 0);
+  return ((h % 24) + 24) % 24;
+}

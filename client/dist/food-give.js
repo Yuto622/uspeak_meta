@@ -120,7 +120,7 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     const hearts = Math.min(max, Math.floor(points / per));
     const part = hearts >= max ? 1 : (points % per) / per;
     return `<span class="gv-hearts" aria-label="${hearts} / ${max}"><b>${'❤'.repeat(hearts)}</b><i>${'♡'.repeat(max - hearts)}</i></span>
-      <span class="gv-bar"><i style="--p:${Math.round(part * 100)}%"></i></span>`;
+      <span class="gv-bar"><i style="--gv:${Math.round(part * 100)}%"></i></span>`;
   }
   const foodName = (id) => { const b = food.state.bag.find((x) => x.id === id); return b ? `${b.icon} <span translate="no">${esc(b.en)}</span>` : ''; };
   const who = (name) => `<span class="gv-who" translate="no">${esc(name)}</span>`;
