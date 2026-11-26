@@ -20,8 +20,11 @@ import { SHOP_KINDS, shopsOpen } from './shop-hours.js';
 import { PLAZA, LIBRARY, buildPlaza, drawPlazaMap } from './main-plaza.js';
 import { buildLibraryExterior } from './library-real.js';
 import { buildPlanetariumExterior } from './planetarium-real.js';
+import { CITY, buildCity, drawCityMap, cityFlora } from './main-city.js';   // 北西の 高層ビルの まち
 import { createPlazaWalkers } from './plaza-walkers.js';
 import { parkedBike } from './bike-models.js';
+import { buildCarpenterYard } from './carpenter.js';
+import { drawBridgeStubs } from './bridges-data.js';   // ほかの 島への 橋（ミニマップの しるし）
 
 export { NEAR_DISTANCE };
 
@@ -55,13 +58,15 @@ export function createMainWorld({ scene }) {
   let plaza = null, walkers = null; // 東の ひろば（main-plaza.js）と 歩く 人たち（plaza-walkers.js）。島が 建ったあと。
   let planetarium = null;           // 北西の プラネタリウム（planetarium-real.js の 外がわ）。中は planetarium.js（別の シーン）。
   let library = null;               // ひろばの 北の としょかん（library-real.js の 外がわ）。中は library.js（別の シーン）。
+  let city = null;                  // 北西の 高層ビルの まち（main-city.js）。かざり（入れない）。
+  let carpenter = null;             // じぶんの いえの となりの 大工さん・増築の 形・足場（carpenter.js）。
   const island = createIsland({
     scene,
     seed: 4242,
     size: { x: 54, z: 43 },
     power: 4,
     dock: { x: 31, z: 37 },
-    hills: [{ x: -46, z: -32, r: 7 }],
+    hills: CITY.hills,   // 丘は まちの 公園の 中（前は (-46, -32, r 7)。もりあがる マスの 数は 同じ＝島の 乱数は ずれない）
     land: (x, z) => !inBay(x, z),
     annex: PLAZA.annex,   // 東の ひろば：島の 形の 外へ つき出す 土地（island-kit.js）
     build({ island: data, B, D, sprite, house, path, resident, door, tree, bush, flowers, rock, bench, lamp, fence, bunting, obstacles, rand, root }) {
@@ -200,6 +205,8 @@ export function createMainWorld({ scene }) {
           D(def.x - 2.4, 0.6, def.z - 0.6, 0.16, 1.2, 0.16, 0x6f5b3e); D(def.x - 2.4, 1.35, def.z - 0.6, 0.6, 0.45, 0.4, 0xd9483b);
           D(def.x + 2.4, 0.3, def.z - 0.6, 0.7, 0.6, 0.7, 0xb5603a); D(def.x + 2.4, 0.75, def.z - 0.6, 0.55, 0.3, 0.55, 0xf08fb0);
           keep(def.x, hz, def.w / 2 + 1.5, def.d / 2 + 2);
+          // となりに 大工さん（増築を たのむ）。増築の 形と 足場も ここ（carpenter.js。じぶんの 画面だけ）。
+          try { carpenter = buildCarpenterYard({ root, def, hz, D, sprite, obstacles, keep }); } catch (err) { console.warn('[carpenter] 建てられない', err); }
         } else if (def.kind === 'blockwild') {
           // たてる ばしょの 入口：ブロックの アーチ。くぐると BLOCKWILD（ブロックの 世界）へ。
           for (const sx of [-1.8, 1.8]) for (let y = 0; y < 4; y += 1) D(def.x + sx, 0.5 + y, def.z - 0.9, 1, 1, 1, y % 2 ? 0x8a9a4a : 0xb5603a);
@@ -528,7 +535,8 @@ export function createMainWorld({ scene }) {
       bench(-20, 12.5, 0);
 
       // 木と花：建物・道・水と、入れる場所の近くには 置かない。
-      const free = (x, z, pad = 1.2) => !boxes.some((b) => Math.abs(x - b.x) < b.w + pad && Math.abs(z - b.z) < b.d + pad)
+      for (const b of boxes) if (b.z === CITY.road.z && b.x === (CITY.road.x0 + CITY.road.x1) / 2) b.city = true;   // まちへの 道の「置かない 四角」
+      const free = (x, z, pad = 1.2, old = false) => !boxes.some((b) => !(old && b.city) && Math.abs(x - b.x) < b.w + pad && Math.abs(z - b.z) < b.d + pad)
         && !data.spots.some((sp) => Math.hypot(x - sp.x, z - sp.z) < 6)
         && Math.hypot(x - st.x, z - st.z) > 6 && !(Math.abs(x - 31) < 5 && z > 30);
       const onLand = (x, z) => Math.abs(x / 52) ** 4 + Math.abs(z / 41) ** 4 < 0.9 && !inBay(x, z);
@@ -536,8 +544,11 @@ export function createMainWorld({ scene }) {
       for (let i = 0; i < 420; i += 1) {
         const x = (rand() - 0.5) * 104;
         const z = (rand() - 0.5) * 84;
-        if (!onLand(x, z) || !free(x, z)) continue;
+        // まち（main-city.js）と そこへの 道には まかない。ただし 乱数は 前と 同じ 数だけ 使う（ほかの 木・草花の 場所が ずれない ように）。
+        const town = cityFlora(x, z);
+        if (!onLand(x, z) || !free(x, z, 1.2, town)) continue;
         const roll = rand();
+        if (town) { for (let k = roll > 0.8 ? 2 : roll > 0.56 ? 1 : 7; k > 0; k -= 1) rand(); continue; }
         // スタートと 屋台の 南（カメラの 手前）には 木を 立てない：葉が 画面を かくす。
         if (roll > 0.8) { const kind = Math.floor(rand() * 3), scale = 0.62 + rand() * 0.4; if (!(z > 17 && z < 32 && x > -12 && x < 48)) woods.push({ x, z, scale, kind }); }
         else if (roll > 0.62) bush(x, z, 0.7 + rand() * 0.6);
@@ -562,6 +573,8 @@ export function createMainWorld({ scene }) {
         sprite({ en: '📚 Library', ja: '📚 としょかん' }, L.x, 4.9, L.z + lib.steps.z1 + 0.4, { width: 6.2, size: 40 });
         library = { ...lib, x: L.x, z: L.z };
       } catch (err) { console.warn('[main] としょかんが 建てられない', err); library = null; }
+      // 高層ビルの まち（北西）。材質ごとに 1 メッシュ（描画 7 回）。夜は まどが 光る（下の setNight）・通りでは カメラとの 間の かべを 切りぬく（update）。
+      try { city = buildCity({ root, D, sprite, obstacles, woods, keep }); } catch (err) { console.warn('[main] ビルの まちが 建てられない', err); city = null; }
       // 木は リアルな 木（えだわかれの 幹＋葉の 板）。葉の 色は 季節で かわる。
       const now = seasonNow();
       realTrees = createRealTrees({ root, trees: woods, seed: 4242 });
@@ -646,6 +659,7 @@ export function createMainWorld({ scene }) {
       for (const sp of d.spots) if (sp.kind === 'eiken_pier') ctx.fillRect(px(sp.x - ep.fw / 2), py(ep.z), ep.fw * k, ((sp.end ?? ep.end) - ep.z) * k);
     }
     ctx.fillRect(px(31 - 3.5), py(37), 7 * k, 7 * k);
+    drawBridgeStubs(ctx, 'main', px, py, o, 8);   // 橋（bridges-data.js）：U-Speak島・えいごアリーナ島・ことばの草原へ
     // 建物（飾り）の タイル。
     const tile = (x, z, w, dd, fill) => { ctx.fillStyle = fill; ctx.beginPath(); ctx.roundRect(px(x - w / 2), py(z - dd / 2), w * k, dd * k, 2); ctx.fill(); };
     for (const dec of d.deco || []) {
@@ -718,7 +732,7 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
-    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); }
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); carpenter?.update(t); }
     const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;
@@ -727,6 +741,7 @@ export function createMainWorld({ scene }) {
     // としょかんの まど（お店では ない＝よるも あいて いるので、夜は いつも 灯る）。
     if (library) { const k = Math.max(0, Math.min(1, n || 0)); for (const { material, glow } of library.lit) material.emissiveIntensity = glow * k; }
     planetarium?.setNight(n);   // プラネタリウムも お店では ない＝夜は いつも 灯る
+    carpenter?.setNight(n);     // 増築した へやの まど
   }
   // としょかんの だん（4 だん・高さ 0.8）と げんかんの 上の ゆかの 高さ。世界の 座標。ほかは 0。
   function floorY(x, z) {
@@ -757,6 +772,7 @@ export function createMainWorld({ scene }) {
   });
   Object.defineProperty(out, 'npcs', { get: () => walkers?.npcs || [], enumerable: true });
   Object.defineProperty(out, 'plaza', { get: () => plaza, enumerable: true });
+  Object.defineProperty(out, 'carpenter', { get: () => carpenter, enumerable: true });   // { x, z, reach, setTier, setBuilding … }（carpenter.js）
   // としょかん（外がわ）：{ x, z, door, steps, obstacles, lit … }。出た ときに 立つ 場所は library.js が ここから 決める。
   Object.defineProperty(out, 'library', { get: () => library, enumerable: true });
   // プラネタリウム（外がわ）：{ x, z, door, obstacles, setNight … }。出た ときに 立つ 場所は planetarium.js が ここから 決める。

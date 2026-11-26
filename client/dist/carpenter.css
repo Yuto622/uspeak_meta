@@ -1,0 +1,97 @@
+/* だいくや（大工さんの 増築メニュー）— carpenter.js。
+   色：深い みどり #0c241c–#1b3a2f・オレンジ #ffb066 / #e27a2d・ミント #8ff0c8・クリーム #fff4d6。むらさきは 使わない。
+   字は 11px より 小さく しない。display は [open] の ときだけ（とじた dialog が 画面に のこらない ように）。 */
+#carpenter-dialog { padding: 0; border: 2px solid #8ff0c8; border-radius: 20px; width: min(920px, 96vw); max-width: 96vw; max-height: min(640px, 94vh); background: linear-gradient(160deg, #1b3a2f, #0c241c); color: #fff4d6; overflow: hidden; box-shadow: 0 30px 90px rgba(0, 0, 0, .55); }
+#carpenter-dialog[open] { display: flex; flex-direction: column; }
+#carpenter-dialog::backdrop { background: rgba(8, 24, 18, .6); backdrop-filter: blur(3px); }
+#carpenter-dialog p { margin: 0; color: inherit; line-height: 1.45; }
+#carpenter-dialog button { font-family: inherit; cursor: pointer; }
+
+.cp-head { display: grid; grid-template-columns: auto 1fr auto auto auto; align-items: center; gap: 10px; padding: 10px 14px; background: #0c241c; border-bottom: 2px solid #2c5a48; flex: none; }
+.cp-face { width: 64px; height: 64px; border-radius: 50%; background: #ffb066; border: 2px solid #fff4d6; overflow: hidden; flex: none; }
+.cp-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cp-say { position: relative; background: #fff4d6; color: #1b3a2f; border-radius: 14px; padding: 7px 14px 8px; min-width: 0; }
+.cp-say::before { content: ''; position: absolute; left: -8px; top: 50%; margin-top: -7px; border: 7px solid transparent; border-left: 0; border-right-color: #fff4d6; }
+.cp-who { display: block; font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #b8551a; }
+#carpenter-dialog .cp-en { font-size: 18px; font-weight: 800; line-height: 1.25; color: #1b3a2f; }
+#carpenter-dialog .cp-ja { font-size: 12px; font-weight: 700; color: #4d6a5c; }
+.cp-voice { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #2c5a48; color: #fff4d6; font-size: 18px; }
+.cp-top { text-align: right; }
+#carpenter-dialog #cp-title { margin: 0; font-size: 17px; line-height: 1.2; color: #ffb066; }
+#cp-title small { display: block; font-size: 11px; font-weight: 700; color: #8ff0c8; letter-spacing: .04em; }
+.cp-coins { display: inline-block; margin-top: 3px; padding: 2px 10px; border-radius: 999px; background: #1b3a2f; border: 1px solid #ffb066; color: #ffb066; font-size: 14px; font-weight: 800; white-space: nowrap; }
+.cp-close { width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #fff4d6; font-size: 26px; line-height: 1; }
+
+.cp-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 12px; padding: 12px; min-height: 0; flex: 1; }
+.cp-list { list-style: none; margin: 0; padding: 0 4px 0 0; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; min-height: 0; }
+.cp-row { width: 100%; display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: 'pic name cost' 'pic state cost'; align-items: center; column-gap: 10px; padding: 6px 12px 6px 6px; border-radius: 14px; border: 2px solid #2c5a48; background: #14302a; color: #fff4d6; text-align: left; min-height: 64px; }
+.cp-row.on { border-color: #ffb066; background: #24493c; box-shadow: inset 0 0 0 1px #ffb066; }
+.cp-pic { grid-area: pic; width: 64px; height: 60px; border-radius: 10px; background: #fff4d6; display: grid; place-items: center; overflow: hidden; }
+.cp-pic img, .cp-big img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cp-ph { font-size: 28px; }
+.cp-name { grid-area: name; min-width: 0; align-self: end; }
+.cp-name b { font-size: 15px; font-weight: 800; margin-right: 6px; }
+.cp-name i { font-style: normal; font-size: 12px; font-weight: 700; color: #8ff0c8; white-space: nowrap; }
+.cp-state { grid-area: state; align-self: start; font-size: 11px; font-weight: 800; color: #b9cfc4; }
+.cp-next .cp-state { color: #ffb066; }
+.cp-now .cp-state, .cp-done .cp-state { color: #8ff0c8; }
+.cp-building .cp-state { color: #ffb066; }
+.cp-later { opacity: .72; }
+.cp-cost { grid-area: cost; text-align: right; white-space: nowrap; }
+.cp-cost b { display: block; font-size: 15px; font-weight: 800; color: #ffb066; }
+.cp-cost small { display: block; font-size: 11px; font-weight: 700; color: #b9cfc4; }
+
+.cp-detail { background: #fff4d6; color: #1b3a2f; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow-y: auto; }
+.cp-big { height: 150px; flex: none; border-radius: 12px; background: linear-gradient(#cfeee0, #f3e6c2); display: grid; place-items: center; overflow: hidden; }
+.cp-big .cp-ph { font-size: 60px; }
+.cp-info { display: flex; flex-direction: column; gap: 6px; }
+#carpenter-dialog .cp-info h3 { margin: 0; font-size: 18px; line-height: 1.25; color: #1b3a2f; }
+.cp-info h3 i { font-style: normal; font-size: 14px; color: #b8551a; white-space: nowrap; }
+#carpenter-dialog .cp-size { font-size: 12px; font-weight: 800; color: #2c5a48; }
+#carpenter-dialog .cp-about span { display: block; font-size: 15px; font-weight: 700; color: #1b3a2f; }
+#carpenter-dialog .cp-about small { display: block; font-size: 12px; font-weight: 700; color: #4d6a5c; margin-top: 2px; }
+#carpenter-dialog .cp-keep { font-size: 11px; font-weight: 700; color: #4d6a5c; }
+#carpenter-dialog .cp-short, #carpenter-dialog .cp-flash { font-size: 13px; font-weight: 800; color: #b3401f; }
+#carpenter-dialog .cp-ask { font-size: 15px; font-weight: 800; color: #1b3a2f; }
+#carpenter-dialog .cp-work { font-size: 14px; font-weight: 800; color: #b8551a; background: #ffe3bd; border-radius: 10px; padding: 8px 10px; }
+#carpenter-dialog .cp-work.cp-mine { color: #1b3a2f; background: #cfeee0; }
+.cp-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.cp-btns button { min-height: 48px; padding: 10px 18px; border-radius: 999px; border: 0; font-size: 16px; font-weight: 800; }
+.cp-order, .cp-yes { background: #e27a2d; color: #fff4d6; flex: 1; box-shadow: 0 4px 0 #9c4f17; }
+.cp-yes { background: #1b3a2f; color: #8ff0c8; box-shadow: 0 4px 0 #0c241c; }
+.cp-no { background: #e6dcc0; color: #1b3a2f; }
+.cp-btns button:disabled { opacity: .45; cursor: default; box-shadow: none; }
+
+/* そばの ボタン（だいくさんと はなす）。 */
+#carpenter-talk { position: fixed; left: 50%; bottom: 178px; transform: translateX(-50%); z-index: 30; min-height: 48px; padding: 10px 22px; border-radius: 999px; border: 2px solid #ffb066; background: #1b3a2f; color: #fff4d6; font: 800 17px/1.2 inherit; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, .35); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+#carpenter-talk[hidden] { display: none; }
+#carpenter-talk small { font-size: 12px; font-weight: 800; color: #ffb066; }
+#carpenter-talk kbd { background: #8ff0c8; color: #0c241c; border: 0; font-weight: 800; }
+@media (pointer: coarse) { #carpenter-talk kbd { display: none; } }
+
+/* たてに 長い 画面：リストの 下に 説明。 */
+@media (max-width: 700px) {
+  .cp-body { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
+  .cp-big { display: none; }
+  .cp-head { grid-template-columns: auto 1fr auto; }
+  .cp-voice, .cp-top { display: none; }
+}
+/* 横むきの スマホ（844 × 390）：頭を うすく、絵を 小さく。 */
+@media (max-height: 480px) {
+  #carpenter-dialog { max-height: 96vh; border-radius: 16px; }
+  .cp-head { padding: 5px 10px; gap: 8px; }
+  .cp-face { width: 46px; height: 46px; }
+  .cp-say { padding: 4px 12px 5px; }
+  #carpenter-dialog .cp-en { font-size: 15px; }
+  #carpenter-dialog .cp-ja { font-size: 11px; }
+  .cp-who { display: none; }
+  .cp-body { padding: 8px; gap: 8px; }
+  .cp-row { min-height: 52px; grid-template-columns: 50px minmax(0, 1fr) auto; padding: 3px 10px 3px 4px; }
+  .cp-pic { width: 50px; height: 46px; }
+  .cp-big { height: 84px; }
+  .cp-detail { padding: 8px 10px; gap: 5px; }
+  #carpenter-dialog .cp-info h3 { font-size: 16px; }
+  #carpenter-dialog .cp-about span { font-size: 13px; }
+  .cp-btns button { min-height: 44px; padding: 8px 16px; font-size: 15px; }
+  #carpenter-talk { bottom: auto; top: 64px; }
+}

@@ -15,6 +15,7 @@ import { realFood } from './food-real.js';
 import { realModel } from './wardrobe-real.js';
 import { furnitureModel } from './furniture-real.js';
 import { blockModel } from './town-real.js';
+import { CITY } from './main-city.js';   // 北西の 高層ビルの まちの 土地（数字は むこうに 1 か所）
 
 // 島を 建てる 前（createIsland）に 要る 数字。annex は 土地（まわりに 草と すなはまの ふち）。
 const CLOCK_X = 79;   // 時計台の x（ミニマップの 絵も これを 使う）
@@ -24,7 +25,8 @@ export const PLAZA = {
   annex: { x0: 52, x1: 88, z0: -30, z1: 33, r: 7,
     // 北東の ならび（英単語ハウス 3・ぶきや・きせつの クイズ。おもちゃやの 右に 1 列・2026-11）の 土地。
     // 2 つめ：西の はまの じてんしゃや（-61, 11）の 土地（2026-11）。大通りを x -66 まで のばした。
-    also: [{ x0: 12, x1: 72, z0: -47, z1: -26, r: 7 }, { x0: -70, x1: -48, z0: -2, z1: 31, r: 8 }] },
+    // 3・4 つめ：北西の 高層ビルの まち（main-city.js の CITY.rects＝プラネタリウムの 西と 北・2026-11）。
+    also: [{ x0: 12, x1: 72, z0: -47, z1: -26, r: 7 }, { x0: -70, x1: -48, z0: -2, z1: 31, r: 8 }, ...CITY.rects] },
 };
 // としょかん（library-real.js）の 置き場所：建物の まんなか。南むき。前の しき石（z +8〜+17）が ひろばの 北の ふち（z 3）に つながる。
 // 戸口は main_island.json の spots の `library`（70, -8.5＝だんの 上）。うごかす ときは 2 か所を いっしょに。

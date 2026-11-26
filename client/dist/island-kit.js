@@ -14,6 +14,7 @@ import { seasonNow } from './main-seasons.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
+import { drawBridgeStubs } from './bridges-data.js';   // ほかの 島への 橋（ミニマップの しるし）
 
 // 3D の 札の 字の 大きさ。iPad（タッチ）では 1.5 倍まで（パソコンは そのまま）。
 const SIGN_BOOST = globalThis.matchMedia?.('(pointer: coarse)').matches ? 1.5 : 1;
@@ -69,6 +70,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   let data = null;
   let built = false;
   let wanted = false;           // asked to be shown, possibly before the data arrived
+  let peer = false;             // 橋の むこうから 見えて いる だけ（bridges.js）：絵は 出すが、ミニマップは いまの 島の もの
   const spots = [];             // { def, npc, label, ja }
   const doors = [];             // { def, x, z } - the doorway of a building you can enter
   const obstacles = [];
@@ -665,6 +667,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     // 船着き場。
     g.fillStyle = '#b7905f';
     g.fillRect(mx(DOCK.x - 3.5), my(DOCK.z), 7 * k, 7.7 * k);
+    // ほかの 島への 橋（bridges-data.js）：岸から 海へ のびる 木の 道。
+    drawBridgeStubs(g, data.id, mx, my, { x: data.x, z: data.z }, 7 / k);
     // 建物の 床（木や 岩など 小さい 当たり判定は 描かない）。
     for (const o of obstacles) {
       if (o.w < 1.6 || o.d < 1.6) continue;
@@ -687,7 +691,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     blockwild: '#b5603a', ferry: '#5a7fb0', office: '#5a7fb0', board: '#8a9a4a',
   };
   function drawMap(ctx, player) {
-    if (!built || !root.visible) return false;
+    if (!built || !root.visible || peer) return false;
     if (!mapBase) mapBase = paintBase();
     ctx.clearRect(0, 0, 180, 140);
     if (mapBase && ctx.drawImage) ctx.drawImage(mapBase, 0, 0, 180, 140);
@@ -733,6 +737,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     // Called once the island's data file has arrived.
     receive(d) { data = d; if (wanted) { construct(); root.visible = true; } },
     show(on) {
+      peer = false;
       wanted = !!on;
       if (on) construct();
       root.visible = !!on && built;
@@ -752,6 +757,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       // to walking around; a race has its own thing to drive at.
       if (beacon) beacon.visible = labelsOn && !!targetSpot();
     },
+    // 橋の むこうの 島として 見せて いる 間（show(true) の あとに 呼ぶ。つぎの show で 元に もどる）。
+    asPeer(on) { peer = !!on; },
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
     setHouseLit: (x, z, on) => houses.setLit(x, z, on),
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },

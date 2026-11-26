@@ -60,6 +60,7 @@ import { itemModel } from './wardrobe-models.js';
 import { createRoom } from './room-world.js';
 import { createPlaza } from './plaza-world.js';
 import { createTownUI } from './town.js';
+import { createCarpenter } from './carpenter.js';
 import { createClassMode } from './class-mode.js';
 import { createTaskCard } from './tasks.js';
 import { createTaskGuide } from './task-guide.js';
@@ -348,6 +349,12 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     send: atSend,
     toast, speak, learn, isOnline: () => state.mode === 'online', room: myRoom, plaza: myPlaza,
   });
+  // 大工さんの 増築（carpenter.js）：じぶんの いえの となりの 大工さんと、まちづくり島の ふどうさんが 同じ メニューを ひらく。
+  const carpenter = createCarpenter({
+    player, rpg, send: atSend, toast, speak, isOnline: () => state.mode === 'online',
+    getCoins: () => state.wallet?.coins ?? 0, onGrown: (m) => town.onGrown(m),
+  });
+  town.setCarpenter(carpenter);
   // のりもの島. The speed a vehicle gives is applied by the world; what it is worth and
   // whether it is yours are the server's to say.
   // のりもの島のレース. The kart, the HUD and the rivals live here; the order and the
@@ -779,6 +786,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (m.world) { state.skew = m.world.now - Date.now(); setClockSkew(state.skew); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
       town.prime();
+      carpenter.prime();   // いえの 段・工事中か・できあがりの しらせ
       r.send('farm:peek', {});
       welcomed = true;
       bikeRide?.resync();   // つなぎなおし：部屋は のって いた ことを わすれて いる
@@ -987,6 +995,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('room:placed', (m) => town.onPlaced(m));
     r.onMessage('room:removed', (m) => town.onRemoved(m));
     r.onMessage('room:moved', (m) => { if (m.wallet) applyWallet(m.wallet); town.onMoved(m); });
+    r.onMessage('build:state', (m) => { if (m.wallet) applyWallet(m.wallet); carpenter.onState(m); });
+    r.onMessage('build:error', (m) => carpenter.onError(m));
     r.onMessage('land:state', (m) => land.onState(m));
     r.onMessage('land:bought', (m) => { if (m.wallet) applyWallet(m.wallet); land.onBought(m); });
     r.onMessage('land:island', (m) => land.onIsland(m));
@@ -1503,7 +1513,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     farmLabel: (spot) => farm.label(spot),
     farm,
     petLabel: (spot) => petUI.label(spot),
-    town, myRoom, myPlaza, voice, conv, race, daily,
+    town, carpenter, myRoom, myPlaza, voice, conv, race, daily,
     // Whichever of the two a child is standing in. The page's E and Q keys work on it.
     get builder() { return myRoom.active ? myRoom : myPlaza.active ? myPlaza : null; },
     townInteract: () => { const near = rpg.townNearby(); if (near) town.enter(near.spot); },

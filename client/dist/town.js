@@ -12,6 +12,7 @@ const hex = (c) => `#${Number(c).toString(16).padStart(6, '0')}`;
 
 export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza }) {
   const state = { shop: null, props: null, spot: null, roomInfo: null };
+  let carpenter = null;   // 大工さんの メニュー（carpenter.js）。ふどうさんは これを ひらく（へやを 大きく する 道は 1 つ）。
 
   const dialog = document.createElement('dialog');
   dialog.id = 'town-dialog';
@@ -58,7 +59,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   function label(spot) {
     if (spot.kind === 'shop') return '🧱 ブロックを かう';
     if (spot.kind === 'furniture') return '🛋 かぐを かう';
-    if (spot.kind === 'agent') return '🏠 ひっこしの そうだん';
+    if (spot.kind === 'agent') return '🏠 いえを 大きく する（ぞうちく）';
     if (spot.kind === 'plaza') return '🧱 ひろばで つくる';
     if (spot.kind === 'blockwild') return '⛏ BLOCKWILD で あそぶ';
     return '🚪 マイルームに はいる';
@@ -72,6 +73,8 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     dialog.querySelector('.eyebrow').textContent = 'TOWN ISLAND';
     if (spot.kind === 'door') { send('room:enter', {}); return; }
     if (spot.kind === 'plaza') { send('plaza:enter', {}); return; }
+    // ふどうさん：2026-11 から 大工さんと 同じ メニュー（コイン・工事 1 日・同じ 値段）。前の「ひっこす」ボタンは やめた。
+    if (spot.kind === 'agent') { close(); if (carpenter) carpenter.open('agent'); else toast('いえを 大きく するには、じぶんの いえの となりの だいくさんに たのんでね。'); return; }
     kagu.built = false;
     render('よみこみ中…');
     if (!dialog.open) dialog.showModal();
@@ -91,7 +94,6 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   room.onShopRequest = openOnline;
 
   function render(note = '') {
-    if (state.spot?.kind === 'agent') { renderAgent(note); return; }
     if (state.spot?.kind === 'furniture') { renderProps(note); return; }
     dialog.classList.remove('kagu');
     if (!state.shop) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
@@ -339,25 +341,6 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     kaguGrid();
   }
 
-  function renderAgent(note = '') {
-    dialog.classList.remove('kagu');
-    const info = state.roomInfo;
-    const next = info?.next;
-    body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
-      <p class="daily-note">いまの へや：<b>${esc(info?.name || '—')}</b>${info ? `（${info.grid} × ${info.grid}・かぐ ${info.cap} こまで）` : ''}</p>
-      ${next
-        ? `<div class="town-move">
-            <div><strong>${esc(next.name)}</strong><small>${next.grid} × ${next.grid}・かぐ ${next.props} こまで</small></div>
-            <div class="town-move-need"><span>◈ ${next.price}</span><small>Lv.${next.level} から</small></div>
-            <button type="button" class="primary" id="town-move">ひっこす</button>
-          </div><p class="daily-note">いま おいた かぐは、そのまま ひっこし先にも のこります。</p>`
-        : '<p class="daily-note">いちばん おおきな へやに すんでいます。</p>'}
-      <div class="quiz-actions"><button type="button" id="town-done">とじる</button></div>`;
-    const move = $('#town-move', dialog);
-    if (move) move.onclick = () => { move.disabled = true; send('room:move', {}); };
-    $('#town-done', dialog).onclick = close;
-  }
-
   // ---- what the server says ---------------------------------------------------------
 
   function onShop(m) {
@@ -458,9 +441,9 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     toast('ひろば。ブロックを えらんで「おく」。');
   }
 
+  // 前の 部屋（サーバー）が 送って いた `room:moved`。いまは 来ない（増築は build:state → onGrown）。古い 部屋と つながった ときの ために のこす。
   function onMoved(m) {
     state.roomInfo = m.room;
-    render(`${m.room.name} に ひっこしました！`);
     if (room.active) { room.enter(m.room, catalogueFor('furniture')); refreshHud(); }
   }
 
@@ -491,6 +474,9 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   return {
     state, enter, label, onShop, onBought, onPropShop, onPropBought, onRoomState, onPlazaState,
     onMoved, onError, onPlazaError, refreshHud, openOnline,
+    setCarpenter(c) { carpenter = c; },
+    // 大工さんの 工事が おわった：へやの 中に いたら、その場で 大きい へやに 作りなおす（かぐは そのまま）。
+    onGrown(payload) { state.roomInfo = payload; if (room.active) { room.enter(payload, catalogueFor('furniture')); refreshHud(); } },
     // Anything arriving or leaving changes the count in the HUD.
     onPlaced(m) { room.onPlaced(m); refreshHud(); },
     onRemoved(m) { room.onRemoved(m); refreshHud(); },
