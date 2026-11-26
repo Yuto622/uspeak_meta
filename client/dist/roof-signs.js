@@ -97,6 +97,22 @@ const SIGN = {
     add(g, poly([[-0.52, 0.56], [0.52, 0.56], [0.52, 0], [0, -0.62], [-0.52, 0]], 0.04), P({ color: 0x2c4a8a, roughness: 0.35 }), 0, y, 0.13);
     for (const s of [-1, 1]) { const sw = new THREE.Group(); sw.position.set(0, y, -0.14); sw.rotation.z = s * 0.7; g.add(sw); add(sw, poly([[-0.09, -0.6], [0.09, -0.6], [0.09, 1.3], [0, 1.52], [-0.09, 1.3]], 0.05), steel); add(sw, slab(0.6, 0.12, 0.1, 0.04), gold, 0, -0.62, 0); add(sw, new THREE.CylinderGeometry(0.06, 0.06, 0.4, 10), P({ color: 0x5a3b24, roughness: 0.8 }), 0, -0.88, 0); add(sw, new THREE.SphereGeometry(0.09, 10, 8), gold, 0, -1.1, 0); }
   },
+  bike_shop(g) {                                             // じてんしゃ（よこむき・こっちを 向く）
+    const R = 0.74, cy = post(g, 0.35) + R + 0.12;
+    const tyre = P({ color: 0x23262b, roughness: 0.75 }), rim = P({ color: 0xdfe6ee, roughness: 0.2, metalness: 1 }), fr = P({ color: 0xe27a2d, roughness: 0.3, clearcoat: 0.8 }), seat = P({ color: 0x1b3a2f, roughness: 0.6 });
+    const bar = (a, b, r, m) => { const dx = b[0] - a[0], dy = b[1] - a[1]; return add(g, new THREE.CylinderGeometry(r, r, Math.hypot(dx, dy), 12), m, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0, [0, 0, Math.atan2(dy, dx) - Math.PI / 2]); };
+    for (const s of [-1, 1]) {
+      add(g, new THREE.TorusGeometry(R, 0.1, 12, 40), tyre, s * 1.08, cy, 0); add(g, new THREE.TorusGeometry(R - 0.14, 0.035, 8, 40), rim, s * 1.08, cy, 0);
+      for (let i = 0; i < 6; i += 1) add(g, new THREE.CylinderGeometry(0.014, 0.014, (R - 0.14) * 2, 6), rim, s * 1.08, cy, 0, [0, 0, (i / 6) * Math.PI]);
+      add(g, new THREE.SphereGeometry(0.09, 12, 10), rim, s * 1.08, cy, 0);
+    }
+    const A = [-1.08, cy], F = [1.08, cy], BB = [-0.12, cy - 0.06], S = [-0.5, cy + 0.92], H = [0.72, cy + 0.9];
+    bar(BB, S, 0.07, fr); bar(BB, H, 0.075, fr); bar([S[0] + 0.03, S[1] - 0.1], H, 0.065, fr); bar(A, BB, 0.05, fr); bar(A, [S[0] + 0.03, S[1] - 0.1], 0.05, fr); bar(H, F, 0.06, fr);
+    bar(H, [0.64, cy + 1.32], 0.045, rim); add(g, new THREE.CapsuleGeometry(0.06, 0.5, 4, 10), seat, 0.58, cy + 1.34, 0, [Math.PI / 2, 0, 0]);
+    bar(S, [S[0] - 0.05, S[1] + 0.2], 0.04, rim); add(g, new THREE.SphereGeometry(0.2, 16, 10), seat, S[0] - 0.08, S[1] + 0.26, 0).scale.set(1.5, 0.35, 0.9);
+    add(g, new THREE.CylinderGeometry(0.2, 0.2, 0.05, 20), rim, BB[0], BB[1], 0.08, [Math.PI / 2, 0, 0]);
+    bar([BB[0], BB[1] - 0.26], [BB[0], BB[1] + 0.26], 0.03, rim).position.z = 0.14; add(g, slab(0.26, 0.06, 0.16, 0.02), seat, BB[0], BB[1] - 0.26, 0.22);
+  },
   land_shop(g) {                                             // 小さな 家と 金の かぎ
     add(g, slab(1.5, 1.1, 1.1, 0.06), P({ color: 0xfbf3e2, roughness: 0.85 }), -0.3, 0.75, 0);
     const roof = new THREE.ConeGeometry(1.25, 0.8, 4); roof.rotateY(Math.PI / 4); add(g, roof, P({ color: 0xc8423a, roughness: 0.6 }), -0.3, 1.7, 0).scale.set(1, 1, 0.8);

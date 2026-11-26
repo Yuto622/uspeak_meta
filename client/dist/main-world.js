@@ -21,6 +21,7 @@ import { PLAZA, LIBRARY, buildPlaza, drawPlazaMap } from './main-plaza.js';
 import { buildLibraryExterior } from './library-real.js';
 import { buildPlanetariumExterior } from './planetarium-real.js';
 import { createPlazaWalkers } from './plaza-walkers.js';
+import { parkedBike } from './bike-models.js';
 
 export { NEAR_DISTANCE };
 
@@ -186,7 +187,7 @@ export function createMainWorld({ scene }) {
           // 幅は さんばしの 間（5）より せまく。入口は 文字の ない 級の 色の 柱 2 本（遠くから 色で どの さんばしか わかる）。
           const ez = (data.eikenPiers?.z || 28.5) + 1.4;
           for (const sx of [-1.25, 1.25]) { D(def.x + sx, 0.9, ez, 0.22, 1.4, 0.22, color, 0.2); D(def.x + sx, 1.7, ez, 0.36, 0.2, 0.36, 0xf7f1e1); }
-        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'weapon_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
+        } else if (def.kind === 'wear_shop' || def.kind === 'block_shop' || def.kind === 'land_shop' || def.kind === 'weapon_shop' || def.kind === 'bike_shop' || def.kind === 'talk_shop' || def.kind === 'homework') {
           // 専用の島と 同じ お店（中に入ると その島の 3D の メニュー）。
           house(def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color, Number(def.roof), { en: `${def.icon} ${def.en}`, ja: `${def.icon} ${def.ja}` });
           facade(def.decor || def.kind, def.x, def.z - 1.1 - def.d / 2, def.w, def.d, color);
@@ -366,6 +367,26 @@ export function createMainWorld({ scene }) {
               for (let k = 0; k < 3; k += 1) D(sx + (k === 2 ? 0 : (k ? 0.5 : -0.5)), 0.5 + (k === 2 ? 1 : 0), fz, 0.95, 0.95, 0.95, cols[(k + (sx === L ? 0 : 3)) % cols.length]);
               solid(sx, fz, 1, 0.5);
             }
+            break;
+          }
+          case 'bike_shop': {
+            // じてんしゃや（西の はま）：屋根に 大きな じてんしゃ（roof-signs.js）。戸口の 両わきに とめて ある じてんしゃ（本物の 形＝bike-models.js）と
+            // 木の スタンド、東の 台の 上に 金の じてんしゃ。戸口の 前（x ±1.4）は あける。
+            awning(0xe27a2d, 0xfff4d6);
+            const park = (id, px, pz, yaw, k = 1.15) => { const b = parkedBike(id, px, pz, yaw); if (b) { b.scale.setScalar(k); root.add(b); } };
+            for (const [sx, ids] of [[L, ['bike-kids', 'bike-city']], [R, ['bike-bmx', 'bike-mountain']]]) {
+              D(sx, 0.5, fz - 0.75, 1.9, 0.1, 0.12, 0x8a6a45); for (const dx of [-0.9, 0.9]) D(sx + dx, 0.35, fz - 0.75, 0.12, 0.4, 0.12, 0x6f5b3e);
+              ids.forEach((id, i) => park(id, sx - 0.5 + i * 1.0, fz, 0.12 - i * 0.24));
+              solid(sx, fz, 1.1, 0.75);
+            }
+            const gx = x + hx + 2.4, gz = front - 1.2;
+            D(gx, 0.42, gz, 2.6, 0.45, 1.5, 0x1b3a2f); D(gx, 0.67, gz, 2.3, 0.08, 1.2, 0xffb066, 0.25);
+            park('bike-gold', gx, gz, Math.PI / 2 - 0.25, 1.2); root.children[root.children.length - 1].position.y = 0.71;
+            park('bike-road', x - hx - 1.6, front - 1.4, -0.5);
+            solid(gx, gz, 1.3, 0.75); solid(x - hx - 1.6, front - 1.4, 0.5, 0.9);
+            // タイヤの 山と くうきいれ。
+            for (let k = 0; k < 3; k += 1) D(x - hx - 1.5, 0.32 + k * 0.22, front + 0.6, 0.9, 0.2, 0.9, 0x23262b);
+            D(x + hx + 0.9, 0.55, front + 0.7, 0.16, 0.7, 0.16, 0xd9483b); D(x + hx + 0.9, 0.95, front + 0.7, 0.4, 0.08, 0.1, 0x2a2a2a);
             break;
           }
           case 'weapon_shop': {
@@ -552,8 +573,9 @@ export function createMainWorld({ scene }) {
     if (!d || !island.visible) return baseDraw(ctx, player);
     const o = island.origin();
     // 2026-11：東に ひろばが ついたので、島ぜんたい（x -56〜88）が 入るように 1.5 倍 → 1.2 倍、まんなかを x 16 に（前は `90 + x*1.5`）。
-    const k = 1.2;
-    const px = (x) => 90 + (x - 16) * k;
+    // 2026-11 その 2：西に じてんしゃやの 土地（x -70 まで）が ついたので 1.2 倍 → 1.1 倍、まんなかを x 9 に（x -72〜90 が 入る）。
+    const k = 1.1;
+    const px = (x) => 90 + (x - 9) * k;
     const py = (z) => 70 + z * k;
     ctx.clearRect(0, 0, 180, 140);
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(0, 0, 180, 140);
@@ -602,9 +624,9 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', bike_shop: '#e27a2d', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
+    const ICON = { bike_shop: '🚲', word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');
