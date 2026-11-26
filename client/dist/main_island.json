@@ -547,7 +547,7 @@
   },
   "roads": [
    {
-    "x0": -46,
+    "x0": -66,
     "x1": 58,
     "z": 16,
     "w": 5
@@ -1383,6 +1383,25 @@
      }
     ],
     "kind": "talk_shop"
+   },
+   {
+    "_": "じてんしゃや（西の はま・2026-11）：土地は main-plaza.js の PLAZA.annex.also の 2 つめ（x -70〜-48・z -2〜31）。品は bikes-data.js の 6 台・買うのは 部屋（economy の buy）・のるのは bike-ride.js。大通り（roads の 1 本目）を x -66 まで のばした。",
+    "id": "bike_shop",
+    "kind": "bike_shop",
+    "x": -61,
+    "z": 11,
+    "path": {
+     "x": -61,
+     "z": 16
+    },
+    "color": 16773590,
+    "roof": 14842413,
+    "w": 9,
+    "d": 6.4,
+    "icon": "🚲",
+    "character": "Rin",
+    "en": "Bike Shop",
+    "ja": "じてんしゃや"
    },
    {
     "id": "build_gate",

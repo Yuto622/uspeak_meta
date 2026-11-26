@@ -40,7 +40,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     hall = buildPlanetariumInterior();
     scene.add(hall.group);
     const R = hall.radius - 0.4;
-    sky = createStarfield({ count: 5200, band: 3600, radius: R, seed: 11, horizon: [0.0, 0.07], scale: 1.4, gain: 1.2, milkyGain: 0.8, twinkle: 0.45, milkySize: 2048 });
+    sky = createStarfield({ count: 7000, band: 4200, radius: R, seed: 11, horizon: [0.0, 0.07], scale: 1.4, gain: 1.2, milkyGain: 0.3, twinkle: 0.45, milkySize: 2048 });
     sky.group.position.copy(hall.center);
     scene.add(sky.group);
     // 星座の 線（ぜんぶで 描画 1 回）。星に かさならない ように 両はしを 少し ちぢめる。
@@ -86,7 +86,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
         g.fillStyle = '#8ff0c8'; g.font = '700 50px sans-serif'; g.fillText(c.ja, 256, 142, 500);
         const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace;
         sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tx, transparent: true, opacity: 0, depthTest: false, depthWrite: false, fog: false }));
-        sprite.scale.set(5.4, 2.02, 1); sprite.renderOrder = 3; sprite.userData.signText = `${c.en} / ${c.ja}`;
+        sprite.scale.set(3.7, 1.39, 1); sprite.renderOrder = 3; sprite.userData.signText = `${c.en} / ${c.ja}`;
         const at = mid.clone().addScaledVector(north, -Math.tan(south + 0.11)).normalize().multiplyScalar(R * 0.95);
         sprite.position.copy(at); sprite.userData.dir = at.clone().normalize();
         sky.group.add(sprite);
@@ -146,8 +146,8 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
   const ray = new THREE.Vector3(), from = new THREE.Vector3(), want = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0);
   const mA = new THREE.Matrix4(), mB = new THREE.Matrix4(), r1 = new THREE.Vector3(), u1 = new THREE.Vector3();
   function aim(c) {
-    const alt = 0.6;
-    from.copy(camPos || player.position); if (!camPos) from.y = 2;
+    const alt = 0.52;
+    from.copy(camPos || player.position); if (!camPos) from.y = 2;   // camPos＝この 部屋の カメラ（eye）か 一人称の 目
     ray.set(-Math.sin(camYaw) * Math.cos(alt), Math.sin(alt), -Math.cos(camYaw) * Math.cos(alt));
     // カメラからの 線が ドームに 当たる 点。
     const oc = from.clone().sub(hall.center), bq = oc.dot(ray), cq = oc.lengthSq() - (hall.radius - 0.4) ** 2;
@@ -275,7 +275,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
       const base = (all / 0.42) * 0.62;
       const o = (i === hi ? base + (1 - base) * hiK : base * (1 - 0.75 * hiK)) * up2;
       s.material.opacity = o; s.visible = o > 0.01;
-      const k = i === hi ? 1 + 0.25 * hiK : 1; s.scale.set(5.4 * k, 2.02 * k, 1);
+      const k = i === hi ? 1 + 0.3 * hiK : 1; s.scale.set(3.7 * k, 1.39 * k, 1);
     }
     state.near = Math.hypot(player.position.x - hall.projector.x, player.position.z - hall.projector.z) < hall.projector.r;
     paint();
@@ -308,7 +308,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     const e = THREE.MathUtils.clamp(0.4 + pitch * 0.8, 0.08, 1.25);
     lookAt.set(camera.position.x + fx * Math.cos(e) * 10, camera.position.y + Math.sin(e) * 10, camera.position.z + fz * Math.cos(e) * 10);
     camera.lookAt(lookAt);
-    camPos = camera.position;
+    camPos = eye;
     return true;
   }
 

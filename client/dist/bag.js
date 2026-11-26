@@ -1,4 +1,4 @@
-// 持ち物（🎒）— たべもの・ふく・いえ・ブロック を カテゴリー（タブ）で。どの島からでも 開ける（右のバーの 🎒🍗）。
+// 持ち物（🎒）— たべもの・ふく・いえ・ブロック・のりもの（じてんしゃ） を カテゴリー（タブ）で。どの島からでも 開ける（右のバーの 🎒🍗）。
 //
 // 見た目は お店と 同じ：上に えらんだ物が まわる 3D の プレビュー、下に 3D の 絵の カード（bag-preview.js）。
 // カードを おす ＝ えらぶ（プレビューに 出る）。プレビューの下の 大きい ボタンで つかう：
@@ -15,10 +15,11 @@ const TABS = [
   ['wear', '👕', 'Clothes', 'ふく'],
   ['house', '🏠', 'House', 'いえ'],
   ['blocks', '🧱', 'Blocks', 'ブロック'],
+  ['rides', '🚲', 'Rides', 'のりもの'],
 ];
 const STAGE = 240;
 
-export function createBagUI({ send, toast, isOnline, food, renderer = null, hold = null }) {
+export function createBagUI({ send, toast, isOnline, food, renderer = null, hold = null, bike = null }) {
   const state = { tab: 'food', data: null, ask: false, pick: {} };
   const preview = createBagPreview(renderer);
   const dialog = document.createElement('dialog');
@@ -39,6 +40,8 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null, hold
     if (tab === 'food') return food.state.bag.map((b) => ({ key: `food:${b.id}`, id: b.id, en: b.en, ja: b.ja, note: food.state.hungerOn === false ? [`×${b.n}`, `×${b.n}`] : [`×${b.n} · +${b.fill} 🍗`, `×${b.n} · +${b.fill} 🍗`], info: b, learn: true }));
     if (tab === 'wear') return (d?.wear.items || []).map((it) => ({ key: `wear:${it.id}`, id: it.id, en: it.en, ja: it.ja, note: it.worn ? ['✓ Wearing', '✓ きている'] : ['', ''], info: it, on: it.worn, group: it.slot }));
     if (tab === 'house') return d?.land ? [{ key: `house:${d.land.id}`, id: d.land.id, en: d.land.en || d.land.name, ja: d.land.name, note: [`Step ${d.land.tier}`, `${d.land.tier} だんめ`], info: d.land, emoji: d.land.emoji }] : [];
+    // のりもの（じてんしゃや の じてんしゃ）。部屋の bag:state の bikes＝もって いる ぶん。のって いる 1 台に しるし。
+    if (tab === 'rides') return (d?.bikes || []).map((b) => ({ key: `bike:${b.id}`, id: b.id, en: b.en, ja: b.ja, note: bike?.riding === b.id ? ['✓ Riding', '✓ のってる'] : [`⚡ ×${b.speed}`, `⚡ はやさ ×${b.speed}`], info: b, learn: true, on: bike?.riding === b.id, emoji: '🚲' }));
     return (d?.blocks || []).map((b) => ({ key: `block:${b.id}`, id: b.id, en: b.word, ja: b.ja, note: ['', ''], info: b, learn: true }));
   }
   const EMPTY = {
@@ -46,10 +49,11 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null, hold
     wear: ['No clothes yet. Buy some at the Clothes Shop (Main Island) or the Dress-up Island.', 'ふくは まだ ないよ。メインの島の ふくや か きせかえ島で かえるよ。'],
     house: ['No house yet. Buy one at the House Shop on the Main Island (or the Land Island).', 'いえは まだ ないよ。メインの島の いえの おみせ（または 土地島）で かえるよ。'],
     blocks: ['No blocks yet. Buy some at the Block Shop.', 'ブロックは まだ ないよ。ブロックやで かえるよ。'],
+    rides: ['No bike yet. Buy one at the Bike Shop on the west shore of the Main Island.', 'じてんしゃは まだ ないよ。メインの島の にしの はまの じてんしゃやで かえるよ。'],
   };
 
   function counts() {
-    return { food: food.state.bag.reduce((n, b) => n + b.n, 0), wear: state.data?.wear.items.length || 0, house: state.data?.land ? 1 : 0, blocks: state.data?.blocks.length || 0 };
+    return { food: food.state.bag.reduce((n, b) => n + b.n, 0), wear: state.data?.wear.items.length || 0, house: state.data?.land ? 1 : 0, blocks: state.data?.blocks.length || 0, rides: state.data?.bikes?.length || 0 };
   }
 
   // プレビューの 下の ボタン（その物で できること）。
@@ -67,6 +71,8 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null, hold
       return `<div class="bag-ask"><p>${bi('Go to your island?', 'いえの しまに いどうしますか？')}</p>
         <div class="bag-ask-row"><button type="button" class="fd-buy" data-go>${bi('⛵ Yes, go', '⛵ はい、いく')}</button><button type="button" class="bag-no" data-no>${bi('No', 'いいえ')}</button></div></div>`;
     }
+    // のりもの：のる／おりる（bike-ride.js。外でだけ のれる・部屋が もって いるか 見る）。
+    if (state.tab === 'rides') return `<button type="button" class="fd-buy bag-act${it.on ? ' off' : ''}" data-act="ride">${it.on ? bi('Get off', 'おりる') : bi('🚲 Ride', '🚲 のる')}</button><p class="fd-fine">${bi('Faster than running. You can ride outside.', 'はしるより はやいよ。そとで のれるよ。')}</p>`;
     return `<p class="fd-fine">${bi('Use it on the plaza and in BLOCKWILD.', 'ひろば と BLOCKWILD で つかえるよ。')}</p>`;
   }
 
@@ -103,6 +109,7 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null, hold
       if (act.dataset.act === 'eat') { act.disabled = true; send('food:eat', { id: it.id }); }
       if (act.dataset.act === 'wear') { act.disabled = true; send('wear:put', { id: it.id, off: !!it.on }); }
       if (act.dataset.act === 'ask') { state.ask = true; paint(); }
+      if (act.dataset.act === 'ride') { if (it.on) { bike?.dismount('bag'); paint(); } else { dialog.close(); bike?.mount(it.id); } }
     };
     const hb = $('[data-hold]', body); if (hb) hb.onclick = () => { if (hold.toggle(it.id)) dialog.close(); else paint(); };
     const go = $('[data-go]', body); if (go) go.onclick = () => { go.disabled = true; dialog.close(); send('land:enter', { from: 'bag' }); };

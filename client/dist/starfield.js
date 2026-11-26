@@ -125,16 +125,16 @@ function milkyTexture(seed, size) {
     g.globalCompositeOperation = 'lighter';
     // うすい 光の 帯（ぜんたい）＋ 中心の ふくらみ ＋ 星の 雲。
     for (let i = 0; i < 420; i += 1) blob(rnd() * W, H / 2 + gauss() * H * 0.085, H * (0.1 + rnd() * 0.16), '150,165,205', 0.035);
-    for (let i = 0; i < 260; i += 1) { const x = W / 2 + gauss() * W * 0.13; blob(x, H / 2 + gauss() * H * 0.1, H * (0.08 + rnd() * 0.2), '255,226,186', 0.05); }
+    for (let i = 0; i < 260; i += 1) { const x = W / 2 + gauss() * W * 0.13; blob(x, H / 2 + gauss() * H * 0.1, H * (0.08 + rnd() * 0.2), '255,226,186', 0.022); }
     for (let i = 0; i < 520; i += 1) {
       const x = W / 2 + gauss() * W * 0.3, near = Math.exp(-(((x - W / 2) / (W * 0.2)) ** 2));
-      blob(x, H / 2 + gauss() * H * (0.045 + 0.03 * near), H * (0.03 + rnd() * 0.07), near > 0.5 ? '255,236,206' : '206,218,255', 0.05 + 0.05 * near);
+      blob(x, H / 2 + gauss() * H * (0.045 + 0.03 * near), H * (0.03 + rnd() * 0.07), near > 0.5 ? '255,236,206' : '206,218,255', 0.045 + 0.012 * near);
     }
     // 暗い 帯（ちりの 雲）：まんなかを うねって 走る。
     g.globalCompositeOperation = 'source-over';
     for (let i = 0; i < 300; i += 1) {
       const t = rnd(), x = W * (0.28 + t * 0.5), y = H / 2 + Math.sin(t * 9 + 1.3) * H * 0.022 + Math.sin(t * 23) * H * 0.012 + gauss() * H * 0.012;
-      blob(x, y, H * (0.012 + rnd() * 0.04), '0,0,0', 0.2 + rnd() * 0.25);
+      blob(x, y, H * (0.012 + rnd() * 0.04), '0,0,0', 0.12 + rnd() * 0.2);
     }
     for (let i = 0; i < 70; i += 1) blob(rnd() * W, H / 2 + gauss() * H * 0.06, H * (0.02 + rnd() * 0.05), '0,0,0', 0.25);
     const t = new THREE.CanvasTexture(c);
@@ -152,7 +152,7 @@ function milkyTexture(seed, size) {
  * 返す：{ group, points, milky, uniforms, update(t), setFade(n), setSky(緯度°, 恒星時 h), highlight(番号, 強さ) }
  */
 export function createStarfield({ count = 5200, band = 3200, radius = 200, seed = 11, catalog = true, milkyWay = true, milkySize = 2048,
-  horizon = [0.015, 0.2], scale = 1, gain = 1, milkyGain = 0.5, twinkle = 1, auto = false } = {}) {
+  horizon = [0.015, 0.2], scale = 1, gain = 1, milkyGain = 0.26, twinkle = 1, auto = false } = {}) {
   let s = seed; const rnd = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
   const gauss = () => (rnd() + rnd() + rnd() + rnd() - 2) * 0.87;
   const named = catalog ? CONSTELLATIONS.reduce((n, c) => n + c.stars.length, 0) + BRIGHT.length : 0;

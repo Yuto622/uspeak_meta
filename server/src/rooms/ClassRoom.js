@@ -6,6 +6,7 @@ import { RoomState, Player, ANIMS } from '../schema.js';
 import { config } from '../config.js';
 import { judge, JudgeError } from '../game/judge.js';
 import { ZONES as FISH_ZONES, GRADES as FISH_GRADES, chooseFish } from '../../../client/dist/fishing-data.js';
+import { BIKE_BY_ID } from '../../../client/dist/bikes-data.js';
 import { applyOp as applyOpRaw, sanitizeWallet, EconomyError } from '../game/economy.js';
 import { skipTask, unskipTasks, blankTasks, sanitizeTasks, onOp as taskOp, onAnswer as taskAnswer, onSpace as taskSpace, onPosition as taskPosition, bump as taskBumpKey, readRules, plan as taskPlan, settle as settleTasks, view as taskView, goOf, homeworkPin, UI_EVENTS } from '../tasks/engine.js';
 import { blankPlayerRecord } from '../store/records.js';
@@ -167,6 +168,8 @@ export function sanitizeAvatar(raw) {
   if (wear.length) out.wear = wear;
   // ペット（横を 歩く）。本物の しゅるいだけ。部屋が priv.pet から 入れる（ページが 送っても 上書きされる）。
   if (SPECIES_BY_ID[a.pet]) out.pet = a.pet;
+  // じてんしゃ（のって いる 1 台）。部屋が priv.bike（もって いる ものだけ）から 入れる（ページが 送っても 上書きされる）。
+  if (typeof a.bike === 'string' && BIKE_BY_ID[a.bike]) out.bike = a.bike;
   return JSON.stringify(out);
 }
 
@@ -378,13 +381,14 @@ export class ClassRoom extends Room {
     this.onMessage('farm:board', (client) => this.onFarmBoard(client));
     this.onMessage('wear:buy', (client, msg) => this.onWearBuy(client, msg));
     this.onMessage('wear:put', (client, msg) => this.onWearPut(client, msg));
+    this.onMessage('bike:ride', (client, msg) => this.onBikeRide(client, msg));
     this.onMessage('profile', (client, msg) => {
       const player = this.state.players.get(client.sessionId);
       const priv = this.priv.get(client.sessionId);
       if (!player) return;
       // Choosing a different face does not undress you, and a page cannot dress itself by
       // putting `wear` in a profile message: the outfit is whatever the room has recorded.
-      player.avatar = sanitizeAvatar({ ...(msg?.avatar && typeof msg.avatar === 'object' ? msg.avatar : {}), wear: priv?.worn || [], pet: priv?.pet?.species });
+      player.avatar = sanitizeAvatar({ ...(msg?.avatar && typeof msg.avatar === 'object' ? msg.avatar : {}), wear: priv?.worn || [], pet: priv?.pet?.species, bike: priv?.bike });
     });
     this.onMessage('wallet:get', (client) => client.send('wallet', { ok: true, op: 'get', ...this.walletPayload(client.sessionId) }));
     this.onMessage('conv:list', (client) => client.send('conv:spots', { island: CONV.id, spots: convSpots() }));
@@ -521,7 +525,7 @@ export class ClassRoom extends Room {
     player.name = auth.name;
     // The outfit is the record's, not the joining page's: a child who bought a crown last
     // week is wearing it when they come back, on everyone's screen.
-    player.avatar = sanitizeAvatar({ ...parseJson(auth.avatar, {}), wear: priv.worn, pet: priv.pet?.species });
+    player.avatar = sanitizeAvatar({ ...parseJson(auth.avatar, {}), wear: priv.worn, pet: priv.pet?.species, bike: priv.bike });
     player.role = auth.role;
     player.connected = true;
     if (position) { player.space = position.space; player.x = position.x; player.z = position.z; }
@@ -666,6 +670,8 @@ export class ClassRoom extends Room {
       // here, the same way nobody presses anything to leave a building.
       if (player.space !== msg.s && this.voice.has(client.sessionId)) this.dropVoice(client.sessionId, 'moved');
       if (player.space !== msg.s) { taskSpace(priv.tasks, msg.s); this.taskTouch(client.sessionId); }
+      // 家・部屋の 中に 入ったら じてんしゃから おりる（ページも じぶんで おりるが、部屋でも そろえる）。
+      if (priv.bike && player.space !== msg.s && msg.s.startsWith('in:')) { priv.bike = ''; this.pushOutfit(client.sessionId); client.send('bike:on', { id: '' }); }
       player.space = msg.s;
     }
     player.x = clamp(num(msg.x, player.x), -WORLD_LIMIT, WORLD_LIMIT);
@@ -1706,7 +1712,7 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(sessionId);
     const priv = this.priv.get(sessionId);
     if (!player || !priv) return;
-    player.avatar = sanitizeAvatar({ ...parseJson(player.avatar, {}), wear: priv.worn, pet: priv.pet?.species });
+    player.avatar = sanitizeAvatar({ ...parseJson(player.avatar, {}), wear: priv.worn, pet: priv.pet?.species, bike: priv.bike });
   }
 
   onWearList(client) {
@@ -1742,6 +1748,26 @@ export class ClassRoom extends Room {
       if (!(err instanceof WardrobeError)) throw err;
       client.send('wear:error', { reason: err.message });
     }
+  }
+
+  // じてんしゃに のる／おりる（じてんしゃや・bikes-data.js）。のれるのは さいふに ある（買った）じてんしゃ だけ。
+  // のって いる 1 台は 姿の 文字（avatar）の `bike` に 入れて くばる ＝ となりの 子の 画面にも じてんしゃが 出る。
+  // 保存は しない（入りなおすと 歩いて いる）。家・部屋の 中（`in:`）では のれない。
+  onBikeRide(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    const player = this.state.players.get(client.sessionId);
+    if (!priv || !player) return;
+    const id = typeof msg?.id === 'string' ? msg.id.slice(0, 40) : '';
+    if (id) {
+      const fail = (reason) => client.send('bike:error', { reason, id });
+      if (!BIKE_BY_ID[id]) return fail('unknown bike');
+      if (!priv.wallet.owned.includes(id)) return fail('not yours');
+      if (String(player.space || '').startsWith('in:')) return fail('indoors');
+    }
+    if ((priv.bike || '') === id) { client.send('bike:on', { id }); return; }
+    priv.bike = id;
+    this.pushOutfit(client.sessionId);
+    client.send('bike:on', { id });
   }
 
   onWearPut(client, msg) {
@@ -3727,6 +3753,8 @@ export class ClassRoom extends Room {
       },
       land: landIslandPayload(priv.land, priv.name),
       blocks: [...BLOCKS.values()].filter((b) => priv.bricks.includes(b.id)).map((b) => blockPayload(b, true)),
+      // のりもの：買った じてんしゃ（さいふの owned の うち bikes-data.js に ある もの）。
+      bikes: priv.wallet.owned.filter((id) => BIKE_BY_ID[id]).map((id) => { const b = BIKE_BY_ID[id]; return { id: b.id, en: b.en, ja: b.ja, speed: b.speed, price: b.price, riding: priv.bike === b.id }; }),
     });
   }
 

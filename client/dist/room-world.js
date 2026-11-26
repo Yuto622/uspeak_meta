@@ -58,6 +58,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   let cooldown = 0;
   let wasFirstPerson = false;
   let floor = null;
+  let ceilingLight = null;      // ねて いる 間は 消す（上からの カメラの 前に 入って ベッドを かくす）
 
   // ---- よるは ベッドで ねる（2026-11）------------------------------------------------------
   // 世界の 時計が 夜の あいだ、ベッドの そばで「🛏 ねる」。ねると ベッドに 横に なり、画面が くらく なる。あさに なるか「おきる」で おきる。
@@ -138,6 +139,7 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     if (view) view.firstPerson = false;          // ねて いる じぶんを 上から 見る
     document.body.classList.remove('first-person');
     document.body.dataset.sleeping = '1';
+    if (ceilingLight) ceilingLight.visible = false;
     sleepBtn.hidden = true; shopBtn.hidden = true; sleepCover.hidden = false; ghost.visible = false;
     lie();
     return true;
@@ -158,6 +160,7 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     player.position.set(s.back.x, 0, s.back.z);
     if (state.active) { if (view) view.firstPerson = s.fp; document.body.classList.toggle('first-person', s.fp); }
     delete document.body.dataset.sleeping;
+    if (ceilingLight) ceilingLight.visible = true;
     sleepCover.hidden = true;
     if (morning) toast?.(isJaNow() ? '☀ おはよう！ あさだよ。' : '☀ Good morning!');
     return true;
@@ -293,6 +296,7 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     light.position.set(0, room.height - 0.3, 0);
     light.rotation.set(0.62, 0.78, 0);
     shell.add(light);
+    ceilingLight = light;
     // ネオンの ふち：かべの 上に 光の 帯。
     for (const [dx, dz, w, d] of [[-0.25, back + 0.06, room.grid + 0.5, 0.12], [back + 0.06, -0.25, 0.12, room.grid + 0.5], [half - 0.2, 0, 0.12, room.grid]]) {
       const trim = new THREE.Mesh(new THREE.BoxGeometry(w, 0.12, d), mat(0xffb066, 0.5));

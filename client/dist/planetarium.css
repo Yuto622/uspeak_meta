@@ -30,5 +30,7 @@ body[data-arcade] #plan-bar, body[data-race] #plan-bar, body[data-gp] #plan-bar,
 #plan-caption small { font-size: 11px; letter-spacing: 2px; font-weight: 800; color: #8ff0c8; }
 #plan-caption strong { font-size: 30px; line-height: 1.1; font-weight: 900; color: #fff4d6; }
 #plan-caption span { font-size: 17px; font-weight: 800; color: #ffb066; }
+/* ひろい 画面：星座が まんなかに 来るので、名前は 左上（ロゴの 下）へ よける。 */
+@media (min-width: 900px) { #plan-caption { left: 28px; top: 100px; transform: none; } }
 @media (max-height: 560px) { #plan-caption { top: 118px; padding: 6px 18px 8px; } #plan-caption strong { font-size: 22px; } #plan-caption span { font-size: 14px; } }
 body[data-arcade] #plan-caption, body[data-race] #plan-caption, body[data-gp] #plan-caption, body[data-warp] #plan-caption { display: none; }

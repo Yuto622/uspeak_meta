@@ -42,6 +42,8 @@ import { createLand } from './land-world.js';
 import { createLandUI } from './land.js';
 import { createFishworldUI } from './fishworld.js';
 import { createWeaponShop } from './weapon-shop.js';
+import { createBikeShop } from './bike-shop.js';
+import { createBikeRide } from './bike-ride.js';
 import { createWordHouseUI } from './wordhouse.js';
 import { createFoodUI } from './food.js';
 import { createBagUI } from './bag.js';
@@ -305,6 +307,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // nothing to press: the island reports the doorway, and this asks the server for what
   // is behind it.
   rpg.setDoorHandler((islandId, spot) => {
+    // 戸口に 入ったら じてんしゃから おりる（どの 島の どの 戸口でも）。
+    bikeRide?.dismount('door');
     // ミニゲーム島 is nothing but doors to other games: the house a child walks into is
     // the game, and none of it needs the server, so it opens offline too.
     // メインの島：英単語ハウス・看板・つり場・かいとりや・ゲート。何をするかは main-island.js の walkIn。
@@ -469,6 +473,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const taskCard = createTaskCard({ send: plainSend, isOnline: () => state.mode === 'online', guide: taskGuide, openHomework: () => homework.open() });
   // おなか（どの島でも）と メインの島の 屋台。数・値段・かばんは 部屋が決める（food:*）。
   let bag = null;
+  let bikeRide = null;   // じてんしゃに のる（bike-ride.js。下で 作る）
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
   // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
@@ -498,11 +503,20 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       return { island: id, spot: at.spot, x: o.x + at.spot.x, z: o.z + at.spot.z };
     },
   });
-  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer, hold: foodGive });
+  // じてんしゃ（じてんしゃや で 買う・bike-ride.js）。のれるのは 外に いて、島が 見えて いて、体を ほかの ことに 使って いない ときだけ。
+  // ここが false に なると のって いても じぶんで おりる（家・部屋の 中・ひこうき・つり・レース・全画面の ゲーム・授業の ストップ・会話・ねて いる）。
+  const canRideBike = () => state.mode === 'online' && rpg.state.mode !== 'flight' && !currentSpace().startsWith('in:')
+    && !rpg.inRoom && !rpg.insideBuilding && !rpg.inside?.active && !rpg.insidePark && !park?.state.inPark && !park?.state.busy
+    && !race.driving && !gp.running && !racers.isOpen && !blockwild.isOpen && !Object.values(arcades).some((g) => g.isOpen) && !battle.staged && !main?.isOpen
+    && !fishing.isOpen && !fishing.state.busy && !fishworld.isOpen && !fishworld.busy && !rpg.fishworld?.casting && !rpg.main?.casting
+    && document.body.dataset.classPause !== '1' && !document.body.dataset.npcTalk && !document.body.dataset.sleeping && !document.body.dataset.warp;
+  bikeRide = createBikeRide({ player, store: fishing.store, send: plainSend, isOnline: () => state.mode === 'online', toast, canRide: canRideBike });
+  const bikeShop = createBikeShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }), ride: bikeRide });
+  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer, hold: foodGive, bike: bikeRide });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
-    shops: { library, planetarium, wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), get blockwild() { return blockwild; } },
+    shops: { library, planetarium, wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), bikes: bikeShop, get blockwild() { return blockwild; } },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
@@ -766,6 +780,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       town.prime();
       r.send('farm:peek', {});
       welcomed = true;
+      bikeRide?.resync();   // つなぎなおし：部屋は のって いた ことを わすれて いる
       state.streak = m.streak || 0;
       food.apply(m.food);
       // ホームはメインの島。はじめて入ったときだけ開く（つなぎなおしでは開かない）。
@@ -895,6 +910,9 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('wear:bought', (m) => { if (m.wallet) applyWallet(m.wallet); wardrobe.onBought(m); dressMe(m.worn, wardrobe.table); });
     r.onMessage('wear:on', (m) => { wardrobe.onWorn(m); dressMe(m.worn, wardrobe.table); bag.onWorn(m); });
     r.onMessage('bag:state', (m) => bag.onState(m));
+    // じてんしゃ：部屋が ことわった（もって いない・中に いる）か、部屋の ほうで おろした（id が から）。
+    r.onMessage('bike:error', () => bikeRide.onRefused());
+    r.onMessage('bike:on', (m) => { if (!m?.id && bikeRide.riding) bikeRide.onRefused(); });
     r.onMessage('wear:error', (m) => wardrobe.onError(m));
     r.onMessage('farm:state', (m) => { if (m.wallet) applyWallet(m.wallet); farm.onState(m); });
     r.onMessage('farm:ask', (m) => farm.onAsk(m));
@@ -1329,6 +1347,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function update(t, dt, { moving = false, running = false } = {}) {
     petBuddy.update(dt, moving);
     foodGive.update(t, dt);
+    bikeRide.update(t, dt);
     taskGuide.update(t);
     const now = performance.now();
     if (state.pendingTeleport) applyPendingTeleport();
@@ -1505,6 +1524,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     wordhouse,
     food, foodGive, social,
     bag,
+    // じてんしゃ（bike-ride.js）：game.js が はやさ（step）と キー、検査が riding を 見る。
+    bike: bikeRide, bikeShop,
     main,
     landLabel: (spot) => land.label(spot),
     land, myLand,

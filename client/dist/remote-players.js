@@ -6,6 +6,7 @@ import { buildAvatar, dressAvatar, bodyConfig } from './avatars.js';
 import { itemModel } from './wardrobe-models.js';
 import { NET } from './net-config.js';
 import { createPetBuddy } from './pet-models.js';
+import { attachBike, removeBike, poseRider } from './bike-ride.js';
 
 function textSprite(text, { bg = '#345344', color = '#fff4d7', size = 30, width = 512, scale = 1 } = {}) {
   const c = document.createElement('canvas');
@@ -61,6 +62,13 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
 
   // 買った すがた（wear の 中の「すがた」）を きて いれば 体は それ。表が とどく 前は はじめの 体で 立ち、とどいたら 建てなおす。
   const bodyOf = (config) => bodyConfig(config, wardrobe ? (config.wear || []).map((id) => wardrobe.byId.get(id)).filter(Boolean) : []);
+  // じてんしゃ：姿の 文字の `bike`（部屋が もって いる じてんしゃ だけ 入れる）。のって いる あいだ 体の 下に 出す。
+  function setBike(r, id) {
+    if ((r.bikeId || '') === (id || '') && (!id || r.bike?.parent === r.group)) return;
+    if (r.bike) { removeBike(r.group, r.bike); r.bike = null; }
+    r.bikeId = id || '';
+    if (id) { r.bike = attachBike(r.group, id); if (r.bike) setShadows(r.bike); r.bikeAt = null; }
+  }
   function makeRemote(id, info) {
     let config = { id: 'kai' };
     try { config = { ...config, ...JSON.parse(info.avatar || '{}') }; } catch { /* keep default */ }
@@ -75,13 +83,15 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
     // ペット：姿の 文字の `pet`（部屋が 本物の ペットだけ 入れる）。横を 歩く。
     const pet = createPetBuddy(group);
     pet.set(config.pet);
-    return {
-      id, group, model, label, pet, lastT: 0, bubble: null, bubbleUntil: 0, avatarJson: info.avatar,
+    const made = {
+      id, group, model, label, pet, bike: null, bikeId: '', bikePhase: 0, bikeAt: null, lastT: 0, bubble: null, bubbleUntil: 0, avatarJson: info.avatar,
       name: info.name, role: info.role, space: info.space, anim: info.anim || 'idle', connected: info.connected !== false,
       buffer: [], // {t, x, z, yaw}
       pos: new THREE.Vector3(info.x, 0, info.z), yaw: info.yaw || 0, vel: new THREE.Vector3(),
       parent: null, lastSampleAt: 0, teleported: true,
     };
+    setBike(made, config.bike);
+    return made;
   }
 
   function upsert(id, info) {
@@ -96,6 +106,8 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       r.group.add(r.model);
       r.avatarJson = info.avatar;
       r.pet.set(config.pet);
+      if (r.bike) { removeBike(r.group, r.bike); r.bike = null; r.bikeId = ''; }   // 体が かわった：大きさを 合わせて つけなおす
+      setBike(r, config.bike);
       dressed.delete(id);
     }
     if (!dressed.has(id) && wardrobe) { dress(r); dressed.add(id); }
@@ -217,7 +229,15 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
       const speed = r.anim === 'run' ? 13 : 10;
       const limbs = r.model.userData.limbs || [];
       limbs.forEach((g, i) => { g.rotation.x = moving ? Math.sin(t * speed + (i % 2) * Math.PI) * (i < 2 ? 0.4 : 0.3) : 0; });
-      r.group.position.y = moving ? Math.abs(Math.sin(t * 12)) * 0.075 : 0;
+      r.group.position.y = moving && !r.bike ? Math.abs(Math.sin(t * 12)) * 0.075 : 0;
+      if (r.bike) {
+        // じてんしゃ：すすんだ 長さだけ 車輪と ペダルを まわし、体を のる かたちに（歩く うごきの あとで 上書き）。
+        const d = r.bikeAt ? Math.hypot(r.pos.x - r.bikeAt.x, r.pos.z - r.bikeAt.z) : 0;
+        r.bikeAt = { x: r.pos.x, z: r.pos.z };
+        const rolled = d > 0.0005 && d < 6;
+        if (rolled) { r.bike.userData.spin(d / r.bike.scale.x); r.bikePhase += d * 1.1; }
+        poseRider(r.model, r.bikePhase, rolled);
+      }
       r.pet.update(r.lastT ? Math.min(0.1, Math.max(0, t - r.lastT)) : 0, moving); r.lastT = t;
       if (r.bubble && now > r.bubbleUntil) { r.group.remove(r.bubble); r.bubble = null; }
     }

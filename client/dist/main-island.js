@@ -426,6 +426,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     // じぶんの いえ：まちづくり島の マイルーム入口と 同じ へや（部屋が いえの 前か 見る。出ると この いえの 前に もどる＝net-client.js の myRoom の onLeave）。
     if (spot.kind === 'my_home') shops.town?.enter({ kind: 'door' });
     if (spot.kind === 'weapon_shop') shops.weapons?.open();
+    // じてんしゃや（西の はま）：6 台の お店（bike-shop.js）。買うのは 部屋（economy の buy）。
+    if (spot.kind === 'bike_shop') shops.bikes?.open();
     return true;
   }
   const LABEL = {
@@ -440,6 +442,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     land_shop: () => tr('🏠 いえを 見る'),
     my_home: () => tr('🏡 じぶんの いえに はいる'),
     weapon_shop: () => tr('⚔️ ぶきを 見る'),
+    bike_shop: () => (isJa() ? '🚲 じてんしゃを 見る' : '🚲 Look at the bikes'),
     blockwild: () => '⛏ BLOCKWILD',
     homework: () => `📚 ${tr('しゅくだいを する')}`,
     library: () => (isJa() ? '📚 としょかんに はいる' : '📚 Go into the Library'),

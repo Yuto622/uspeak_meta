@@ -679,7 +679,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     puyo: '🟢', suika: '🍉', barn: '🐄', field: '🌱', kitchen: '🍳', ship: '🚢', ferry: '⛵', board: '📋', office: '🏠',
     pond: '🎣', river: '🎣', sea: '🎣', interview: '🎤', speaking: '🗣', writing: '✏️', reading: '📖', listening: '🎧',
     start: '🏁', gate: '🚩', door: '🚪', furniture: '🛋', agent: '🏡', blockwild: '⛏', dojo: '🥋', stand: '🏟', pvp: '⚔',
-    meadow: '🐾', nest: '🥚',
+    meadow: '🐾', nest: '🥚', bike_shop: '🚲',
   };
   const KIND_COLOR = {
     plaza: '#e0a526', shop: '#e27a2d', hut: '#e27a2d', gym: '#c8553d', booth: '#4fae6b', puyo: '#3aa35b', suika: '#d94b5b',

@@ -35,10 +35,10 @@ export const PLANETARIUM = { half: 8.4, front: 4.4, steps: 5.7, door: 6.6 };   /
 function copperTex() {
   // 黒ずんだ 銅の ドーム（たての リブ 24 本・うすい 緑と 茶の しみ）。
   return tex(512, 128, (g, W, H) => {
-    g.fillStyle = '#2a2c28'; g.fillRect(0, 0, W, H);
+    g.fillStyle = '#171a18'; g.fillRect(0, 0, W, H);
     const rnd = rng(53), cols = 24, pw = W / cols;
     for (let c = 0; c < cols; c += 1) {
-      const l = rnd() - 0.5; g.fillStyle = l > 0 ? `rgba(120,150,130,${l * 0.22})` : `rgba(60,40,24,${-l * 0.3})`; g.fillRect(c * pw, 0, pw, H);
+      const l = rnd() - 0.5; g.fillStyle = l > 0 ? `rgba(90,130,110,${l * 0.2})` : `rgba(70,48,28,${-l * 0.2})`; g.fillRect(c * pw, 0, pw, H);
       const gr = g.createLinearGradient(c * pw, 0, (c + 1) * pw, 0);
       gr.addColorStop(0, 'rgba(255,255,255,0.10)'); gr.addColorStop(0.35, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(0,0,0,0.28)');
       g.fillStyle = gr; g.fillRect(c * pw, 0, pw, H);
