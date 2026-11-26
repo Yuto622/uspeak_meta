@@ -647,8 +647,11 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  rpg.setPremiumLock(savedLock);
  // 島の 錠：まだ ひらいて いない ちいきは 行き止まり（橋 1 本）で、門が 止める。
  const prog=WALKABLE.find(l=>RB[l.b]&&!RB[l.b].hub&&(RB[l.b].needs||[]).length);
- if(prog&&!rpg.store.unlocked(prog.b)){rpg.activate(prog.a,false,true);const q=pointAt(prog,prog.len/2+0.5);
-  assert.equal(bridges.lockOf(prog.b)?.kind,'progress');assert.equal(game(prog.a,q.x,q.z),true,'a region that is not open yet stops a child at the gate');}
+ assert.ok(prog,'some bridge leads to a region that opens later');
+ rpg.store.unlocked=(id)=>id===prog.b?false:savedUnlocked(id);
+ rpg.activate(prog.a,false,true);{const q=pointAt(prog,prog.len/2+0.5),n=pointAt(prog,prog.len/2-2);
+  assert.equal(bridges.lockOf(prog.b)?.kind,'progress');assert.equal(game(prog.a,n.x,n.z),false);assert.equal(game(prog.a,q.x,q.z),true,'a region that is not open yet stops a child at the gate');}
+ rpg.store.unlocked=savedUnlocked;
  rpg.activate('willow');player.position.set(0,0,0);
  console.log('PASS: 橋 '+walked+' 本 — 板は 岸から 岸まで 歩ける（'+steps+' 点・ゲームと 同じ 当たり判定）、板の 下に 建物なし、ほかの 島の 上を 通らない、門は 錠で 止まる。');
 }

@@ -2198,3 +2198,10 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - サーバーが きめる：`orderBuild` は つぎの だん だけ・1 つずつ・コイン不足は ことわる。`build:{tier,doneAt}`、こうじは 1 にち（CYCLE_SEC 705 s、テストは BUILD_DAY_SEC）。`settleBuild` は build:peek / build:order / room:enter / prop:list で おわった こうじを はんえい、`build:state` の finished を 1 かい だけ おくる。かぐは そのまま。
 - こうじちゅうは あしば・シート・「こうじちゅう m:ss」。外見の 増築は じぶんの がめん だけ。
 - まちの しまの ふどうさんも おなじ メニュー（room:move → onBuildOrder）。テスト：server/test/carpenter.test.mjs。
+
+## 島を つなぐ 橋
+- bridges-data.js / bridges.js：HUBS と REGIONS の しま ぜんぶを 35 本の 橋で つなぐ（34 本 あたらしい ＋ willow–main）。60 いじょうの ながい 橋は まんなかに ベンチと ライトの 休けい台。
+- game.js `blocked` は まず `bridges.blocked`。デッキの 上は 歩ける、海の 上は てすりで 止まる。まんなかを こえると `rpg.activate(next,false,true)`（とばない・ロードなし）。見せる しまは いまの しまと むこうの しま（asPeer）だけ。
+- まんなかに ゲート：プレミアムは いつもの 🔒 ダイアログ、まだ ひらいて いない ちいきは じょうけんの トースト。サーバーは 橋を しらない、プレミアムは islandLocked で まもる（server/test/bridges.test.mjs）。
+- メインの はし：main→arena は B どおりの 西はし (-77,-31)、main→meadow は East Ave の 北はし (-30,-73)。island-kit `footprint()`。橋の はしの 近くには rpg-world.js で 木を おかない（らんすうの じゅんばんは そのまま）。
+- regression.mjs の 橋ブロックが はし・デッキ・てすり・ゲートを 14,700 てんで しらべる。
