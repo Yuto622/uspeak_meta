@@ -58,6 +58,57 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
   const cord = (pts) => many(boxGeo, 0x3a3128, pts, null, [0.06, 0.06, 0.06]);
   const pole = (x, z, h, color = 0x6f5b3e) => { box(x, h / 2, z, 0.22, h, 0.22, color); box(x, 0.15, z, 0.6, 0.3, 0.6, 0x8d8570); };
 
+  // もみじの 葉（2026-11：「オレンジ色の ドットを やめて 紅葉を 降らせて。超リアルに」）。
+  // 葉の 形を かいた 絵（5 つの とがった 先・葉みゃく・ふちの 色むら）を はった 板を InstancedMesh 1 つで。1 まいずつ 色・大きさ・まわりかたが ちがう。
+  // ひらひら：左右に ゆれながら 落ち、ゆれの はしで くるっと かえる。地面に ついたら 上へ もどる。子どもの まわりの 箱の 中だけ。
+  function mapleTexture() {
+    const S = 128, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d');
+    g.translate(S / 2, S * 0.56);
+    const lobes = [[0, -56, 15], [-0.95, -50, 13], [0.95, -50, 13], [-1.9, -34, 10], [1.9, -34, 10]];   // [向き, 長さ, はば]
+    g.beginPath(); g.moveTo(0, 14);
+    const pts = [];
+    for (const [a, len, w] of [lobes[3], lobes[1], lobes[0], lobes[2], lobes[4]]) {
+      const dx = Math.sin(a), dy = Math.cos(a), tx = -dx * len, ty = dy * len, nx = dy, ny = dx;        // 先
+      const side = (k, f, out) => [tx * f + nx * w * k * out, ty * f - ny * w * k * out];
+      pts.push(side(-1, 0.32, 1), side(-1, 0.62, 1.25), side(-1, 0.7, 0.55), [tx, ty], side(1, 0.7, 0.55), side(1, 0.62, 1.25), side(1, 0.32, 1));
+    }
+    for (const [x, y] of pts) g.lineTo(x, y);
+    g.closePath();
+    const gr = g.createRadialGradient(0, -8, 4, 0, -8, 62); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.6, '#e9e9e9'); gr.addColorStop(1, '#b4b4b4'); g.fillStyle = gr; g.fill();
+    g.strokeStyle = 'rgba(70,50,40,0.55)'; g.lineWidth = 1.6; g.lineCap = 'round';
+    for (const [a, len] of lobes) { g.beginPath(); g.moveTo(0, 6); g.lineTo(Math.sin(a) * -len * 0.9, Math.cos(a) * len * 0.9); g.stroke(); }
+    g.lineWidth = 3; g.beginPath(); g.moveTo(0, 4); g.lineTo(2, 30); g.stroke();                          // え
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+  }
+  function leaves(count) {
+    let map = null; try { map = mapleTexture(); } catch { map = null; }
+    if (!map) return;
+    const leafMat = new THREE.MeshStandardMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.8 });
+    leafMat.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_begin>', 'vec3 normal = normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz); vec3 nonPerturbedNormal = normal;'); };
+    leafMat.customProgramCacheKey = () => 'uspeak-leaf';
+    const R = 30, H = 15, COLS = [0xf04a38, 0xff7a32, 0xffb23a, 0xe83a2a, 0xffd04a, 0xe0582a];
+    const mesh = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), leafMat, count);
+    const L = [], col = new THREE.Color(), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), v = new THREE.Vector3(), sc = new THREE.Vector3();
+    for (let i = 0; i < count; i += 1) {
+      L.push({ x: (Math.random() - 0.5) * R * 2, y: Math.random() * H, z: (Math.random() - 0.5) * R * 2, ph: Math.random() * 6.28, sw: 0.7 + Math.random() * 0.9, fall: 0.7 + Math.random() * 0.7, s: 0.5 + Math.random() * 0.35, spin: (Math.random() - 0.5) * 2.4, yaw: Math.random() * 6.28 });
+      mesh.setColorAt(i, col.setHex(COLS[i % COLS.length]).offsetHSL((Math.random() - 0.5) * 0.03, 0, (Math.random() - 0.5) * 0.08));
+    }
+    mesh.frustumCulled = false; mesh.castShadow = false; group.add(mesh);
+    tickers.push((t, dt, player) => {
+      if (player) mesh.position.set(player.position.x - root.position.x, 0, player.position.z - root.position.z);
+      for (let i = 0; i < count; i += 1) {
+        const l = L[i], sway = Math.sin(t * l.sw + l.ph);
+        l.y -= l.fall * dt * (0.55 + 0.45 * (1 - Math.abs(sway)));         // ゆれの はしでは ふわっと おそく
+        l.x += Math.cos(t * l.sw + l.ph) * 1.1 * dt + 0.25 * dt; l.z += Math.sin(t * 0.6 + l.ph * 1.7) * 0.5 * dt;
+        if (l.y < 0.05) { l.y = H; l.x = (Math.random() - 0.5) * R * 2; l.z = (Math.random() - 0.5) * R * 2; }
+        if (l.x > R) l.x -= R * 2;
+        e.set(-1.2 + sway * 0.9, l.yaw + t * l.spin * 0.4, sway * 0.8); q.setFromEuler(e);
+        m4.compose(v.set(l.x, l.y, l.z), q, sc.setScalar(l.s)); mesh.setMatrixAt(i, m4);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    });
+  }
+
   // ふって くる もの（花びら・落ち葉・雪）：子どもの まわりの 箱の 中だけ。
   function drift(count, color, size, fall, wander) {
     const pos = new Float32Array(count * 3), seed = new Float32Array(count);
@@ -165,7 +216,7 @@ export function createMainSeasons({ root, spot, street, onObstacle, clear = () =
     // うしろに 大きな もみじの 木。
     bigTree(x, z - 2.4, 0xd9482b);
     onObstacle?.({ x, z: z + 0.3, w: 1.9, d: 1.1 });
-    drift(240, 0xe8742a, 0.26, 1.3, 1.5);
+    leaves(150);
   }
 
   // ---- 冬 ----

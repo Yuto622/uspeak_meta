@@ -223,3 +223,75 @@ test('the island is a place before it is a menu', () => {
   assert.equal(TOWN.blockIds.length, BLOCKS.size);
   assert.equal(TOWN.propIds.length, PROPS.size);
 });
+
+// ---- じぶんの いえ（メインの島）と はじめの かぐ ----
+
+test('はじめの かぐ：からっぽの へやに 1 回だけ、いつもの 置きかたの きまりで', async () => {
+  const { starterRoom, STARTER_ROOM, footprint } = await import('../src/game/town.js');
+  assert.deepEqual(STARTER_ROOM.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  // はじめての 子：保存が ない。
+  const owned = sanitizeProps([]);
+  const room = starterRoom(sanitizeRoom(null, owned), owned, null);
+  assert.equal(room.starter, true);
+  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual([...owned].sort(), ['bed', 'chair', 'plant', 'rug', 'table'], 'the pieces are owned, so they can be put back');
+  // 置き場所は へやの 中・かさならない・戸口の 前（x -1〜0, z 2〜3）を ふさがない。
+  const half = ROOMS[0].grid / 2;
+  const seen = new Set();
+  for (const p of room.furniture) {
+    const { w, d } = footprint(PROPS.get(p.f), p.r);
+    assert.ok(p.x >= -half && p.z >= -half && p.x + w <= half && p.z + d <= half, `${p.f} is inside the room`);
+    for (const c of propCells(p)) {
+      const k = `${c.x},${c.z}`;
+      assert.ok(!seen.has(k), `${p.f} overlaps at ${k}`);
+      seen.add(k);
+      assert.ok(!(c.z >= 2 && c.x >= -1 && c.x <= 0), `${p.f} blocks the doorway`);
+    }
+  }
+  // 保存した ものを 読みなおしても 同じ（サーバーの sanitize を 通る）・ふえない。
+  const saved = JSON.parse(JSON.stringify({ tier: room.tier, furniture: room.furniture, starter: room.starter }));
+  const owned2 = sanitizeProps(JSON.parse(JSON.stringify(owned)));
+  const again = starterRoom(sanitizeRoom(saved, owned2), owned2, saved);
+  assert.deepEqual(again.furniture, room.furniture);
+  // うごかせる：かたづけて べつの マスに むきを かえて 置く。
+  const bed = removeProp(again, { x: -4, z: -3 });
+  assert.equal(bed.f, 'bed');
+  assert.deepEqual(placeProp(again, owned2, { f: 'bed', x: 1, z: 1, r: 1 }), { f: 'bed', x: 1, z: 1, r: 1 });
+});
+
+test('はじめの かぐ：ぜんぶ かたづけた 子に 二度と わたさない・前から ある へやには さわらない', async () => {
+  const { starterRoom } = await import('../src/game/town.js');
+  // かたづけた あと：starter の しるしが のこって いる。
+  const emptied = { tier: 1, furniture: [], starter: true };
+  const owned = sanitizeProps(['bed', 'table', 'rug', 'plant']);
+  const room = starterRoom(sanitizeRoom(emptied, owned), owned, emptied);
+  assert.deepEqual(room.furniture, []);
+  assert.equal(room.starter, true);
+  // 前から かぐを 置いて いた 子（しるし なし）：そのまま。かぐも ふえない。しるしだけ つく。
+  const old = { tier: 1, furniture: [{ f: 'chair', x: 0, z: 0, r: 0 }] };
+  const ownedOld = sanitizeProps([]);
+  const kept = starterRoom(sanitizeRoom(old, ownedOld), ownedOld, old);
+  assert.deepEqual(kept.furniture, [{ f: 'chair', x: 0, z: 0, r: 0 }]);
+  assert.deepEqual(ownedOld, ['chair']);
+  assert.equal(kept.starter, true);
+  // しるしが うそ（true で ない）なら 読まない：からっぽなら わたす。
+  const fake = { tier: 1, furniture: [], starter: 'yes' };
+  const ownedFake = sanitizeProps([]);
+  assert.equal(starterRoom(sanitizeRoom(fake, ownedFake), ownedFake, fake).furniture.length, 5);
+});
+
+test('じぶんの いえ：メインの島の データに あり、まちづくり島の door と 同じ 戸口として 読む', async () => {
+  const { MAIN_HOME, loadMainHome } = await import('../src/game/town.js');
+  const main = JSON.parse(readFileSync(new URL('../../client/dist/main_island.json', import.meta.url), 'utf8')).island;
+  const spot = main.spots.find((sp) => sp.kind === 'my_home');
+  assert.ok(spot, 'main_island.json has the my_home spot');
+  assert.equal(main.spots.filter((sp) => sp.kind === 'my_home').length, 1);
+  assert.equal(MAIN_HOME.island.id, 'main');
+  assert.equal(MAIN_HOME.spot.wx, main.x + spot.x);
+  assert.equal(MAIN_HOME.spot.wz, main.z + spot.z);
+  // スタートから 大通りを 歩いて すぐ（35 より 近い）。
+  assert.ok(Math.hypot(spot.x - main.start.x, spot.z - main.start.z) < 35);
+  // 場所が 無い データ・読めない ファイルでは null（起動は 止めない）。
+  assert.equal(loadMainHome(write({ island: { id: 'main', x: 0, z: 0, spots: [] } })), null);
+  assert.equal(loadMainHome(join(dir, 'nope.json')), null);
+});

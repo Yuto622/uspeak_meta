@@ -46,7 +46,7 @@ import {
   MAX_RACERS as GP_MAX, XP_ITEM, GP_TICK_MS,
 } from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
-import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError } from '../game/town.js';
+import { TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError, MAIN_HOME, starterRoom } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
 import * as reading from '../game/reading.js';
@@ -1255,7 +1255,8 @@ export class ClassRoom extends Room {
       riding: sanitizeRiding(record.riding, garage),
       bricks,
       props,
-      room: sanitizeRoom(town, props),
+      // はじめて へやを 読んだ 子には かぐを 1 回だけ わたして 置く（town.js の starterRoom。props も ふえる）。
+      room: starterRoom(sanitizeRoom(town, props), props, town),
       land: sanitizeLand(parseJson(record.land_json, null)),
       fw: sanitizeFw(parseJson(record.fishworld_json, null)),
       food: sanitizeFood(parseJson(record.food_json, null)),
@@ -1336,7 +1337,7 @@ export class ClassRoom extends Room {
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
-      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza }),
+      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza, starter: priv.room.starter === true }),
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
@@ -3157,6 +3158,8 @@ export class ClassRoom extends Room {
   atTownSpot(sessionId, kind) {
     // メインの島の ブロックや は まちづくり島の ブロック屋と 同じ お店。
     if (kind === 'shop' && this.atMainShop(sessionId, 'block_shop')) return true;
+    // メインの島の じぶんの いえ（my_home）は まちづくり島の マイルーム入口（door）と 同じ 戸口。
+    if (kind === 'door' && MAIN_HOME && this.atPlace(sessionId, MAIN_HOME.island, MAIN_HOME.spot)) return true;
     return this.atPlace(sessionId, TOWN_ISLAND, TOWN_ISLAND.spotById.get(kind));
   }
 
@@ -3801,7 +3804,8 @@ export class ClassRoom extends Room {
     try {
       const out = giveFood(priv.food, msg?.island, msg?.spot, typeof msg?.id === 'string' ? msg.id : '');
       this.persist(client.sessionId);
-      client.send('food:gave', { ok: true, key: out.key, id: out.item.id, gained: out.gained, points: out.points, hearts: out.hearts, max: HEARTS_MAX, heartUp: out.heartUp, favourite: out.favourite, left: out.left, ...foodPayload(priv.food) });
+      const pay = foodPayload(priv.food);   // max は ❤ の 数（おなかの max と まぜない）＝ かばんと なかよしの 表だけ のせる
+      client.send('food:gave', { ok: true, key: out.key, id: out.item.id, gained: out.gained, points: out.points, hearts: out.hearts, max: HEARTS_MAX, heartUp: out.heartUp, favourite: out.favourite, left: out.left, bag: pay.bag, friends: pay.friends, friendRules: pay.friendRules });
     } catch (err) {
       if (!(err instanceof FoodError)) throw err;
       client.send('food:give:error', { reason: err.message });

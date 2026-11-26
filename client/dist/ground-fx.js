@@ -74,10 +74,10 @@ const PAINT = {
 };
 // しゅるいごとの かけかた：scale＝世界の 1 が 絵の どれだけか、lo..hi＝明るさの はば、bump＝でこぼこの 強さ、wide＝大きな むら。
 const KIND = {
-  grass: { scale: 0.07, lo: 0.9, hi: 1.1, bump: 0, wide: 0.1, warm: 1, soft: 3 },
-  asphalt: { scale: 0.06, lo: 0.95, hi: 1.05, bump: 0, wide: 0.05, warm: 0, soft: 4 },
-  cobble: { scale: 0.16, lo: 0.74, hi: 1.14, bump: 0.5, wide: 0.05, warm: 0, soft: 1.6 },
-  sand: { scale: 0.06, lo: 0.95, hi: 1.05, bump: 0, wide: 0.05, warm: 0, soft: 4 },
+  grass: { scale: 0.085, lo: 0.8, hi: 1.22, bump: 0, wide: 0.16, warm: 1, soft: 2.4 },
+  asphalt: { scale: 0.07, lo: 0.9, hi: 1.1, bump: 0, wide: 0.08, warm: 0, soft: 3.2 },
+  cobble: { scale: 0.15, lo: 0.7, hi: 1.16, bump: 0.6, wide: 0.06, warm: 0, soft: 1.5 },
+  sand: { scale: 0.065, lo: 0.9, hi: 1.1, bump: 0, wide: 0.08, warm: 0, soft: 3.2 },
 };
 const textures = {};
 function textureOf(kind) {
@@ -141,10 +141,12 @@ function bladeTexture() {
   if (bladeTex !== null) return bladeTex;
   try {
     const W = 128, c = document.createElement('canvas'); c.width = c.height = W; const g = c.getContext('2d'), rnd = rng(31);
-    for (let i = 0; i < 15; i += 1) {
-      const x = 14 + rnd() * 100, h = 50 + rnd() * 70, lean = (rnd() - 0.5) * 46, w = 5 + rnd() * 5;
-      const gr = g.createLinearGradient(0, W, 0, W - h); gr.addColorStop(0, '#aab89a'); gr.addColorStop(0.5, '#dfe8d0'); gr.addColorStop(1, '#ffffff'); g.fillStyle = gr;
+    // 葉は 太めに 9 まい（細い 葉は 遠くで ちらちら して 砂ぼこりに 見える）。根もとは 地面の 色に とけこむ 明るさ。
+    for (let i = 0; i < 9; i += 1) {
+      const x = 18 + rnd() * 92, h = 56 + rnd() * 66, lean = (rnd() - 0.5) * 50, w = 13 + rnd() * 9;
+      const gr = g.createLinearGradient(0, W, 0, W - h); gr.addColorStop(0, '#b9c4a8'); gr.addColorStop(0.55, '#e4ecd6'); gr.addColorStop(1, '#ffffff'); g.fillStyle = gr;
       g.beginPath(); g.moveTo(x - w / 2, W); g.quadraticCurveTo(x - w / 3 + lean * 0.3, W - h * 0.6, x + lean, W - h); g.quadraticCurveTo(x + w / 3 + lean * 0.3, W - h * 0.6, x + w / 2, W); g.fill();
+      g.strokeStyle = 'rgba(120,135,100,0.5)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x, W); g.quadraticCurveTo(x + lean * 0.3, W - h * 0.6, x + lean, W - h); g.stroke();   // 葉の すじ
     }
     bladeTex = new THREE.CanvasTexture(c); bladeTex.colorSpace = THREE.SRGBColorSpace;
   } catch { bladeTex = false; }
@@ -160,9 +162,11 @@ export function grassTufts(tufts) {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); geo.setIndex(idx);
   const time = { value: 0 };
-  const mat = new THREE.MeshStandardMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.9 });
+  const mat = new THREE.MeshStandardMaterial({ map, alphaTest: 0.45, side: THREE.DoubleSide, roughness: 0.95 });
   mat.onBeforeCompile = (sh) => {
     sh.uniforms.uTime = time;
+    // 板の 向きに かかわらず 地面と 同じ 明るさ（上むきの 法線）。うらがえった 面が 黒く ならない。
+    sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_begin>', 'vec3 normal = normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz); vec3 nonPerturbedNormal = normal;');
     sh.vertexShader = `uniform float uTime;\n${sh.vertexShader}`.replace('#include <begin_vertex>', `#include <begin_vertex>
       #ifdef USE_INSTANCING
         float gph = instanceMatrix[3].x * 0.7 + instanceMatrix[3].z * 0.9;
@@ -175,7 +179,7 @@ export function grassTufts(tufts) {
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
   tufts.forEach((t, i) => {
     q.setFromAxisAngle(up, t.turn || 0); m.compose(new THREE.Vector3(t.x, t.y, t.z), q, new THREE.Vector3(t.s, t.s * (t.tall || 0.7), t.s)); mesh.setMatrixAt(i, m);
-    mesh.setColorAt(i, col.setHex(t.color).multiplyScalar(1.25));
+    mesh.setColorAt(i, col.setHex(t.color).multiplyScalar(t.tint || 1.1));
   });
   mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   mesh.castShadow = false; mesh.receiveShadow = true; mesh.frustumCulled = false;

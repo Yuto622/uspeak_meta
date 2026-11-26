@@ -255,7 +255,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   function placeHere() {
     const at = aimed();
-    if (!state.hand) { toast('かぐ屋で かぐを かってね。'); return; }
+    if (!state.hand) { toast('まちづくり島の かぐ屋で かぐを かってね。'); return; }
     if (!at || !at.place) { toast('おける ゆかを ねらってね。'); return; }
     const cells = cellsOf({ f: state.hand, x: at.place.x, z: at.place.z, r: state.rot });
     if (standingOn(cells)) { toast('じぶんの いる ところには おけません。'); return; }
@@ -286,6 +286,8 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     const entry = state.props.get(key(m.x, m.z));
     if (entry) { built.remove(entry.group); state.props.delete(key(m.x, m.z)); }
     state.used = m.used;
+    // かたづけた かぐを そのまま 手に もつ（むきも 同じ）＝ ねらって「おく」で うごかせる。
+    if (state.owned.includes(m.f)) { state.hand = m.f; state.rot = ((Number(m.r) || 0) % 4 + 4) % 4; }
   }
 
   function onError(m) {
@@ -295,7 +297,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
       'outside the room': 'へやの そとには おけません。',
       'not bought': 'その かぐは まだ かっていません。',
       'no such furniture': 'その かぐは ありません。',
-      'room is full': 'へやが いっぱいです。ふどうさんで ひろい へやに ひっこせます。',
+      'room is full': 'へやが いっぱいです。まちづくり島の ふどうさんで ひろい へやに ひっこせます。',
       'nothing there': 'そこには かぐが ありません。',
     }[m.reason];
     if (said) toast(said);

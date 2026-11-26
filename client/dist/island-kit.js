@@ -103,12 +103,13 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
         }
       }
       let q = 4711; const r = () => ((q = (q * 16807) % 2147483647) - 1) / 2147483646;
-      const every = Math.max(1, tops.length * 2 / 900), out = [];
-      for (const t of tops) for (let k = 0; k < 2; k += 1) {
+      // 草の タイル 1 まいに 3 かぶまで・島 1 つで 2400 まで（板 3 まい × 2400 ＝ 1.4 万 三角・描く 回数は 1）。
+      const every = Math.max(1, tops.length * 3 / 2400), out = [];
+      for (const t of tops) for (let k = 0; k < 3; k += 1) {
         if (r() * every > 1) continue;
-        const x = t.x + (r() - 0.5) * 1.8, z = t.z + (r() - 0.5) * 1.8;
+        const x = t.x + (r() - 0.5) * 1.9, z = t.z + (r() - 0.5) * 1.9;
         if (taken.has(cell(x, z)) || obstacles.some((o) => Math.abs(x - o.x) < o.w + 0.5 && Math.abs(z - o.z) < o.d + 0.5)) continue;
-        out.push({ x, y: t.y - 0.02, z, s: 0.55 + r() * 0.5, tall: 0.5 + r() * 0.5, turn: r() * 3.14, color: t.color });
+        out.push({ x, y: t.y - 0.03, z, s: 0.9 + r() * 0.8, tall: 0.4 + r() * 0.35, turn: r() * 3.14, color: t.color, tint: 1.0 + r() * 0.22 });
       }
       return grassTufts(out);
     } catch { return null; }

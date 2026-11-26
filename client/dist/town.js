@@ -228,7 +228,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     close();
     room.enter(m, catalogueFor('furniture'));
     refreshHud();
-    toast(`${m.name}。かぐを えらんで「おく」。`);
+    toast(`${m.name}。かぐを えらんで「おく」。「かたづけ」で 手に もどして うごかせるよ。`);
   }
 
   // The square was walked into: the child's own lot, and the blocks they have bought.

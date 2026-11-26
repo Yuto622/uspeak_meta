@@ -18,7 +18,7 @@ const TABS = [
 ];
 const STAGE = 240;
 
-export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
+export function createBagUI({ send, toast, isOnline, food, renderer = null, hold = null }) {
   const state = { tab: 'food', data: null, ask: false, pick: {} };
   const preview = createBagPreview(renderer);
   const dialog = document.createElement('dialog');
@@ -57,7 +57,9 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
     if (!it) return '';
     if (state.tab === 'food') {
       const full = food.state.hungerOn !== false && food.hunger >= food.state.max - 0.01;
-      return `<button type="button" class="fd-buy bag-act" data-act="eat" ${full ? 'disabled' : ''}>${full ? bi('You are full!', 'おなか いっぱい！') : bi('😋 Eat', '😋 たべる')}</button>`;
+      // もつ：頭の 上に のせて 住民に あげられる（food-give.js）。もう 1 回で おろす。
+      const held = hold?.id === it.id;
+      return `<div class="bag-act-row"><button type="button" class="fd-buy bag-act" data-act="eat" ${full ? 'disabled' : ''}>${full ? bi('You are full!', 'おなか いっぱい！') : bi('😋 Eat', '😋 たべる')}</button>${hold ? `<button type="button" class="fd-buy bag-act bag-hold${held ? ' off' : ''}" data-hold>${held ? bi('Put away', 'おろす') : bi('🙌 Hold', '🙌 もつ')}</button>` : ''}</div>${hold && !held ? `<p class="fd-fine">${bi('Hold it and give it to a villager.', 'もって、しまの ひとに あげよう。')}</p>` : ''}`;
     }
     if (state.tab === 'wear') return `<button type="button" class="fd-buy bag-act${it.on ? ' off' : ''}" data-act="wear">${it.on ? bi('Take off', 'ぬぐ') : bi('👕 Wear', '👕 きる')}</button>`;
     if (state.tab === 'house') {
@@ -102,6 +104,7 @@ export function createBagUI({ send, toast, isOnline, food, renderer = null }) {
       if (act.dataset.act === 'wear') { act.disabled = true; send('wear:put', { id: it.id, off: !!it.on }); }
       if (act.dataset.act === 'ask') { state.ask = true; paint(); }
     };
+    const hb = $('[data-hold]', body); if (hb) hb.onclick = () => { if (hold.toggle(it.id)) dialog.close(); else paint(); };
     const go = $('[data-go]', body); if (go) go.onclick = () => { go.disabled = true; dialog.close(); send('land:enter', { from: 'bag' }); };
     const no = $('[data-no]', body); if (no) no.onclick = () => { state.ask = false; paint(); };
   }

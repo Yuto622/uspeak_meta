@@ -175,3 +175,42 @@ body[data-arcade] .top-dock, body[data-race] .top-dock, body[data-gp] .top-dock,
 .fd-emoji.real { font-size: 0; line-height: 0; }
 .fd-emoji.real img { width: 96px; height: 96px; display: block; margin: -6px auto -4px; -webkit-user-drag: none; }
 .fd-eat .fd-emoji.real img { width: 68px; height: 68px; margin: -4px auto -2px; }
+
+/* たべものを もつ・住民に あげる・なかよしの ❤（food-give.js）。 */
+.bag-act-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.bag-act-row .bag-act { min-width: 120px; }
+#give { position: fixed; left: 50%; bottom: 196px; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  max-width: min(420px, 92vw); padding: 10px 12px; border-radius: 18px; background: #1b3a2fee; color: #fff4d6; box-shadow: 0 8px 24px #0005, inset 0 0 0 2px #ffb06655; font-weight: 800; }
+#give[hidden], #give-card[hidden] { display: none; }
+.gv-friend { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 10px; }
+.gv-title { margin: 0; font-size: 14px; }
+.gv-who { color: #ffd246; }
+.gv-hearts { font-size: 15px; letter-spacing: 1px; white-space: nowrap; }
+.gv-hearts b { color: #ff6f91; font-weight: 400; }
+.gv-hearts i { color: #ffffff77; font-style: normal; }
+.gv-bar { width: 64px; height: 8px; border-radius: 99px; background: #0d211a; overflow: hidden; }
+.gv-bar i { display: block; height: 100%; width: var(--p); background: linear-gradient(90deg, #ff6f91, #ffb066); border-radius: 99px; transition: width .4s; }
+.gv-note, .gv-fav { margin: 0; font-size: 13px; font-weight: 700; color: #dff0d4; text-align: center; }
+.gv-btn { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 10px; min-height: 48px; padding: 8px 18px; border: 0; border-radius: 14px; background: #e27a2d; color: #fff; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #a9541b; }
+.gv-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #a9541b; }
+.gv-btn:disabled { opacity: .6; cursor: default; }
+.gv-btn .gv-who { color: #fff4d6; text-decoration: underline; text-decoration-color: #ffffff66; }
+.gv-gift { font-size: 15px; }
+.gv-btn kbd { padding: 1px 7px; border-radius: 6px; background: #0003; font: 700 12px/1.5 inherit; }
+@media (pointer: coarse) { .gv-btn kbd { display: none; } #give { bottom: 176px; } }
+@media (pointer: coarse) and (max-height: 560px) { #give { bottom: 96px; padding: 6px 10px; } .gv-btn { min-height: 40px; font-size: 15px; } }
+#give-card { position: fixed; left: 50%; top: 22%; transform: translateX(-50%); z-index: 7; display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none;
+  max-width: min(400px, 90vw); padding: 14px 20px; border-radius: 20px; background: #fffbf5; color: #1b3a2f; box-shadow: 0 12px 32px #0006, inset 0 0 0 3px #ff6f91; font-weight: 800; text-align: center; }
+#give-card .gv-title { font-size: 18px; }
+#give-card .gv-who { color: #c2571a; }
+#give-card .gv-hearts { font-size: 22px; }
+#give-card .gv-hearts i { color: #d9c9c9; }
+#give-card .gv-bar { width: 180px; height: 12px; background: #efe2d6; }
+.gv-plus { color: #e0406a; }
+.gv-love { margin: 0; font-size: 17px; color: #e0406a; }
+.gv-up { margin: 0; font-size: 14px; color: #2f8f5b; }
+#give-card.pop { animation: gv-pop .35s ease-out; }
+@keyframes gv-pop { from { transform: translateX(-50%) scale(.7); opacity: 0; } to { transform: translateX(-50%) scale(1); opacity: 1; } }
+body[data-arcade] #give, body[data-race] #give, body[data-gp] #give, body[data-main] #give, body[data-warp] #give, body.on-journey #give, body[data-class-pause] #give,
+body[data-arcade] #give-card, body[data-race] #give-card, body[data-gp] #give-card { display: none; }
+@media (prefers-reduced-motion: reduce) { #give-card.pop { animation: none; } .gv-bar i { transition: none; } }

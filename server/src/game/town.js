@@ -258,6 +258,49 @@ export function sanitizeRoom(raw, owned) {
   return { tier: room.tier, furniture };
 }
 
+// ---- じぶんの いえ（メインの島）と はじめの かぐ ---------------------------------------
+//
+// だれでも はじめから メインの島に じぶんの いえを もっている（main_island.json の spots の kind "my_home"）。
+// 戸口の 中は まちづくり島の door と 同じ マイルーム。部屋（ClassRoom）は ここの 位置で「いえの 前か」を 見る。
+// 場所が データに 無ければ null（まちづくり島の door だけが 入口の まま）。
+export function loadMainHome(file = new URL('../../../client/dist/main_island.json', import.meta.url)) {
+  let island = null;
+  try { island = JSON.parse(readFileSync(file, 'utf8')).island; } catch { return null; }
+  const spot = (island?.spots || []).find((sp) => sp.kind === 'my_home');
+  if (!spot || ![island.x, island.z, spot.x, spot.z].every(Number.isFinite)) return null;
+  return {
+    island: { id: island.id, x: island.x, z: island.z, radius: island.radius ?? 5 },
+    spot: { id: spot.id, kind: spot.kind, name: spot.ja, ja: spot.ja, en: spot.en, wx: island.x + spot.x, wz: island.z + spot.z },
+  };
+}
+export const MAIN_HOME = loadMainHome();
+
+// からっぽの へやでは もようがえが できないので、はじめて へやを 読んだ ときに 1 回だけ かぐを わたして 置く。
+// 置き場所は いちばん 小さい へや（8 × 8）に おさまる マス。戸口（x -1〜0, z 2〜3）の 前は あける。
+export const STARTER_ROOM = [
+  { f: 'bed', x: -4, z: -4, r: 0 },
+  { f: 'table', x: 1, z: -4, r: 0 },
+  { f: 'chair', x: 1, z: -3, r: 0 },
+  { f: 'plant', x: 3, z: -4, r: 0 },
+  { f: 'rug', x: -1, z: -1, r: 0 },
+].filter((p) => PROPS.has(p.f));
+
+// `raw` は 保存の room_json、`state` は sanitizeRoom の 結果、`owned` は もっている かぐ（ここで ふえる）。
+// 1 回 わたしたら `starter: true` が room_json に のこり、子どもが ぜんぶ かたづけても 二度と わたさない。
+// 前から かぐを 置いて いた 子の へやには さわらない（しるしだけ つける）。コインは うごかない。
+export function starterRoom(state, owned, raw) {
+  if (raw?.starter === true) { state.starter = true; return state; }
+  if (!state.furniture.length) {
+    for (const piece of STARTER_ROOM) {
+      if (!owned.includes(piece.f)) owned.push(piece.f);
+      // 置けるか どうかは いつもの placeProp が きめる（へやの 外・かさなり・いっぱい は とばす）。
+      try { placeProp(state, owned, piece); } catch (err) { if (!(err instanceof TownError)) throw err; }
+    }
+  }
+  state.starter = true;
+  return state;
+}
+
 export function roomPayload(state, owned) {
   const room = roomOfTier(state.tier);
   return {

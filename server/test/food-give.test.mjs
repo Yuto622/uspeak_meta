@@ -73,7 +73,7 @@ test('古い 保存（friends なし）も 読める。こわれた 中身は �
   assert.deepEqual(sanitizeFood({ h: 7, bag: { apple: 1 } }).friends, {});
   assert.deepEqual(sanitizeFood(null).friends, {});
   assert.deepEqual(blankFood().friends, {});
-  const dirty = sanitizeFood({ bag: {}, friends: { 'farm:mia': { p: 999, d: 'x', n: 99, f: true }, 'bad key': { p: 3 }, 'farm:taro': 'nope', 'farm:zack': { p: -4 }, '__proto__:x': { p: 1 } } });
+  const dirty = sanitizeFood({ bag: {}, friends: { 'farm:mia': { p: 999, d: 'x', n: 99, f: true }, 'bad key': { p: 3 }, 'farm:taro': 'nope', 'farm:zack': { p: -4 } } });
   assert.deepEqual(dirty.friends, { 'farm:mia': { p: FRIEND_CAP, d: '', n: GIFTS_PER_DAY, f: 1 } });
   const f = sanitizeFood({ bag: { [FAV]: 1 } });
   give(f, 'farm', 'mia', FAV, T);

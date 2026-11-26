@@ -45,6 +45,7 @@ import { createWeaponShop } from './weapon-shop.js';
 import { createWordHouseUI } from './wordhouse.js';
 import { createFoodUI } from './food.js';
 import { createBagUI } from './bag.js';
+import { createFoodGive } from './food-give.js';
 import { createMainIsland } from './main-island.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
@@ -259,7 +260,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const myRoom = createRoom({
     player, camera, view, toast, speak, learn,
     send: atSend,
-    onLeave: () => { town.hideHud(); rpg.activate('town', true); },
+    // 出る 先は 入った 戸口：メインの島の「じぶんの いえ」から 入ったら その いえの 前、まちづくり島からなら いままでどおり。
+    // へやに いる 間も rpg.state.current は 入った 島の まま（へやは 島を きりかえない）。
+    onLeave: () => {
+      town.hideHud();
+      const d = rpg.state.current === 'main' ? rpg.main?.data : null;
+      const home = d?.spots?.find((sp) => sp.kind === 'my_home');
+      if (!home) { rpg.activate('town', true); return; }
+      rpg.activate('main', true);
+      player.position.set(d.x + home.x, 0, d.z + home.z + 1.6);   // 戸口の すぐ 外（また 入らない ところ）
+      player.rotation.y = Math.PI;   // いえを せに して 立つ
+    },
   });
   // ひろば. Blocks are stacked on the child's own lot in the square, which is its own
   // scene for the same reason the room is: nothing of it exists until they walk in.
@@ -454,7 +465,19 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   let bag = null;
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
-  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer });
+  // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
+  const foodGive = createFoodGive({
+    player, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onChange: () => bag?.refresh(),
+    near: () => {
+      const id = rpg.state.current; const isl = rpg[id];
+      if (rpg.state.busy || rpg.state.mode === 'flight' || rpg.insideBuilding || rpg.inRoom || rpg.inPlaza || typeof isl?.nearest !== 'function' || typeof isl.origin !== 'function') return null;
+      const at = isl.nearest(player);
+      if (!at?.spot?.id) return null;
+      const o = isl.origin();
+      return { island: id, spot: at.spot, x: o.x + at.spot.x, z: o.z + at.spot.z };
+    },
+  });
+  bag = createBagUI({ send: plainSend, toast, isOnline: () => state.mode === 'online', food, renderer, hold: foodGive });
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
@@ -881,6 +904,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('food:bought', (m) => food.onBought(m));
     r.onMessage('food:ate', (m) => food.onAte(m));
     r.onMessage('food:error', (m) => food.onError(m));
+    r.onMessage('food:gave', (m) => foodGive.onGave(m));
+    r.onMessage('food:give:error', (m) => foodGive.onError(m));
     r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); wordhouse.onResult(m); });
     r.onMessage('wh:error', (m) => wordhouse.onError(m));
     r.onMessage('farm:board', (m) => farm.onBoard(m));
@@ -1272,6 +1297,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
 
   function update(t, dt, { moving = false, running = false } = {}) {
     petBuddy.update(dt, moving);
+    foodGive.update(t, dt);
     taskGuide.update(t);
     const now = performance.now();
     if (state.pendingTeleport) applyPendingTeleport();
@@ -1446,7 +1472,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     mainLabel: (spot) => main.label(spot),
     fishworld,
     wordhouse,
-    food,
+    food, foodGive,
     bag,
     main,
     landLabel: (spot) => land.label(spot),

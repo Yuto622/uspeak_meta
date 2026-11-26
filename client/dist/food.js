@@ -79,6 +79,8 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
     // 2026-11：Web 版は おなかが へらない（サーバーの hungerOn）。古い サーバーは 書いて こないので へる あつかい。
     if (m.hungerOn !== undefined || m.rateMs !== undefined) state.hungerOn = m.hungerOn !== undefined ? !!m.hungerOn : true;
     if (Array.isArray(m.bag)) state.bag = m.bag;
+    if (m.friends && typeof m.friends === 'object') state.friends = m.friends;   // なかよし（food-give.js が 読む）
+    if (m.friendRules) state.friendRules = m.friendRules;
     if (m.wallet) { state.coins = m.wallet.coins; onCoins(m.wallet); }
     paintGauge();
     if (dialog.open) paint();
