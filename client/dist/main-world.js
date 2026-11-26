@@ -16,6 +16,7 @@ import { createMainSeasons, seasonNow } from './main-seasons.js';
 import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
 import { roofSign, gateModel } from './roof-signs.js';
+import { SHOP_KINDS, shopsOpen } from './shop-hours.js';
 
 export { NEAR_DISTANCE };
 
@@ -40,6 +41,8 @@ const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
 export function createMainWorld({ scene }) {
   let seasons = null, realTrees = null; // 季節の かざり（main-seasons.js）と リアルな 木（real-trees.js）。島が 建ったあと。
   let spinGates = null;
+  let shopHouses = [];
+  let shopsLit = null;
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   const island = createIsland({
     scene,
@@ -117,6 +120,8 @@ export function createMainWorld({ scene }) {
       keep(st.x, st.z, 3.5, 3.5);
       path(st.x, st.z, st.x, 16);
 
+      // よるは しまる お店の 家（shop-hours.js）。しまって いる あいだ まどの 光を 消す。
+      shopHouses = data.spots.filter((d) => SHOP_KINDS.has(d.kind) && d.kind !== 'food_shop').map((d) => (d.kind === 'fish_buy' ? [d.x, d.z - 4.6] : [d.x, d.z - 1.1 - d.d / 2]));
       // 入れる場所（P1）。
       for (const def of data.spots) {
         const color = Number(def.color);
@@ -566,6 +571,7 @@ export function createMainWorld({ scene }) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
     if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); }
+    const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;
   function setNight(n) { baseNight(n); seasons?.setNight(n); }

@@ -1,6 +1,7 @@
 // Multiplayer client layer. Owns the Colyseus room, the 20 Hz position stream, remote
 // avatars, reconnection (iPad background / lock / reload), server-authoritative wallet
 // mirroring, chat and teacher commands. Offline mode = this module stays idle.
+import { setClockSkew } from './shop-hours.js';
 import { NET, STORAGE_KEYS, resolveServerUrl, defaultClassCode, storage } from './net-config.js';
 import { createIslandPick } from './mini-pick.js';
 import { hooks } from './net-hooks.js';
@@ -711,7 +712,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('premium', (m) => { if (m.islands) state.premiumIslands = m.islands; rpg.setPremiumLock?.(m.locked || [], m.islands || []); if (m.premium) toast(tr('⭐ プレミアムの しまに 行けるように なったよ！')); });
     r.onMessage('tasks:done', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress); taskCard.done(m); });
     r.onMessage('welcome', (m) => {
-      if (m.world) { state.skew = m.world.now - Date.now(); night.setPhase(m.world); }
+      if (m.world) { state.skew = m.world.now - Date.now(); setClockSkew(state.skew); night.setPhase(m.world); }
       // The block list is also the palette's colours, so it is worth the one message.
       town.prime();
       r.send('farm:peek', {});

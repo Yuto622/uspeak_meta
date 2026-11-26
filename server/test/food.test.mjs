@@ -23,7 +23,7 @@ test('おなかは つながっている間だけ へり、0 で とまる', () 
   assert.equal(hungerNow(f, T + RATE_MS * 500), MAX - 5, 'paused while away');
   resume(f, T + RATE_MS * 500);
   assert.equal(hungerNow(f, T + RATE_MS * 600), 0, 'never below zero');
-  assert.deepEqual(sanitizeFood(forSave(f, T + RATE_MS * 600)), { h: 0, at: 0, bag: { apple: 2 } }, 'a new child brings two apples');
+  assert.deepEqual(sanitizeFood(forSave(f, T + RATE_MS * 600)), { h: 0, at: 0, bag: { apple: 2 }, friends: {} }, 'a new child brings two apples');
 });
 
 test('たべると ふえる（満タンまで）、かばんから へる、ないものは たべられない', () => {

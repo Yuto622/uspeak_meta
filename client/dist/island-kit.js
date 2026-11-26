@@ -86,6 +86,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   const houses = createHouseBatch();
   const woods = [];
   let realTrees = null;
+  const lampSpots = [];          // 街灯の 足もとの 光の わ（夜だけ・1 回の 描画）
+  let pools = null;
   let tuftsMesh = null;
   // 草むら（ground-fx.js の grassTufts）：草の タイルの 上に、道・小物・建物を さけて 立てる。島 1 つで 900 まで・描く 回数は 1。
   function plantTufts() {
@@ -114,6 +116,19 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   function flushDeco() {
     if (houses.count) lit.push(...houses.flush(root));
     if (woods.length && !realTrees) { try { realTrees = createRealTrees({ root, trees: woods, seed: 900 + woods.length }); realTrees.setSeason(seasonNow().season); } catch { realTrees = null; } }
+    if (lampSpots.length && !pools) {
+      try {
+        const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d');
+        const gr = g.createRadialGradient(64, 64, 2, 64, 64, 64); gr.addColorStop(0, 'rgba(255,214,150,0.9)'); gr.addColorStop(0.35, 'rgba(255,196,120,0.38)'); gr.addColorStop(1, 'rgba(255,180,100,0)');
+        g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+        const pm = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false });
+        const pg = new THREE.PlaneGeometry(1, 1); pg.rotateX(-Math.PI / 2);
+        pools = new THREE.InstancedMesh(pg, pm, lampSpots.length);
+        const m4 = new THREE.Matrix4();
+        lampSpots.forEach(([lx, lz], i) => { m4.compose(new THREE.Vector3(lx, 0.31, lz), new THREE.Quaternion(), new THREE.Vector3(7.5, 1, 7.5)); pools.setMatrixAt(i, m4); });
+        pools.frustumCulled = false; pools.renderOrder = 2; pools.visible = false; root.add(pools);
+      } catch { pools = null; }
+    }
     tuftsMesh = plantTufts();
     if (tuftsMesh) root.add(tuftsMesh);
     for (const { color, glow, flat, list } of deco.values()) {
@@ -137,6 +152,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   function setNight(night) {
     const n = Math.max(0, Math.min(1, night || 0));
     for (const { material, glow } of lit) material.emissiveIntensity = glow * n;
+    if (pools) { pools.material.opacity = n * 0.5; pools.visible = n > 0.03; }
   }
 
   const B = (x, y, z, w, h, d, color, parent = root, emissive = 0) => {
@@ -260,7 +276,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     D(x, 0.2, z, 0.8, 0.4, 0.8, 0x8d8570);
     D(x, 1.8, z, 0.26, 3.2, 0.26, 0x6f5b3e);
     D(x, 3.5, z, 0.7, 0.16, 0.7, 0x6f5b3e);
-    D(x, 3.22, z, 0.5, 0.5, 0.5, 0xffdda0, 2.2);
+    D(x, 3.22, z, 0.5, 0.5, 0.5, 0xffdda0, 1.25);
+    lampSpots.push([x, z]);
     D(x, 3.7, z, 0.34, 0.2, 0.34, 0x6f5b3e);
   }
 
@@ -535,6 +552,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   function update(t, player) {
     if (realTrees && root.visible) realTrees.update(t);
     if (tuftsMesh && root.visible) tuftsMesh.userData.update(t);
+    if (root.visible) houses.update(t);
     if (!root.visible || !built) return;
     if (host) { const d = host.update(t, player.position.x - root.position.x, player.position.z - root.position.z); if (hostLabel) hostLabel.visible = labelsOn && d < 12; }
     for (const sp of spots) {
@@ -703,6 +721,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       if (beacon) beacon.visible = labelsOn && !!targetSpot();
     },
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
+    setHouseLit: (x, z, on) => houses.setLit(x, z, on),
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },
     origin: () => ({ x: root.position.x, z: root.position.z }),
     // 着いたときに立つ場所（船着き場の陸がわ）。rpg.activate が使う。

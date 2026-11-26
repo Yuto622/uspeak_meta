@@ -83,8 +83,12 @@ const shadeHex = (hex, amt) => { col.set(hex); const h = {}; col.getHSL(h); retu
 // 1 つの 島の 家を ためて、さいごに まとめる。add() は 屋根の てっぺんの 高さを 返す（かんばんを のせる 高さ）。
 export function createHouseBatch() {
   const parts = { wall: [], roof: [], wood: [], glass: [] };
+  const ranges = [];              // 家ごとの ガラス（お店が しまると その 家だけ 消す）
+  const time = { value: 0 };
+  let glassGeo = null, base = null, spans = null;
   const BEAM = 0x6b5138, STONE = 0xa39a88;
   function add(x, z, w, d, wall, roof) {
+    const g0 = parts.glass.length;
     const hx = w / 2, hz = d / 2, front = z + hz, top = 4.4, over = 0.75;
     const rise = Math.min(2.7, Math.max(1.5, d * 0.36));
     const W = parts.wall, R = parts.roof, T = parts.wood, G = parts.glass;
@@ -141,6 +145,13 @@ export function createHouseBatch() {
     };
     for (const sx of [-hx * 0.58, hx * 0.58]) win(x + sx, 2.85, front, 0);
     for (const s of [-1, 1]) win(x + s * hx, 2.85, z - hz * 0.25, s);
+    // まどの 明るさは 1 まいずつ ちがう（r＝明るさ・g＝ゆらぎの ずれ）。5 まいに 1 まいは 消えて いる。戸口の 小まどは いつも つく。
+    for (let i = g0; i < parts.glass.length; i += 1) {
+      const h = Math.abs(Math.sin((x * 12.9898 + z * 78.233 + i * 37.719)) * 43758.5453) % 1, h2 = (h * 7.13) % 1;
+      const level = i === g0 + 2 ? 0.9 : h < 0.2 ? 0.05 : 0.5 + h2 * 0.5;
+      const c = parts.glass[i].attributes.color; for (let k = 0; k < c.count; k += 1) c.setXYZ(k, level, h2, 1);
+    }
+    ranges.push({ key: `${x}:${z}`, from: g0, to: parts.glass.length });
     return peak + 0.3;
   }
   // まとめて root に のせる。夜に 灯る ガラスの 材質を 返す（island-kit の setNight へ）。
@@ -151,12 +162,28 @@ export function createHouseBatch() {
       const mesh = new THREE.Mesh(merge(parts[key]), M[key]); mesh.castShadow = true; mesh.receiveShadow = true; mesh.frustumCulled = false; root.add(mesh); parts[key] = [];
     }
     if (parts.glass.length) {
-      // ガラスは 島ごとに 1 つ（夜の 明るさを 島ごとに かえる ため）。昼は 空を うつす 青、夜は あたたかい 光。
-      const glass = new THREE.MeshStandardMaterial({ color: 0x86aecb, roughness: 0.12, metalness: 0.55, emissive: new THREE.Color(0xffd98a), emissiveIntensity: 0 });
-      const mesh = new THREE.Mesh(merge(parts.glass), glass); mesh.frustumCulled = false; root.add(mesh); parts.glass = [];
-      lit.push({ material: glass, glow: 1.6 });
+      // ガラスは 島ごとに 1 つ。昼は 空を うつす 青、夜は あたたかい 光。明るさは まど 1 まいずつ（頂点の 色に 入れて ある）＋ ゆっくり ゆらぐ。
+      const glass = new THREE.MeshStandardMaterial({ color: 0x86aecb, roughness: 0.12, metalness: 0.55, emissive: new THREE.Color(0xffcf86), emissiveIntensity: 0 });
+      glass.onBeforeCompile = (sh) => {
+        sh.uniforms.uTime = time;
+        sh.vertexShader = `attribute vec3 color;\nvarying vec3 vLit;\n${sh.vertexShader}`.replace('#include <begin_vertex>', '#include <begin_vertex>\n vLit = color;');
+        sh.fragmentShader = `uniform float uTime;\nvarying vec3 vLit;\n${sh.fragmentShader}`.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n totalEmissiveRadiance *= vLit.r * (0.93 + 0.07 * sin(uTime * 1.7 + vLit.g * 40.0));');
+      };
+      glass.customProgramCacheKey = () => 'uspeak-glass';
+      let v = 0; const offs = parts.glass.map((g) => { const o = v; v += g.attributes.position.count; return o; }); offs.push(v);
+      spans = new Map(ranges.map((r) => [r.key, [offs[r.from], offs[r.to]]]));
+      glassGeo = merge(parts.glass); base = glassGeo.attributes.color.array.slice();
+      const mesh = new THREE.Mesh(glassGeo, glass); mesh.frustumCulled = false; root.add(mesh); parts.glass = [];
+      lit.push({ material: glass, glow: 1.15 });
     }
     return lit;
   }
-  return { add, flush, get count() { return parts.wall.length; } };
+  // その 家の まどを つける・消す（お店が しまって いる とき）。key ＝ add に わたした x・z。
+  function setLit(x, z, on) {
+    const span = spans?.get(`${x}:${z}`); if (!span) return;
+    const a = glassGeo.attributes.color;
+    for (let k = span[0]; k < span[1]; k += 1) a.array[k * 3] = on ? base[k * 3] : 0.02;
+    a.needsUpdate = true;
+  }
+  return { add, flush, setLit, update(t) { time.value = t; }, get count() { return parts.wall.length; } };
 }

@@ -93,7 +93,7 @@ import { LIMIT as CLASS_LIMIT, DESTINATIONS, DEST_BY_ID, blockedWhilePaused, pla
 import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
-import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, FoodError } from '../game/food.js';
+import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, give as giveFood, HEARTS_MAX, FoodError } from '../game/food.js';
 
 // 学習ログの 1 行 → 保護者レポートの 箱（roblox_events）の quiz。もう 自分で 書いて いる あそび（英検・つり島・宿題・英単語ハウス・復習）と、
 // 正解・不正解では ない もの（チャット・会話・面接の 1 問ずつ・声の 判定）は null。word は 英単語の ときだけ（苦手単語の 箱に 入る）。
@@ -340,6 +340,7 @@ export class ClassRoom extends Room {
     this.onMessage('food:open', (client, msg) => this.onFoodOpen(client, msg));
     this.onMessage('food:buy', (client, msg) => this.onFoodBuy(client, msg));
     this.onMessage('food:eat', (client, msg) => this.onFoodEat(client, msg));
+    this.onMessage('food:give', (client, msg) => this.onFoodGive(client, msg));
     this.onMessage('park:ride', (client, msg) => this.onParkRide(client, msg));
     this.onMessage('main:leave', (client) => this.onMainLeave(client.sessionId));
     this.onMessage('prop:list', (client) => client.send('prop:shop', this.propShopPayload(client.sessionId)));
@@ -3790,6 +3791,20 @@ export class ClassRoom extends Room {
     } catch (err) {
       if (!(err instanceof FoodError)) throw err;
       client.send('food:error', { reason: err.message });
+    }
+  }
+
+  // 住民に たべものを あげる（なかよし）。コインも XP も うごかない。きめるのは food.js の give。
+  onFoodGive(client, msg) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return;
+    try {
+      const out = giveFood(priv.food, msg?.island, msg?.spot, typeof msg?.id === 'string' ? msg.id : '');
+      this.persist(client.sessionId);
+      client.send('food:gave', { ok: true, key: out.key, id: out.item.id, gained: out.gained, points: out.points, hearts: out.hearts, max: HEARTS_MAX, heartUp: out.heartUp, favourite: out.favourite, left: out.left, ...foodPayload(priv.food) });
+    } catch (err) {
+      if (!(err instanceof FoodError)) throw err;
+      client.send('food:give:error', { reason: err.message });
     }
   }
 

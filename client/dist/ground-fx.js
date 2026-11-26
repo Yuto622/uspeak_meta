@@ -74,16 +74,20 @@ const PAINT = {
 };
 // しゅるいごとの かけかた：scale＝世界の 1 が 絵の どれだけか、lo..hi＝明るさの はば、bump＝でこぼこの 強さ、wide＝大きな むら。
 const KIND = {
-  grass: { scale: 0.11, lo: 0.8, hi: 1.24, bump: 0.9, wide: 0.14, warm: 1 },
-  asphalt: { scale: 0.13, lo: 0.86, hi: 1.13, bump: 0.5, wide: 0.08, warm: 0 },
-  cobble: { scale: 0.16, lo: 0.66, hi: 1.2, bump: 1.3, wide: 0.07, warm: 0 },
-  sand: { scale: 0.12, lo: 0.9, hi: 1.1, bump: 0.5, wide: 0.08, warm: 0 },
+  grass: { scale: 0.07, lo: 0.9, hi: 1.1, bump: 0, wide: 0.1, warm: 1, soft: 3 },
+  asphalt: { scale: 0.06, lo: 0.95, hi: 1.05, bump: 0, wide: 0.05, warm: 0, soft: 4 },
+  cobble: { scale: 0.16, lo: 0.74, hi: 1.14, bump: 0.5, wide: 0.05, warm: 0, soft: 1.6 },
+  sand: { scale: 0.06, lo: 0.95, hi: 1.05, bump: 0, wide: 0.05, warm: 0, soft: 4 },
 };
 const textures = {};
 function textureOf(kind) {
   if (kind in textures) return textures[kind];
   try {
     const c = document.createElement('canvas'); c.width = c.height = S; PAINT[kind](c.getContext('2d'), rng(99 + kind.length * 7));
+    // こまかい つぶは 画面で ざらざらの 砂ぼこりに 見える（教室から 言われた）。いちど 小さく して もどし、やわらかい むらだけ のこす。
+    const soft = KIND[kind].soft || 1, n = Math.round(S / soft), tmp = document.createElement('canvas'); tmp.width = tmp.height = n;
+    const tg = tmp.getContext('2d'); tg.imageSmoothingQuality = 'high'; tg.drawImage(c, 0, 0, n, n);
+    const cg = c.getContext('2d'); cg.imageSmoothingQuality = 'high'; cg.drawImage(tmp, 0, 0, S, S);
     const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; textures[kind] = t;
   } catch { textures[kind] = false; }
   return textures[kind];
@@ -139,7 +143,7 @@ function bladeTexture() {
     const W = 128, c = document.createElement('canvas'); c.width = c.height = W; const g = c.getContext('2d'), rnd = rng(31);
     for (let i = 0; i < 15; i += 1) {
       const x = 14 + rnd() * 100, h = 50 + rnd() * 70, lean = (rnd() - 0.5) * 46, w = 5 + rnd() * 5;
-      const gr = g.createLinearGradient(0, W, 0, W - h); gr.addColorStop(0, '#5f6a50'); gr.addColorStop(0.5, '#c8d4b4'); gr.addColorStop(1, '#ffffff'); g.fillStyle = gr;
+      const gr = g.createLinearGradient(0, W, 0, W - h); gr.addColorStop(0, '#aab89a'); gr.addColorStop(0.5, '#dfe8d0'); gr.addColorStop(1, '#ffffff'); g.fillStyle = gr;
       g.beginPath(); g.moveTo(x - w / 2, W); g.quadraticCurveTo(x - w / 3 + lean * 0.3, W - h * 0.6, x + lean, W - h); g.quadraticCurveTo(x + w / 3 + lean * 0.3, W - h * 0.6, x + w / 2, W); g.fill();
     }
     bladeTex = new THREE.CanvasTexture(c); bladeTex.colorSpace = THREE.SRGBColorSpace;
@@ -171,7 +175,7 @@ export function grassTufts(tufts) {
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
   tufts.forEach((t, i) => {
     q.setFromAxisAngle(up, t.turn || 0); m.compose(new THREE.Vector3(t.x, t.y, t.z), q, new THREE.Vector3(t.s, t.s * (t.tall || 0.7), t.s)); mesh.setMatrixAt(i, m);
-    mesh.setColorAt(i, col.setHex(t.color).multiplyScalar(1.5));
+    mesh.setColorAt(i, col.setHex(t.color).multiplyScalar(1.25));
   });
   mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   mesh.castShadow = false; mesh.receiveShadow = true; mesh.frustumCulled = false;

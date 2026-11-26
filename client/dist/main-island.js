@@ -11,6 +11,7 @@
 import { t as tr, isJa, onLangChange } from './i18n.js';
 import { REGION_BY_ID } from './rpg-data.js';
 import { lookOf } from './world-picker.js';
+import { isShop, shopsOpen, opensIn } from './shop-hours.js';
 import { HOUSE_INFO, LEVEL_LABEL, easyLevel, toggleEasyLevel } from './wordhouse.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -377,6 +378,12 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (!spot) return false;
     if (['hut_easy', 'fishing_pier'].includes(spot.id)) doneGuide();
     if (spot.kind === 'gate') { goWorld(spot.to); return true; }
+    // よるは お店が しまって いる（shop-hours.js）。もう 中に いる ときは そのまま（カウンターで 話せる）。
+    if (isShop(spot) && !shopsOpen() && !rpg.insideBuilding) {
+      const s = opensIn(), mm = Math.floor(s / 60), ss = String(s % 60).padStart(2, '0');
+      toast(tr('🌙 よるは おみせが しまって いるよ。あさに なったら あくよ（あと {t}）', { t: `${mm}:${ss}` }));
+      return true;
+    }
     // 英会話の お店：戸口では 中に 入る（false ＝ island-interior の 部屋へ）。中の カウンターで ウーピーと 話す。
     if (spot.kind === 'talk_shop') {
       // プレミアムの お店（名簿の「プレミアム」）。入口で ことわる（守るのは 部屋の conv:start）。
