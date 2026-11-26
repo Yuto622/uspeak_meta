@@ -194,6 +194,8 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
     }
     ui.acts.innerHTML = acts;
     ui.acts.querySelector('.ntk-say').onclick = (e) => { e.stopPropagation(); sayLine(); };
+    // 行が かわったら 自動で 読み上げる（🔊 を おさなくても 流れる。同じ 行の 描きなおしでは 読まない）。
+    if (state.spoken !== line) { state.spoken = line; sayLine(); }
     for (const b of ui.acts.querySelectorAll('[data-do]')) b.onclick = (e) => { e.stopPropagation(); act(b.dataset.do); };
   }
 
@@ -256,6 +258,7 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
   }
 
   function close() {
+    state.spoken = null;
     if (!state.open && el?.hidden !== false) return;
     const who = state.who;
     state.open = false; state.who = null; state.choice = false;
