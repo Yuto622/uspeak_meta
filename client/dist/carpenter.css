@@ -27,7 +27,8 @@
 .cp-row { width: 100%; display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: 'pic name cost' 'pic state cost'; align-items: center; column-gap: 10px; padding: 6px 12px 6px 6px; border-radius: 14px; border: 2px solid #2c5a48; background: #14302a; color: #fff4d6; text-align: left; min-height: 64px; }
 .cp-row.on { border-color: #ffb066; background: #24493c; box-shadow: inset 0 0 0 1px #ffb066; }
 .cp-pic { grid-area: pic; width: 64px; height: 60px; border-radius: 10px; background: #fff4d6; display: grid; place-items: center; overflow: hidden; }
-.cp-pic img, .cp-big img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cp-pic, .cp-big { position: relative; }
+.cp-pic img, .cp-big img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .cp-ph { font-size: 28px; }
 .cp-name { grid-area: name; min-width: 0; align-self: end; }
 .cp-name b { font-size: 15px; font-weight: 800; margin-right: 6px; }

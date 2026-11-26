@@ -128,7 +128,7 @@ function facadeMaps(kind) {
   const light = (g, x, y, w, h) => { const gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, 'rgb(255,255,0)'); gr.addColorStop(0.35, 'rgb(215,255,0)'); gr.addColorStop(1, 'rgb(130,255,0)'); g.fillStyle = gr; g.fillRect(x, y, w, h); };
   const P = [
     // 0：青い カーテンウォール（ほそい アルミの たてざん・下に こい スパンドレル）
-    [(g, W, H) => { grad(g, 0, 0, W, H, '#86abc8', '#557d9b'); g.fillStyle = '#2f4d66'; g.fillRect(0, H * 0.8, W, H * 0.2); g.fillStyle = '#a9c0cf'; g.fillRect(0, H * 0.8 - 2, W, 3); g.fillStyle = '#c3ccd2'; g.fillRect(0, 0, 3, H); g.fillRect(W - 3, 0, 3, H); },
+    [(g, W, H) => { grad(g, 0, 0, W, H, '#7fb2d8', '#4a7da8'); g.fillStyle = '#2b4c6b'; g.fillRect(0, H * 0.8, W, H * 0.2); g.fillStyle = '#a9c0cf'; g.fillRect(0, H * 0.8 - 2, W, 3); g.fillStyle = '#c3ccd2'; g.fillRect(0, 0, 3, H); g.fillRect(W - 3, 0, 3, H); },
       (g, W, H) => { g.fillStyle = 'rgb(0,60,0)'; g.fillRect(0, 0, W, H); g.fillStyle = 'rgb(0,200,0)'; g.fillRect(4, H * 0.8, W - 8, H * 0.2); light(g, 5, 3, W - 10, H * 0.8 - 6); }],
     // 1：白い コンクリートの おびと、青緑の ガラスの おび
     [(g, W, H) => { g.fillStyle = '#e4e6df'; g.fillRect(0, 0, W, H); grad(g, 0, H * 0.08, W, H * 0.5, '#4f918c', '#2f6a69'); g.fillStyle = '#c7cbc4'; g.fillRect(0, H * 0.58, W, 3); g.fillRect(0, H * 0.08 - 3, W, 3); g.fillStyle = '#213f41'; g.fillRect(0, H * 0.08, 2, H * 0.5); g.fillRect(W - 2, H * 0.08, 2, H * 0.5); g.fillStyle = 'rgba(0,0,0,0.07)'; g.fillRect(0, H * 0.94, W, H * 0.06); },
@@ -188,7 +188,7 @@ const lin = (hex) => { const c = new THREE.Color(hex); return [c.r, c.g, c.b]; }
 const mul = (c, k) => [c[0] * k, c[1] * k, c[2] * k];
 
 // ---- 材質（シェーダーに まど・反射・切りぬきを 足す）----
-const SKY_DAY = [new THREE.Color(0.62, 0.72, 0.82), new THREE.Color(0.2, 0.42, 0.78)];
+const SKY_DAY = [new THREE.Color(0.58, 0.72, 0.88), new THREE.Color(0.2, 0.44, 0.82)];
 const SKY_NIGHT = [new THREE.Color(0.012, 0.02, 0.045), new THREE.Color(0.004, 0.008, 0.02)];
 function hook(material, U, mode, lit = 0.45) {
   material.onBeforeCompile = (sh) => {
@@ -224,13 +224,13 @@ ${sh.fragmentShader}`;
     float cp = uCityLit + (cfl > 0.86 ? 0.4 : 0.0) - (cfl < 0.16 ? 0.3 : 0.0);
     if (cell.y < -40.0) cp = 0.88;                                      // 1 階の ロビーと お店
     float con = step(croll, cp);
-    vec3 ctint = r3 < 0.6 ? vec3(1.0, 0.76, 0.44) : (r3 < 0.9 ? vec3(0.80, 0.90, 1.0) : vec3(1.0, 0.60, 0.28));
+    vec3 ctint = r3 < 0.6 ? vec3(1.0, 0.68, 0.30) : (r3 < 0.9 ? vec3(0.74, 0.87, 1.0) : vec3(1.0, 0.50, 0.17));
     totalEmissiveRadiance = ctint * cm.r * con * (0.38 + 0.62 * r1) * uCityNight;
   #endif`);
       f = f.replace('#include <opaque_fragment>', `
   #ifdef USE_EMISSIVEMAP
     vec3 cN = inverseTransformDirection(normal, viewMatrix); vec3 cV = normalize(vCityWp - cameraPosition); vec3 cR = reflect(cV, cN);
-    float cF = 0.1 + 0.9 * pow(1.0 - clamp(dot(-cV, cN), 0.0, 1.0), 4.0);
+    float cF = 0.16 + 0.84 * pow(1.0 - clamp(dot(-cV, cN), 0.0, 1.0), 4.0);
     outgoingLight += mix(uCitySkyH, uCitySkyZ, smoothstep(-0.05, 0.8, cR.y)) * cF * cityMask * 0.55;
   #endif
   #include <opaque_fragment>`);
@@ -285,7 +285,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
     const vo = opts.v0 ?? ((serial * 7) % 300), y1b = opts.yb ?? y1, ref = opts.ref ?? y0;
     const k = (y1 - ref) / fl, rows = opts.rows ?? Math.max(1, Math.round(k)), sv = rows / k;   // 階の 数が 整数に なるよう 少し のばす
     const v = (y) => vo + ((y - ref) / fl) * sv;
-    const lo = mul(tint, 0.9), hi = mul(tint, 1.08);
+    const lo = mul(tint, 0.84), hi = mul(tint, 1.14);
     quad(glass[face], [[ax, y0, az], [bx, y0, bz], [bx, y1b, bz], [ax, y1, az]], [[uo, v(y0)], [uo + n, v(y0)], [uo + n, v(y1b)], [uo, v(y1)]], [lo, lo, hi, hi]);
   };
   const gbox = (face, cx, cz, w, d, y0, y1, tint, opts = {}) => {
@@ -296,7 +296,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
   const gcyl = (face, cx, cz, r, y0, y1, tint, seg = 36) => {
     const F = FACE[face], n = Math.max(4, Math.round((Math.PI * 2 * r) / F.bay)), per = n / seg;   // ますは 筒を ひとまわりして ぴったり つながる
     const rows = Math.max(1, Math.round((y1 - y0) / F.floor)), uo = (serial * 13) % 400, vo = (serial * 7) % 300; serial += 1;
-    const lo = mul(tint, 0.9), hi = mul(tint, 1.08);
+    const lo = mul(tint, 0.84), hi = mul(tint, 1.14);
     for (let i = 0; i < seg; i += 1) {
       const a0 = (i / seg) * Math.PI * 2, a1 = ((i + 1) / seg) * Math.PI * 2;
       const c0 = Math.cos(a0), s0 = Math.sin(a0), c1 = Math.cos(a1), s1 = Math.sin(a1);
@@ -305,7 +305,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
         [[c1, 0, s1], [c0, 0, s0], [c0, 0, s0], [c1, 0, s1]]);
     }
   };
-  const CONC = lin(0xb9b4a8), ROOF = lin(0x4a4d52), STEEL = lin(0x8f969c), DARK = lin(0x2a2d33), WHITE = lin(0xf2efe6), RED = [1.0, 0.1, 0.06], WARM = [1.0, 0.84, 0.58];
+  const CONC = lin(0xb9b4a8), ROOF = lin(0x4a4d52), STEEL = lin(0x8f969c), DARK = lin(0x2a2d33), WHITE = lin(0xf2efe6), RED = [0.85, 0.03, 0.015], WARM = [1.0, 0.84, 0.58];
   // 屋上：ふち・きかいの はこ・アンテナ（赤い 航空しょうがい灯）。
   const roof = (cx, cz, w, d, y, { boxes = 2, mast = 0, tone = ROOF } = {}) => {
     mbox(cx, cz, w + 0.18, d + 0.18, y - 0.02, y + 0.3, tone);
@@ -316,6 +316,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
     if (mast) { mbox(cx, cz, 0.13, 0.13, y + 0.3, mast, STEEL); mbox(cx, cz, 0.34, 0.34, mast, mast + 0.34, RED, glow); }
   };
   // 1 階：ガラスの ロビー（お店）と ひさし。ますの v を -50 に する＝シェーダーが「1 階」と わかって ほとんど 灯す。
+  const NEON = [[0.8, 0.06, 0.3], [0.05, 0.5, 0.8], [0.1, 0.7, 0.25], [0.85, 0.42, 0.04]];
   const AWN = [lin(0xc8443a), lin(0x2f7f6b), lin(0xd9a23a), lin(0x3d5fa8), lin(0x8a4fa0)];
   const ground = (b, w, d) => {
     const h = b.kind === 'tower' ? 2.9 : 2.5, y0 = Y_WALK, y1 = y0 + h;
@@ -323,7 +324,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
     mbox(b.x, b.z, w + 0.5, d + 0.5, y1, y1 + 0.42, b.kind === 'tower' ? CONC : mul(CONC, 0.92));
     if (b.shops) {   // ひさし（南と、通りに 近い がわ）
       const n = Math.max(1, Math.round(w / 2.3)), step = (w - 0.3) / n;
-      for (let i = 0; i < n; i += 1) { const ax = b.x - (w - 0.3) / 2 + step * (i + 0.5), c = AWN[(i + Math.round(b.x * 3)) % AWN.length]; mbox(ax, b.z + d / 2 + 0.28, step - 0.3, 0.75, y1 - 0.5, y1 - 0.32, c); mbox(ax, b.z - d / 2 - 0.28, step - 0.3, 0.75, y1 - 0.5, y1 - 0.32, c); }
+      for (let i = 0; i < n; i += 1) { const ax = b.x - (w - 0.3) / 2 + step * (i + 0.5), c = AWN[Math.abs(i + Math.round(b.x * 3)) % AWN.length]; mbox(ax, b.z + d / 2 + 0.28, step - 0.3, 0.75, y1 - 0.5, y1 - 0.32, c); mbox(ax, b.z - d / 2 - 0.28, step - 0.3, 0.75, y1 - 0.5, y1 - 0.32, c); }
     } else {         // 玄関の ひさし（南）と かどの 柱
       mbox(b.x, b.z + d / 2 + 0.6, Math.min(3.2, w * 0.5), 1.3, y1 - 0.2, y1, STEEL);
       for (const sx of [-1, 1]) for (const sz of [-1, 1]) mbox(b.x + sx * (w / 2 - 0.2), b.z + sz * (d / 2 - 0.2), 0.5, 0.5, y0, y1, CONC);
@@ -405,6 +406,10 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
       for (let i = 0; i < 8; i += 1) { const a = (i / 8) * Math.PI * 2; mbox(b.x + Math.cos(a) * 3.1, b.z + Math.sin(a) * 3.1, 0.2, 0.2, hy, hy + 0.2, i % 2 ? RED : mul(WARM, 0.9), glow); }
       mbox(b.x - wt / 2 + 0.6, b.z - dt / 2 + 0.6, 0.14, 0.14, y, y + 4.2, STEEL); mbox(b.x - wt / 2 + 0.6, b.z - dt / 2 + 0.6, 0.34, 0.34, y + 4.2, y + 4.54, RED, glow);
     }
+    if (b.shops && topY >= 8) {   // かどの たての かんばん（夜は ネオンの ように 光る）
+      const c = NEON[Math.abs(Math.round(b.x * 7 + b.z)) % NEON.length], sx = b.x + w0 / 2 - 0.45, sz = b.z + d0 / 2 + 0.34;
+      mbox(sx, sz, 0.5, 0.16, 4.1, Math.min(topY - 0.6, 6.9), c, glow); mbox(sx, sz - 0.16, 0.1, 0.2, 4.4, 4.6, STEEL); mbox(sx, sz - 0.16, 0.1, 0.2, Math.min(topY - 1.1, 6.4), Math.min(topY - 0.9, 6.6), STEEL);
+    }
     solid(b.x, b.z, w0 / 2 + 0.25, d0 / 2 + 0.25);
     footprints.push([b.x, b.z, w0, d0, false]);
     keep(b.x, b.z, w0 / 2 + 1, d0 / 2 + 1);
@@ -414,7 +419,7 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
   mbox(-54.5, -57, 1.3, 2.3, 21.4, 21.6, STEEL); mbox(-54.5, -57, 1.3, 2.3, 18.8, 19, STEEL);
 
   // ---- 道・歩道・しき石 ----
-  const ASPH = lin(0x3b3e45), WALK = lin(0xb4b0a6), PAVE = lin(0xa39f95), PAINT = lin(0xe9e6da), YELLOW = lin(0xd8b23c);
+  const ASPH = lin(0x4d5158), WALK = lin(0xb4b0a6), PAVE = lin(0xa39f95), PAINT = lin(0xe9e6da), YELLOW = lin(0xd8b23c);
   for (const s of STREETS) {
     if (s.x !== undefined) topQ(s.x - RW, s.x + RW, s.z0, s.z1, Y_ROAD, ASPH); else topQ(s.x0, s.x1, s.z - RW, s.z + RW, Y_ROAD, ASPH);
   }
@@ -451,6 +456,22 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
   for (const [x0, x1, z0, z1] of NO_GRASS) D((x0 + x1) / 2, 0.1, (z0 + z1) / 2, x1 - x0, 0.1, z1 - z0, 0x8a8478, 0, 'cobble');
   keep(-58, -38, 19.5, 36); keep(-30, -59, 15, 15);   // まちの 中には 島の 草花・きせつの かざりを 置かない
 
+  // ---- とめて ある 車（はこ 6 つ・ライトは 光る 小物）----
+  const PAINTS = [lin(0xc23b34), lin(0x2f5fa8), lin(0xe6e3da), lin(0x2c2f36), lin(0xd9a528), lin(0x4f8f6a), lin(0x9aa3ad)];
+  const car = (x, z, alongX, tone, dir = 1) => {
+    const L = 2.3, Wd = 1.05, y = Y_ROAD;
+    const bx = (ox, oz, l, w, y0, y1, col, b = matte) => (alongX ? mbox(x + ox, z + oz, l, w, y + y0, y + y1, col, b) : mbox(x + oz, z + ox, w, l, y + y0, y + y1, col, b));
+    bx(0, 0, L, Wd, 0.2, 0.62, tone); bx(-0.12 * dir, 0, L * 0.52, Wd * 0.88, 0.62, 0.98, mul(tone, 0.82));
+    bx(-0.12 * dir, 0, L * 0.54, Wd * 0.9, 0.66, 0.9, DARK);                                   // まどの おび
+    for (const ox of [-0.7, 0.7]) bx(ox, 0, 0.44, Wd + 0.06, 0, 0.42, DARK);                    // タイヤ（左右 つながった はこ）
+    for (const oz of [-0.34, 0.34]) { bx(dir * (L / 2 + 0.01), oz, 0.04, 0.2, 0.36, 0.5, mul(WARM, 0.75), glow); bx(-dir * (L / 2 + 0.01), oz, 0.04, 0.2, 0.38, 0.5, mul(RED, 0.7), glow); }
+    solid(x, z, alongX ? 1.15 : 0.5, alongX ? 0.5 : 1.15);
+  };
+  { const o = RW - 0.6; let k = 0;
+    for (const [sx, sz, ax] of [[-56, AZ - o, 1], [-70, AZ - o, 1], [-59.5, AZ + o, 1], [-53, BZ - o, 1], [-70, BZ + o, 1], [-55, CZ - o, 1], [-37.5, CZ - o, 1], [-23, CZ - o, 1], [-69.5, CZ + o, 1], [-35, CZ + o, 1],
+      [WX - o, -41, 0], [WX - o, -22, 0], [WX + o, -60, 0], [CX + o, -36.5, 0], [CX + o, -58, 0], [CX - o, -23.5, 0], [EX - o, -62, 0]]) { car(sx, sz, !!ax, PAINTS[k % PAINTS.length], k % 2 ? 1 : -1); k += 1; }
+  }
+
   // ---- 街灯（まがった うでの 先に あかり）と 足もとの 光 ----
   const lamps = [];
   const POLE = lin(0x4b5057);
@@ -482,9 +503,9 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
     solid(-72, -5, 1.7, 1.7);                                  // 南の 小さな もりあがり
   }
   { const g = CITY.sign, zs = [AZ - RW - 0.9, AZ + RW + 0.9];
-    for (const z of zs) { mbox(g.x, z, 0.34, 0.34, Y_WALK, 5.0, POLE); solid(g.x, z, 0.17, 0.17); }
-    mbox(g.x, AZ, 0.3, zs[1] - zs[0] + 0.34, 4.5, 5.0, POLE);
-    mbox(g.x, AZ, 0.36, 4.4, 4.2, 4.3, mul(WARM, 0.9), glow);
+    for (const z of zs) { mbox(g.x, z, 0.24, 0.24, Y_WALK, 4.9, STEEL); mbox(g.x, z, 0.5, 0.5, Y_WALK, Y_WALK + 0.4, CONC); solid(g.x, z, 0.17, 0.17); }
+    mbox(g.x, AZ, 0.2, zs[1] - zs[0] + 0.24, 4.62, 4.9, STEEL);
+    mbox(g.x, AZ, 0.26, 4.4, 4.5, 4.58, mul(WARM, 0.9), glow);
     sprite({ en: '🏙 Downtown', ja: '🏙 ビルの まち' }, g.x, 5.75, AZ, { width: 6.4, size: 40 });
   }
 
@@ -523,8 +544,8 @@ export function buildCity({ root, D, sprite, obstacles, woods = [], keep = () =>
   let nightNow = 0;
   function setNight(night) {
     const n = Math.max(0, Math.min(1, night || 0)); nightNow = n;
-    U.night.value = n * 1.12;                 // まどの 明るさ（ブルームが にじむので 1.2 より 下）
-    U.glow.value = 0.03 + n * 1.25;           // 街灯・かんむり・赤い 灯
+    U.night.value = n * 1.05;                 // まどの 明るさ（ブルームが にじむので 1.2 より 下）
+    U.glow.value = 0.03 + n * 1.15;           // 街灯・かんむり・赤い 灯
     U.skyH.value.copy(SKY_DAY[0]).lerp(SKY_NIGHT[0], n); U.skyZ.value.copy(SKY_DAY[1]).lerp(SKY_NIGHT[1], n);
     for (const { material, glow: gl } of lit) material.emissiveIntensity = gl * n;
     if (pools) { pools.material.opacity = n * 0.5; pools.visible = n > 0.03; }

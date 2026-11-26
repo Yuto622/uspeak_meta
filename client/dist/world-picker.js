@@ -8,6 +8,7 @@
 // 絵と色だけ。新しい島を足したら LOOK に1行（無ければ 🏝 と 島の色で出る）。
 import { isJa } from './i18n.js';
 import { KIDS_ISLANDS, kidsOn } from './kids.js';
+import { neighboursOf } from './bridges-data.js';
 
 const LOOK = {
   willow: ['🏡', '#5aae78'], park: ['🎡', '#e27a2d'], errand: ['🛍️', '#e0a526'], school: ['🏫', '#5b97e6'],
@@ -49,7 +50,9 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
     const open = state.unlocked(r.id);
     const here = r.id === state.current || (r.id === 'main' && state.current === 'willow');
     const done = !r.hub && open && state.cleared(r.id);
-    const sub = r.id === 'main' && !big ? `${r.yomi || r.name} · はしで U-Speak島へ` : (r.yomi || r.name);
+    // いま いる 島から 橋 1 本で 歩いて 行ける 島（bridges-data.js）には 🌉 を そえる。
+    const walk = !here && neighboursOf(state.current).includes(r.id) ? ` · 🌉 ${isJa() ? 'あるいても 行ける' : 'Walk there'}` : '';
+    const sub = (r.id === 'main' && !big ? `${r.yomi || r.name} · はしで U-Speak島へ` : (r.yomi || r.name)) + walk;
     const [play, eng] = starsOf(r);
     return `<button type="button" class="wm-card${big ? ' big' : ''}${open ? '' : ' locked'}${here ? ' here' : ''}" data-world="${esc(r.id)}" style="--wc:${color}"
         aria-label="${esc(isJa() ? r.name : title(r))}">

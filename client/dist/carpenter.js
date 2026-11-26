@@ -383,13 +383,13 @@ export function createCarpenter({ player, rpg, send, toast = () => {}, speak = n
   const dialog = document.createElement('dialog');
   dialog.id = 'carpenter-dialog';
   dialog.setAttribute('aria-labelledby', 'cp-title');
-  dialog.innerHTML = `<header class="cp-head">
+  dialog.innerHTML = `<div class="cp-head">
       <div class="cp-face" aria-hidden="true"></div>
       <div class="cp-say"><span class="cp-who" translate="no"></span><p class="cp-en" translate="no"></p><p class="cp-ja"></p></div>
       <button type="button" class="cp-voice" aria-label="Listen again">🔊</button>
       <div class="cp-top"><h2 id="cp-title"></h2><span class="cp-coins">◈ <b>0</b></span></div>
       <button type="button" class="cp-close" aria-label="とじる">×</button>
-    </header>
+    </div>
     <div class="cp-body"><ul class="cp-list" role="listbox"></ul><section class="cp-detail" aria-live="polite"></section></div>`;
   const talk = document.createElement('button');
   talk.type = 'button'; talk.id = 'carpenter-talk'; talk.hidden = true;
@@ -436,7 +436,7 @@ export function createCarpenter({ player, rpg, send, toast = () => {}, speak = n
     $('.cp-who').textContent = CARPENTER.name.en;
     const line = pickLine();
     $('.cp-en').textContent = line.en; $('.cp-ja').textContent = line.ja;
-    $('.cp-coins b').textContent = String(state.coins);
+    $('.cp-coins b').textContent = state.coins.toLocaleString('en-US');
     const face = $('.cp-face');
     if (state.shots.ken && !face.firstChild) face.innerHTML = `<img alt="" src="${state.shots.ken}">`;
   }

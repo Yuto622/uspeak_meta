@@ -550,6 +550,17 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
   assert.equal(crossing('willow',BRIDGE.x,BRIDGE.mid+2),null,'no flicker on the near half');
   console.log('PASS: メインの島 と U-Speak島 は 橋で つながる（歩いて わたれる）。');
  }
+ {// ほかの 島への 橋（bridges-data.js）：岸の はしは、ついた 場所から 歩いて 行ける 所に ある。
+  const {linksOf}=await import('../dist/bridges-data.js');
+  assert.ok(linksOf(hub).length>=1,hub+': at least one bridge leaves the island');
+  for(const l of linksOf(hub)){const e=l.a===hub?l.from:l.to,ex=Math.round(e.x-island.x),ez=Math.round(e.z-island.z);
+   assert.ok([[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]].some(([dx,dz])=>seen.has(key(ex+dx,ez+dz))),hub+': the bridge '+l.id+' lands where a child can walk to (local '+ex+','+ez+')');}
+  // 橋の むこうから 見えて いる だけの 島（asPeer）は、絵は 出るが ミニマップは 描かない。つぎの show で 元に もどる。
+  if(hub!=='main'){rpg[mod].show(true);rpg[mod].asPeer(true);
+   assert.equal(rpg[mod].visible,true);assert.equal(rpg[mod].drawMap(ctx,player),false,hub+': a peer island leaves the minimap to the island the child is on');
+   assert.equal(rpg.mapSmall(ctx),false,hub+': and U-Speak island still draws its own');
+   rpg[mod].show(false);assert.equal(rpg[mod].visible,false);}
+ }
  console.log('PASS: '+island.name+' — '+island.spots.length+' places standable, reachable on foot, each with a clear paved path, none overlapping.');
  // のりもの島 has one more thing to check: the road. A checkpoint a child cannot drive
  // to, or a stretch of road through a shop, would only be found by driving it.

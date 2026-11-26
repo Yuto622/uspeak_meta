@@ -18,8 +18,9 @@ export const LINKS = [
   { a: 'willow', b: 'main', from: { x: 5, z: -18.5 }, to: { x: 5, z: -44 }, width: 3.4, legacy: true },
   { a: 'willow', b: 'park', from: { x: 25, z: 12 }, to: { x: 102, z: 4 }, width: 3.6 },
   { a: 'willow', b: 'errand', from: { x: -25, z: 4 }, to: { x: -124.8, z: 62.4 }, width: 3.6 },
-  { a: 'main', b: 'arena', from: { x: -79.5, z: -99 }, to: { x: -110.8, z: -107.3 }, width: 3.6 },
-  { a: 'main', b: 'meadow', from: { x: -67, z: -119.5 }, to: { x: -30.2, z: -157.9 }, width: 3.6 },
+  // メインの島の 2 本は ダウンタウン（main-city.js）の 通りの 行き止まりから 出る：B どおりの 西の はし・East Ave の 北の はし。
+  { a: 'main', b: 'arena', from: { x: -103, z: -110 }, to: { x: -110.8, z: -107.3 }, width: 3.6 },
+  { a: 'main', b: 'meadow', from: { x: -56, z: -152 }, to: { x: -30.2, z: -158.1 }, width: 3.6 },
   { a: 'arena', b: 'town', from: { x: -158.8, z: -91.2 }, to: { x: -191.2, z: -58.8 }, width: 3.6 },
   { a: 'arena', b: 'forest', from: { x: -146, z: -133.9 }, to: { x: -150, z: -184 }, width: 3.6 },
   { a: 'town', b: 'fishworld', from: { x: -230.7, z: -57.4 }, to: { x: -343.2, z: -170 }, width: 3.6 },

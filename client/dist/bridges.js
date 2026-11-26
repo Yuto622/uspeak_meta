@@ -38,7 +38,7 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
   const nameOf = (id) => { const r = REGION_BY_ID[id]; return r ? { en: r.en || r.name, ja: r.yomi || r.name } : { en: id, ja: id }; };
 
   // 札（canvas に 焼いた 絵）。island-kit.js の sprite と 同じ 見た目。`text` は { en, ja }、あとから かえられる。
-  function sprite(parent, text, x, y, z, { width = 6.4, background = '#183946', color = '#f3dfaa', size = 34 } = {}) {
+  function sprite(parent, text, x, y, z, { width = 8.4, background = '#183946', color = '#f3dfaa', size = 38 } = {}) {
     const c = document.createElement('canvas'); c.width = 768; c.height = 100;
     const ctx = c.getContext('2d');
     const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
@@ -97,8 +97,8 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
       const b = batch(g, bodyMat); const w = l.half + 1.7;
       post(b, w, 1.2); post(b, w, l.len - 1.2);
       b.flush();
-      sprite(g, { en: `→ ${B.en}`, ja: `→ ${B.ja}` }, w, 3.85, 1.2);
-      sprite(g, { en: `→ ${A.en}`, ja: `→ ${A.ja}` }, w, 3.85, l.len - 1.2);
+      sprite(g, { en: `→ ${B.en}`, ja: `→ ${B.ja}` }, w, 4.0, 1.2);
+      sprite(g, { en: `→ ${A.en}`, ja: `→ ${A.ja}` }, w, 4.0, l.len - 1.2);
     } else {
       const b = batch(g, bodyMat), glow = batch(g, glowMat);
       const H = l.half, mid = l.len / 2;
@@ -170,8 +170,8 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
       const w = H + 1.9;
       post(b, w, 1.0); post(b, w, l.len - 1.0);
       b.flush(); glow.flush({ shadow: false });
-      sprite(g, { en: `→ ${B.en}`, ja: `→ ${B.ja}` }, w, 3.85, 1.0);
-      sprite(g, { en: `→ ${A.en}`, ja: `→ ${A.ja}` }, w, 3.85, l.len - 1.0);
+      sprite(g, { en: `→ ${B.en}`, ja: `→ ${B.ja}` }, w, 4.0, 1.0);
+      sprite(g, { en: `→ ${A.en}`, ja: `→ ${A.ja}` }, w, 4.0, l.len - 1.0);
       // しまって いる ときの 門（まんなか）。いる ときだけ 出す。
       const gate = new THREE.Group(); gate.visible = false; g.add(gate);
       const gb = batch(gate, gateMat), gy = deckY(l, mid), ge = edge(mid);
@@ -181,7 +181,7 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
       gb.add(0, gy + 2.3, mid, ge * 2 - 0.4, 0.2, 0.22, DARK); gb.add(0, gy + 0.35, mid, ge * 2 - 0.4, 0.2, 0.22, DARK);
       gb.flush();
       entry.gate = gate;
-      entry.gateSign = sprite(gate, { en: '🔒', ja: '🔒' }, 0, gy + 4.25, mid, { width: 7.4, background: '#5b2333', color: '#ffe9c2' });
+      entry.gateSign = sprite(gate, { en: '🔒', ja: '🔒' }, 0, gy + 4.25, mid, { width: 8.4, background: '#5b2333', color: '#ffe9c2' });
     }
     g.visible = false;
     scene.add(g);
@@ -226,9 +226,14 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
   let bump = null, bumpLatch = null;
   function blocked(x, z) {
     if (!active()) return null;
-    if (asked.length < 6) asked.push(x, z);
+    if (asked.length < 24) asked.push(x, z);
     const l = deckUnder(x, z, 0.6);
-    if (!l) return null;
+    if (!l) {
+      // 手すり：海の 上の 板に 立って いる 間は、板の 外へ 出られない（島の 四角い 当たり判定の かどは 海の 上まで 歩けて しまうので）。
+      const here = deckUnder(player.position.x, player.position.z, 0);
+      if (here) { const s = project(here, player.position.x, player.position.z).s; if (s > 3.5 && s < here.len - 3.5) return true; }
+      return null;
+    }
     const lock = lockOf(otherEnd(l, rpg.state.current));
     if (lock && beyondGate(l, project(l, x, z).s)) { bump = { l, lock }; return true; }
     return false;
@@ -283,8 +288,11 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
     const ok = active();
     // 手すりに そって すべる：ななめの 橋で まっすぐ 押しても 止まらない ように。
     // game.js は「いまの 場所 → x だけ 動いた 場所 → z だけ 動いた 場所」の 順に 聞く。動けなかった ぶんを 橋の 向きに なおす。
-    if (ok && asked.length === 6 && Math.abs(asked[0] - last.x) < 1e-6 && Math.abs(asked[1] - last.z) < 1e-6) {
-      const wx = asked[2] - asked[0], wz = asked[5] - asked[1], want = Math.hypot(wx, wz);
+    // （ほかの ものが 先に 聞いて いても よい ように、「さっきの 場所」から はじまる 3 つを さがす。）
+    let ai = -1;
+    if (ok) for (let i = 0; i + 5 < asked.length; i += 2) if (Math.abs(asked[i] - last.x) < 1e-6 && Math.abs(asked[i + 1] - last.z) < 1e-6 && Math.abs(asked[i + 3] - last.z) < 1e-6) { ai = i; break; }
+    if (ai >= 0) {
+      const wx = asked[ai + 2] - asked[ai], wz = asked[ai + 5] - asked[ai + 1], want = Math.hypot(wx, wz);
       const moved = Math.hypot(px0 - last.x, pz0 - last.z);
       const l = want > 1e-5 && want < 2 && moved < want * 0.8 ? deckUnder(last.x, last.z, 0) : null;
       if (l) {

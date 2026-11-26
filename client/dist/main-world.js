@@ -596,7 +596,7 @@ export function createMainWorld({ scene }) {
     if (!d || !island.visible) return baseDraw(ctx, player);
     let ok = false;
     try {
-      const key = `${isJa() ? 'ja' : 'en'}|${island.target || ''}|${d.spots.length}|${(d.roads || []).length}`;
+      const key = `${isJa() ? 'ja' : 'en'}|${island.target || ''}|${d.spots.length}|${(d.roads || []).length}|${city ? 'city' : ''}`;
       if (!mapCache || mapKey !== key) {
         const c = document.createElement('canvas'); c.width = 360; c.height = 280;
         const g = c.getContext('2d'); g.setTransform(2, 0, 0, 2, 0, 0);
@@ -615,9 +615,10 @@ export function createMainWorld({ scene }) {
     const o = island.origin();
     // 2026-11：東に ひろばが ついたので、島ぜんたい（x -56〜88）が 入るように 1.5 倍 → 1.2 倍、まんなかを x 16 に（前は `90 + x*1.5`）。
     // 2026-11 その 2：西に じてんしゃやの 土地（x -70 まで）が ついたので 1.2 倍 → 1.1 倍、まんなかを x 9 に（x -72〜90 が 入る）。
-    const k = 1.1;
-    const px = (x) => 90 + (x - 9) * k;
-    const py = (z) => 70 + z * k;
+    // 2026-11 その 3：北西に 高層ビルの まち（x -78・z -74 まで）が ついたので 1.1 倍 → 1.05 倍、まんなかを (5, -16) に（x -80〜90・z -82〜50 が 入る）。
+    const k = 1.05;
+    const px = (x) => 90 + (x - 5) * k;
+    const py = (z) => 87 + z * k;
     mapXY = { px, py };
     ctx.clearRect(0, 0, 180, 140);
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(0, 0, 180, 140);
@@ -700,6 +701,7 @@ export function createMainWorld({ scene }) {
       ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);
     }
     drawPlazaMap(ctx, px, py, k);
+    if (city) drawCityMap(ctx, px, py, k);   // 北西の ビルの まち：通りと ビルの 足もと
     // スタートの ほし。
     const st = d.start || START;
     ctx.font = '8px sans-serif'; ctx.fillText('⭐', px(st.x), py(st.z));
@@ -732,7 +734,7 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
-    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); carpenter?.update(t); }
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); city?.update(t, player); carpenter?.update(t); }
     const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;
@@ -741,6 +743,7 @@ export function createMainWorld({ scene }) {
     // としょかんの まど（お店では ない＝よるも あいて いるので、夜は いつも 灯る）。
     if (library) { const k = Math.max(0, Math.min(1, n || 0)); for (const { material, glow } of library.lit) material.emissiveIntensity = glow * k; }
     planetarium?.setNight(n);   // プラネタリウムも お店では ない＝夜は いつも 灯る
+    city?.setNight(n);          // ビルの まど・街灯・かんむり（main-city.js）
     carpenter?.setNight(n);     // 増築した へやの まど
   }
   // としょかんの だん（4 だん・高さ 0.8）と げんかんの 上の ゆかの 高さ。世界の 座標。ほかは 0。
@@ -777,6 +780,8 @@ export function createMainWorld({ scene }) {
   Object.defineProperty(out, 'library', { get: () => library, enumerable: true });
   // プラネタリウム（外がわ）：{ x, z, door, obstacles, setNight … }。出た ときに 立つ 場所は planetarium.js が ここから 決める。
   Object.defineProperty(out, 'planetarium', { get: () => planetarium, enumerable: true });
+  // 高層ビルの まち（かざり）：{ group, meshes, buildings, footprints, lamps, triangles, setNight, update … }。
+  Object.defineProperty(out, 'city', { get: () => city, enumerable: true });
   // Object.assign は getter を 値に して しまうので defineProperty で。
   Object.defineProperty(out, 'casting', { get: () => !!fx?.casting, enumerable: true });
   return out;
