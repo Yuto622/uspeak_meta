@@ -179,9 +179,10 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
     ui.name.textContent = (isJa() ? who.name?.ja : who.name?.en) || who.name?.ja || who.name?.en || '';
     ui.kind.textContent = p ? `${p.icon} ${isJa() ? p.ja : p.en}` : '';
     ui.hearts.innerHTML = heartsHtml(who.key);
-    const main = isJa() ? line.ja : line.en; const sub = isJa() ? line.en : line.ja;
-    ui.line.textContent = main || sub || ''; ui.line.lang = isJa() ? 'ja' : 'en';
-    ui.sub.textContent = main ? sub || '' : ''; ui.sub.lang = isJa() ? 'en' : 'ja';
+    // 英語が 主役（大きく）・日本語は 小さく 下に。どちらの 言語の 画面でも 同じ（英語を 学ぶ ための 会話）。
+    const main = line.en; const sub = line.ja;
+    ui.line.textContent = main || sub || ''; ui.line.lang = main ? 'en' : 'ja';
+    ui.sub.textContent = main ? sub || '' : ''; ui.sub.lang = 'ja';
     setFace(line.mood);
     const last = state.at >= state.lines.length - 1;
     let acts = `<button type="button" class="ntk-say" aria-label="${L('Listen', 'きく')}">🔊</button>`;
