@@ -1047,7 +1047,7 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   const kaguList = await nextMessage(a.room, 'prop:shop');
   assert.equal(kaguList.furniture.length, PROPS.size);
   // 2026-11：だれでも はじめの かぐ（ベッド・テーブル・いす・しょくぶつ・ラグ）を もって いる（town.js の starterRoom）。
-  assert.deepEqual(kaguList.furniture.filter((f) => f.owned).map((f) => f.id).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual(kaguList.furniture.filter((f) => f.owned).map((f) => f.id).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
   a.room.send('prop:buy', { id: 'table' });
   assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'too far');
   await stand(kagu.wx, kagu.wz);
@@ -1064,8 +1064,8 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   const room = await nextMessage(a.room, 'room:state');
   assert.equal(room.tier, 1);
   assert.equal(room.grid, ROOMS[0].grid);
-  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table'], 'a first room comes with the starter set');
-  assert.deepEqual(room.owned.sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table'], 'a first room comes with the starter set');
+  assert.deepEqual(room.owned.sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
 
   // Furnishing only happens inside. Standing at the door is not being in the room.
   a.room.send('room:place', { f: 'chair', x: 0, z: 0, r: 0 });
@@ -1074,7 +1074,7 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   a.room.send('room:place', { f: 'chair', x: 2, z: 0, r: 0 });
   const placed = await nextMessage(a.room, 'room:placed');
   assert.deepEqual([placed.f, placed.x, placed.z, placed.r], ['chair', 2, 0, 0]);
-  assert.equal(placed.used, 6);
+  assert.equal(placed.used, 7);
   assert.equal(placed.cap, ROOMS[0].props);
   // Nothing stands on anything else, goes through a wall, or was never bought.
   a.room.send('room:place', { f: 'rug', x: 2, z: 0, r: 0 });
@@ -1085,9 +1085,9 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not bought');
   // A rug is two squares across, and pointing at either of them picks it up.
   a.room.send('room:place', { f: 'rug', x: 1, z: 1, r: 0 });
-  assert.equal((await nextMessage(a.room, 'room:placed')).used, 7);
+  assert.equal((await nextMessage(a.room, 'room:placed')).used, 8);
   a.room.send('room:remove', { x: 2, z: 2 });
-  assert.equal((await nextMessage(a.room, 'room:removed')).used, 6);
+  assert.equal((await nextMessage(a.room, 'room:removed')).used, 7);
 
   // Blocks are not put down in a room at all: they are stacked on the plaza, and the
   // plaza is walked into like everywhere else.
@@ -1136,7 +1136,7 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   await waitFor(() => again.room.state.players.get(again.room.sessionId).space === 'in:room');
   again.room.send('room:place', { f: 'rug', x: 2, z: 2, r: 0 });
   const still = await nextMessage(again.room, 'room:placed');
-  assert.equal(still.used, 7, 'the chair from before (and the starter set) is still there');
+  assert.equal(still.used, 8, 'the chair from before (and the starter set) is still there');
   again.room.send('move', { s: 'in:plaza', x: 0, z: 0, r: 0, a: 'idle', t: 1 });
   await waitFor(() => again.room.state.players.get(again.room.sessionId).space === 'in:plaza');
   again.room.send('plaza:place', { x: 3, y: 0, z: 3, b: 'stone' });
@@ -2205,20 +2205,20 @@ test('じぶんの いえ（メインの島）: the house on the main island is 
   a.room.send('room:enter', {});
   const room = await nextMessage(a.room, 'room:state');
   assert.equal(room.tier, 1);
-  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
   // 中で もようがえ：かたづける → むきを かえて べつの ところに 置く。買って いない ものは 置けない。
   await stand(0, 2.6, 'in:room');
   a.room.send('room:remove', { x: -3, z: -2 });       // ベッドの どの マスでも
   const gone = await nextMessage(a.room, 'room:removed');
   assert.equal(gone.f, 'bed');
-  assert.equal(gone.used, 4);
+  assert.equal(gone.used, 5);
   a.room.send('room:place', { f: 'bed', x: 1, z: 0, r: 1 });
   const put = await nextMessage(a.room, 'room:placed');
-  assert.deepEqual([put.f, put.x, put.z, put.r, put.used], ['bed', 1, 0, 1, 5]);
+  assert.deepEqual([put.f, put.x, put.z, put.r, put.used], ['bed', 1, 0, 1, 6]);
   a.room.send('room:place', { f: 'piano', x: -4, z: 2, r: 0 });
   assert.equal((await nextMessage(a.room, 'room:error')).reason, 'not bought');
   // ぜんぶ かたづけて 出て、入りなおしても かぐは もどって こない（1 回だけ）。もって いる ことは かわらない。
-  for (const [x, z] of [[1, 0], [1, -4], [1, -3], [3, -4], [-1, -1]]) {
+  for (const [x, z] of [[1, 0], [1, -4], [1, -3], [3, -4], [-1, -1], [0, -4]]) {
     a.room.send('room:remove', { x, z });
     await nextMessage(a.room, 'room:removed');
   }
@@ -2230,7 +2230,7 @@ test('じぶんの いえ（メインの島）: the house on the main island is 
   b.room.send('room:enter', {});
   const later = await nextMessage(b.room, 'room:state');
   assert.deepEqual(later.furniture, [], 'the starter set is given once');
-  assert.deepEqual(later.owned.sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual(later.owned.sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
   // まちづくり島の 入口も いままでどおり 同じ へや。
   const door = TOWN_ISLAND.spotById.get('door');
   b.room.send('move', { s: TOWN_ISLAND.id, x: door.wx, z: door.wz, r: 0, a: 'idle', t: 1 });
@@ -2238,5 +2238,48 @@ test('じぶんの いえ（メインの島）: the house on the main island is 
   b.room.send('room:enter', {});
   assert.deepEqual((await nextMessage(b.room, 'room:state')).furniture, []);
   await b.room.leave();
+  await sleep(100);
+});
+
+// パソコンの オンライン ショップ（2026-11）：かぐは かぐ屋の 前か、じぶんの へやの 中で 買える。ほかの 場所からは 買えない。
+test('オンライン ショップ：じぶんの へやの 中から かぐを 買える・ほかの 場所からは 買えない', async () => {
+  const { TOWN_ISLAND, PROPS } = await import('../src/game/town.js');
+  const a = await join('Shopper');
+  const kagu = TOWN_ISLAND.spotById.get('furniture');
+  const stand = async (x, z, space) => {
+    a.room.send('move', { s: space, x, z, r: 0, a: 'idle', t: 1 });
+    await waitFor(() => { const p = a.room.state.players.get(a.room.sessionId); return Math.abs(p.x - x) < 0.01 && p.space === space; });
+  };
+  const coins = a.welcome.wallet.coins;
+  const cheap = [...PROPS.values()].filter((f) => f.price > 0 && f.price <= coins && !['rug', 'plant', 'table', 'bed'].includes(f.id)).sort((x, y) => x.price - y.price)[0];
+  assert.ok(cheap, 'there is something a new child can afford');
+  // へやにも かぐ屋にも いない：買えない（メインの島・まちづくり島の はなれた ところ・ひろば）。
+  for (const [x, z, space] of [[0, 0, 'main'], [kagu.wx + 20, kagu.wz, TOWN_ISLAND.id], [0, 0, 'in:plaza'], [0, 0, 'in:room.someone']]) {
+    await stand(x, z, space);
+    a.room.send('prop:buy', { id: cheap.id });
+    assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'too far', `not from ${space}`);
+  }
+  // じぶんの へやの 中：買える。コインは 部屋が とる。
+  await stand(0, 0, 'in:room');
+  a.room.send('prop:buy', { id: cheap.id });
+  const got = await nextMessage(a.room, 'prop:bought');
+  assert.equal(got.id, cheap.id);
+  assert.equal(got.wallet.coins, coins - cheap.price);
+  assert.ok(got.furniture.find((f) => f.id === cheap.id).owned);
+  // 買った ものは すぐ 置ける。
+  a.room.send('room:place', { f: cheap.id, x: 2, z: 1, r: 0 });
+  assert.equal((await nextMessage(a.room, 'room:placed')).f, cheap.id);
+  // へやの 中でも いつもの きまり：2 回は 買えない・コインが たりない・ない かぐ。
+  a.room.send('prop:buy', { id: cheap.id });
+  assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'already yours');
+  a.room.send('prop:buy', { id: 'bed_king' });
+  const poor = await nextMessage(a.room, 'prop:error');
+  assert.equal(poor.reason, 'not enough coins');
+  assert.equal(poor.need, 3000);
+  a.room.send('prop:buy', { id: 'throne' });
+  assert.equal((await nextMessage(a.room, 'prop:error')).reason, 'no such furniture');
+  // パソコンは はじめから へやに 1 台。
+  a.room.send('move', { s: 'main', x: 0, z: 0, r: 0, a: 'idle', t: 2 });
+  await a.room.leave();
   await sleep(100);
 });

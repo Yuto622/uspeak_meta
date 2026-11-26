@@ -75,6 +75,8 @@ export function loadTown(file = DATA_PATH) {
     if (!f.word || !f.ja) throw new Error(`town.json: furniture ${f.id} carries no word`);
     if (!Number.isFinite(f.price) || f.price < 0) throw new Error(`town.json: furniture ${f.id} has no price`);
     if (!(f.w >= 1) || !(f.d >= 1) || f.w % 1 || f.d % 1) throw new Error(`town.json: furniture ${f.id} has no whole footprint`);
+    // ねられる ベッドは 人が 横に なれる 大きさ（おくゆき 3 マス）で、ねる 高さを 持つ。
+    if (f.bed === true && (!(f.d >= 3) || !(f.sleepY > 0))) throw new Error(`town.json: bed ${f.id} is not somewhere to lie down`);
     if (f.price === 0) freeProps += 1;
     props.set(f.id, { ...f });
   }
@@ -126,6 +128,8 @@ export const nextRoom = (tier) => ROOMS.find((r) => r.tier === tier + 1) || null
 export const blockPayload = (b, owned) => ({ id: b.id, word: b.word, ja: b.ja, price: b.price, color: b.color, owned });
 export const propPayload = (f, owned) => ({
   id: f.id, word: f.word, ja: f.ja, price: f.price, color: f.color, w: f.w, d: f.d, h: f.h, shape: f.shape, owned,
+  // ベッドは ねられる（room-world.js）。ねる 高さと 足の 位置は 形ごとに ちがうので カタログが 持つ。
+  ...(f.bed === true ? { bed: true, sleepY: Number(f.sleepY) || 0.78, sleepZ: Number(f.sleepZ) || 0.8 } : {}),
 });
 
 // ---- what a child owns and has built -----------------------------------------------
@@ -283,13 +287,39 @@ export const STARTER_ROOM = [
   { f: 'chair', x: 1, z: -3, r: 0 },
   { f: 'plant', x: 3, z: -4, r: 0 },
   { f: 'rug', x: -1, z: -1, r: 0 },
+  { f: 'pc', x: -1, z: -4, r: 0 },         // オンライン ショッピングの パソコン（2026-11）
 ].filter((p) => PROPS.has(p.f));
+
+// パソコン（かぐを 買う 入口）は だれの へやにも 1 台。あたらしい へやは 上の STARTER_ROOM で 置く。
+// **前から へやを もって いる 子**（starter は もう true）にも 1 回だけ：あいて いる ゆかに 置く。置けなければ
+// （いっぱい・すきまが ない）もちものに 入れるだけ＝子どもが じぶんで 置ける。`room_json.pc` が しるし（starter と 同じ 考え）。
+export const PC_ID = 'pc';
+export function grantPc(state, owned, raw) {
+  if (!PROPS.has(PC_ID)) return state;
+  if (!owned.includes(PC_ID)) owned.push(PC_ID);
+  if (raw?.pc === true) { state.pc = true; return state; }
+  if (!state.furniture.some((p) => p.f === PC_ID)) {
+    const half = roomOfTier(state.tier).grid / 2;
+    // おくの かべぎわから 手前へ・左から 右へ。戸口の 前（x -2〜1・いちばん 手前の 2 れつ）は あける。
+    search: for (let z = -half; z < half; z += 1) {
+      for (let x = -half; x < half; x += 1) {
+        if (z >= half - 2 && x >= -2 && x <= 1) continue;
+        try { placeProp(state, owned, { f: PC_ID, x, z, r: 0 }); break search; } catch (err) {
+          if (!(err instanceof TownError)) throw err;
+          if (err.message === 'room is full') break search;
+        }
+      }
+    }
+  }
+  state.pc = true;
+  return state;
+}
 
 // `raw` は 保存の room_json、`state` は sanitizeRoom の 結果、`owned` は もっている かぐ（ここで ふえる）。
 // 1 回 わたしたら `starter: true` が room_json に のこり、子どもが ぜんぶ かたづけても 二度と わたさない。
 // 前から かぐを 置いて いた 子の へやには さわらない（しるしだけ つける）。コインは うごかない。
 export function starterRoom(state, owned, raw) {
-  if (raw?.starter === true) { state.starter = true; return state; }
+  if (raw?.starter === true) { state.starter = true; return grantPc(state, owned, raw); }
   if (!state.furniture.length) {
     for (const piece of STARTER_ROOM) {
       if (!owned.includes(piece.f)) owned.push(piece.f);
@@ -298,7 +328,7 @@ export function starterRoom(state, owned, raw) {
     }
   }
   state.starter = true;
-  return state;
+  return grantPc(state, owned, raw);
 }
 
 export function roomPayload(state, owned) {

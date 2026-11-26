@@ -93,16 +93,25 @@ function place(S, f, ax, az, r) {
 }
 const report = [];
 {
-  const S = stage(document.querySelector('#room'), [0, 4.6, 9.5], [0, 0.7, 0]);
-  let x = -8.5;
-  for (const f of town.furniture) { if (only && f.id !== only) continue; report.push(place(S, f, Math.round(x), -Math.floor(f.d / 2), 0)); x += f.w + 0.62; }
-  document.body.dataset.roomCalls = S.draw();
+  // 8 こずつ 1 まいの 絵に（31 しゅるい ぜんぶ）。はじめの 1 まいは もとの canvas、のこりは 足す。
+  const list = town.furniture.filter((f) => !only || f.id === only);
+  let calls = 0, first = document.querySelector('#room'), last = first;
+  for (let i = 0; i < list.length; i += 8) {
+    let canvas = first;
+    if (i) { canvas = document.createElement('canvas'); canvas.className = 'stage'; canvas.width = 1180; canvas.height = 520; last.after(canvas); last = canvas; }
+    const row = list.slice(i, i + 8), total = row.reduce((n, f) => n + f.w + 0.7, -0.7);
+    const S = stage(canvas, [0, 4.4, 9.8], [0, 0.95, 0]);
+    let x = -total / 2;
+    for (const f of row) { report.push(place(S, f, Math.round(x), -Math.floor(f.d / 2), 0)); x += f.w + 0.7; }
+    calls += S.draw();
+  }
+  document.body.dataset.roomCalls = calls;
 }
 {
-  const S = stage(document.querySelector('#room2'), [0, 6.5, 9], [0, 0.4, 0]);
+  const S = stage(document.querySelector('#room2'), [0, 9.5, 10.5], [0, 0.4, 0]);
   const f = (id) => town.furniture.find((q) => q.id === id);
-  let x = -10;
-  for (const id of ['sofa', 'bed', 'piano', 'tv', 'chair']) for (const r of [1, 2, 3]) { const it = f(id), w = r % 2 ? it.d : it.w; report.push(place(S, it, x, -1, r)); x += w + 0.4; }
+  let x = -11;
+  for (const id of ['bed', 'pc', 'bed_canopy', 'bed_king']) for (const r of [1, 2, 3]) { const it = f(id), w = r % 2 ? it.d : it.w; report.push(place(S, it, x, -1, r)); x += w + 0.4; }
   S.draw();
 }
 document.body.dataset.report = JSON.stringify(report);

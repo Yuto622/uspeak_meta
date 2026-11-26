@@ -53,11 +53,15 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   const HZ = size?.z ?? HALF_Z;
   const DOCK = { x: dock?.x ?? 0, z: dock?.z ?? 21 };
   // つき出した 土地の 中か（m だけ 内がわに ちぢめて 見る。マイナスなら 外へ ひろげる）。
-  const inAnnex = annex ? (x, z, m = 0) => {
-    const r = Math.max(0, (annex.r ?? 4) - m), hx = (annex.x1 - annex.x0) / 2 - m, hz = (annex.z1 - annex.z0) / 2 - m;
-    const dx = Math.abs(x - (annex.x0 + annex.x1) / 2) - (hx - r), dz = Math.abs(z - (annex.z0 + annex.z1) / 2) - (hz - r);
+  // `annex.also` に 四角を 足せる（メインの島の 北東の ならび・2026-11）。どれかの 中なら 陸。
+  const annexRects = annex ? [annex, ...(annex.also || [])] : [];
+  const inRect = (a, x, z, m) => {
+    const r = Math.max(0, (a.r ?? 4) - m), hx = (a.x1 - a.x0) / 2 - m, hz = (a.z1 - a.z0) / 2 - m;
+    const dx = Math.abs(x - (a.x0 + a.x1) / 2) - (hx - r), dz = Math.abs(z - (a.z0 + a.z1) / 2) - (hz - r);
     return dx <= 0 ? dz <= r : dz <= 0 ? dx <= r : dx * dx + dz * dz <= r * r;
-  } : () => false;
+  };
+  const inAnnex = annex ? (x, z, m = 0) => annexRects.some((a) => inRect(a, x, z, m)) : () => false;
+  const annexBox = annex ? { x0: Math.min(...annexRects.map((a) => a.x0)), x1: Math.max(...annexRects.map((a) => a.x1)), z0: Math.min(...annexRects.map((a) => a.z0)), z1: Math.max(...annexRects.map((a) => a.z1)) } : null;
   const root = new THREE.Group();
   root.visible = false;
   scene.add(root);
@@ -394,8 +398,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     const NB = [[2, 0], [-2, 0], [0, 2], [0, -2]];
     const isLand = (x, z) => inAnnex(x, z) || (edge(x, z) <= 1.04 && (!land || land(x, z)));
     const more = (n) => 2 * Math.max(0, Math.ceil(n / 2));
-    const X0 = -RX - (annex ? more(-RX - annex.x0) : 0), X1 = RX + (annex ? more(annex.x1 - RX) : 0);
-    const Z0 = -RZ - (annex ? more(-RZ - annex.z0) : 0), Z1 = RZ + (annex ? more(annex.z1 - RZ) : 0);
+    const X0 = -RX - (annex ? more(-RX - annexBox.x0) : 0), X1 = RX + (annex ? more(annexBox.x1 - RX) : 0);
+    const Z0 = -RZ - (annex ? more(-RZ - annexBox.z0) : 0), Z1 = RZ + (annex ? more(annexBox.z1 - RZ) : 0);
     for (let x = X0; x <= X1; x += 2) {
       for (let z = Z0; z <= Z1; z += 2) {
         const e = edge(x, z);
@@ -671,7 +675,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     return c;
   }
   const KIND_ICON = {
-    plaza: '⛲', library: '📚', abc: '🔤', shop: '🛒', hut: '📖', gym: '💪', booth: '💬', avatar: '🦸', hat: '🎩', face: '👓', back: '🎒', chest: '🏅',
+    plaza: '⛲', library: '📚', planetarium: '🔭', abc: '🔤', shop: '🛒', hut: '📖', gym: '💪', booth: '💬', avatar: '🦸', hat: '🎩', face: '👓', back: '🎒', chest: '🏅',
     puyo: '🟢', suika: '🍉', barn: '🐄', field: '🌱', kitchen: '🍳', ship: '🚢', ferry: '⛵', board: '📋', office: '🏠',
     pond: '🎣', river: '🎣', sea: '🎣', interview: '🎤', speaking: '🗣', writing: '✏️', reading: '📖', listening: '🎧',
     start: '🏁', gate: '🚩', door: '🚪', furniture: '🛋', agent: '🏡', blockwild: '⛏', dojo: '🥋', stand: '🏟', pvp: '⚔',

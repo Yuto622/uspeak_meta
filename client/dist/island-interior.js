@@ -14,6 +14,7 @@ import { addProps, themeOf } from './interior-props.js';
 import { buildVillager, villagerSeed } from './villager.js';
 import { say, live } from './canvas-say.js';
 import { furnish } from './shop-interiors.js';
+import { addStars } from './cosmic-kit.js';
 
 const COUNTER_Z = -3.2;         // the counter, across the room from the door
 const DOOR_Z = 8.4;             // walking past this on the way out leaves
@@ -26,13 +27,7 @@ export function createIslandInteriors({ player, camera, toast }) {
   // 明るさは 前と 同じ くらいに たもつ（子どもの 顔と カウンターが 見える こと）。光る ものは emissive だけ＝光の 数は ふやさない。
   scene.background = new THREE.Color(0x08160f);
   scene.add(new THREE.HemisphereLight(0xfff6e8, 0x2f6b55, 1.9));
-  {
-    let seed = 5; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    const pts = new Float32Array(420 * 3);
-    for (let i = 0; i < 420; i += 1) { const a = rnd() * Math.PI * 2; const e = (rnd() - .5) * 2.6; const r = 60 + rnd() * 30; pts.set([Math.cos(a) * Math.cos(e) * r, Math.sin(e) * r, Math.sin(a) * Math.cos(e) * r], i * 3); }
-    const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xfff4d6, size: 0.5, sizeAttenuation: true })));
-  }
+  addStars(scene);   // 星は starfield.js（まるく やわらかい 点。前は 四角い 点）
   const sun = new THREE.DirectionalLight(0xfff4e0, 1.35);
   sun.position.set(5, 12, 7);
   scene.add(sun);

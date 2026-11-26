@@ -19,6 +19,7 @@ import { roofSign, gateModel } from './roof-signs.js';
 import { SHOP_KINDS, shopsOpen } from './shop-hours.js';
 import { PLAZA, LIBRARY, buildPlaza, drawPlazaMap } from './main-plaza.js';
 import { buildLibraryExterior } from './library-real.js';
+import { buildPlanetariumExterior } from './planetarium-real.js';
 import { createPlazaWalkers } from './plaza-walkers.js';
 
 export { NEAR_DISTANCE };
@@ -40,6 +41,9 @@ const PIER = { x: 4, minZ: 24, maxZ: 35, w: 3.4 };
 // 橋が つくのは 船着き場（dock）の まま。main_island.json の `start` と 同じ 数字。
 const START = { x: 10.5, z: 21 };
 const inBay = (x, z) => x > BAY.minX && x < BAY.maxX && z > BAY.minZ;
+// プラネタリウム（planetarium-real.js）の 建物の まんなか。北西（前は かざりの「バトルアリーナ 🔜」の 箱）。南むき。
+// 玄関の 前の 戸口は main_island.json の spots の `planetarium`（-28, -24.6）。うごかす ときは 2 か所を いっしょに。
+const PLANETARIUM_AT = { x: -28, z: -31.2 };
 
 export function createMainWorld({ scene }) {
   let seasons = null, realTrees = null; // 季節の かざり（main-seasons.js）と リアルな 木（real-trees.js）。島が 建ったあと。
@@ -48,6 +52,7 @@ export function createMainWorld({ scene }) {
   let shopsLit = null;
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   let plaza = null, walkers = null; // 東の ひろば（main-plaza.js）と 歩く 人たち（plaza-walkers.js）。島が 建ったあと。
+  let planetarium = null;           // 北西の プラネタリウム（planetarium-real.js の 外がわ）。中は planetarium.js（別の シーン）。
   let library = null;               // ひろばの 北の としょかん（library-real.js の 外がわ）。中は library.js（別の シーン）。
   const island = createIsland({
     scene,
@@ -135,6 +140,14 @@ export function createMainWorld({ scene }) {
           // としょかん：建物は 下の buildLibraryExterior。戸口は だんの 上（だんを 2 つ のぼると 入る）、あんないの 人は だんの 下の 右。
           door(def, 1.65, 0);
           resident({ ...def, x: def.x + 2.8, z: def.z + 3.3 });
+          continue;
+        }
+        if (def.kind === 'planetarium') {
+          // プラネタリウム：建物は 下の buildPlanetariumExterior。戸口は 玄関の 柱の 前、あんないの 人は その 右。
+          door(def, 0.75, 0);
+          keep((def.x + def.path.x) / 2, (def.z + def.path.z) / 2, Math.abs(def.x - def.path.x) / 2 + 1.5, 1.5);
+          path(def.path.x, def.path.z, def.x, def.z);
+          resident({ ...def, x: def.x + 2.7, z: def.z + 0.7 });
           continue;
         }
         if (def.kind === 'word_house') {
@@ -459,6 +472,26 @@ export function createMainWorld({ scene }) {
         }
       }
 
+      // プラネタリウム（北西）＝グリフィス天文台の 形。外がわは 材質ごとに 1 メッシュ（4 回の 描画）。夜は まど・玄関が 灯り、白い かべが うっすら 光る（下の setNight）。
+      // 木を まく 前に 建てる（keep で 建物と 前の しばふから 木と 草花を よける）。
+      try {
+        const P = PLANETARIUM_AT;
+        const ext = buildPlanetariumExterior();
+        ext.group.position.set(P.x, 0.2, P.z);            // 島の 地面は y 0.2
+        root.add(ext.group);
+        for (const o of ext.obstacles) obstacles.push({ x: P.x + o.x, z: P.z + o.z, w: o.w, d: o.d });
+        for (const [lx, lz] of ext.lamps) lamp(P.x + lx, P.z + lz);
+        // 建物と しばふの 道の 下に 見えない 箱（地面より 下）：草むら（plantTufts）が 床や 道から 生えない ように マスを ふさぐ。
+        D(P.x, 0.1, P.z - 1.6, 21.6, 0.1, 13, 0x8a8478, 0, 'cobble');
+        D(P.x, 0.1, P.z + 10.4, 2.6, 0.1, 10.4, 0x8a8478, 0, 'cobble');
+        D(P.x, 0.1, P.z + 6.7, 19.4, 0.1, 2.2, 0x8a8478, 0, 'cobble');
+        D(P.x, 0.1, P.z + 15.2, 16.6, 0.1, 1.7, 0x8a8478, 0, 'cobble');
+        D(P.x + ext.obelisk.x, 0.1, P.z + ext.obelisk.z, 4.8, 0.1, 4.8, 0x8a8478, 0, 'cobble');
+        keep(P.x, P.z + (ext.lawn.z0 + ext.lawn.z1) / 2, ext.lawn.w / 2, (ext.lawn.z1 - ext.lawn.z0) / 2);
+        sprite({ en: '🔭 Planetarium', ja: '🔭 プラネタリウム' }, P.x, 5.9, P.z + 4.7, { width: 6.6, size: 40 });
+        planetarium = { ...ext, x: P.x, z: P.z };
+      } catch (err) { console.warn('[main] プラネタリウムが 建てられない', err); planetarium = null; }
+
       // 広場の小物：大通りの ベンチと 旗。
       // 大通りの 旗と、ひろばの 見せ場（やぐら・クリスマスツリー…）は 季節ごと（main-seasons.js）。場所は 屋台の 南の しばふ。
       const FEST = { x: -23, z: 23.5 };
@@ -539,8 +572,10 @@ export function createMainWorld({ scene }) {
       // 東の ひろば：すなはまの ふち → 草 → 石だたみ（main-plaza.js）。
       const a = PLAZA.annex;
       ctx.fillStyle = '#e8d6a8'; ctx.beginPath(); ctx.roundRect(px(a.x0), py(a.z0), (a.x1 - a.x0) * k, (a.z1 - a.z0) * k, a.r * k); ctx.fill();
+      for (const b of a.also || []) { ctx.beginPath(); ctx.roundRect(px(b.x0), py(b.z0), (b.x1 - b.x0) * k, (b.z1 - b.z0) * k, b.r * k); ctx.fill(); }
       land(54, 43, '#a9cf7c');
       ctx.fillStyle = '#a9cf7c'; ctx.beginPath(); ctx.roundRect(px(a.x0), py(a.z0 + 2), (a.x1 - a.x0 - 2) * k, (a.z1 - a.z0 - 4) * k, (a.r - 2) * k); ctx.fill();
+      for (const b of a.also || []) { ctx.beginPath(); ctx.roundRect(px(b.x0 + 2), py(b.z0 + 2), (b.x1 - b.x0 - 4) * k, (b.z1 - b.z0 - 2) * k, (b.r - 2) * k); ctx.fill(); }
     }
     const bay = d.bay || BAY;
     ctx.fillStyle = '#6fb7c9'; ctx.fillRect(px(bay.minX), py(bay.minZ), (bay.maxX - bay.minX) * k, 80);
@@ -567,9 +602,9 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c' };
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛' };
+    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');
@@ -580,6 +615,12 @@ export function createMainWorld({ scene }) {
       tile(L.x, L.z + L.d / 2 + L.forecourt / 2, L.w, L.forecourt, '#dcc3a4');
       tile(L.x, L.z - 2.2, L.w, 11.6, '#c9744a');
       tile(L.x, L.z + 4.6, 9, 2.2, '#c9744a');
+    }
+    {
+      // プラネタリウム：よこに 長い 白い 建物と、黒い ドーム 3 つ。
+      const P = PLANETARIUM_AT;
+      tile(P.x, P.z + 0.25, 16.8, 5, '#f1ece0'); tile(P.x, P.z + 3.4, 4.4, 2.2, '#f1ece0');
+      for (const [dx, dz, r] of [[0, -3.9, 3.4], [-8.4, 1, 1.9], [8.4, 1, 1.9]]) { ctx.fillStyle = '#3a3d38'; ctx.beginPath(); ctx.arc(px(P.x + dx), py(P.z + dz), r * k, 0, Math.PI * 2); ctx.fill(); }
     }
     const target = island.target;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -632,6 +673,7 @@ export function createMainWorld({ scene }) {
     baseNight(n); seasons?.setNight(n); plaza?.setNight(n);
     // としょかんの まど（お店では ない＝よるも あいて いるので、夜は いつも 灯る）。
     if (library) { const k = Math.max(0, Math.min(1, n || 0)); for (const { material, glow } of library.lit) material.emissiveIntensity = glow * k; }
+    planetarium?.setNight(n);   // プラネタリウムも お店では ない＝夜は いつも 灯る
   }
   // としょかんの だん（4 だん・高さ 0.8）と げんかんの 上の ゆかの 高さ。世界の 座標。ほかは 0。
   function floorY(x, z) {
@@ -664,6 +706,8 @@ export function createMainWorld({ scene }) {
   Object.defineProperty(out, 'plaza', { get: () => plaza, enumerable: true });
   // としょかん（外がわ）：{ x, z, door, steps, obstacles, lit … }。出た ときに 立つ 場所は library.js が ここから 決める。
   Object.defineProperty(out, 'library', { get: () => library, enumerable: true });
+  // プラネタリウム（外がわ）：{ x, z, door, obstacles, setNight … }。出た ときに 立つ 場所は planetarium.js が ここから 決める。
+  Object.defineProperty(out, 'planetarium', { get: () => planetarium, enumerable: true });
   // Object.assign は getter を 値に して しまうので defineProperty で。
   Object.defineProperty(out, 'casting', { get: () => !!fx?.casting, enumerable: true });
   return out;

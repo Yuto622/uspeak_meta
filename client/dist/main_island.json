@@ -322,17 +322,17 @@
    "phase": 1
   },
   {
-   "id": "arena1",
-   "kind": "battle_arena",
-   "en": "Battle Arena",
-   "ja": "えいごアリーナ",
-   "icon": "⚔️",
+   "id": "planetarium",
+   "kind": "planetarium",
+   "en": "Planetarium",
+   "ja": "プラネタリウム",
+   "icon": "🔭",
    "x": 172,
    "z": 60,
    "w": 24,
    "d": 30,
-   "action": "ペット・キャラのクイズバトル（CPU戦・対人戦）",
-   "phase": 3
+   "action": "プラネタリウム：ドームの 星空と 星座（英語の 名前）。前は Battle Arena（arena1・P3）の 場所。3D の 島の spot `planetarium` と 同じ id。",
+   "phase": 1
   },
   {
    "id": "arena2",
@@ -557,6 +557,12 @@
     "z0": -36,
     "z1": 16,
     "w": 4
+   },
+   {
+    "x0": -6,
+    "x1": 68,
+    "z": -31.5,
+    "w": 3
    }
   ],
   "hills": [
@@ -571,11 +577,11 @@
     "id": "hut_easy",
     "kind": "word_house",
     "house": "hut_easy",
-    "x": 22,
-    "z": -4,
+    "x": 20,
+    "z": -35,
     "path": {
-     "x": 22,
-     "z": 16
+     "x": 20,
+     "z": -31.5
     },
     "color": 5221995,
     "character": "Ms. Easy",
@@ -588,11 +594,11 @@
     "id": "hut_medium",
     "kind": "word_house",
     "house": "hut_medium",
-    "x": 33,
-    "z": -4,
+    "x": 31,
+    "z": -35,
     "path": {
-     "x": 33,
-     "z": 16
+     "x": 31,
+     "z": -31.5
     },
     "color": 14715436,
     "character": "Mr. Medium",
@@ -605,11 +611,11 @@
     "id": "hut_hard",
     "kind": "word_house",
     "house": "hut_hard",
-    "x": 44,
-    "z": -4,
+    "x": 42,
+    "z": -35,
     "path": {
-     "x": 44,
-     "z": 16
+     "x": 42,
+     "z": -31.5
     },
     "color": 4157368,
     "character": "Dr. Hard",
@@ -936,11 +942,11 @@
    {
     "id": "weapons",
     "kind": "weapon_shop",
-    "x": 38,
-    "z": -16,
+    "x": 53,
+    "z": -35,
     "path": {
-    "x": 38,
-    "z": -8.5
+     "x": 53,
+     "z": -31.5
     },
     "color": 7031964,
     "roof": 3811660,
@@ -1432,14 +1438,30 @@
     "character": "Mr. Page",
     "en": "Library",
     "ja": "としょかん"
+   },
+   {
+    "_": "プラネタリウム（北西。前は かざりの「バトルアリーナ 🔜」＝deco の arena1 が あった 場所）：玄関へ 歩くと 中へ（planetarium.js）。建物の まんなかは main-world.js の PLANETARIUM_AT（-28, -31.2）。形は グリフィス天文台（planetarium-real.js）。x・z は 玄関の 前。お店では ない＝よるも あいて いる。",
+    "id": "planetarium",
+    "kind": "planetarium",
+    "x": -28,
+    "z": -24.6,
+    "path": {
+     "x": -6,
+     "z": -24.6
+    },
+    "color": 3108751,
+    "icon": "🔭",
+    "character": "Dr. Stella",
+    "en": "Planetarium",
+    "ja": "プラネタリウム"
    }
   ],
   "deco": [
    {
     "id": "season",
     "type": "house",
-    "x": 24,
-    "z": -24,
+    "x": 64,
+    "z": -39.3,
     "w": 8,
     "d": 6.4,
     "color": 13934625,
@@ -1451,8 +1473,8 @@
    {
     "id": "shop_food1",
     "type": "kiosk",
-    "x": 26,
-    "z": -38,
+    "x": 22,
+    "z": -24,
     "color": 14722342,
     "icon": "🚚",
     "en": "Food Truck",
@@ -1472,22 +1494,10 @@
     "scenery": true
    },
    {
-    "id": "arena1",
-    "type": "arena",
-    "x": -26,
-    "z": -32,
-    "w": 12,
-    "d": 9,
-    "color": 11560522,
-    "icon": "⚔",
-    "en": "Battle Arena",
-    "ja": "バトルアリーナ"
-   },
-   {
     "id": "arena2",
     "type": "arena",
     "x": 40,
-    "z": -28,
+    "z": -23,
     "w": 11,
     "d": 8,
     "color": 11560522,

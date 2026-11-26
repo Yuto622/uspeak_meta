@@ -24,7 +24,7 @@ const VIEW_KEY = 'uspeak-main-view-v1';
 const KIND = {
   spawn: '#f2b630', word_house: '#e27a2d', level_sign: '#1b3a2f', fishing: '#1f8aa6', gate: '#7a5cc8', fish_buy: '#2f9e8f',
   area: '#8db86b', season_quiz: '#d4a021', food_shop: '#e0a526', outfit_shop: '#d9668d', block_shop: '#8a9a4a',
-  housing: '#5a7fb0', battle_arena: '#b0664a', photo_booth: '#7c8a96', npc: '#4fae6b',
+  housing: '#5a7fb0', battle_arena: '#b0664a', planetarium: '#2f6f8f', photo_booth: '#7c8a96', npc: '#4fae6b',
 };
 // ゲートの行き先（Web の島）。
 // 屋台（main_island.json の island.spots の kind "food_shop"）。2D の地図の poi の id と同じ。
@@ -35,7 +35,7 @@ const SHOP_POI = { clothes: ['Clothes and hats for your avatar.', 'アバター�
 const PIER_ZONE = { g5: 1, g4: 2, g3: 3, gp2: 3, g2: 3, gp1: 3 };
 const GATE_TO = { gate_race: 'ride', gate_rpg: 'meadow', gate_build: 'town', gate_park: 'park', gate_fishing: 'fishworld' };
 // じゅんびちゅうの場所に いちばん近い Web の島（あれば カードから行ける）。
-const ALT = { clothes: 'wear', blocks: 'town', build_area: 'town', mansion: 'land', arena1: 'arena', arena2: 'arena', npc_talk: 'conv' };
+const ALT = { clothes: 'wear', blocks: 'town', build_area: 'town', mansion: 'land', arena2: 'arena', npc_talk: 'conv' };
 // 子ども向けの説明（英語・ひらがな）。main_island.json の action は作る人へのメモなので画面には出さない。
 const COPY = {
   spawn: ['Your adventure starts here. Try the Word Houses and the Fishing Pier!', 'ここから はじまるよ。英単語ハウスと つり場に いってみよう！'],
@@ -50,6 +50,7 @@ const COPY = {
   gate_rpg: ['The RPG quest: meet buddies with English.', 'RPG の ぼうけん。えいごで なかまに であう。'],
   gate_build: ['Build with blocks.', 'ブロックで たてものを つくる。'],
   gate_park: ['The Theme Park: rides and fireworks.', 'テーマパーク：のりものと はなび。'],
+  planetarium: ['Look up at a real starry sky and learn the constellations in English.', 'ほんものの ような ほしぞらを 見あげて、せいざの えいごの なまえを おぼえよう。'],
   homework_house: ['Do the homework your teacher handed out. Same as Homework Island.', '先生が くばった しゅくだいを とく。しゅくだい島と おなじ。'],
 };
 const SCENERY = {
@@ -254,6 +255,13 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
       $('[data-act="stall"]', el).onclick = () => toStall(id);
       return;
     }
+    // プラネタリウム（3D の島で 入る）：地図からは 玄関の 前へ つれていく。
+    if (id === 'planetarium') {
+      const el = sheet(`${head(p)}${desc}
+        <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🔭 Go to the Planetarium', '🔭 プラネタリウムへ いく')}</button></div>`);
+      $('[data-act="stall"]', el).onclick = () => toStall(id);
+      return;
+    }
     if (FOOD_POI[id]) {
       const el = sheet(`${head(p)}<p class="mi-sheet-desc">${bi('Buy food with U-Speak coins and eat it anywhere. Learn the English names too!', 'U-Speak コインで たべものを かえるよ。どこでも たべられる。えいごの なまえも おぼえよう！')}</p>
         <div class="mi-acts"><button type="button" class="mi-act primary" data-act="stall">${bi('🛒 Go to the stall', '🛒 やたいへ いく')}</button></div>`);
@@ -397,6 +405,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'homework') { shops.homework?.open(); return true; }
     // としょかん（ひろばの 北）：中は 別の シーン（library.js）。お店では ない＝よるも 入れる。
     if (spot.kind === 'library') { shops.library?.enter(); return true; }
+    // プラネタリウム（北西）：中は 別の シーン（planetarium.js）。お店では ない＝よるも 入れる。
+    if (spot.kind === 'planetarium') { shops.planetarium?.enter(); return true; }
     if (spot.kind === 'level_sign') {
       const next = toggleEasyLevel();
       toast(tr('レベルを {lv} に かえたよ', { lv: LEVEL_LABEL[next][0] }));
@@ -433,6 +443,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     blockwild: () => '⛏ BLOCKWILD',
     homework: () => `📚 ${tr('しゅくだいを する')}`,
     library: () => (isJa() ? '📚 としょかんに はいる' : '📚 Go into the Library'),
+    planetarium: () => (isJa() ? '🔭 プラネタリウムに はいる' : '🔭 Go into the Planetarium'),
     talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };

@@ -1338,7 +1338,7 @@ export class ClassRoom extends Room {
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
-      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza, starter: priv.room.starter === true }),
+      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza, starter: priv.room.starter === true, pc: priv.room.pc === true }),
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
@@ -3254,7 +3254,8 @@ export class ClassRoom extends Room {
     const fail = (reason, extra = {}) => client.send('prop:error', { reason, ...extra });
     const item = PROPS.get(String(msg?.id || ''));
     if (!item) return fail('no such furniture');
-    if (!this.atTownSpot(client.sessionId, 'furniture')) return fail('too far', { spot: this.townSpotPayload('furniture') });
+    // かぐ屋の 前か、じぶんの へやの 中（パソコンの オンライン ショップ・2026-11）。ほかの 場所からは 買えない。
+    if (!this.atTownSpot(client.sessionId, 'furniture') && !this.inRoom(client.sessionId)) return fail('too far', { spot: this.townSpotPayload('furniture') });
     if (priv.props.includes(item.id)) return fail('already yours');
     if (priv.wallet.coins < item.price) return fail('not enough coins', { need: item.price, coins: priv.wallet.coins });
     if (item.price > 0) {

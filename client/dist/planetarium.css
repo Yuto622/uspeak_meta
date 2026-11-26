@@ -1,0 +1,34 @@
+/* プラネタリウムの 中（planetarium.js）：上の 帯・下の ボタン・星座の 名前。
+   ブランドの 色：深緑 #0c241c〜#1b3a2f・オレンジ #ffb066 / #e27a2d・ミント #8ff0c8・クリーム #fff4d6。 */
+
+/* ---- 上の 帯：「プラネタリウム」と「そとへ」（library.css の #lib-bar と 同じ 形）---- */
+#plan-bar { position: fixed; left: 50%; top: 74px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 16px; border-radius: 999px;
+  background: #0c241ce0; color: #fff4d6; box-shadow: 0 6px 18px #0006, inset 0 0 0 2px #8ff0c855; font-weight: 800; font-size: 14px; white-space: nowrap; }
+#plan-bar[hidden] { display: none; }
+#plan-bar span, #plan-bar button { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+/* style.css の `.en,.ja{display:block;font-size:12px}` を ここでは 親の 字に もどす（かくす ほうの きまりは さわらない）。 */
+#plan-bar .en, #plan-bar .ja, #plan-near .en, #plan-near .ja { font: inherit; letter-spacing: inherit; }
+html[data-lang=ja] #plan-bar .ja, html:not([data-lang=ja]) #plan-bar .en,
+html[data-lang=ja] #plan-near .ja, html:not([data-lang=ja]) #plan-near .en { display: inline; }
+#plan-bar button { min-height: 36px; padding: 4px 14px; border: 0; border-radius: 999px; background: linear-gradient(180deg, #ffb066, #e27a2d); color: #1b2a1f; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+@media (max-height: 560px) { #plan-bar { top: 76px; font-size: 12px; padding: 4px 6px 4px 12px; } #plan-bar button { min-height: 34px; font-size: 12px; } }
+body[data-arcade] #plan-bar, body[data-race] #plan-bar, body[data-gp] #plan-bar, body[data-warp] #plan-bar { display: none; }
+
+/* ---- 下の ボタン：投影機の そばで 出る（場所は style.css / mobile.css の .near）---- */
+#plan-near { z-index: 6; }
+#plan-near[hidden] { display: none; }
+#plan-near button { min-height: 48px; padding: 12px 22px; border: 0; border-radius: 14px; background: linear-gradient(180deg, #ffb066, #e27a2d); color: #1b2a1f; font-weight: 800; font-size: 16px;
+  box-shadow: 0 8px 22px #0007, inset 0 0 0 2px #fff4d688; cursor: pointer; touch-action: manipulation; }
+#plan-near button span { display: inline-flex; align-items: center; gap: 6px; }
+#plan-near kbd { background: #0c241c; color: #fff4d6; border: 0; }
+@media (hover: none) { #plan-near kbd { display: none; } }
+
+/* ---- 星座の 名前：英語を 大きく・日本語を 下に（いつも 両方）。空を かくさない ように 上の 帯の すぐ 下 ---- */
+#plan-caption { position: fixed; left: 50%; top: 128px; transform: translateX(-50%); z-index: 5; display: grid; justify-items: center; gap: 2px; padding: 10px 26px 12px; border-radius: 20px; pointer-events: none;
+  background: linear-gradient(170deg, #1b3a2fe6, #0c241ce6); color: #fff4d6; box-shadow: 0 8px 24px #0007, inset 0 0 0 2px #8ff0c855; text-align: center; white-space: nowrap; }
+#plan-caption[hidden] { display: none; }
+#plan-caption small { font-size: 11px; letter-spacing: 2px; font-weight: 800; color: #8ff0c8; }
+#plan-caption strong { font-size: 30px; line-height: 1.1; font-weight: 900; color: #fff4d6; }
+#plan-caption span { font-size: 17px; font-weight: 800; color: #ffb066; }
+@media (max-height: 560px) { #plan-caption { top: 118px; padding: 6px 18px 8px; } #plan-caption strong { font-size: 22px; } #plan-caption span { font-size: 14px; } }
+body[data-arcade] #plan-caption, body[data-race] #plan-caption, body[data-gp] #plan-caption, body[data-warp] #plan-caption { display: none; }

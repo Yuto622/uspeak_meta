@@ -64,6 +64,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   function enter(spot) {
     if (!isOnline()) { toast('まちづくり島は オンラインで あそべます。'); return; }
     state.spot = spot;
+    dialog.classList.remove('online-shop');
     dialog.querySelector('#town-title').textContent = 'まちづくり島';
     dialog.querySelector('.eyebrow').textContent = 'TOWN ISLAND';
     if (spot.kind === 'door') { send('room:enter', {}); return; }
@@ -72,6 +73,17 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     if (!dialog.open) dialog.showModal();
     send(spot.kind === 'furniture' ? 'prop:list' : 'block:list', {});
   }
+
+  // じぶんの へやの パソコンから ひらく オンライン ショップ（2026-11）。中身は かぐ屋と 同じ（prop:list → prop:buy）。
+  // 部屋（サーバー）は「かぐ屋の 前」か「じぶんの へやの 中」の ときだけ 売る。買った かぐは すぐ 下の バーに 出る。
+  function openOnline() {
+    if (!isOnline() || !room.active) return;
+    state.spot = { kind: 'furniture', online: true };
+    renderProps(state.props ? '' : 'よみこみ中…');
+    if (!dialog.open) dialog.showModal();
+    send('prop:list', {});
+  }
+  room.onShopRequest = openOnline;
 
   function render(note = '') {
     if (state.spot?.kind === 'agent') { renderAgent(note); return; }
@@ -120,14 +132,26 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
   }
 
   function renderProps(note = '') {
+    const online = !!state.spot?.online;
+    dialog.classList.toggle('online-shop', online);
+    if (online) {
+      dialog.querySelector('#town-title').innerHTML = '🖥 <span class="en">Online Shop</span><span class="ja">オンライン ショップ</span>';
+      dialog.querySelector('.eyebrow').textContent = 'ONLINE SHOP';
+    } else if (state.spot?.kind === 'furniture') {
+      dialog.querySelector('#town-title').textContent = 'かぐ屋';
+      dialog.querySelector('.eyebrow').textContent = 'FURNITURE SHOP';
+    }
     if (!state.props) { body().innerHTML = `<p class="daily-note">${esc(note)}</p>`; return; }
     loadPropShots();
+    const coins = Number(state.props.coins);
     body().innerHTML = `${note ? `<p class="ride-flash">${esc(note)}</p>` : ''}
-      <p class="daily-note">かった かぐは、マイルームに いつでも おけます。</p>
+      ${online
+        ? `<p class="daily-note"><span class="en">Tap to buy. It goes straight into the bar at the bottom of your room.</span><span class="ja">おすと かえるよ。かった かぐは すぐ へやの 下の バーに 出るよ。</span>${Number.isFinite(coins) ? ` <b class="town-purse" translate="no" style="margin-left:6px;color:#a0522d;white-space:nowrap">◈ ${coins}</b>` : ''}</p>`
+        : '<p class="daily-note">かった かぐは、マイルームに いつでも おけます。</p>'}
       <div class="town-blocks">${state.props.furniture.map((f) => `
         <button type="button" class="town-block ${f.owned ? 'owned' : ''}" data-prop="${f.id}" ${f.owned ? 'disabled' : ''}>
           <span class="town-swatch" data-shot="${f.id}" ${propShots?.[f.id] ? '' : `style="background:${hex(f.color)}"`}>${propShots?.[f.id] ? `<img src="${propShots[f.id]}" alt="" draggable="false">` : ''}</span>
-          <strong>${esc(f.word)}</strong><small>${esc(f.ja)}</small>
+          <strong translate="no">${esc(f.word)}</strong><small>${esc(f.ja)}</small>
           <b>${f.owned ? 'もっている' : f.price === 0 ? 'むりょう' : `◈ ${f.price}`}</b>
         </button>`).join('')}</div>
       <div class="quiz-actions"><button type="button" class="primary" id="town-done">とじる</button></div>`;
@@ -178,6 +202,8 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     speak(m.word);
     learn(m.word, m.ja);
     onPropShop(m);
+    // へやの 中で 買った（オンライン ショップ）：すぐ 手に もって 下の バーに 出す。置くのは 子ども。
+    if (room.active) { room.addOwned(m.id, (m.furniture || []).find((f) => f.id === m.id)); refreshHud(); }
     renderProps(`${m.word}（${m.ja}）を かいました！`);
   }
 
@@ -271,7 +297,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
 
   return {
     state, enter, label, onShop, onBought, onPropShop, onPropBought, onRoomState, onPlazaState,
-    onMoved, onError, onPlazaError, refreshHud,
+    onMoved, onError, onPlazaError, refreshHud, openOnline,
     // Anything arriving or leaving changes the count in the HUD.
     onPlaced(m) { room.onPlaced(m); refreshHud(); },
     onRemoved(m) { room.onRemoved(m); refreshHud(); },

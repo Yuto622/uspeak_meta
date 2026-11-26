@@ -20,10 +20,10 @@ const room = () => ({ tier: 1, furniture: [] });
 
 test('a child can build and furnish on their first visit, with no coins at all', () => {
   assert.deepEqual(STARTER_BLOCKS, ['wood']);
-  assert.deepEqual(STARTER_PROPS, ['chair']);
+  assert.deepEqual(STARTER_PROPS, ['chair', 'pc'], 'the chair, and the computer every room has');
   assert.deepEqual(sanitizeBlocks([]), ['wood'], "the free kind is everyone's");
   assert.deepEqual(sanitizeBlocks(['stone', 'stone', 'gold', 5]), ['wood', 'stone']);
-  assert.deepEqual(sanitizeProps(['sofa', 'sofa', 'throne']), ['chair', 'sofa']);
+  assert.deepEqual(sanitizeProps(['sofa', 'sofa', 'throne']), ['chair', 'pc', 'sofa']);
   assert.equal(ROOMS[0].price, 0, 'and the first room is free');
   // Every kind carries an English word, because buying one is how it is learned.
   for (const b of BLOCKS.values()) { assert.ok(b.word.trim()); assert.ok(b.ja.trim()); }
@@ -190,7 +190,7 @@ test('broken town data is refused rather than half-loaded', () => {
   noFree.blocks[0].price = 50;
   assert.throws(() => loadTown(write(noFree)), /no block a child starts with/);
   const noFreeProp = clone();
-  noFreeProp.furniture[0].price = 50;
+  for (const f of noFreeProp.furniture) if (f.price === 0) f.price = 50;
   assert.throws(() => loadTown(write(noFreeProp)), /no furniture a child starts with/);
   const shapeless = clone();
   shapeless.furniture[2].w = 0;
@@ -228,13 +228,13 @@ test('the island is a place before it is a menu', () => {
 
 test('はじめの かぐ：からっぽの へやに 1 回だけ、いつもの 置きかたの きまりで', async () => {
   const { starterRoom, STARTER_ROOM, footprint } = await import('../src/game/town.js');
-  assert.deepEqual(STARTER_ROOM.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
+  assert.deepEqual(STARTER_ROOM.map((p) => p.f).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
   // はじめての 子：保存が ない。
   const owned = sanitizeProps([]);
   const room = starterRoom(sanitizeRoom(null, owned), owned, null);
   assert.equal(room.starter, true);
-  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'plant', 'rug', 'table']);
-  assert.deepEqual([...owned].sort(), ['bed', 'chair', 'plant', 'rug', 'table'], 'the pieces are owned, so they can be put back');
+  assert.deepEqual(room.furniture.map((p) => p.f).sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table']);
+  assert.deepEqual([...owned].sort(), ['bed', 'chair', 'pc', 'plant', 'rug', 'table'], 'the pieces are owned, so they can be put back');
   // 置き場所は へやの 中・かさならない・戸口の 前（x -1〜0, z 2〜3）を ふさがない。
   const half = ROOMS[0].grid / 2;
   const seen = new Set();
@@ -249,7 +249,8 @@ test('はじめの かぐ：からっぽの へやに 1 回だけ、いつもの
     }
   }
   // 保存した ものを 読みなおしても 同じ（サーバーの sanitize を 通る）・ふえない。
-  const saved = JSON.parse(JSON.stringify({ tier: room.tier, furniture: room.furniture, starter: room.starter }));
+  assert.equal(room.pc, true);
+  const saved = JSON.parse(JSON.stringify({ tier: room.tier, furniture: room.furniture, starter: room.starter, pc: room.pc }));
   const owned2 = sanitizeProps(JSON.parse(JSON.stringify(owned)));
   const again = starterRoom(sanitizeRoom(saved, owned2), owned2, saved);
   assert.deepEqual(again.furniture, room.furniture);
@@ -262,22 +263,22 @@ test('はじめの かぐ：からっぽの へやに 1 回だけ、いつもの
 test('はじめの かぐ：ぜんぶ かたづけた 子に 二度と わたさない・前から ある へやには さわらない', async () => {
   const { starterRoom } = await import('../src/game/town.js');
   // かたづけた あと：starter の しるしが のこって いる。
-  const emptied = { tier: 1, furniture: [], starter: true };
+  const emptied = { tier: 1, furniture: [], starter: true, pc: true };
   const owned = sanitizeProps(['bed', 'table', 'rug', 'plant']);
   const room = starterRoom(sanitizeRoom(emptied, owned), owned, emptied);
   assert.deepEqual(room.furniture, []);
   assert.equal(room.starter, true);
   // 前から かぐを 置いて いた 子（しるし なし）：そのまま。かぐも ふえない。しるしだけ つく。
-  const old = { tier: 1, furniture: [{ f: 'chair', x: 0, z: 0, r: 0 }] };
+  const old = { tier: 1, furniture: [{ f: 'chair', x: 0, z: 0, r: 0 }], pc: true };
   const ownedOld = sanitizeProps([]);
   const kept = starterRoom(sanitizeRoom(old, ownedOld), ownedOld, old);
   assert.deepEqual(kept.furniture, [{ f: 'chair', x: 0, z: 0, r: 0 }]);
-  assert.deepEqual(ownedOld, ['chair']);
+  assert.deepEqual(ownedOld, ['chair', 'pc']);
   assert.equal(kept.starter, true);
   // しるしが うそ（true で ない）なら 読まない：からっぽなら わたす。
   const fake = { tier: 1, furniture: [], starter: 'yes' };
   const ownedFake = sanitizeProps([]);
-  assert.equal(starterRoom(sanitizeRoom(fake, ownedFake), ownedFake, fake).furniture.length, 5);
+  assert.equal(starterRoom(sanitizeRoom(fake, ownedFake), ownedFake, fake).furniture.length, 6);
 });
 
 test('じぶんの いえ：メインの島の データに あり、まちづくり島の door と 同じ 戸口として 読む', async () => {
@@ -294,4 +295,90 @@ test('じぶんの いえ：メインの島の データに あり、まちづ�
   // 場所が 無い データ・読めない ファイルでは null（起動は 止めない）。
   assert.equal(loadMainHome(write({ island: { id: 'main', x: 0, z: 0, spots: [] } })), null);
   assert.equal(loadMainHome(join(dir, 'nope.json')), null);
+});
+
+// ---- パソコン（オンライン ショップ）・あたらしい かぐ・ベッド（2026-11） ----
+
+test('パソコン：あたらしい へやにも 前から ある へやにも 1 回だけ', async () => {
+  const { starterRoom, grantPc, footprint } = await import('../src/game/town.js');
+  const count = (room) => room.furniture.filter((p) => p.f === 'pc').length;
+  // あたらしい へや：はじめの かぐと いっしょに 置いて ある。
+  const ownedNew = sanitizeProps([]);
+  const fresh = starterRoom(sanitizeRoom(null, ownedNew), ownedNew, null);
+  assert.equal(count(fresh), 1);
+  assert.equal(fresh.pc, true);
+  // 前から ある へや（starter は もう true・pc の しるしは ない）：あいて いる ゆかに 1 台。ほかの かぐは そのまま。
+  const before = { tier: 1, starter: true, furniture: [{ f: 'bed', x: -4, z: -4, r: 0 }, { f: 'chair', x: -2, z: -4, r: 0 }, { f: 'rug', x: -1, z: -1, r: 0 }] };
+  const owned = sanitizeProps(['bed', 'rug']);
+  const moved = starterRoom(sanitizeRoom(before, owned), owned, before);
+  assert.equal(count(moved), 1);
+  assert.equal(moved.pc, true);
+  assert.deepEqual(moved.furniture.slice(0, 3), before.furniture, 'what the child put down is untouched');
+  const pc = moved.furniture.find((p) => p.f === 'pc');
+  const half = ROOMS[0].grid / 2, { w, d } = footprint(PROPS.get('pc'), pc.r);
+  assert.ok(pc.x >= -half && pc.z >= -half && pc.x + w <= half && pc.z + d <= half, 'inside the room');
+  const taken = new Set(before.furniture.flatMap((p) => propCells(p).map((c) => `${c.x},${c.z}`)));
+  for (const c of propCells(pc)) {
+    assert.ok(!taken.has(`${c.x},${c.z}`), 'on free floor');
+    assert.ok(!(c.z >= half - 2 && c.x >= -2 && c.x <= 1), 'not in front of the door');
+  }
+  // 保存して 読みなおしても ふえない。かたづけた あとも もどって こない（もちものには のこる）。
+  const saved = JSON.parse(JSON.stringify({ tier: moved.tier, furniture: moved.furniture, starter: true, pc: moved.pc }));
+  const owned2 = sanitizeProps(JSON.parse(JSON.stringify(owned)));
+  const again = starterRoom(sanitizeRoom(saved, owned2), owned2, saved);
+  assert.equal(count(again), 1);
+  removeProp(again, { x: pc.x, z: pc.z });
+  const cleared = JSON.parse(JSON.stringify({ tier: 1, furniture: again.furniture, starter: true, pc: true }));
+  const owned3 = sanitizeProps([]);
+  const later = starterRoom(sanitizeRoom(cleared, owned3), owned3, cleared);
+  assert.equal(count(later), 0, 'given once');
+  assert.ok(owned3.includes('pc'), 'but still owned, so it can be put back');
+  // いっぱいの へや：置かずに もちものに 入れるだけ。しるしは つく。
+  const full = { tier: 1, starter: true, furniture: [] };
+  for (let i = 0; i < ROOMS[0].props; i += 1) full.furniture.push({ f: 'chair', x: -half + i % ROOMS[0].grid, z: -half + Math.floor(i / ROOMS[0].grid), r: 0 });
+  const ownedFull = sanitizeProps([]);
+  const packed = grantPc(sanitizeRoom(full, ownedFull), ownedFull, full);
+  assert.equal(count(packed), 0);
+  assert.equal(packed.furniture.length, ROOMS[0].props);
+  assert.equal(packed.pc, true);
+  assert.ok(ownedFull.includes('pc'));
+  // しるしが うそなら 読まない。
+  const fake = { tier: 1, starter: true, pc: 'yes', furniture: [] };
+  const ownedFake = sanitizeProps([]);
+  assert.equal(count(starterRoom(sanitizeRoom(fake, ownedFake), ownedFake, fake)), 1);
+});
+
+test('かぐ 31 しゅるい：ベッドは ねられる 形で、どの へやにも 置ける', async () => {
+  const { propPayload, footprint } = await import('../src/game/town.js');
+  assert.equal(PROPS.size, 31);
+  const beds = [...PROPS.values()].filter((f) => f.bed === true).map((f) => f.id).sort();
+  assert.deepEqual(beds, ['bed', 'bed_bunk', 'bed_canopy', 'bed_king', 'bed_princess']);
+  const small = ROOMS[0].grid / 2;
+  for (const id of beds) {
+    const f = PROPS.get(id), pay = propPayload(f, true);
+    assert.equal(pay.bed, true, `${id} is sent as a bed`);
+    assert.ok(pay.sleepY > 0.5 && pay.sleepY < 2.2, `${id} has a height to lie at`);
+    assert.ok(pay.sleepZ > 0 && pay.sleepZ < f.d / 2, `${id}: the feet are on the mattress`);
+    assert.ok(f.d >= 3, `${id} is long enough to lie on`);
+    // 4 つの むきで いちばん 小さい へやに 置ける。
+    for (const r of [0, 1, 2, 3]) {
+      const state = room(), { w, d } = footprint(f, r);
+      assert.deepEqual(placeProp(state, [id], { f: id, x: -small, z: -small, r }), { f: id, x: -small, z: -small, r });
+      assert.throws(() => placeProp(state, [id], { f: id, x: -small + w - 1, z: -small + d - 1, r }), /something is there/);
+    }
+  }
+  // ベッドで ない ものは ベッドとして 送らない。
+  assert.equal(propPayload(PROPS.get('sofa'), true).bed, undefined);
+  // 形は ぜんぶ ちがう・ねだんは 0〜3000・あたらしい 品にも やすい ものが ある。
+  const shapes = [...PROPS.values()].map((f) => f.shape);
+  assert.equal(new Set(shapes).size, shapes.length);
+  for (const f of PROPS.values()) assert.ok(f.price >= 0 && f.price <= 3000 && f.h > 0, `${f.id} is priced and has a height`);
+  assert.equal(PROPS.get('bed_king').price, 3000);
+  assert.ok([...PROPS.values()].filter((f) => f.price > 0 && f.price <= 100).length >= 3);
+  // こわれた ベッド（ねる 高さが ない）は 読まない。
+  const broken = JSON.parse(readFileSync(DATA_PATH, 'utf8'));
+  delete broken.furniture.find((f) => f.id === 'bed_king').sleepY;
+  const file = join(dir, 'bad-bed.json');
+  writeFileSync(file, JSON.stringify(broken));
+  assert.throws(() => loadTown(file), /not somewhere to lie down/);
 });

@@ -62,15 +62,42 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   // ---- よるは ベッドで ねる（2026-11）------------------------------------------------------
   // 世界の 時計が 夜の あいだ、ベッドの そばで「🛏 ねる」。ねると ベッドに 横に なり、画面が くらく なる。あさに なるか「おきる」で おきる。
   // 見た目だけ：時間は とばない（世界の 時計は クラス みんなの もの）。コインも 記録も うごかない。
+  // ねて いる 間は もようがえの ボタン（おく・かたづけ・むき・そとへ）と 下の バーを かくす（body[data-sleeping]）。
   const sleepBtn = document.createElement('button');
   sleepBtn.id = 'room-sleep'; sleepBtn.type = 'button'; sleepBtn.hidden = true; sleepBtn.setAttribute('translate', 'no');
   sleepBtn.innerHTML = '🛏 <span class="en">Sleep</span><span class="ja">ねる</span>';
   const sleepCover = document.createElement('div');
   sleepCover.id = 'room-sleep-cover'; sleepCover.hidden = true; sleepCover.setAttribute('translate', 'no');
   sleepCover.innerHTML = '<div class="rs-z">💤</div><p class="rs-t"><span class="en">Good night…</span><span class="ja">おやすみ…</span></p><p class="rs-s"></p><button type="button" class="rs-up">☀ <span class="en">Wake up</span><span class="ja">おきる</span></button>';
+  // ---- パソコンで オンライン ショッピング（2026-11）-----------------------------------------
+  // へやの パソコン（かぐ `pc`）の そばで「🖥 かいものを する」。かぐ屋と 同じ 画面（town.js）が ひらき、へやの 中から かぐを 買える。
+  // 買えるか・いくらかは 部屋（サーバー）が 決める。ここは ボタンを 出して たのむだけ（town.js が `onShopRequest` に つなぐ）。
+  const shopBtn = document.createElement('button');
+  shopBtn.id = 'room-shop'; shopBtn.type = 'button'; shopBtn.hidden = true; shopBtn.setAttribute('translate', 'no');
+  shopBtn.innerHTML = '🖥 <span class="en">Shop online</span><span class="ja">かいものを する</span>';
+  let onShopRequest = null;
+  function pcNear() {
+    let best = null, bd = 2.2;
+    for (const entry of state.props.values()) {
+      if (sized(entry.prop.f).shape !== 'pc') continue;
+      const d = Math.hypot(entry.group.position.x - player.position.x, entry.group.position.z - player.position.z);
+      if (d < bd) { bd = d; best = entry; }
+    }
+    return best;
+  }
+  function openShop() {
+    if (!state.active || sleeping || !pcNear() || document.querySelector('dialog[open]')) return false;
+    try { document.exitPointerLock?.(); } catch { /* 固定して いない */ }
+    onShopRequest?.();
+    return true;
+  }
   try {
     const css = document.createElement('style');
     css.textContent = `
+#room-shop{position:fixed;left:50%;bottom:178px;transform:translateX(-50%);z-index:30;min-height:48px;padding:10px 26px;border-radius:999px;border:2px solid #8ff0c8;background:#1b3a2f;color:#fff4d6;font:800 18px/1.2 inherit;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#room-shop[hidden]{display:none}
+body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping] #room-shop,body[data-sleeping] #fp-hud{display:none!important}
+@media (max-height:560px){#room-shop{bottom:auto;top:64px}#room-sleep{bottom:auto!important;top:118px}}
 #room-sleep{position:fixed;left:50%;bottom:118px;transform:translateX(-50%);z-index:30;min-height:48px;padding:10px 26px;border-radius:999px;border:2px solid #ffb066;background:#1b3a2f;color:#fff4d6;font:800 18px/1.2 inherit;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
 #room-sleep[hidden],#room-sleep-cover[hidden]{display:none}
 #room-sleep-cover{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:0 16px 9vh;background:radial-gradient(circle at 50% 42%,rgba(12,36,28,0) 0,rgba(12,36,28,.55) 46%,rgba(6,16,12,.92) 100%);color:#fff4d6;text-align:center;animation:rs-in 1.2s ease both}
@@ -81,17 +108,24 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 @keyframes rs-in{from{opacity:0}to{opacity:1}}
 @keyframes rs-z{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(-10px);opacity:1}}
 @media (prefers-reduced-motion:reduce){#room-sleep-cover,#room-sleep-cover .rs-z{animation:none}}`;
-    document.head.append(css); document.body.append(sleepBtn, sleepCover);
-    for (const el of [sleepBtn, sleepCover]) for (const ev of ['pointerdown', 'touchstart', 'mousedown']) el.addEventListener(ev, (e) => e.stopPropagation());
+    document.head.append(css); document.body.append(sleepBtn, sleepCover, shopBtn);
+    shopBtn.addEventListener('click', () => openShop());
+    for (const el of [sleepBtn, sleepCover, shopBtn]) for (const ev of ['pointerdown', 'touchstart', 'mousedown']) el.addEventListener(ev, (e) => e.stopPropagation());
     sleepBtn.addEventListener('click', () => sleep());
     sleepCover.querySelector('.rs-up').addEventListener('click', () => wake());
   } catch { /* 検査（DOM の ない ところ）では ボタンなし */ }
   let sleeping = null;       // { bed, back:{x,z,ry}, fp }
+  // ベッドは 5 しゅるい（ふつう・にだん・プリンセス・てんがいつき・キング）。カタログの `bed: true`（なければ 形の 名前）で 見分ける。
+  // ねる 高さ（sleepY）と 足の 位置（sleepZ＝まんなかから 足もとへ）は 形ごとに ちがうので カタログが 持つ。
+  const isBed = (item) => !!item && (item.bed === true || String(item.shape || '').startsWith('bed'));
   function bedNear() {
-    let best = null, bd = 2.3;
+    let best = null, bd = Infinity;
     for (const entry of state.props.values()) {
-      if (sized(entry.prop.f).shape !== 'bed') continue;
-      const d = Math.hypot(entry.group.position.x - player.position.x, entry.group.position.z - player.position.z);
+      const item = sized(entry.prop.f);
+      if (!isBed(item)) continue;
+      // 大きな ベッド（3 × 3）でも ふちに 立てば とどく ように、まんなかからの きょりから はばの 半分を ひく。
+      const d = Math.hypot(entry.group.position.x - player.position.x, entry.group.position.z - player.position.z) - Math.max(0, (Math.max(item.w || 1, item.d || 1) - 3) / 2);
+      if (d >= 2.3) continue;
       if (d < bd) { bd = d; best = entry; }
     }
     return best;
@@ -104,16 +138,17 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     if (view) view.firstPerson = false;          // ねて いる じぶんを 上から 見る
     document.body.classList.remove('first-person');
     document.body.dataset.sleeping = '1';
-    sleepBtn.hidden = true; sleepCover.hidden = false; ghost.visible = false;
+    sleepBtn.hidden = true; shopBtn.hidden = true; sleepCover.hidden = false; ghost.visible = false;
     lie();
     return true;
   }
   function lie() {
     const { bed } = sleeping; const yaw = (bed.prop.r % 4) * Math.PI / 2;
-    // まくらは ベッドの -z がわ（furniture-real.js の bed）。足は +z。体の 原点は 足もと。
+    const item = sized(bed.prop.f), y = Number(item.sleepY) || 0.78, off = Number(item.sleepZ) || 0.8;
+    // まくらは どの ベッドも -z がわ（furniture-real.js）。足は +z。体の 原点は 足もと。
     player.rotation.order = 'YXZ';
     player.rotation.set(-Math.PI / 2, yaw, 0);
-    player.position.set(bed.group.position.x + Math.sin(yaw) * 0.8, 0.78, bed.group.position.z + Math.cos(yaw) * 0.8);
+    player.position.set(bed.group.position.x + Math.sin(yaw) * off, y, bed.group.position.z + Math.cos(yaw) * off);
   }
   function wake(morning = false) {
     if (!sleeping) return false;
@@ -136,8 +171,11 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
       if (el) { const m = Math.floor(sec / 60), ss = String(sec % 60).padStart(2, '0'); const txt = sec ? (isJaNow() ? `あさまで あと ${m}:${ss}` : `Morning in ${m}:${ss}`) : ''; if (el.textContent !== txt) el.textContent = txt; }
       return;
     }
-    const show = state.active && isNight() && !document.querySelector('dialog[open]') && !!bedNear();
+    const open = !!document.querySelector('dialog[open]');
+    const show = state.active && isNight() && !open && !!bedNear();
     if (sleepBtn.hidden === show) sleepBtn.hidden = !show;
+    const shop = state.active && !open && !!pcNear();
+    if (shopBtn.hidden === shop) shopBtn.hidden = !shop;
   }
 
   const key = (x, z) => `${x},${z}`;
@@ -293,7 +331,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     if (!state.active) return false;
     wake();
     state.active = false;
-    sleepBtn.hidden = true;
+    sleepBtn.hidden = true; shopBtn.hidden = true;
     (parent || null)?.add(player);
     document.body.classList.remove('in-room');
     if (view) view.firstPerson = wasFirstPerson;
@@ -339,8 +377,11 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   }
 
   function placeHere() {
+    if (sleeping) return;
     const at = aimed();
-    if (!state.hand) { toast('まちづくり島の かぐ屋で かぐを かってね。'); return; }
+    // パソコンを ねらって E / Enter（または「おく」）＝ オンライン ショップ。そこには どうせ 置けない。
+    if (at?.dig && sized(at.dig.f).shape === 'pc' && pcNear()) { openShop(); return; }
+    if (!state.hand) { toast('パソコンか かぐ屋で かぐを かってね。'); return; }
     if (!at || !at.place) { toast('おける ゆかを ねらってね。'); return; }
     const cells = cellsOf({ f: state.hand, x: at.place.x, z: at.place.z, r: state.rot });
     if (standingOn(cells)) { toast('じぶんの いる ところには おけません。'); return; }
@@ -348,6 +389,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   }
 
   function removeHere() {
+    if (sleeping) return;
     const at = aimed();
     if (!at || !at.dig) { toast('かたづける かぐを ねらってね。'); return; }
     send('room:remove', { x: at.at.x, z: at.at.z });
@@ -404,7 +446,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   function update(t, dt) {
     cooldown = Math.max(0, cooldown - dt);
-    if (!state.active) { ghost.visible = false; if (!sleepBtn.hidden) sleepBtn.hidden = true; return; }
+    if (!state.active) { ghost.visible = false; if (!sleepBtn.hidden) sleepBtn.hidden = true; if (!shopBtn.hidden) shopBtn.hidden = true; return; }
     tickSleep();
     if (sleeping) { ghost.visible = false; return; }
     const at = aimed();
@@ -430,10 +472,11 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     camera.updateProjectionMatrix();
     if (sleeping) {
       const b = sleeping.bed.group.position;
-      const desired = new THREE.Vector3(b.x + 1.8, 4.6, b.z + 3.6);
+      const lift = (Number(sized(sleeping.bed.prop.f).sleepY) || 0.78) - 0.78;
+      const desired = new THREE.Vector3(b.x + 1.8, 4.6 + lift, b.z + 3.6);
       if (!sleeping.cam) { camera.position.copy(desired); sleeping.cam = true; }   // はじめは とぶ（おそい 端末で 外から ゆっくり 来ない ように）
       else camera.position.lerp(desired, 1 - Math.exp(-dt * 3));
-      camera.lookAt(b.x, 0.6, b.z);
+      camera.lookAt(b.x, 0.6 + lift, b.z);
       return true;
     }
     if (firstPerson) {
@@ -482,6 +525,14 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     scene, state, enter, leave, blocked, update, updateCamera, minimap,
     onPlaced, onRemoved, onError, placeHere, removeHere, rotate,
     setHand(id) { if (state.owned.includes(id)) state.hand = id; },
+    // オンライン ショップで 買った かぐ：部屋が みとめた あと（prop:bought）で town.js が 呼ぶ。すぐ 手に もつ。
+    addOwned(id, item) {
+      if (item && !state.palette.has(id)) state.palette.set(id, item);
+      if (!state.owned.includes(id)) state.owned.push(id);
+      state.hand = id;
+    },
+    openShop, pcNear: () => !!pcNear(),
+    set onShopRequest(fn) { onShopRequest = typeof fn === 'function' ? fn : null; },
     get active() { return state.active; },
     sleep, wake, get sleeping() { return !!sleeping; },
     get hand() { return state.hand; },
