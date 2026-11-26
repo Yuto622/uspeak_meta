@@ -69,11 +69,11 @@ export const PLAZA_NPCS = [
     route: [{ x: 59.7, z: 8.2 }, { x: 59.7, z: 20.2 }, { x: 63, z: 17.6 }, { x: 63, z: 9.6 }] },
   { id: 'plaza_gen', name: { ja: 'げん', en: 'Gen' }, personality: 'relaxed', color: 0x7a9a5a, speed: 1.2,
     route: [{ x: 77.8, z: 9.4 }, { x: 77.8, z: 21.4 }, { x: 74.8, z: 12.2 }] },
-  // 大通りを 歩く 2 人。
+  // この 2 人も ひろばの 中（2026-11：「住民は 広場の 中で 歩く」。前は 大通りを 歩いて いた）。
   { id: 'plaza_daichi', name: { ja: 'だいち', en: 'Daichi' }, personality: 'foodie', color: 0xd9483b, speed: 1.9,
-    route: [{ x: 55, z: 17.4 }, { x: 40, z: 17.4, face: 0 }, { x: 26, z: 17.4, face: 0 }, { x: 26, z: 14.7 }, { x: 40, z: 14.7 }, { x: 55, z: 14.7 }] },
+    route: [{ x: 76.5, z: 21.8 }, { x: 76.5, z: 11 }, { x: 61, z: 11 }, { x: 61, z: 21.8 }] },   // ひろばの 中を ぎゃくまわり（前は 大通りを 歩いて いた）
   { id: 'plaza_riko', name: { ja: 'りこ', en: 'Riko' }, personality: 'earnest', color: 0x2f9e8f, speed: 2.0,
-    route: [{ x: 47, z: 15.2 }, { x: 60, z: 15.6 }, { x: 67.4, z: 16 }, { x: 60, z: 16.9 }, { x: 47, z: 16.9 }] },
+    route: [{ x: 59.7, z: 15.6 }, { x: 67.4, z: 16 }, { x: 60, z: 16.9 }, { x: 63, z: 17.6 }, { x: 63, z: 9.6 }, { x: 59.7, z: 8.2 }] },   // ひろばの 西がわ
   // ---- フリーマーケットの お店の 人（6 人・台の うしろ）----
   { id: 'plaza_tae', name: { ja: 'たえ', en: 'Tae' }, personality: 'foodie', color: 0xe0a526, stall: 'fruit',
     lines: [{ ja: 'いらっしゃい！ あまい くだもの だよ。', en: 'Welcome! Sweet fruit for you.' }, { ja: 'この りんごは とれたて だよ。', en: 'These apples are fresh.' }, { ja: 'おやつに クッキーは どう？', en: 'How about a cookie for a snack?' }] },
