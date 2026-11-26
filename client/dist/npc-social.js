@@ -33,6 +33,7 @@ export function createNpcSocial({ player, camera, rpg, food, send, toast = () =>
   });
   const home = createNpcHome({
     player, camera, toast,
+    mustLeave: () => rpg?.state?.mode === 'flight',
     onEnter: (info) => { setTimeout(() => { if (home.active && home.info === info && !talk.isOpen) talk.open({ ...info, mode: 'welcome' }); }, 1400); },
     onLeave: () => { if (talk.isOpen) talk.close(); },
   });
@@ -85,7 +86,7 @@ export function createNpcSocial({ player, camera, rpg, food, send, toast = () =>
       const at = target?.at;
       const info = at?.info || (at?.spot?.id ? residentInfo(at.island, at.spot) : null);
       if (!info || info.key !== m?.key) return;
-      setTimeout(() => { if (!talk.isOpen) openTalk(info, { mode: 'thanks', favourite: !!m.favourite }); }, 900);
+      setTimeout(() => { if (!talk.isOpen) openTalk(info, { mode: 'thanks', favourite: !!m.favourite, inHome: home.active }); }, 900);
     } catch { /* お礼が 出なくても あげた ことは かわらない */ }
   }
 

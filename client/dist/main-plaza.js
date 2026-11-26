@@ -285,7 +285,7 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
     }
     stalls.push({ id: st.id, x, z, type: st.type, keeper: { x, z: z + 1.25, face: Math.PI }, front: { x, z: 23.2 } });
   }
-  sprite({ en: '🧺 Flea Market', ja: '🧺 フリーマーケット' }, cx, 4.2, STALL_Z + 2.2, { width: 6.4, size: 38 });
+  sprite({ en: '🧺 Flea Market', ja: '🧺 フリーマーケット' }, cx, 5.5, STALL_Z + 1.4, { width: 6.4, size: 38 });
 
   let lastHour = -1;
   return {

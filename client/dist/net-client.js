@@ -1253,6 +1253,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (rpg.isOpen) rpg.close();
       if (fishing.state.busy) fishing.cancel?.();
       if (rpg.adventure?.magic?.interior?.active) rpg.leaveSanctuary();
+      social?.leaveHome(true);   // 住民の いえの 中から よばれた ときは 先に 出る
       if (rpg.state.mode === 'flight') rpg.finishFlight();
       if (rpg.state.current !== t.space) rpg.activate(t.space, true, true);
       player.position.set(t.x, 0, t.z);

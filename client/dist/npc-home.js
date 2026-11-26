@@ -86,9 +86,10 @@ function shutterTexture() {
   return windowTex;
 }
 
-export function createNpcHome({ player, camera, toast = () => {}, onLeave = () => {}, onEnter = () => {} }) {
+// mustLeave()：ひこうき・ほかの 島へ とぶ など、へやに いられなく なった とき true（その こまで しずかに 出る）。
+export function createNpcHome({ player, camera, toast = () => {}, onLeave = () => {}, onEnter = () => {}, mustLeave = () => false }) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x2a1c13);                         // へやの 外＝あたたかい こげ茶（宇宙では ない）
+  scene.background = new THREE.Color(0x4a3626);                         // へやの 外＝あたたかい こげ茶（宇宙では ない）
   scene.add(new THREE.HemisphereLight(0xfff3df, 0x8a6a4a, 2.1));
   const sun = new THREE.DirectionalLight(0xffe9c8, 1.6);
   sun.position.set(4, 12, 8); scene.add(sun);
@@ -109,7 +110,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
   const state = { active: false, info: null, hostAt: null, style: null, mirror: 1 };
   let solid = [];                 // { x, z, hw, hd }
   let floorMat = null; let winMat = null;
-  let host = null; let parent = null; let back = null; let cooldown = 0; let welcomed = false;
+  let host = null; let parent = null; let back = null; let cooldown = 0; let whereWas = null;
 
   // かぐ 1 つ（furniture-real.js）。rot は 90° の 回数。当たり判定も 足す。
   function furn(shape, color, w, d, x, z, rot = 0, { solidH = true, scale = FS } = {}) {
@@ -130,7 +131,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     B(0, -0.3, (ZF + ZB) / 2, HX * 2 + 1.2, 0.56, ZF - ZB + 1.2, WOOD_DARK, { shadow: false });           // 床の ふち（土台）
     // かべ：しっくい＋こしいた＋はり。手前の かべは ひくく（カメラが 中を 見る）。
     B(0, 1.9, ZB - 0.2, HX * 2 + 0.8, 3.8, 0.4, st.wall);
-    for (const s of [-1, 1]) B(s * (HX + 0.2), 1.6, (ZF + ZB) / 2, 0.4, 3.2, ZF - ZB + 0.8, st.wall);
+    for (const s of [-1, 1]) B(s * (HX + 0.2), 1.35, (ZF + ZB) / 2, 0.4, 2.7, ZF - ZB + 0.8, st.wall);
     B(0, 0.5, ZB + 0.06, HX * 2, 1.0, 0.12, st.trim);
     for (const s of [-1, 1]) B(s * (HX - 0.06), 0.5, (ZF + ZB) / 2, 0.12, 1.0, ZF - ZB, st.trim);
     B(0, 3.86, ZB - 0.02, HX * 2 + 0.9, 0.28, 0.6, WOOD_DARK);
@@ -144,7 +145,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     const win = (x, y, z, ry) => { const m = new THREE.Mesh(GEO.plane, wm); m.position.set(x, y, z); m.rotation.y = ry; m.scale.set(2.7, 1.8, 1); root.add(m); };
     win(-state.mirror * 3.6, 2.55, ZB + 0.02, 0);
     win(state.mirror * 1.2, 2.75, ZB + 0.02, 0);
-    win(-state.mirror * (HX - 0.01), 2.3, 1.2, state.mirror * Math.PI / 2);
+    win(-state.mirror * (HX - 0.01), 1.75, 1.2, state.mirror * Math.PI / 2);
   }
 
   // だいどころ：木の 台・しろい 天板・おなべ・まないた。
@@ -163,8 +164,9 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
   function tableTop(x, z, st) {
     const y = 0.8 * FS;
     if (st.feast) {
-      const ids = ['cake', 'watermelon', 'donut'];
-      ids.forEach((id, i) => { try { const f = realFood(id); if (f) { f.scale.setScalar(0.5); f.position.set(x + (i - 1) * 0.8, y, z + (i % 2 ? 0.12 : -0.1)); root.add(f); } } catch { /* 絵が なくても へやは 立つ */ } });
+      // リアルな たべもの（food-real.js）。ドーナツは 36 ぶひん あるので 置かない。
+      const ids = ['watermelon', 'cake', 'apple', 'juice'];
+      ids.forEach((id, i) => { try { const f = realFood(id); if (f) { f.scale.setScalar(i < 2 ? 0.55 : 0.4); f.position.set(x + (i - 1.5) * 0.62, y, z + (i % 2 ? 0.14 : -0.12)); root.add(f); } } catch { /* 絵が なくても へやは 立つ */ } });
       return;
     }
     put('cyl', 0x8fc7e8, x, y + 0.2, z, 0.26, 0.4, 0.26, { rough: 0.3 });
@@ -176,7 +178,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     sofa: (x, z, st, side) => furn('sofa', st.sofa, 3, 1, x, z - 0.2, side > 0 ? 1 : 3),
     shelf: (x, z, st, side) => furn('shelf', 0x8d6642, 2, 1, x, z, side > 0 ? 1 : 3),
     desk: (x, z, st, side) => { furn('table', 0xa97c4e, 2, 1, x, z, 1); furn('chair', st.sofa, 1, 1, x - side * 1.5, z, side > 0 ? 3 : 1); B(x, 0.8 * FS + 0.05, z - 0.4, 0.5, 0.06, 0.7, 0xfaf6ea, { shadow: false }); B(x, 0.8 * FS + 0.12, z + 0.5, 0.4, 0.2, 0.3, 0x3f6f8f); },
-    pantry: (x, z, st, side) => { furn('shelf', 0xa8672f, 2, 1, x, z, side > 0 ? 1 : 3); for (let i = 0; i < 2; i += 1) { try { const f = realFood(i ? 'apple' : 'banana'); if (f) { f.scale.setScalar(0.45); f.position.set(x - side * 1.2, 0.36, z - 0.5 + i * 1.0); root.add(f); } } catch { /* */ } } B(x - side * 1.2, 0.18, z, 0.8, 0.36, 1.7, 0xc9a06a); block(x - side * 1.2, z, 0.4, 0.85); },
+    pantry: (x, z, st, side) => { furn('shelf', 0xa8672f, 2, 1, x, z, side > 0 ? 1 : 3); B(x - side * 1.2, 0.18, z, 0.8, 0.36, 1.7, 0xc9a06a); for (const [dz, c] of [[-0.55, 0xd9534f], [-0.15, 0xf2b04a], [0.25, 0xd9534f], [0.6, 0x8fc15a]]) put('ball', c, x - side * 1.2, 0.5, z + dz, 0.34, 0.34, 0.34, { shadow: false }); block(x - side * 1.2, z, 0.4, 0.85); },
     rack: (x, z) => { for (const s of [-1, 1]) put('cyl', 0x9a8a78, x, 1.1, z + s * 1.1, 0.1, 2.2, 0.1); put('cyl', 0x9a8a78, x, 2.16, z, 0.08, 2.3, 0.08).rotation.x = Math.PI / 2; [0xe86fa0, 0x3f8fd0, 0xf2b04a, 0x8ff0c8].forEach((c, i) => B(x, 1.5, z - 0.75 + i * 0.5, 0.12, 1.1, 0.38, c)); block(x, z, 0.3, 1.2); },
     mirror: (x, z, st, side) => { B(x, 1.3, z, 0.16, 2.3, 1.2, 0xd9b36a); B(x - side * 0.09, 1.3, z, 0.04, 2.0, 0.96, 0xdff4ff, { glow: 0.35, shadow: false, rough: 0.1 }); B(x, 0.1, z, 0.5, 0.2, 1.3, 0xb9905a); block(x, z, 0.3, 0.65); },
     books: (x, z) => { PILE.slice(0, 4).forEach((c, i) => { const m = B(x + (i % 2) * 0.06, 0.09 + i * 0.17, z, 0.7, 0.16, 0.5, c); m.rotation.y = i * 0.5; }); PILE.slice(2, 5).forEach((c, i) => { const m = B(x + 0.2, 0.09 + i * 0.17, z - 0.9, 0.62, 0.16, 0.46, c); m.rotation.y = 1 + i * 0.4; }); block(x, z - 0.4, 0.45, 0.8); },
@@ -196,7 +198,36 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     toybox: (x, z) => { B(x, 0.35, z, 1.1, 0.7, 0.7, 0x3f8fd0); B(x, 0.74, z - 0.2, 1.14, 0.08, 0.34, 0x2f6fb0); put('ball', 0xffd246, x - 0.2, 0.86, z + 0.1, 0.34, 0.34, 0.34, { shadow: false }); put('ball', 0xd9534f, x + 0.25, 0.82, z + 0.12, 0.26, 0.26, 0.26, { shadow: false }); block(x, z, 0.55, 0.35); },
   };
 
+  // 同じ 材質の 形を 1 つに まとめる（描く 回数＝材質の 数）。へやは 動かないので 入る ときに 1 回だけ。
+  let baked = [];
+  function bake() {
+    root.updateMatrixWorld(true);
+    const by = new Map();
+    root.traverse((o) => { if (o.isMesh && o.geometry?.attributes?.position && !Array.isArray(o.material)) { if (!by.has(o.material)) by.set(o.material, []); by.get(o.material).push(o); } });
+    for (const [material, list] of by) {
+      if (list.length < 2) continue;
+      const parts = list.map((m) => { const g = m.geometry.index ? m.geometry.toNonIndexed() : m.geometry.clone(); g.applyMatrix4(m.matrixWorld); return g; });
+      const n = parts.reduce((sum, g) => sum + g.attributes.position.count, 0);
+      const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3), uv = new Float32Array(n * 2);
+      let at = 0;
+      for (const g of parts) {
+        const c = g.attributes.position.count;
+        pos.set(g.attributes.position.array.subarray(0, c * 3), at * 3);
+        if (g.attributes.normal) nor.set(g.attributes.normal.array.subarray(0, c * 3), at * 3);
+        if (g.attributes.uv) uv.set(g.attributes.uv.array.subarray(0, c * 2), at * 2);
+        at += c; g.dispose();
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.BufferAttribute(nor, 3)); geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+      const mesh = new THREE.Mesh(geo, material); mesh.receiveShadow = true; mesh.castShadow = list.some((m) => m.castShadow);
+      for (const m of list) m.removeFromParent();
+      root.add(mesh); baked.push(geo);
+    }
+  }
+
   function build(info) {
+    for (const g of baked) g.dispose();
+    baked = [];
     root.clear(); solid = []; host = null;
     const personality = personalityOf(info.seed ?? info.key, info.personality);
     const st = STYLE[personality] || STYLE.cheerful;
@@ -215,8 +246,9 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     furn('plant', 0x5f9a52, 1, 1, -m * 5.5, 4.6, 0, { scale: 1.1 });
     furn('plant', 0x6fae5f, 1, 1, m * 3.0, 4.7, 0, { scale: 1.0 });
     try { PROPS[st.A]?.(m * 5.2, 2.3, st, m); } catch { /* 小物 1 つ なくても へやは 立つ */ }
-    try { PROPS[st.B]?.(-m * 5.3, 3.0, st, -m); } catch { /* */ }
+    try { PROPS[st.B]?.(-m * 5.3, 2.4, st, -m); } catch { /* */ }
     try { PROPS[st.C]?.(-m * 0.55, -4.6, st, m); } catch { /* */ }
+    try { bake(); } catch (err) { try { console.warn('[npc-home] まとめられない（そのまま 描く）', err); } catch { /* */ } }
     // いえの 人（外と 同じ 体・同じ たね）。ラグの おくに 立つ。
     host = new THREE.Group();
     try { buildVillager(null, host, { color: Number(info.color) || 0xcbbb95, seed: info.seed ?? info.key }); } catch { /* 体が 作れなくても 入れる */ }
@@ -246,7 +278,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
   function enter(info) {
     if (state.active || !info?.key) return false;
     try { build(info); } catch (err) { try { console.warn('[npc-home] へやが 作れない', err); } catch { /* */ } toast(isJa() ? 'いまは 入れないよ。' : 'You cannot go in now.'); return false; }
-    state.info = info; state.active = true; welcomed = false;
+    state.info = info; state.active = true;
     parent = player.parent;
     back = { x: player.position.x, y: player.position.y, z: player.position.z, r: player.rotation.y };
     scene.add(player);
@@ -255,6 +287,7 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     cooldown = 1.2;
     document.body.classList.add('in-building', 'in-npc-home');
     const where = document.querySelector('.location');
+    whereWas = where ? where.innerHTML : null;
     if (where) { const n = String(info.name?.en || info.name?.ja || '').replace(/[<>&"]/g, ''); const j = String(info.name?.ja || info.name?.en || '').replace(/[<>&"]/g, ''); where.innerHTML = `<span>✦</span> <b class="en">${n}'s house</b><i class="ja">${j} の いえ</i>`; }
     paintBar();
     try { onEnter(info); } catch { /* */ }
@@ -268,6 +301,9 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
     (parent || null)?.add(player);
     if (back) { player.position.set(back.x, back.y, back.z); player.rotation.y = back.r; }
     document.body.classList.remove('in-building', 'in-npc-home');
+    const where = document.querySelector('.location');
+    if (where && whereWas !== null) where.innerHTML = whereWas;      // 上の 札を 入る 前の 島の 名前に もどす
+    whereWas = null;
     paintBar();
     try { onLeave(info, silent); } catch { /* */ }
     return true;
@@ -290,13 +326,14 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
   function update(t, dt) {
     cooldown = Math.max(0, cooldown - dt);
     if (!state.active) return;
+    let out = false; try { out = !!mustLeave(); } catch { out = false; }
+    if (out) { leave(true); return; }
     if (host) {
       host.position.y = Math.abs(Math.sin(t * 1.6)) * 0.035;
       const want = Math.atan2(player.position.x - host.position.x, player.position.z - host.position.z);
       const d = Math.atan2(Math.sin(want - host.rotation.y), Math.cos(want - host.rotation.y));
       host.rotation.y += d * Math.min(1, dt * 6);
     }
-    if (!welcomed && cooldown < 0.6) { welcomed = true; }
     const busy = !!document.querySelector('dialog[open]') || !!document.body.dataset.npcTalk;
     if (!cooldown && !busy && Math.abs(player.position.x) < DOOR && player.position.z > ZF + 0.25) leave();
   }
@@ -310,8 +347,8 @@ export function createNpcHome({ player, camera, toast = () => {}, onLeave = () =
       camera.position.set(player.position.x, 2.05 + player.position.y, player.position.z);
       camera.lookAt(player.position.x - Math.sin(yaw) * Math.cos(pitch) * 10, camera.position.y + Math.sin(pitch) * 10, player.position.z - Math.cos(yaw) * Math.cos(pitch) * 10);
     } else {
-      // 手前（戸口の がわ）から 見下ろす。まわしすぎると よこの かべが かくすので、向きは 少しだけ。
-      const a = THREE.MathUtils.clamp(Math.atan2(Math.sin(yaw), Math.cos(yaw)), -0.45, 0.45) * 0.6;
+      // 手前から 見下ろす。向きは 世界の カメラと 同じ yaw（歩く 向きが カメラに 合わせて あるので、ここだけ かえると 操作が ずれる）。
+      const a = yaw;
       const wide = camera.aspect > 1.9;                 // 横長の スマホは 少し 引く
       const distance = THREE.MathUtils.clamp(zoom * 0.5, 12.5, 17) * (wide ? 0.92 : 1);
       focus.set(player.position.x * 0.35, 0.9, player.position.z * 0.3 - 0.9);

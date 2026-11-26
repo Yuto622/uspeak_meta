@@ -1,6 +1,6 @@
 /* 住民との 会話（npc-talk.js）と いえの 中の 帯（npc-home.js）。ブランドの 色：深緑・オレンジ・ミント・クリーム。
    うごかすのは transform と opacity だけ。字は 11px 以上・おす ところは 34px 以上。 */
-#ntk { position: fixed; inset: 0; z-index: 8; pointer-events: none; font-family: inherit; --ntk-c: #cbbb95; }
+#ntk { position: fixed; inset: 0; z-index: 40; pointer-events: none; font-family: inherit; --ntk-c: #cbbb95; }
 #ntk[hidden] { display: none; }
 #ntk > * { pointer-events: auto; }
 
@@ -60,7 +60,7 @@
 
 /* 会話の 間は、下の 道具（スティック・あげる・はなす・ホットバー）を しまう：はこと かさなる・歩けない ので いらない */
 body[data-npc-talk] .mobile-pad, body[data-npc-talk] #give, body[data-npc-talk] #give-card, body[data-npc-talk] #near, body[data-npc-talk] #npc-talk,
-body[data-npc-talk] .bottom, body[data-npc-talk] #home-bar, body[data-npc-talk] .world-label, body[data-npc-talk] #hunger-notice { display: none !important; }
+body[data-npc-talk] .bottom, body[data-npc-talk] .net-dock, body[data-npc-talk] #home-bar, body[data-npc-talk] .world-label, body[data-npc-talk] #hunger-notice { display: none !important; }
 body[data-arcade] #ntk, body[data-race] #ntk, body[data-gp] #ntk, body[data-main] #ntk, body[data-warp] #ntk, body[data-class-pause] #ntk { display: none; }
 
 /* ---- はばの せまい 画面 ---- */
@@ -96,6 +96,7 @@ body[data-arcade] #ntk, body[data-race] #ntk, body[data-gp] #ntk, body[data-main
 .gv-talk kbd { padding: 1px 7px; border-radius: 6px; background: #ffffff22; font: 700 12px/1.5 inherit; }
 .gv-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px; }
 @media (pointer: coarse) { .gv-talk kbd { display: none; } }
+@media (max-height: 560px) { #give { bottom: 96px; padding: 6px 10px; } .gv-talk { min-height: 36px; font-size: 14px; } }
 
 /* ---- いえの 中の 帯（npc-home.js）：だれの いえか と「そとへ」 ---- */
 #home-bar { position: fixed; left: 50%; top: 74px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 16px; border-radius: 999px;

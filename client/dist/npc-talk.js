@@ -54,7 +54,7 @@ function drawFace(g, kind) {
     roundEyes(0.025, 0.86);                                                                                // 少し よこを 見る
     blush(0.27, 0.16, 0xf07f8f);
     add('A', MOUTH, [0, 1.555, 0.555], [0.07, 0.06, 0.1], [Math.PI, 0, 0]);
-    for (const s of [-1, 1]) add('B', INK, [s * 0.22, 1.9, 0.5], [0.14, 0.028, 0.03], [0, 0, s * 0.3]);    // こまった まゆ
+    for (const s of [-1, 1]) add('B', INK, [s * 0.22, 1.9, 0.5], [0.14, 0.028, 0.03], [0, 0, s * -0.32]);   // こまった まゆ（内がわが 上）
   } else if (kind === 'sleepy') {
     for (const s of [-1, 1]) add('B', INK, [s * 0.21, 1.7, 0.535], [0.19, 0.035, 0.04], [0, s * 0.3, s * -0.08]);  // 半分 とじた 目
     add('S', MOUTH, [0.03, 1.545, 0.565], [0.07, 0.06, 0.04]);
@@ -72,13 +72,13 @@ export function portraitModel({ color, seed }, kind = 'smile') {
   buildVillager(null, body, { color, seed, face: { noEyes: true, noMouth: true, noBlush: true } });
   drawFace(body, FACE_OF[kind] || 'smile');
   const tall = body.scale.y || 1;
-  const k = 0.6;
+  const k = 0.76;
   const outer = new THREE.Group();
   const tilt = new THREE.Group();
   body.scale.multiplyScalar(k);
-  body.position.y = -1.84 * tall * k;          // かおの まんなかを 原点に
+  body.position.y = -1.7 * tall * k;          // かおの まんなかを 原点に
   tilt.add(body); tilt.rotation.x = -0.2;      // カメラは 少し 上から 見るので、あごを 上げる
-  tilt.position.y = 0.52;
+  tilt.position.y = 0.6;
   outer.add(tilt);
   // renderShots は 描いた あと 形を dispose する。体の 形（island-cast の G）は みんなで 使うので、材質だけ 捨てさせる。
   outer.traverse = (fn) => { const seen = new Set(); THREE.Object3D.prototype.traverse.call(outer, (o) => { for (const m of [].concat(o.material || [])) seen.add(m); }); for (const m of seen) fn({ material: m }); };
@@ -238,7 +238,7 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
       else if (mode === 'welcome') lines = [set.welcome];
       else if (mode === 'home') { lines = homeTalk({ personality: who.personality, turn, hearts }); turns.set(who.key, turn + 1); }
       else { lines = conversation({ personality: who.personality, hearts, phase, season, turn, extra: who.lines }); turns.set(who.key, turn + 1); }
-      state.variant = mode === 'home' || mode === 'welcome' ? 'home' : 'talk';
+      state.variant = mode === 'home' || mode === 'welcome' || info.inHome ? 'home' : 'talk';
       // はじめて ❤ が たりた とき：さそいの ことばと 2 つの ボタン。
       state.choice = false;
       if (state.variant !== 'home' && fr?.invited && !invitedSet().has(who.key)) {

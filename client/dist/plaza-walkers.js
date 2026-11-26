@@ -14,7 +14,7 @@
 import * as THREE from './three.module.js';
 import { buildVillager } from './villager.js';
 import { PLAZA_NPCS, PERSONALITIES, linesOf } from './plaza-npcs.js';
-import { isJa, t as tr } from './i18n.js';
+import { isJa, t as tr, onLangChange } from './i18n.js';
 
 const STOP_AT = 2.2, GO_AT = 2.9;          // この 近さで 止まる／はなれたら また 歩く
 const REACH = 2.6, KEEPER_REACH = 3.5;     // 話しかけられる 近さ（お店の 人は 台を はさむので 少し 遠くから）
@@ -50,7 +50,7 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
   try {
     const c = document.createElement('canvas'); c.width = 768; c.height = 128;
     const ctx = c.getContext('2d'), tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
-    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true, fog: false, toneMapped: false }));
     sp.scale.set(6.6, 1.1, 1); sp.renderOrder = 4; sp.visible = false; root.add(sp);
     bubble = { sp, paint(text) {
       ctx.clearRect(0, 0, 768, 128);
@@ -65,7 +65,8 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
   } catch { bubble = null; }
 
   // ---- 「💬 ○○ と はなす」ボタンと、ことばの 行（ふきだしが 読みにくい 小さな 画面の ため）----
-  let box = null, btn = null, line = null, shownFor = '', lineUntil = 0, uiCheck = 0, uiOk = true;
+  let box = null, btn = null, line = null, shownFor = '', lineUntil = 0, uiCheck = 0, uiOk = true, relabel = false;
+  try { onLangChange(() => { relabel = true; }); } catch { /* Node */ }   // ことばを かえたら ボタンの 名前も かきなおす
   try {
     if (!document.head || !document.body?.appendChild) throw new Error('no dom');
     const style = document.createElement('style');
@@ -79,6 +80,7 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
       + '#npc-talk p[hidden]{display:none}';
     document.head.appendChild(style);
     box = document.createElement('div'); box.id = 'npc-talk'; box.hidden = true;
+    box.setAttribute('translate', 'no');   // なまえ（「はな」→ Flower）を i18n-dom.js に 訳させない。ことばは ここで えらぶ
     line = document.createElement('p'); line.hidden = true; line.setAttribute('role', 'status');
     btn = document.createElement('button'); btn.type = 'button';
     box.append(line, btn); document.body.appendChild(box);
@@ -87,7 +89,7 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
     addEventListener('keydown', (e) => {
       if (e.key !== 'e' && e.key !== 'E') return;
       if (e.repeat || !shownFor || box.hidden || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || '')) return;
-      if (document.querySelector('dialog[open]') || document.querySelector('#near')?.style.display === 'block') return;   // ほかの「はなす・はいる」が 出て いれば そちら
+      if (document.body.dataset.npcTalk || document.querySelector('dialog[open]') || document.querySelector('#near')?.style.display === 'block') return;   // ほかの「はなす・はいる」が 出て いれば そちら
       talk(shownFor);
     });
   } catch { box = null; btn = null; line = null; }
@@ -163,10 +165,10 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
     }
     if (box) {
       uiCheck -= dt;
-      if (uiCheck <= 0) { uiCheck = 0.25; try { uiOk = !document.querySelector('dialog[open]') && !document.body.dataset.main; } catch { uiOk = true; } }
+      if (uiCheck <= 0) { uiCheck = 0.25; try { uiOk = !document.querySelector('dialog[open]') && !document.body.dataset.main && !document.body.dataset.npcTalk; } catch { uiOk = true; } }
       const who = best && uiOk ? best.def.id : '';
-      if (who !== shownFor) {
-        shownFor = who;
+      if (who !== shownFor || relabel) {
+        shownFor = who; relabel = false;
         if (who) btn.innerHTML = `<kbd>E</kbd>💬 ${tr('{who} と はなす', { who: nameOf(best) }).replace(/[<>&]/g, '')}`;
         btn.hidden = !who;
       }
