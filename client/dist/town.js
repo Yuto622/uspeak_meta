@@ -135,7 +135,7 @@ export function createTownUI({ send, toast, speak, isOnline, learn, room, plaza 
     const online = !!state.spot?.online;
     dialog.classList.toggle('online-shop', online);
     if (online) {
-      dialog.querySelector('#town-title').innerHTML = '🖥 <span class="en">Online Shop</span><span class="ja">オンライン ショップ</span>';
+      dialog.querySelector('#town-title').innerHTML = '<span class="en">🖥 Online Shop</span><span class="ja">🖥 オンライン ショップ</span>';
       dialog.querySelector('.eyebrow').textContent = 'ONLINE SHOP';
     } else if (state.spot?.kind === 'furniture') {
       dialog.querySelector('#town-title').textContent = 'かぐ屋';

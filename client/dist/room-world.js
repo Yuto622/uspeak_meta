@@ -74,7 +74,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   // 買えるか・いくらかは 部屋（サーバー）が 決める。ここは ボタンを 出して たのむだけ（town.js が `onShopRequest` に つなぐ）。
   const shopBtn = document.createElement('button');
   shopBtn.id = 'room-shop'; shopBtn.type = 'button'; shopBtn.hidden = true; shopBtn.setAttribute('translate', 'no');
-  shopBtn.innerHTML = '🖥 <span class="en">Shop online</span><span class="ja">かいものを する</span>';
+  shopBtn.innerHTML = '<span class="en">🖥 Shop online</span><span class="ja">🖥 かいものを する</span>';
   let onShopRequest = null;
   function pcNear() {
     let best = null, bd = 2.2;
@@ -247,8 +247,12 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
   function buildShell(room) {
     shell.clear();
     const half = room.grid / 2;
-    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x4a2f1e));   // めじ（タイルの すきまに 見える）
-    floor.position.y = -0.2;
+    // マスは 整数の 座標が まんなか（-half 〜 half-1）なので、おくと 左の れつは -half-0.5 まで ある。
+    // 前は かべが -half に 立って いて、おくの れつに 置いた かぐの うしろ半分（ベッドの ヘッドボード・パソコンの 画面）が かべに うまった。
+    // 2026-11：おくと 左の かべを 0.5 そとへ（back）。歩ける 範囲（blocked）・戸口・右と 手前の かべは 前の まま。
+    const back = -half - 0.5;
+    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid + 0.8, 0.4, room.grid + 0.8), mat(0x4a2f1e));   // めじ（タイルの すきまに 見える）
+    floor.position.set(-0.4, -0.2, -0.4);
     floor.receiveShadow = true;
     shell.add(floor);
     // A checkerboard so the squares a child is furnishing are visible without a shader.
@@ -262,7 +266,7 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
       }
     }
     const wallH = room.height + 0.5;
-    for (const [dx, dz, w, d] of [[0, -half, room.grid, 0.3], [-half, 0, 0.3, room.grid], [half, 0, 0.3, room.grid]]) {
+    for (const [dx, dz, w, d] of [[-0.4, back - 0.15, room.grid + 1.1, 0.3], [back - 0.15, -0.4, 0.3, room.grid + 1.1], [half, 0, 0.3, room.grid]]) {
       const wall = new THREE.Mesh(new THREE.BoxGeometry(w, wallH, d), mat(0x143a2c, 0.2));
       wall.position.set(dx, wallH / 2, dz);
       shell.add(wall);
@@ -273,21 +277,24 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
       piece.position.set(side * (half + 1) / 2, wallH / 2, half);
       shell.add(piece);
     }
+    const corner = new THREE.Mesh(new THREE.BoxGeometry(0.8, wallH, 0.3), mat(0x143a2c, 0.2));   // 手前の かべを 左の かべまで つなぐ
+    corner.position.set(-half - 0.4, wallH / 2, half);
+    shell.add(corner);
     const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, wallH - 2.4, 0.3), mat(0x143a2c, 0.2));
     lintel.position.set(0, wallH - (wallH - 2.4) / 2, half);
     shell.add(lintel);
-    const rail = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.18, 0.36), mat(0x8ff0c8, 0.5));
-    rail.position.set(0, 1.15, -half + 0.1);
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(room.grid + 0.5, 0.18, 0.16), mat(0x8ff0c8, 0.5));
+    rail.position.set(-0.25, 1.15, back + 0.02);
     shell.add(rail);
     const window = new THREE.Mesh(new THREE.BoxGeometry(3.4, 1.9, 0.16), mat(0xf2b04a, 0.5));
-    window.position.set(0, 2.6, -half + 0.05);
+    window.position.set(0, 2.6, back + 0.02);
     shell.add(window);
     const light = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.25, 1.1), mat(0xffffff, 0.8));
     light.position.set(0, room.height - 0.3, 0);
     light.rotation.set(0.62, 0.78, 0);
     shell.add(light);
     // ネオンの ふち：かべの 上に 光の 帯。
-    for (const [dx, dz, w, d] of [[0, -half + 0.2, room.grid, 0.12], [-half + 0.2, 0, 0.12, room.grid], [half - 0.2, 0, 0.12, room.grid]]) {
+    for (const [dx, dz, w, d] of [[-0.25, back + 0.06, room.grid + 0.5, 0.12], [back + 0.06, -0.25, 0.12, room.grid + 0.5], [half - 0.2, 0, 0.12, room.grid]]) {
       const trim = new THREE.Mesh(new THREE.BoxGeometry(w, 0.12, d), mat(0xffb066, 0.5));
       trim.position.set(dx, wallH - 0.2, dz);
       shell.add(trim);

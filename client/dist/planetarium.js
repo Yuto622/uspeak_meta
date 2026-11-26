@@ -199,7 +199,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     player.position.set(hall.spawn.x, 0, hall.spawn.z);
     player.rotation.y = hall.spawn.ry;
     camera.position.set(hall.spawn.x, 2.2, hall.spawn.z + 1.6);
-    camPos = null; cooldown = 1.2; entered = -1; hold = 0; hiK = 0; turnK = 0; next = 0; spin = 0; resume = false;
+    camPos = null; eyeSet = false; cooldown = 1.2; entered = -1; hold = 0; hiK = 0; turnK = 0; next = 0; spin = 0; resume = false;
     sky.setSky(LATITUDE, SIDEREAL); lines.material.uniforms.uAll.value = 0; sky.highlight(-9, 0);
     try {
       document.body.classList.add('in-building', 'in-planetarium');
@@ -284,7 +284,8 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     if (!cooldown && !dialogOpen() && Math.abs(player.position.x - ex.x) < ex.r && player.position.z > ex.z - 0.45) leave();
   }
 
-  const desired = new THREE.Vector3(), lookAt = new THREE.Vector3();
+  // ゲームは 毎フレーム 自分の カメラの 場所を 入れなおすので、ここの 目の 場所（eye）は 自分で おぼえて おく。
+  const desired = new THREE.Vector3(), lookAt = new THREE.Vector3(), eye = new THREE.Vector3(); let eyeSet = false;
   function updateCamera({ yaw, pitch, dt, firstPerson }) {
     if (!state.active) return false;
     camera.aspect = globalThis.innerWidth / globalThis.innerHeight || camera.aspect;
@@ -294,7 +295,7 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
       camera.updateProjectionMatrix();
       camera.position.set(px, 2.05 + player.position.y, pz);
       camera.lookAt(px + fx * Math.cos(pitch) * 10, camera.position.y + Math.sin(pitch) * 10, pz + fz * Math.cos(pitch) * 10);
-      camPos = camera.position;
+      camPos = camera.position; eyeSet = false;
       return true;
     }
     // 見上げる カメラ：じぶんの 後ろ・ひくい 位置から、ドームを 大きく。画角を ひろげる（ゲームは 毎フレーム 43 へ もどそうと する）。
@@ -302,7 +303,8 @@ export function createPlanetarium({ player, camera, toast = () => {}, rpg = null
     desired.set(px - fx * 7.5, 2.1, pz - fz * 7.5);
     const d = Math.hypot(desired.x, desired.z), max = hall.radius - 1.1;
     if (d > max) { desired.x *= max / d; desired.z *= max / d; }
-    camera.position.lerp(desired, 1 - Math.exp(-dt * 6));
+    if (!eyeSet) { eye.copy(desired); eyeSet = true; } else eye.lerp(desired, 1 - Math.exp(-(dt || 0.016) * 5));
+    camera.position.copy(eye);
     const e = THREE.MathUtils.clamp(0.4 + pitch * 0.8, 0.08, 1.25);
     lookAt.set(camera.position.x + fx * Math.cos(e) * 10, camera.position.y + Math.sin(e) * 10, camera.position.z + fz * Math.cos(e) * 10);
     camera.lookAt(lookAt);
