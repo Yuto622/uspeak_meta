@@ -116,7 +116,7 @@ export function createNpcSocial({ player, camera, rpg, food, send, toast = () =>
     const at = home.nearest();
     if (!at) return null;
     const info = at.info; const i = info.key.indexOf(':');
-    return { island: info.key.slice(0, i), spot: { id: info.key.slice(i + 1), character: (isJa() ? info.name?.ja : info.name?.en) || info.name?.ja || '' }, x: at.x, z: at.z, info, home: true };
+    return { island: info.key.slice(0, i), spot: { id: info.key.slice(i + 1), character: info.name?.en || info.name?.ja || '' }, x: at.x, z: at.z, info, home: true };
   }
   function nearWalker() {
     try {
@@ -127,7 +127,7 @@ export function createNpcSocial({ player, camera, rpg, food, send, toast = () =>
       const o = npc.object3D;
       let x = player.position.x, z = player.position.z;
       if (o?.getWorldPosition) { const v = o.getWorldPosition(o.position.clone()); x = v.x; z = v.z; }
-      return { island: 'main', spot: { id: String(npc.id), character: (isJa() ? info.name.ja : info.name.en) || info.name.ja }, x, z, info, walker: true };
+      return { island: 'main', spot: { id: String(npc.id), character: info.name.en || info.name.ja }, x, z, info, walker: true };
     } catch { return null; }
   }
 

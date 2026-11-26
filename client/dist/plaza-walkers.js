@@ -38,7 +38,8 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
     g.position.set(start.x, 0, start.z); g.rotation.y = stall ? Math.PI : 0;
     root.add(g);
     const p = PERSONALITIES[def.personality] || {};
-    const label = sprite({ en: `${p.icon || ''} ${def.name.en}`.trim(), ja: `${p.icon || ''} ${def.name.ja}`.trim() }, start.x, 3.0, start.z, { width: 3.4, size: 46, depthTest: false });
+    // 名札は どちらの 言語でも 英語の 名前（2026-11：「アバターは 英語の 名前で」）。
+    const label = sprite({ en: `${p.icon || ''} ${def.name.en}`.trim(), ja: `${p.icon || ''} ${def.name.en || def.name.ja}`.trim() }, start.x, 3.0, start.z, { width: 3.4, size: 46, depthTest: false });
     label.visible = false;
     npcs.push({ def, g, limbs, label, keeper: !!stall, x: start.x, z: start.z, idx, dir: 1, mode: 'pause', wait: 0.5 + rnd() * 4, phase: (h % 628) / 100, amp: 0, held: false, said: h % 3, look: rnd() * 6.28, dist: 999 });
   }
@@ -93,7 +94,7 @@ export function createPlazaWalkers({ root, sprite, plaza }) {
       talk(shownFor);
     });
   } catch { box = null; btn = null; line = null; }
-  const nameOf = (n) => (isJa() ? n.def.name.ja : n.def.name.en) || n.def.name.ja;
+  const nameOf = (n) => n.def.name.en || n.def.name.ja;
   const pick = (text) => (text && typeof text === 'object' ? (isJa() ? text.ja : text.en) || text.ja || text.en || '' : String(text ?? ''));
 
   // その 人の 頭の 上に ことばを 出す（seconds 秒）。会話の 画面からも 使える。

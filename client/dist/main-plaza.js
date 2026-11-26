@@ -2,7 +2,7 @@
 //
 // 場所：大通り（z 16）を 東へ のばした 先。石だたみは x 57〜85・z 3〜29（まんなか 71, 16）。島の 形の 外なので、
 // main-world.js が createIsland に `annex`（PLAZA.annex）を わたして 土地を つき出して いる（island-kit.js）。
-//   北 … 時計台（71, 6.5）。はりは 世界の 時計（shop-hours.js の worldHour：あさ 7 時に ひるまが はじまる）。
+//   北東 … 時計台（79, 6.5）。はりは 世界の 時計（shop-hours.js の worldHour：あさ 7 時に ひるまが はじまる）。
 //   まんなか … ふんすいと まるい もようの 石だたみ。
 //   東 … きせつの イベントの ぶたい（まだ 空っぽ。`eventSpot` に 後で かざる）。
 //   南 … フリーマーケット 6 けん（かざり。売り買いは まだ ない。お店の 人は plaza-walkers.js が 立たせる）。
@@ -17,6 +17,7 @@ import { furnitureModel } from './furniture-real.js';
 import { blockModel } from './town-real.js';
 
 // 島を 建てる 前（createIsland）に 要る 数字。annex は 土地（まわりに 草と すなはまの ふち）。
+const CLOCK_X = 79;   // 時計台の x（ミニマップの 絵も これを 使う）
 export const PLAZA = {
   cx: 71, cz: 16, x0: 57, x1: 85, z0: 3, z1: 29,
   // 2026-11：北へ のばした（z0 -1 → -30）。ひろばの すぐ 北に としょかん（LIBRARY）が 立つ。
@@ -191,7 +192,8 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
   solid(cx, cz, 1.75, 1.75);
 
   // 時計台（北）。
-  const CLOCK = { x: cx, z: 6.5 };
+  // 2026-11：まんなか（x 71）から 東へ ずらした。まんなかに あると 広場から としょかんの 入口と かんばんが かくれた。
+  const CLOCK = { x: CLOCK_X, z: 6.5 };
   let tower = null;
   try { tower = clockTower(); tower.position.set(CLOCK.x, 0.2, CLOCK.z); root.add(tower); } catch (err) { console.warn('[plaza] 時計台が 作れない', err); tower = null; }
   solid(CLOCK.x, CLOCK.z, 1.95, 1.95);
@@ -201,7 +203,7 @@ export function buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods = []
   sprite({ en: '⛲ Plaza', ja: '⛲ ひろば' }, 58.4, 3.3, 10.6, { width: 4.4, size: 40 });
 
   // ベンチ（北・南むき）、街灯、花の はち、ふちの 木。
-  bench(63.5, 4.7, 0); bench(78.5, 4.7, 0);
+  bench(63.5, 4.7, 0); bench(75.2, 4.7, 0);
   for (const [lx, lz] of [[57.8, 12.3], [57.8, 19.7], [67, 7.5], [75, 7.5], [84.2, 4.4], [84.3, 22.6], [57.9, 4.6]]) lamp(lx, lz);
   const PETAL = [0xf08fb0, 0xf2c94c, 0xffffff, 0xe86f6f];
   // 時計台の 両わきの 2 つは としょかんの だんの わきへ（時計台の よこを 通って としょかんへ 歩ける ように）。
@@ -318,5 +320,5 @@ export function drawPlazaMap(ctx, px, py, k) {
   ctx.fillStyle = '#b88d5a'; ctx.fillRect(px(79.5), py(11.5), 5 * k, 9 * k);
   for (const s of STALLS) { ctx.fillStyle = `#${s.color.toString(16).padStart(6, '0')}`; ctx.fillRect(px(s.x - 1.5), py(STALL_Z - 0.8), 3 * k, 1.8 * k); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '8px sans-serif';
-  ctx.fillText('🕰', px(cx), py(6.5)); ctx.fillText('🎪', px(82), py(16)); ctx.fillText('🧺', px(cx), py(STALL_Z + 0.4));
+  ctx.fillText('🕰', px(CLOCK_X), py(6.5)); ctx.fillText('🎪', px(82), py(16)); ctx.fillText('🧺', px(cx), py(STALL_Z + 0.4));
 }

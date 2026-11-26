@@ -176,7 +176,7 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
     const p = PERSONALITIES[who.personality];
     el.dataset.variant = state.variant === 'home' ? 'home' : 'talk';
     el.style.setProperty('--ntk-c', hex(who.color));
-    ui.name.textContent = (isJa() ? who.name?.ja : who.name?.en) || who.name?.ja || who.name?.en || '';
+    ui.name.textContent = who.name?.en || who.name?.ja || '';   // 名前は いつも 英語
     ui.kind.textContent = p ? `${p.icon} ${isJa() ? p.ja : p.en}` : '';
     ui.hearts.innerHTML = heartsHtml(who.key);
     // 英語が 主役（大きく）・日本語は 小さく 下に。どちらの 言語の 画面でも 同じ（英語を 学ぶ ための 会話）。
