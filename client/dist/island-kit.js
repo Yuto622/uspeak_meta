@@ -6,6 +6,7 @@
 // differ, so that is all each island module writes.
 import * as THREE from './three.module.js';
 import { buildVillager, villagerSeed } from './villager.js';
+import { placeHost } from './island-cast.js';
 // 島の看板は canvas に焼いた絵で、HTML の仕組み（`data-t` / `.en`・`.ja`）が効かない。
 // 言語を見て焼き直すために、ここだけ i18n を直接見ている。
 import { isJa, onLangChange } from './i18n.js';
@@ -519,6 +520,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     spots.push({ def, npc, label, ja });
   }
 
+  let host = null, hostLabel = null;
   function construct() {
     if (built || !data) return;
     built = true;
@@ -527,6 +529,10 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
       shade, lamp, bush, flowers, rock, barrel, crate, bench, fence, bunting, root });
     makeBeacon();
     flushDeco();
+    // 島の「かお」の キャラクター（island-cast.js）：ついた 場所の よこで むかえる。
+    const st = data.start;
+    host = placeHost(root, data.id, st ? st.x - 2.8 : DOCK.x + 5, st ? st.z + 1.8 : DOCK.z - 3.2);
+    if (host) { const c = host.cast; hostLabel = sprite({ en: c.en, ja: c.name }, host.x, 4.1, host.z, { width: 5, size: 34 }); hostLabel.visible = false; }
     setTarget(targetId, targetAt);
   }
 
@@ -545,6 +551,7 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
 
   function update(t, player) {
     if (!root.visible || !built) return;
+    if (host) { const d = host.update(t, player.position.x - root.position.x, player.position.z - root.position.z); if (hostLabel) hostLabel.visible = labelsOn && d < 12; }
     for (const sp of spots) {
       const dist = Math.hypot(player.position.x - root.position.x - sp.def.x, player.position.z - root.position.z - sp.def.z);
       sp.npc.position.y = Math.sin(t * 1.4 + sp.def.x) * 0.05;

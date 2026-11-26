@@ -196,3 +196,26 @@ export function buildCastMember(id) {
   group.userData.cast = c;
   return group;
 }
+
+// 島の id → キャラクターの id（英検の 7 島は 同じ 先生）。
+export const castIdOf = (islandId) => (/^eiken/.test(islandId || '') ? 'eiken' : islandId);
+
+// 島に 立たせる：その 場で ゆれて、子どもが 近づくと そちらを 向いて ぴょんと はねる。当たり判定は なし。
+export function placeHost(parent, islandId, x, z, { scale = 1.12, face = 0 } = {}) {
+  const group = buildCastMember(castIdOf(islandId)); if (!group) return null;
+  group.position.set(x, 0, z); group.scale.setScalar(scale); group.rotation.y = face;
+  parent.add(group);
+  let seen = 0;
+  return {
+    group, cast: group.userData.cast, x, z,
+    // px・pz は parent の 中の 座標での 子どもの 位置。
+    update(t, px, pz) {
+      const d = Math.hypot(px - x, pz - z), near = d < 9;
+      seen += ((near ? 1 : 0) - seen) * 0.08;
+      if (d < 16) { const want = Math.atan2(px - x, pz - z); let diff = want - group.rotation.y; diff = Math.atan2(Math.sin(diff), Math.cos(diff)); group.rotation.y += diff * 0.12; }
+      group.position.y = Math.abs(Math.sin(t * (2.2 + seen * 3.2) + x)) * (0.05 + seen * 0.16);
+      group.rotation.z = Math.sin(t * 1.7 + z) * 0.03;
+      return d;
+    },
+  };
+}
