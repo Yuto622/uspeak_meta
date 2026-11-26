@@ -170,3 +170,8 @@ body[data-arcade] .top-dock, body[data-race] .top-dock, body[data-gp] .top-dock,
 
 /* 2026-11：Web 版は おなかが へらない。ゲージは「🎒 もちもの」の 札だけ に する（🍗 の めもりは 出さない）。 */
 #hunger.no-hunger .hg-icons { display: none; }
+
+/* リアルな 3D の 絵（food-real.js）。絵文字より 大きく 見せる。 */
+.fd-emoji.real { font-size: 0; line-height: 0; }
+.fd-emoji.real img { width: 96px; height: 96px; display: block; margin: -6px auto -4px; -webkit-user-drag: none; }
+.fd-eat .fd-emoji.real img { width: 68px; height: 68px; margin: -4px auto -2px; }

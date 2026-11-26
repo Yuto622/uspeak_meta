@@ -10,6 +10,7 @@ import { itemModel } from './wardrobe-models.js';
 import { buildIslandModel } from './land-world.js';
 import { equipmentModel } from './fishing-models.js';
 import { ITEM_BY_ID } from './fishing-data.js';
+import { realFood } from './food-real.js';
 
 const mat = (color, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...extra });
 const box = (g, x, y, z, w, h, d, color, extra) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(color, extra)); m.position.set(x, y, z); g.add(m); return m; };
@@ -17,6 +18,8 @@ const cyl = (g, x, y, z, r, h, color, extra) => { const m = new THREE.Mesh(new T
 
 // たべもの 9 しゅるい（server/src/game/food.js の id）。ちいさな ボクセルの 置き物。
 export function foodModel(id) {
+  // リアルな モデル（food-real.js）。ない たべものは 下の 箱の モデル。
+  const real = realFood(id); if (real) { real.scale.setScalar(1.1); return real; }
   const g = new THREE.Group();
   switch (id) {
     case 'apple': {

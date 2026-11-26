@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U-Speak たべものの 3D モデル</title>
+<style>
+  body{margin:0;background:#fffaf0;color:#17332a;font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+  h1{margin:0;padding:22px 28px 10px;font-size:26px}
+  #grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 28px 28px;max-width:900px}
+  .card{background:#fff;border:2px solid #efe6d2;border-radius:20px;text-align:center;padding:12px 8px 14px}
+  .card img{width:200px;height:200px}
+  .card b{display:block;font-size:20px}
+</style>
+</head>
+<body>
+<h1>たべものの 3D モデル（屋台の 9 しゅるい）</h1>
+<div id="grid"></div>
+<script type="module">
+import { foodShots, REAL_FOODS } from './food-real.js';
+const shots = await foodShots();
+for (const id of REAL_FOODS) {
+  const d = document.createElement('div'); d.className = 'card';
+  d.innerHTML = shots ? `<img src="${shots[id]}" alt=""><b>${id}</b>` : `<b>${id}（かけない）</b>`;
+  document.querySelector('#grid').append(d);
+}
+document.body.dataset.ready = '1';
+</script>
+</body>
+</html>

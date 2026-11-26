@@ -4,6 +4,7 @@
 // 同じ はやさで 減らして 見せ、押されたら 頼むだけ（food:open / food:buy / food:eat）。
 // 0 に なっても しなない。歩くのが おそく なるだけ（speedFactor → net.speed）。
 import { t as tr, isJa, onLangChange } from './i18n.js';
+import { foodShots } from './food-real.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -103,11 +104,20 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   }
   setInterval(() => { gauge.hidden = !isOnline() || document.body.dataset.arcade || document.body.dataset.race || document.body.dataset.gp ? true : false; if (!gauge.hidden) paintGauge(); else paintNotice(''); }, 1000);
 
+  // たべものの 絵：リアルな 3D モデルを 1 回だけ 絵に して（food-real.js）、絵文字と 入れかえる。作れない 端末は 絵文字の まま。
+  let pics = null;
+  function realPictures() {
+    const todo = dialog.querySelectorAll('.fd-emoji[data-food]:not(.real)'); if (!todo.length) return;
+    if (!pics) { foodShots().then((s) => { pics = s || {}; realPictures(); }); return; }
+    for (const el of todo) { const src = pics[el.dataset.food]; if (!src) continue; el.classList.add('real'); el.innerHTML = `<img src="${src}" alt="" draggable="false">`; }
+  }
+  new MutationObserver(realPictures).observe(dialog, { childList: true, subtree: true });
+
   const fillIcons = (n) => `${'🍗'.repeat(Math.floor(n / 2))}${n % 2 ? '½' : ''}`;
   function itemCard(it) {
     const have = state.bag.find((b) => b.id === it.id)?.n || 0;
     const poor = state.coins < it.price;
-    return `<div class="fd-item"><span class="fd-emoji">${it.icon}</span>
+    return `<div class="fd-item"><span class="fd-emoji" data-food="${esc(it.id)}">${it.icon}</span>
       <div class="fd-name" translate="no"><b>${esc(it.en)}</b><small>${esc(it.ja)}</small></div>
       ${state.hungerOn === false ? '' : `<p class="fd-fill">${fillIcons(it.fill)} <small>+${it.fill}</small></p>`}
       <button type="button" class="fd-buy" data-buy="${esc(it.id)}" ${poor ? 'disabled' : ''}>${poor ? bi(`◈ ${it.price}`, `◈ ${it.price}`) : bi(`Buy ◈ ${it.price}`, `かう ◈ ${it.price}`)}</button>
@@ -116,7 +126,7 @@ export function createFoodUI({ send, toast, speak, isOnline, onCoins = () => {},
   function bagRow() {
     if (!state.bag.length) return `<p class="fd-empty">${bi('Your bag is empty. Buy food at the stalls on the Main Island.', 'かばんは からっぽ。メインの島の やたいで かえるよ。')}</p>`;
     const full = state.hungerOn !== false && now() >= state.max - 0.01;
-    return `<div class="fd-bag">${state.bag.map((b) => `<button type="button" class="fd-eat" data-eat="${esc(b.id)}" ${full ? 'disabled' : ''}><span class="fd-emoji">${b.icon}</span><span translate="no">${esc(b.en)}</span><small>×${b.n}${state.hungerOn === false ? '' : ` · +${b.fill}`}</small></button>`).join('')}</div>
+    return `<div class="fd-bag">${state.bag.map((b) => `<button type="button" class="fd-eat" data-eat="${esc(b.id)}" ${full ? 'disabled' : ''}><span class="fd-emoji" data-food="${esc(b.id)}">${b.icon}</span><span translate="no">${esc(b.en)}</span><small>×${b.n}${state.hungerOn === false ? '' : ` · +${b.fill}`}</small></button>`).join('')}</div>
       ${full ? `<p class="fd-fine">${bi('You are full!', 'おなか いっぱい！')}</p>` : `<p class="fd-fine">${bi('Tap to eat.', 'おすと たべるよ。')}</p>`}`;
   }
   function meter() {
