@@ -760,6 +760,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
     // 橋の むこうの 島として 見せて いる 間（show(true) の あとに 呼ぶ。つぎの show で 元に もどる）。
     asPeer(on) { peer = !!on; },
     setTarget, update, nearest, blocked, drawMap, doorNear, setNight,
+    // 島の 歩ける わく（四角＋annex。annex は blocked と 同じく 0.9 内がわ。m で ひろげる）の 中か（世界の 座標）。橋の 検査（tests/regression.mjs）が「ほかの 島の 上を 通らない」に 使う。
+    footprint: (x, z, m = 0) => { const lx = x - root.position.x, lz = z - root.position.z; return (Math.abs(lx) <= HX + m && Math.abs(lz) <= HZ + m) || inAnnex(lx, lz, 0.9 - m); },
     setHouseLit: (x, z, on) => houses.setLit(x, z, on),
     get doors() { return doors.map((d) => ({ id: d.def.id, x: d.x, z: d.z })); },
     origin: () => ({ x: root.position.x, z: root.position.z }),

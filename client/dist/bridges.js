@@ -206,7 +206,8 @@ export function createBridges({ scene, player, camera, rpg, park, atmosphere, to
   };
   function notice(lock) {
     if (lock.kind === 'premium') {
-      toast(tr('🔒 プレミアムの しまです。せんせいに きいてね。'));
+      // いつもの 🔒 の 画面（premium.js）だけ。しまの ちずと 同じ。toast は 出さない：
+      // 画面が ひらいて いると toast は その 中へ うつされ、つぎに 画面を 書きなおした ときに #toast ごと 消えて しまう。
       dispatchEvent(new CustomEvent('uspeak:premium', { detail: lock.id }));
     } else if (lock.kind === 'kids') toast(tr('🔒 この はしの むこうは また こんどね。'));
     else {

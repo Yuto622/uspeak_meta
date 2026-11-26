@@ -13,6 +13,7 @@ const { startServer } = await import('../src/index.js');
 const { STALLS } = await import('../src/game/food.js');
 const { FW } = await import('../src/game/fishworld.js');
 const { PREMIUM_ISLANDS } = await import('../src/rooms/ClassRoom.js');
+const { ISLANDS: EIKEN_ISLANDS } = await import('../src/game/eiken.js');
 const { Client } = await import('colyseus.js');
 const { LINKS, WALKABLE, linksOf, neighboursOf, onDeck, project, pointAt, deckY } = await import('../../client/dist/bridges-data.js');
 const { HUBS, REGIONS } = await import('../../client/dist/rpg-data.js');
@@ -123,5 +124,22 @@ test('歩いて わたる：ひこうきに のらずに 島が かわっても�
   room.send('move', { s: STALLS.island.id, x: st.wx, z: st.wz, r: 0, a: 'idle', t: 101 });
   room.send('food:open', { shop: 'fruit' });
   assert.ok(await nextMessage(room, 'food:menu'), 'and the stall on the main island opens after walking back');
+  await room.leave();
+});
+
+test('歩いて わたる：プレミアムの 島は 橋の 門を こえても（画面を いじっても）部屋が ことわる', async () => {
+  // 橋の 門は 画面の もの。守るのは いつもの 部屋（`islandLocked`）：歩いて ついても、とんで ついても 同じ こたえ。
+  const room = await new Client(url).joinOrCreate('class', { classCode: 'brg2', name: 'Gatecrasher' });
+  room.onMessage('*', () => {});
+  const welcome = await nextMessage(room, 'welcome').catch(() => null);
+  if (welcome?.premium) assert.ok((welcome.premium.locked || []).includes('eiken5'), 'a child without premium is locked out of eiken5');
+  const l = WALKABLE.find((x) => x.id === 'meadow-eiken5');
+  assert.ok(l, 'the meadow → eiken5 bridge exists');
+  for (let s = 0; s <= l.len; s += 4) { const p = pointAt(l, s); room.send('move', { s: s < l.len / 2 ? l.a : l.b, x: p.x, z: p.z, r: 0, a: 'walk', t: Math.round(s) }); }
+  const isl = EIKEN_ISLANDS.get('eiken5'); const hall = [...isl.spotById.values()].find((h) => h.skill) || [...isl.spotById.values()][0];
+  room.send('move', { s: 'eiken5', x: hall.wx, z: hall.wz, r: 0, a: 'idle', t: 999 });
+  await sleep(300);
+  room.send('eiken:start', { island: 'eiken5', hall: hall.id });
+  assert.equal((await nextMessage(room, 'eiken:error')).reason, 'premium', 'standing in the hall after walking in still answers premium');
   await room.leave();
 });

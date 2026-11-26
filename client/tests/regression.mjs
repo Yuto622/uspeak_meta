@@ -596,6 +596,62 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
   console.log('PASS: のりもの島のコース — '+course.gates.length+' checkpoints drivable, the road clear of buildings, none overlapping.');
  }
 }
+{// 島と 島を つなぐ 橋（bridges-data.js / bridges.js）を、ゲームと 同じ 当たり判定で ぜんぶ 歩く。
+ // ① 板は 岸から まんなかまで（まんなかで 島が かわったら むこうの 岸まで）歩ける ＝ game.js の blocked と 同じ「橋 → 島」の 順で 聞く。
+ // ② 板の 下の 陸（その 島の 歩ける わくの 中）には 建物・木・岩が ない（橋は 当たり判定より 先に 歩けるので、あれば 通りぬける）。
+ // ③ 岸の はしは 陸の 上、そこから 島の 中へ 1 歩 入れる。④ 板は ほかの 島の わくの 上を 通らない。⑤ しまって いる 島は まんなかの 門で 止まる。
+ const {LINKS,WALKABLE,pointAt,project}=await import('../dist/bridges-data.js');
+ const {createBridges}=await import('../dist/bridges.js');
+ const {REGION_BY_ID:RB}=await import('../dist/rpg-data.js');
+ const ids=[...new Set(LINKS.flatMap(l=>[l.a,l.b]))];
+ const kit=id=>!!rpg[id]?.footprint;
+ for(const id of ids)if(kit(id)&&rpg[id].ready)await rpg[id].ready;
+ for(const id of ids)rpg.activate(id,false,true);   // 島を ぜんぶ 一度 建てる（わくと 当たり判定が できる）
+ const fp=(id,x,z,m=0)=>{const r=RB[id];
+  if(kit(id))return rpg[id].footprint(x,z,m);
+  if(id==='willow')return Math.abs(x)<=25+m&&Math.abs(z)<=20+m;
+  if(id==='park')return Math.abs(x-135)<=33+m&&Math.abs(z)<=29+m;
+  return Math.abs(x-r.x)<=31+m&&Math.abs(z-r.z)<=26.5+m;};
+ const own=(id,x,z)=>{const b=rpg.blocked(x,z);return b!==null?b:!fp(id,x,z);};
+ const bridges=createBridges({scene,player,camera,rpg,park,atmosphere:{state:{night:0}},toast:m=>messages.push(m)});
+ const game=(id,x,z)=>{const s=bridges.blocked(x,z);return s!==null?s:own(id,x,z);};
+ const savedLock=rpg.premiumLock;rpg.setPremiumLock([]);
+ const savedUnlocked=rpg.store.unlocked;rpg.store.unlocked=()=>true;   // ② と ① は 錠を はずして 見る（⑤ は 下で）
+ let walked=0,steps=0;
+ for(const l of WALKABLE){
+  for(const [id,other,s0,dir] of [[l.a,l.b,0,1],[l.b,l.a,l.len,-1]]){
+   rpg.activate(id,false,true);assert.equal(rpg.state.current,id);
+   const end=pointAt(l,s0),inland=pointAt(l,s0-dir*0.8);
+   assert.ok(fp(id,end.x,end.z),l.id+': the '+id+' end ('+end.x.toFixed(1)+','+end.z.toFixed(1)+') is on '+id);
+   assert.ok(!own(id,end.x,end.z)&&!own(id,inland.x,inland.z),l.id+': the '+id+' end is open ground, one step inland too');
+   for(let k=0;k<=l.len/2+1.2;k+=0.5){const s=s0+dir*k;
+    for(const w of [-l.half+0.3,0,l.half-0.3]){const p=pointAt(l,s,w);steps++;
+     assert.equal(game(id,p.x,p.z),false,l.id+': from '+id+', the deck at '+k.toFixed(1)+' (w '+w.toFixed(1)+') is walkable with the game\'s blocked');
+     if(fp(id,p.x,p.z))assert.equal(own(id,p.x,p.z),false,l.id+': the deck runs over something on '+id+' at '+p.x.toFixed(1)+','+p.z.toFixed(1));
+     for(const o of ids)if(o!==l.a&&o!==l.b)assert.ok(!fp(o,p.x,p.z,1),l.id+': the deck passes over '+o+' at '+p.x.toFixed(1)+','+p.z.toFixed(1));}}
+   // 板の 外（手すりの 外）は、海の 上では 歩けない。
+   const rail=pointAt(l,l.len/2+dir*(-3),(l.rest?3.4:l.half)+0.8);
+   player.position.set(...(p=>[p.x,0,p.z])(pointAt(l,l.len/2-dir*3)));
+   if(!fp(id,rail.x,rail.z,0))assert.equal(game(id,rail.x,rail.z),true,l.id+': the rail holds over the sea');
+  }
+  walked++;
+ }
+ // ⑤ しまって いる 島：門の 手前までは 歩けて、むこう半分は 歩けない。
+ rpg.store.unlocked=savedUnlocked;
+ const gated=WALKABLE.find(l=>l.a==='meadow'&&l.b==='eiken5')||WALKABLE.find(l=>l.b==='eiken5');
+ rpg.setPremiumLock(['eiken5']);rpg.activate(gated.a,false,true);
+ const near=pointAt(gated,gated.len/2-2),far=pointAt(gated,gated.len/2+0.5);
+ assert.equal(bridges.lockOf('eiken5')?.kind,'premium');
+ assert.equal(game(gated.a,near.x,near.z),false,'a premium gate lets a child walk up to it');
+ assert.equal(game(gated.a,far.x,far.z),true,'and not past it');
+ rpg.setPremiumLock(savedLock);
+ // 島の 錠：まだ ひらいて いない ちいきは 行き止まり（橋 1 本）で、門が 止める。
+ const prog=WALKABLE.find(l=>RB[l.b]&&!RB[l.b].hub&&(RB[l.b].needs||[]).length);
+ if(prog&&!rpg.store.unlocked(prog.b)){rpg.activate(prog.a,false,true);const q=pointAt(prog,prog.len/2+0.5);
+  assert.equal(bridges.lockOf(prog.b)?.kind,'progress');assert.equal(game(prog.a,q.x,q.z),true,'a region that is not open yet stops a child at the gate');}
+ rpg.activate('willow');player.position.set(0,0,0);
+ console.log('PASS: 橋 '+walked+' 本 — 板は 岸から 岸まで 歩ける（'+steps+' 点・ゲームと 同じ 当たり判定）、板の 下に 建物なし、ほかの 島の 上を 通らない、門は 錠で 止まる。');
+}
 
 
 // --- カート: how a kart drives, which is the whole difference between this island and ----

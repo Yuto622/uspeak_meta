@@ -211,6 +211,19 @@ ${sh.fragmentShader}`;
       f = f.replace('#include <map_fragment>', `#include <map_fragment>
   #ifdef USE_MAP
     diffuseColor.rgb *= 0.84 + 0.22 * cityHash(floor(vMapUv) + 3.3);   // ブラインドの 上げ下げ＝ますごとに 少し ちがう
+  #endif
+  #ifdef USE_EMISSIVEMAP
+    diffuseColor.rgb *= 1.0 - 0.55 * texture2D(emissiveMap, vEmissiveMapUv).g;   // ガラスは 地の 色が うすい（空を うつす 分を のこす）＝昼に 白っぽく とばない
+  #endif`);
+      // 遠くの ガラスが 霧で ベージュに ならない ように、霧を 少し うすく（遠景の シルエットを のこす）。
+      f = f.replace('#include <fog_fragment>', `
+  #ifdef USE_FOG
+    #ifdef FOG_EXP2
+      float fogFactor = 1.0 - exp( - fogDensity * fogDensity * vFogDepth * vFogDepth );
+    #else
+      float fogFactor = smoothstep( fogNear, fogFar, vFogDepth );
+    #endif
+    gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor, fogFactor * 0.6 );
   #endif`);
       f = f.replace('#include <emissivemap_fragment>', `
   #ifdef USE_EMISSIVEMAP
@@ -230,8 +243,8 @@ ${sh.fragmentShader}`;
       f = f.replace('#include <opaque_fragment>', `
   #ifdef USE_EMISSIVEMAP
     vec3 cN = inverseTransformDirection(normal, viewMatrix); vec3 cV = normalize(vCityWp - cameraPosition); vec3 cR = reflect(cV, cN);
-    float cF = 0.16 + 0.84 * pow(1.0 - clamp(dot(-cV, cN), 0.0, 1.0), 4.0);
-    outgoingLight += mix(uCitySkyH, uCitySkyZ, smoothstep(-0.05, 0.8, cR.y)) * cF * cityMask * 0.55;
+    float cF = 0.24 + 0.76 * pow(1.0 - clamp(dot(-cV, cN), 0.0, 1.0), 4.0);
+    outgoingLight += mix(uCitySkyH, uCitySkyZ, smoothstep(-0.05, 0.8, cR.y)) * cF * cityMask * 0.75;
   #endif
   #include <opaque_fragment>`);
     } else if (mode === 'glow') {
