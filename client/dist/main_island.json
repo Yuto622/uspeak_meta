@@ -1416,6 +1416,22 @@
     "icon": "🏡",
     "en": "My House",
     "ja": "じぶんの いえ"
+   },
+   {
+    "_": "としょかん（ひろばの 北）：だんを のぼって 戸口に 入ると 中へ（library.js）。建物の 場所は main-plaza.js の LIBRARY（70, -14）。x・z は だんの 上の 戸口。お店では ない＝よるも あいて いる。",
+    "id": "library",
+    "kind": "library",
+    "x": 70,
+    "z": -8.5,
+    "path": {
+     "x": 70,
+     "z": 1
+    },
+    "color": 3104072,
+    "icon": "📚",
+    "character": "Mr. Page",
+    "en": "Library",
+    "ja": "としょかん"
    }
   ],
   "deco": [

@@ -1,0 +1,53 @@
+/* としょかんの 中（library.js）：上の 帯・下の ボタン・じしゅうしつの メニュー。
+   ブランドの 色：深緑 #0c241c〜#1b3a2f・オレンジ #ffb066 / #e27a2d・ミント #8ff0c8・クリーム #fff4d6。 */
+
+/* ---- 上の 帯：「としょかん」と「そとへ」（npc-home.js の #home-bar と 同じ 形）---- */
+#lib-bar { position: fixed; left: 50%; top: 74px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 16px; border-radius: 999px;
+  background: #0c241ce0; color: #fff4d6; box-shadow: 0 6px 18px #0006, inset 0 0 0 2px #ffb06666; font-weight: 800; font-size: 14px; white-space: nowrap; }
+#lib-bar[hidden] { display: none; }
+#lib-bar span, #lib-bar button { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+/* style.css の `.en,.ja{display:block;font-size:12px}` を ここでは 親の 字に もどす（かくす ほうの きまりは さわらない）。 */
+#lib-bar .en, #lib-bar .ja, #library-dialog .en, #library-dialog .ja { font: inherit; letter-spacing: inherit; }
+html[data-lang=ja] #lib-bar .ja, html:not([data-lang=ja]) #lib-bar .en,
+html[data-lang=ja] #library-dialog .ja, html:not([data-lang=ja]) #library-dialog .en { display: inline; }
+#lib-bar button { min-height: 36px; padding: 4px 14px; border: 0; border-radius: 999px; background: linear-gradient(180deg, #ffb066, #e27a2d); color: #1b2a1f; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+/* ひくい 画面（スマホの 横もち）：上の バー（〜72px）の すぐ 下に。 */
+@media (max-height: 560px) { #lib-bar { top: 76px; font-size: 12px; padding: 4px 6px 4px 12px; } #lib-bar button { min-height: 34px; font-size: 12px; } }
+body[data-arcade] #lib-bar, body[data-race] #lib-bar, body[data-gp] #lib-bar, body[data-warp] #lib-bar { display: none; }
+
+/* ---- 下の ボタン：場所の そばに 立つと 出る（場所は style.css / mobile.css の .near）---- */
+#lib-near { z-index: 6; }
+#lib-near[hidden] { display: none; }
+#lib-near button { min-height: 48px; padding: 12px 22px; border: 0; border-radius: 14px; background: linear-gradient(180deg, #ffb066, #e27a2d); color: #1b2a1f; font-weight: 800; font-size: 16px;
+  box-shadow: 0 8px 22px #0007, inset 0 0 0 2px #fff4d688; cursor: pointer; touch-action: manipulation; }
+#lib-near kbd { background: #0c241c; color: #fff4d6; border: 0; }
+@media (hover: none) { #lib-near kbd { display: none; } }
+
+/* ---- じしゅうしつの メニュー ---- */
+#library-dialog { width: min(520px, 94vw); max-height: 92dvh; padding: 0; border: 0; border-radius: 24px; background: linear-gradient(170deg, #1b3a2f, #0c241c); color: #fff4d6; overflow: hidden;
+  box-shadow: 0 24px 60px #000a, inset 0 0 0 2px #8ff0c855; }
+#library-dialog[open] { display: flex; flex-direction: column; }
+#library-dialog::backdrop { background: #06140fcc; backdrop-filter: blur(4px); }
+.lib-head { position: static; display: flex; align-items: center; gap: 12px; padding: 16px 18px 12px; flex: none; }
+.lib-head div { flex: 1 1 auto; min-width: 0; }
+.lib-head small { font-size: 11px; letter-spacing: 2px; color: #8ff0c8; font-weight: 800; }
+.lib-head h2 { margin: 2px 0 0; font-size: 24px; color: #fff4d6; }
+.lib-x { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #fff4d655; background: #fff4d618; color: #fff4d6; font-size: 24px; line-height: 1; cursor: pointer; }
+.lib-lead { margin: 0; padding: 0 20px 12px; font-size: 16px; font-weight: 700; color: #fff4d6; opacity: .9; }
+.lib-acts { display: grid; gap: 12px; padding: 4px 18px 20px; overflow-y: auto; }
+.lib-act { display: flex; align-items: center; gap: 16px; min-height: 84px; padding: 14px 18px; border: 0; border-radius: 18px; text-align: left; cursor: pointer; touch-action: manipulation;
+  background: #fff4d6; color: #1b3a2f; box-shadow: 0 5px 0 #e27a2d, 0 10px 20px #0005; font: inherit; }
+.lib-act:active { transform: translateY(3px); box-shadow: 0 2px 0 #e27a2d, 0 6px 12px #0005; }
+.lib-act > i { font-style: normal; flex: none; width: 58px; height: 58px; border-radius: 16px; display: grid; place-items: center; font-size: 34px; background: linear-gradient(180deg, #ffb066, #e27a2d); }
+.lib-act[data-act="review"] > i { background: linear-gradient(180deg, #8ff0c8, #4fbf95); }
+.lib-act[data-act="wordbook"] > i { background: linear-gradient(180deg, #2f5d48, #1b3a2f); }
+.lib-act > span { display: flex; flex-direction: column; gap: 3px; min-width: 0; font-size: 22px; font-weight: 900; }
+.lib-act small { display: block; font-size: 14px; font-weight: 700; color: #4f6a5c; }
+@media (max-height: 520px) {
+  .lib-head { padding: 10px 16px 6px; } .lib-head h2 { font-size: 20px; } .lib-lead { padding-bottom: 6px; font-size: 14px; }
+  .lib-acts { grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 14px; }
+  .lib-act { flex-direction: column; gap: 6px; min-height: 0; padding: 10px 8px; text-align: center; }
+  .lib-act > span { font-size: 16px; align-items: center; } .lib-act small { font-size: 11px; }
+  .lib-act > i { font-style: normal; width: 46px; height: 46px; font-size: 26px; }
+  #library-dialog { width: min(680px, 94vw); }
+}

@@ -17,7 +17,8 @@ import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
 import { roofSign, gateModel } from './roof-signs.js';
 import { SHOP_KINDS, shopsOpen } from './shop-hours.js';
-import { PLAZA, buildPlaza, drawPlazaMap } from './main-plaza.js';
+import { PLAZA, LIBRARY, buildPlaza, drawPlazaMap } from './main-plaza.js';
+import { buildLibraryExterior } from './library-real.js';
 import { createPlazaWalkers } from './plaza-walkers.js';
 
 export { NEAR_DISTANCE };
@@ -47,6 +48,7 @@ export function createMainWorld({ scene }) {
   let shopsLit = null;
   let fx = null; // つりの 3D の 演出（cast-fx.js）。島が 建ったあと。
   let plaza = null, walkers = null; // 東の ひろば（main-plaza.js）と 歩く 人たち（plaza-walkers.js）。島が 建ったあと。
+  let library = null;               // ひろばの 北の としょかん（library-real.js の 外がわ）。中は library.js（別の シーン）。
   const island = createIsland({
     scene,
     seed: 4242,
@@ -129,6 +131,12 @@ export function createMainWorld({ scene }) {
       // 入れる場所（P1）。
       for (const def of data.spots) {
         const color = Number(def.color);
+        if (def.kind === 'library') {
+          // としょかん：建物は 下の buildLibraryExterior。戸口は だんの 上（だんを 2 つ のぼると 入る）、あんないの 人は だんの 下の 右。
+          door(def, 1.65, 0);
+          resident({ ...def, x: def.x + 2.8, z: def.z + 3.3 });
+          continue;
+        }
         if (def.kind === 'word_house') {
           house(def.x, def.z - 4.6, 8.4, 6.4, color, 0x5a3e2a, { en: `📖 ${def.short || def.en}`, ja: `📖 ${def.shortJa || def.ja}` });
           // 屋根の上に大きな本（遠くから「ことばの いえ」と分かる）。
@@ -480,6 +488,19 @@ export function createMainWorld({ scene }) {
         plaza = buildPlaza({ root, D, lamp, bench, sprite, obstacles, woods, keep });
         walkers = createPlazaWalkers({ root, sprite, plaza });
       } catch (err) { console.warn('[main] ひろばが 建てられない', err); }
+      // としょかん（ひろばの 北）。外がわは 材質ごとに 1 メッシュ（7 回の 描画）。まどは 夜に 灯る（下の setNight）。
+      try {
+        const L = LIBRARY;
+        const lib = buildLibraryExterior({ w: L.w, d: L.d, forecourt: L.forecourt });
+        lib.group.position.set(L.x, 0.22, L.z);          // 島の 地面は y 0.2。しき石の 上の 面が 0.23（ひろばの 石だたみは 0.24）
+        root.add(lib.group);
+        for (const o of lib.obstacles) obstacles.push({ x: L.x + o.x, z: L.z + o.z, w: o.w, d: o.d });
+        // しき石と だんの 下に 見えない 箱（地面より 下）：草むら（plantTufts）が しき石から 生えない ように マスを ふさぐ。
+        D(L.x, 0.1, L.z + (lib.steps.z0 + L.d / 2 + L.forecourt) / 2, L.w, 0.1, L.d / 2 + L.forecourt - lib.steps.z0, 0x8a6f5a, 0, 'cobble');
+        keep(L.x, L.z + L.forecourt / 2, L.w / 2 + 2, L.d / 2 + L.forecourt / 2 + 2);
+        sprite({ en: '📚 Library', ja: '📚 としょかん' }, L.x, 4.9, L.z + lib.steps.z1 + 0.4, { width: 6.2, size: 40 });
+        library = { ...lib, x: L.x, z: L.z };
+      } catch (err) { console.warn('[main] としょかんが 建てられない', err); library = null; }
       // 木は リアルな 木（えだわかれの 幹＋葉の 板）。葉の 色は 季節で かわる。
       const now = seasonNow();
       realTrees = createRealTrees({ root, trees: woods, seed: 4242 });
@@ -546,12 +567,19 @@ export function createMainWorld({ scene }) {
       tile(dec.x, dec.z, dec.w || 3, dec.d || 2.4, '#e9dcc0');
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
-    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b' };
+    const COLORS = { word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c' };
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
-    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚' };
+    const ICON = { word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛' };
     for (const sp of d.spots) {
       if (sp.kind === 'word_house') tile(sp.x, sp.z - 4.6, 8.4, 6.4, '#f2b98a');
       else if (sp.w && sp.d) tile(sp.x, sp.z - 1.1 - sp.d / 2, sp.w, sp.d, '#efe2c6');
+    }
+    {
+      // としょかん：しき石（うすい れんが色）と 建物（れんが色）。
+      const L = LIBRARY;
+      tile(L.x, L.z + L.d / 2 + L.forecourt / 2, L.w, L.forecourt, '#dcc3a4');
+      tile(L.x, L.z - 2.2, L.w, 11.6, '#c9744a');
+      tile(L.x, L.z + 4.6, 9, 2.2, '#c9744a');
     }
     const target = island.target;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -600,14 +628,27 @@ export function createMainWorld({ scene }) {
     const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;
-  function setNight(n) { baseNight(n); seasons?.setNight(n); plaza?.setNight(n); }
+  function setNight(n) {
+    baseNight(n); seasons?.setNight(n); plaza?.setNight(n);
+    // としょかんの まど（お店では ない＝よるも あいて いるので、夜は いつも 灯る）。
+    if (library) { const k = Math.max(0, Math.min(1, n || 0)); for (const { material, glow } of library.lit) material.emissiveIntensity = glow * k; }
+  }
+  // としょかんの だん（4 だん・高さ 0.8）と げんかんの 上の ゆかの 高さ。世界の 座標。ほかは 0。
+  function floorY(x, z) {
+    if (!library || !island.visible) return 0;
+    const o = island.origin(), s = library.steps;
+    const lx = x - o.x - library.x - s.x, lz = z - o.z - library.z;
+    if (Math.abs(lx) > s.w / 2 + 0.3 || lz >= s.z1 || lz < s.z0 - 2.6) return 0;
+    if (lz <= s.z0) return s.h;
+    return Math.min(s.count, Math.ceil(((s.z1 - lz) / (s.z1 - s.z0)) * s.count)) * (s.h / s.count);
+  }
   // 検査・写真用：季節を その場で かえる（'spring' | 'summer' | 'autumn' | 'winter' | 'xmas'）。当たり判定は 入りなおすまで 前の まま。
   function setSeason(id) { const s = id === 'xmas' ? { season: 'winter', xmas: true } : { season: id, xmas: false }; realTrees?.setSeason(s.season); seasons?.setSeason(s); }
 
   // あらわれる 場所は スタートの ほし（island-kit の 既定は 船着き場）。
   island.arrival = { x: START.x, z: START.z };
   const out = Object.assign(island, {
-    drawMap, update, setNight, setSeason,
+    drawMap, update, setNight, setSeason, floorY,
     ready: loadMainWorld().then((d) => { island.receive(d.island); return d; }),
     startCast,
     bite: () => fx?.bite(),
@@ -621,6 +662,8 @@ export function createMainWorld({ scene }) {
   });
   Object.defineProperty(out, 'npcs', { get: () => walkers?.npcs || [], enumerable: true });
   Object.defineProperty(out, 'plaza', { get: () => plaza, enumerable: true });
+  // としょかん（外がわ）：{ x, z, door, steps, obstacles, lit … }。出た ときに 立つ 場所は library.js が ここから 決める。
+  Object.defineProperty(out, 'library', { get: () => library, enumerable: true });
   // Object.assign は getter を 値に して しまうので defineProperty で。
   Object.defineProperty(out, 'casting', { get: () => !!fx?.casting, enumerable: true });
   return out;

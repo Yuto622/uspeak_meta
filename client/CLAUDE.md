@@ -2134,3 +2134,25 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   **かぐは 向きを かえると 形ごと 回る**（前は はばと おくゆきを 入れかえた 箱）。しめる マスは 前と 同じ（サーバーと 同じ 計算）。一覧は `/dev-town.html`。
 - **地面（2026-11 の 作りなおし・`ground-fx.js`）**：もようは 4 しゅるい（grass・asphalt・cobble・sand＝512px の canvas を 1 まいずつ）。色から 決める（`groundKind`：みどり＝草・くらい 灰色＝アスファルト・ほか＝すな）。`D(…, flat)` の `flat` に `'cobble'` などを わたすと 名ざし（`island-kit.js` の `path()` の 石だたみ）。
   明るさの かけ算＋法線を 少し かたむける でこぼこ。**強さは `KIND` の 表**（強く しすぎると 遠くで ざらつく）。草むら（`grassTufts`）は 草の タイルの 上に 道・小物・建物を さけて 900 まで（InstancedMesh 1 つ・影なし・風で ゆれる・`island-kit.js` の `plantTufts`）。
+
+## 2026-11 の おわり その 3（夜の 光・お店の 時間・じぶんの 家・たべものを わたす・紅葉・広場・会話・家への まねき）
+- **地面は やわらかく**（`ground-fx.js` の `KIND`）：もようは ぼかして（`soft`）うすく・大きく。でこぼこ（bump）は 石だたみ だけ。**こまかくて こい もようは この ゲームの 解像度では「すなぼこり」に 見える**と 言われたので、リアルさは 草むら（3D・`plantTufts` 2400 まで）で 出す。強く しない こと。
+- **夜の 光**：街灯の 足もとに うすい 光の 輪（`island-kit.js`・加算の InstancedMesh）。家の まどは 1 まいずつ 明るさが ちがい（2 割は 暗い）、ゆっくり ゆらぐ（`real-house.js` の 頂点色と `uTime`）。
+- **お店の 時間**（`shop-hours.js`）：夜（世界の 時計の `night`）は お店が しまる。`SHOP_KINDS`（food_shop・wear_shop・block_shop・land_shop・weapon_shop・fish_buy・talk_shop）。あいて いる あいだだけ まどが 光る（`island.setHouseLit`・`main-world.js` の update）。
+  しまって いる 店の 戸口は `main-island.js` の `walkIn` が ことわって トースト。**自動の 検査（`navigator.webdriver`）では いつも あいて いる**（`?hours=1` で 本当の 時間・`?hours=closed` で しめる）。時計の ずれは `setClockSkew(state.skew)`。
+  `worldHour()`＝世界の 時計を 0〜24 時に（ひるま 7→17 時・夕方 17→19・夜 19→5:30・夜明け 5:30→7）。時計台の はりが 使う。英単語ハウス・ゲート・図書館・じぶんの 家は しまらない。
+- **じぶんの 家は はじめから メインの島に**（`main_island.json` の `my_home`＝(-19.5, 10.5)）。戸口で マイルーム（`town.enter({kind:'door'})`）。部屋は `atTownSpot('door')` を メインの 家でも みとめる。出ると メインの 家の 前。
+  はじめての 子には かぐ 5 つ（ベッド・つくえ・いす・うえき・ラグ）を 1 回だけ（`server/src/game/town.js` の `starterRoom`・`room_json.starter`）。かぐを 外すと 手に もつ＝おきなおせる（`room-world.js`）。
+- **たべものを 住民に わたす**（`food-give.js`・サーバーは `food.js` の `give()`）：かばんの「🙌 もつ」で 頭の 上に かかげ、住民の そばで「わたす」。`food:give {island, spot, id}` → `food:gave`。
+  1 こ 1 点（すきな ものは +1）・3 点で ハート 1 つ・ハートは 10 まで・同じ 人に 1 日 3 こ・1 秒に 1 回。置き場は `food_json` の friends。コインも XP も 出ない。
+- **秋は 紅葉が ふる**（`main-seasons.js` の `leaves()`：もみじの 形の 板の InstancedMesh・ひらひら 回る）。前の オレンジの 点は やめた。
+- **きせかえの カードの 絵**：384px で 焼いて 192px に ちぢめる。かおの 品は 頭の もけいに つけて 撮る（`wardrobe.js`）。
+- **広場**（`main-plaza.js`・`plaza-npcs.js`・`plaza-walkers.js`）：メインの島の 東（石だたみ x 57〜85・z 3〜29）。島の 形の 外なので `createIsland` に `annex`（角の まるい 四角の 土地）を わたす。大通りは x 58 まで のばした。
+  時計台（71, 6.5）・ふんすい（71, 16）・きせつの イベントの ぶたい（82, 16。中身は まだ・`plaza.eventSpot`）・フリーマーケット 6 けん（かざり だけ）。歩く 人 8・お店の 人 6（**自分の 画面だけの かざり**＝ほかの 子と 位置は そろわない）。
+  `rpg.main.nearestNpc(player)`・`.npcs`・`.talkNpc(id)`・`.sayNpc(id, 文)`・`.plaza`。話しかけると window に `uspeak:npc-talk`（cancelable）。ミニマップは `90 + (x-16)*1.2`, `70 + z*1.2` に かえた。
+  U-Speak島の 遠くの 山を 立てない 範囲も ひろげた（`game.js`・`atmosphere.js`）。島を ひろげたら ここも。
+- **顔つきの 会話**（`npc-talk.js` + `npc-talk.css`・文は `npc-lines.js`・つなぎは `npc-social.js`）：右に 大きな 顔（3D を 絵に）・左下に ふきだし（日本語＋英語・`translate="no"`・lang.json には 入れない）。
+  個性 8 つ（げんき・のんびり・てれや・ものしり・くいしんぼう・おしゃれ・しっかり・いたずら。たねから きまる）。あいさつ・時間・季節・好感度で 文が かわる。入れ物は `#ntk`（`#npc-talk` は 広場の ボタン）・ひらいて いる 間は `body[data-npc-talk]`（歩けない）。
+  住民の そばで「💬 はなす」（T）。広場の 人は `uspeak:npc-talk` を 受けて 同じ 画面。好感度の 鍵は `<島>:<spot の id>`（広場の 人は `main:<id>`）。
+- **家への まねき**：ハート 3 つ（`INVITE_HEARTS`）で 会話の 中で さそわれる。`home:visit {key}` → 部屋が `home:visit:ok` / `home:visit:error`（`not friends yet`・`too fast`・`no such villager`）。**入れるかは 部屋が 決める**。コイン・XP・保存は なし。
+  家の 中は `npc-home.js`（木の あたたかい 部屋・個性で 色と 小物・`rpg.attachHome()`＝マイルームと 同じ 作り）。いる 場所は `in:home.<sessionId>`（通話に ならない）。出口は 戸口か「🚪 そとへ」。

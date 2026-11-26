@@ -395,6 +395,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'word_house') { wordhouse.open(spot.house || spot.id); return true; }
     // しゅくだいの いえ（しゅくだい島の いえと 同じ 画面。オフラインなら その 画面が ことわる）。
     if (spot.kind === 'homework') { shops.homework?.open(); return true; }
+    // としょかん（ひろばの 北）：中は 別の シーン（library.js）。お店では ない＝よるも 入れる。
+    if (spot.kind === 'library') { shops.library?.enter(); return true; }
     if (spot.kind === 'level_sign') {
       const next = toggleEasyLevel();
       toast(tr('レベルを {lv} に かえたよ', { lv: LEVEL_LABEL[next][0] }));
@@ -430,6 +432,7 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     weapon_shop: () => tr('⚔️ ぶきを 見る'),
     blockwild: () => '⛏ BLOCKWILD',
     homework: () => `📚 ${tr('しゅくだいを する')}`,
+    library: () => (isJa() ? '📚 としょかんに はいる' : '📚 Go into the Library'),
     talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };

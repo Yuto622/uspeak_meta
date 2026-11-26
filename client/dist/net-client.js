@@ -64,6 +64,7 @@ import { createTaskGuide } from './task-guide.js';
 import { createPremiumPromo } from './premium.js';
 import { createHomework } from './homework.js';
 import { createReadingUI } from './reading.js';
+import { createLibrary } from './library.js';
 import { sfx } from './sfx.js';
 
 // いま 幼児モードの 画面か（部屋が オンに した 子＋ じぶんで 🧸 を おした 人）。
@@ -108,6 +109,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   };
   let client = null;
   let room = null;
+  let library = null;  // library.js（メインの島の としょかんの 中。下で 作る）
   let social = null;   // npc-social.js（下で 作る。currentSpace が 先に 呼ばれても よい ように ここで 名前だけ）
   let reconnectTimer = null;
   let probeTimer = null;
@@ -470,6 +472,14 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
   // 住民と はなす・なかよしの 住民の いえ（npc-social.js）。いえは マイルームと 同じ しくみ（rpg.attachHome）。
   social = createNpcSocial({ player, camera, rpg, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online' });
+  // としょかんの 中（library.js）：ほんだな＝よみもの島の 本だな、つくえ＝しゅくだい・ふくしゅう・たんごちょう（どれも 前から ある 画面）。
+  library = createLibrary({
+    player, camera, toast, rpg, isOnline: () => state.mode === 'online',
+    openReading: () => reading.open(), openHomework: () => homework.open(),
+    openReview: () => plainSend('review:start', {}), openWordbook: () => $('#journal')?.click(),
+    look: (y, p) => globalThis.uspeak?.view?.look(y, p),
+  });
+  try { rpg.attachLibrary?.(library); } catch { /* 古い rpg.js */ }
   const foodGive = createFoodGive({
     player, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onChange: () => bag?.refresh(),
     onTalk: (at) => social.talkTo(at), onGaveTalk: (m, target) => social.onGave(m, target),
@@ -487,7 +497,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
-    shops: { wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), get blockwild() { return blockwild; } },
+    shops: { library, wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), get blockwild() { return blockwild; } },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
@@ -641,6 +651,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (myPlaza.active) return 'in:plaza';
     // なかよしの 住民の いえ：ひとりだけの 場所（ほかの 子は 見えない・通話に ならない＝部屋の voiceRoomOf は `in:島:建物` だけ）。
     if (social?.home.active) return `in:home.${room?.sessionId || 'me'}`;
+    // としょかんの 中：みんな 同じ 場所（中に いる ともだちが 見える。通話には ならない）。
+    if (library?.active) return 'in:library';
     if (myLand.active) return 'in:land';
     // Inside an island building. The name says which building on which island, and the
     // server checks it against the very place it is being asked about.
@@ -1254,6 +1266,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       if (fishing.state.busy) fishing.cancel?.();
       if (rpg.adventure?.magic?.interior?.active) rpg.leaveSanctuary();
       social?.leaveHome(true);   // 住民の いえの 中から よばれた ときは 先に 出る
+      library?.leave(true, false);   // としょかんの 中からも
       if (rpg.state.mode === 'flight') rpg.finishFlight();
       if (rpg.state.current !== t.space) rpg.activate(t.space, true, true);
       player.position.set(t.x, 0, t.z);
