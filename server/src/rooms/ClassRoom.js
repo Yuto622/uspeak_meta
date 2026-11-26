@@ -47,7 +47,7 @@ import {
   MAX_RACERS as GP_MAX, XP_ITEM, GP_TICK_MS,
 } from '../game/gp.js';
 import { mintToken, stageReady, stageRoomName, stageUrl, STAGE_MAX } from '../game/stage.js';
-import { TOWN_ISLAND, BLOCKS, PROPS, LEGACY_PROP_IDS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError, MAIN_HOME, starterRoom } from '../game/town.js';
+import { TOWN_ISLAND, BLOCKS, PROPS, LEGACY_PROP_IDS, PLAZA, ROOMS, roomOfTier, nextRoom, blockPayload, propPayload, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza, roomPayload, plazaPayload, place as placeBlock, remove as removeBlock, placeProp, removeProp, TownError, MAIN_HOME, starterRoom, settleBuild, orderBuild, buildPayload } from '../game/town.js';
 import { GEAR, gearPayload } from '../game/blockwild-shop.js';
 import { buildItem as buildHwItem, wordOf as hwWordOf } from '../homework/items.js';
 import * as reading from '../game/reading.js';
@@ -127,6 +127,8 @@ const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only wi
 // A little more room than the client shows the prompt in, so a position that arrived a
 // frame late never refuses a child who is visibly standing at the counter.
 const SPOT_SLACK = 1.5;
+// 大工さんは じぶんの いえ（メインの島）の となりに 立って いる。戸口から この 近さ なら たのめる。
+const CARPENTER_REACH = 16;
 const PERFECT_BONUS_COINS = 10;
 // 通話. A mesh call is every browser connected to every other one, so a room holds a
 // handful rather than a class; the rest of the class is in the other rooms.
@@ -302,6 +304,9 @@ export class ClassRoom extends Room {
     this.onMessage('room:place', (client, msg) => this.onRoomPlace(client, msg));
     this.onMessage('room:remove', (client, msg) => this.onRoomRemove(client, msg));
     this.onMessage('room:move', (client) => this.onRoomMove(client));
+    // 大工さんの 増築（town.js）。room:move（ふどうさん）も 同じ 道を とおる。
+    this.onMessage('build:peek', (client) => this.onBuildPeek(client));
+    this.onMessage('build:order', (client, msg) => this.onBuildOrder(client, msg));
     this.onMessage('land:open', (client) => this.onLandOpen(client));
     this.onMessage('land:buy', (client, msg) => this.onLandBuy(client, msg));
     this.onMessage('land:restyle', (client, msg) => this.onLandRestyle(client, msg));
@@ -1344,7 +1349,7 @@ export class ClassRoom extends Room {
       study_ms: Math.floor(priv.study.ms), study_days: priv.study.days, study_day: priv.study.day,
       garage_json: JSON.stringify(priv.garage), riding: priv.riding, lap_best: priv.lapBest,
       blocks_json: JSON.stringify(priv.bricks), props_json: JSON.stringify(priv.props),
-      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza, starter: priv.room.starter === true, pc: priv.room.pc === true }),
+      room_json: JSON.stringify({ tier: priv.room.tier, furniture: priv.room.furniture, plaza: priv.plaza, starter: priv.room.starter === true, pc: priv.room.pc === true, ...(priv.room.build ? { build: priv.room.build } : {}), ...(priv.room.built ? { built: priv.room.built } : {}) }),
       land_json: JSON.stringify(priv.land),
       fishworld_json: JSON.stringify({ dex: priv.fw.dex, bag: priv.fw.bag, caught: priv.fw.caught }),
       food_json: JSON.stringify(foodForSave(priv.food)),
@@ -3309,6 +3314,7 @@ export class ClassRoom extends Room {
       client.send('room:error', { reason: 'too far', spot: this.townSpotPayload('door') });
       return;
     }
+    this.settleRoom(client.sessionId);   // 工事が おわって いたら、大きく なった へやに 入る
     client.send('room:state', roomPayload(priv.room, priv.props));
   }
 
@@ -3390,26 +3396,71 @@ export class ClassRoom extends Room {
     client.send('plaza:removed', { ...gone, used: priv.plaza.blocks.length, cap: PLAZA.cap });
   }
 
-  // Roblox called this 引っ越し: a bigger room for a level and a price. What is built
-  // stays built - a larger room is the same room with more space around it.
-  onRoomMove(client) {
+  // ---- 大工さんの 増築 ------------------------------------------------------------------
+  //
+  // Roblox called this 引っ越し: a bigger room for a price. 2026-11 から 道は 1 つ：大工さん（メインの島の
+  // じぶんの いえの となり）か ふどうさん（まちづくり島）で つぎの 大きさを たのむ → コイン → 工事 1 日 → 大きく なる。
+  // きまりは game/town.js（orderBuild / settleBuild）。What is built stays built - a larger room is the same
+  // room with more space around it.
+
+  // 工事が おわって いたら へやを 大きく して 保存する。おわった とき true。時計は 回さない＝この 子の へやを さわる たびに 見る。
+  settleRoom(sessionId) {
+    const priv = this.priv.get(sessionId);
+    if (!priv || !settleBuild(priv.room, Date.now())) return false;
+    this.persist(sessionId);
+    log.info(`[room ${this.roomId}] ${who(priv.name)}'s house grew to tier ${priv.room.tier}`);
+    return true;
+  }
+
+  // 大工さんの そば（メインの島の じぶんの いえの まわり）か、まちづくり島の ふどうさんの 前。
+  atCarpenter(sessionId) {
+    if (this.atTownSpot(sessionId, 'agent')) return true;
+    const player = this.state.players.get(sessionId);
+    if (!player || !MAIN_HOME || player.space !== MAIN_HOME.island.id) return false;
+    return Math.hypot(player.x - MAIN_HOME.spot.wx, player.z - MAIN_HOME.spot.wz) <= CARPENTER_REACH;
+  }
+
+  // いまの ようす。どこからでも 聞ける（入室の あと・工事が おわる ころに ページが 聞く）。
+  // できあがりの しらせ（finished）は 1 回だけ：言ったら しるしを 消す。
+  buildState(sessionId, extra = {}) {
+    const priv = this.priv.get(sessionId);
+    this.settleRoom(sessionId);
+    const out = { ...buildPayload(priv.room, Date.now()), coins: priv.wallet.coins, ...extra };
+    if (priv.room.built) {
+      out.finished = priv.room.built;
+      out.room = roomPayload(priv.room, priv.props);
+      delete priv.room.built;
+      this.persist(sessionId);
+    }
+    return out;
+  }
+
+  onBuildPeek(client) {
+    if (!this.priv.get(client.sessionId)) return;
+    client.send('build:state', this.buildState(client.sessionId));
+  }
+
+  onBuildOrder(client, msg) {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
-    const fail = (reason, extra = {}) => client.send('room:error', { reason, ...extra });
-    if (!this.atTownSpot(client.sessionId, 'agent')) return fail('too far', { spot: this.townSpotPayload('agent') });
-    const next = nextRoom(priv.room.tier);
-    if (!next) return fail('biggest already');
-    if (priv.progress.level < next.level) return fail('level too low', { need: next.level, level: priv.progress.level });
-    if (priv.wallet.coins < next.price) return fail('not enough coins', { need: next.price, coins: priv.wallet.coins });
+    const fail = (reason, extra = {}) => client.send('build:error', { reason, ...extra });
+    if (!this.atCarpenter(client.sessionId)) return fail('too far');
+    this.settleRoom(client.sessionId);
+    let next;
+    try { next = orderBuild(priv.room, { coins: priv.wallet.coins, tier: msg?.tier ?? null, now: Date.now() }); } catch (err) {
+      if (!(err instanceof TownError)) throw err;
+      const want = nextRoom(priv.room.tier);
+      return fail(err.message, err.message === 'not enough coins' ? { need: want?.price || 0, coins: priv.wallet.coins } : {});
+    }
     const entry = applyOp(priv.wallet, { type: 'spend', amount: next.price, id: `room:${next.id}` });
     this.store.appendCoin(this.coinRow(client.sessionId, entry));
-    priv.room.tier = next.tier;
     this.persist(client.sessionId);
-    client.send('room:moved', {
-      room: roomPayload(priv.room, priv.props), ...this.walletPayload(client.sessionId),
-    });
-    log.info(`[room ${this.roomId}] ${who(priv.name)} moved into the ${next.id}`);
+    client.send('build:state', { ...this.buildState(client.sessionId, { ordered: next.tier }), ...this.walletPayload(client.sessionId) });
+    log.info(`[room ${this.roomId}] ${who(priv.name)} ordered the ${next.id}`);
   }
+
+  // 前の「ひっこし」（ふどうさんの ボタン）。いまは 大工さんと 同じ たのみかた。古い ページが 送っても 同じ きまり。
+  onRoomMove(client) { this.onBuildOrder(client, {}); }
 
   // ---- 土地島 -------------------------------------------------------------------------
   //

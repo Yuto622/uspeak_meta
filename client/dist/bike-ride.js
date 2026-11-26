@@ -61,7 +61,14 @@ export function createBikeRide({ player, store, send, isOnline, toast = () => {}
   const state = { riding: '', v: 0, phase: 0, bike: null, body: null, last: '', lastPos: new THREE.Vector3(), why: '' };
   try { state.last = localStorage.getItem(LAST_KEY) || ''; } catch { /* おぼえて いなくても のれる */ }
 
-  const owned = () => (isOnline() ? (store.state.owned || []).filter(isBike) : []);
+  // もって いる じてんしゃ。store.state は 読む たびに まるごと 写しを 作るので、毎こまの 見はり（update）は 0.5 秒に 1 回だけ 読む。
+  let ownedAt = -1e9, ownedList = [];
+  const owned = (fresh = true) => {
+    if (!isOnline()) return [];
+    const now = performance.now();
+    if (fresh || now - ownedAt > 500) { ownedList = (store.state.owned || []).filter(isBike); ownedAt = now; }
+    return ownedList;
+  };
   const best = () => { const o = owned(); return o.includes(state.last) ? state.last : BIKES.filter((b) => o.includes(b.id)).sort((a, b) => b.speed - a.speed)[0]?.id || ''; };
   const L = (en, ja) => (isJa() ? ja : en);
 
@@ -73,7 +80,7 @@ export function createBikeRide({ player, store, send, isOnline, toast = () => {}
   btn.addEventListener('click', (e) => { e.preventDefault(); btn.blur(); toggle(); });
   let shown = null;
   function paintButton() {
-    const has = owned().length > 0;
+    const has = owned(false).length > 0;
     const show = has && (state.riding ? true : canRide());
     if (btn.hidden === show) btn.hidden = !show;
     const key = `${state.riding ? 1 : 0}`;
@@ -130,7 +137,7 @@ export function createBikeRide({ player, store, send, isOnline, toast = () => {}
   function update(t, dt) {
     paintButton();
     if (!state.riding) return;
-    if (!isOnline() || !canRide() || !owned().includes(state.riding)) { dismount('auto'); return; }
+    if (!isOnline() || !canRide() || !owned(false).includes(state.riding)) { dismount('auto'); return; }
     // 体を 建てなおした（すがたを かえた・きせかえ）：じてんしゃの 大きさも 合わせる。
     if (state.bike.parent !== player) player.add(state.bike);   // avatars.js の apply() は player.clear() する
     const body = bodyOf(player);

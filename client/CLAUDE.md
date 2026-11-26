@@ -2188,3 +2188,7 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   スタイル＝木（pine・oak・white・black・cherry・walnut）・布（red・blue・stripe・check・dots・denim・floral・velvet）・テーマ（mint・pink・sea・forest・mono・candy・royal）・金属（silver・rosegold・gold）。値段＝形の もとの 値段 × スタイルの 倍率（pine 1 〜 royal 5）。ベッドは 149（ぜんぶ ねられる）。
   お店（かぐ屋・へやの パソコン・`town.js`）：しゅるいの タブ・スタイル・さがす・ならべかえ・「もっている」・24 まいずつの ページ。**買うのは 2 回 おす**（カードを えらぶ → 下の「かう」。1,000 しゅるいを スクロール中の おしまちがいで コインが へらない ように）。
   絵は `furnitureShot()` が 見えて いる カードだけ 焼く（1 コマ 14ms まで・420 まいまで とって おく・5 秒 つかわないと レンダラーを はなす）。`prop:shop` は 前からの 31 件＋ `owned`（id）だけ 送る（8KB より 小さい こと を 検査）。へやの 下の バーは 横に スクロール。一覧は `/dev-town.html?sheet=designs&style=pink`・`?sheet=styles&design=sofa`。
+- **じてんしゃや（メインの島の 西の 岸・2026-11）**：土地は `PLAZA.annex.also` の 2 つめ（x -70〜-48・z -2〜31）。spot `bike_shop`（戸口 -61, 11）。大通りは x -66 まで。夜は しまる（`SHOP_KINDS`）。ミニマップは `90 + (x-9)*1.1`, `70 + z*1.1`。
+  品は `bikes-data.js`（`kind:'bike'`・6 台・150〜2500 コイン・はしるの 1.5〜2.2 倍）＝ぶきと 同じ 道で 買う（値段と 持ち主は 部屋）。形は `bike-models.js`、お店は `bike-shop.js` + `bike-shop.css`、のるのは `bike-ride.js`。
+  **のる**：`#bike-toggle`（PC は B）・持ち物の「🚲 のりもの」・お店。`bike:ride {id}` → 部屋が 持って いるか・外か を 見て `bike:on`／`bike:error`。のって いる ことは `player.avatar` の `bike`（部屋が 入れる・`profile` では 入れられない）＝ほかの 子にも 見える。
+  **自動で おりる**：戸口・家の 中・ひこうき・つり・レース・全画面の ゲーム・授業の ストップ・会話・ねる。テーマパークでは のれない。のりもの島の のりもの（`ride.js`）とは べつの しくみ。U-Speak島の 遠くの 山を 立てない 範囲も 西へ ひろげた（`game.js`）。

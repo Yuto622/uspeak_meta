@@ -15,6 +15,8 @@
 import { readFileSync } from 'node:fs';
 // かぐの 品ぞろえ（形 × スタイル＝1000 しゅるい いじょう）。ページと 同じ 定義を 読む（weapons-data.js と 同じ 考え）。
 import { GENERATED_FURNITURE } from '../../../client/dist/furniture-data.js';
+// 増築の 工事は「ゲームの 中の 1 日」＝世界の 時計の ひとまわり（farm.js の 1 日と 同じ 長さ）。
+import { CYCLE_SEC } from '../../../client/dist/world-clock.js';
 
 export class TownError extends Error {}
 
@@ -267,7 +269,67 @@ export function sanitizeRoom(raw, owned) {
     furniture.push(prop);
     if (furniture.length >= room.props) break;
   }
-  return { tier: room.tier, furniture };
+  const out = { tier: room.tier, furniture };
+  // 大工さんに たのんだ 増築（工事中）と、できあがった しらせ（まだ 子どもに 言って いない）。無ければ キーごと 無い。
+  const build = sanitizeBuild(raw?.build, room.tier);
+  if (build) out.build = build;
+  if (Number(raw?.built) === room.tier && room.tier > 1) out.built = room.tier;
+  return out;
+}
+
+// ---- 大工さんの 増築（2026-11）---------------------------------------------------------
+//
+// へやを 大きく する 道は 1 つだけ：大工さん（メインの島の じぶんの いえの となり）か ふどうさん（まちづくり島）で
+// 「つぎの 大きさ」を たのむ → コインを はらう → 工事は ゲームの 中の 1 日（世界の 時計の ひとまわり）→ できあがり。
+// ・1 だんずつ（とばせない）・工事は 1 つずつ・材料は 無い（コイン だけ）。
+// ・時計は 回さない：`doneAt` を すぎた あと、つぎに 部屋が この 子の へやを さわる とき（settleBuild）に tier を 上げる。
+// ・かぐは そのまま：マスは へやの まんなかが 原点なので、大きい へやは 前の へやを そのまま ふくむ。
+// BUILD_DAY_SEC は 検査・デモ用（FARM_DAY_SEC と 同じ 考え）。ふだんは 世界の 時計の 1 しゅう（705 秒）。
+export const BUILD_MS = Math.max(1, Number(process.env.BUILD_DAY_SEC) || CYCLE_SEC) * 1000;
+
+export function sanitizeBuild(raw, tier) {
+  const want = Math.floor(Number(raw?.tier));
+  const doneAt = Number(raw?.doneAt);
+  if (!Number.isFinite(want) || !Number.isFinite(doneAt) || doneAt <= 0) return null;
+  // たのめるのは「いまの つぎ」だけ。ちがう 段の 工事が 保存に あっても 読まない。
+  if (want !== tier + 1 || !nextRoom(tier)) return null;
+  return { tier: want, doneAt: Math.floor(doneAt) };
+}
+
+// 工事が おわって いたら へやを 大きく する。おわった とき true（`state.built` が「まだ 言って いない しらせ」）。
+export function settleBuild(state, now = Date.now()) {
+  const job = state?.build;
+  if (!job) return false;
+  if (now < job.doneAt) return false;
+  delete state.build;
+  const next = nextRoom(state.tier);
+  if (!next || next.tier !== job.tier) return false;
+  state.tier = next.tier;
+  state.built = next.tier;
+  return true;
+}
+
+// たのむ。コインを 引くのは 呼んだ がわ（部屋）＝ここは きまり だけ。返すのは たのんだ へや（値段つき）。
+export function orderBuild(state, { coins = 0, tier = null, now = Date.now() } = {}) {
+  settleBuild(state, now);
+  if (state.build) throw new TownError('already building');
+  const next = nextRoom(state.tier);
+  if (!next) throw new TownError('biggest already');
+  if (tier !== null && tier !== undefined && Math.floor(Number(tier)) !== next.tier) throw new TownError('one step at a time');
+  if (!(coins >= next.price)) throw new TownError('not enough coins');
+  state.build = { tier: next.tier, doneAt: now + BUILD_MS };
+  return next;
+}
+
+const ladderRow = (r) => ({ tier: r.tier, id: r.id, name: r.name, en: r.en, grid: r.grid, props: r.props, price: r.price });
+// 大工さんの メニューに 出す もの ぜんぶ。`left` は のこり ミリ秒（ページの 時計と サーバーの 時計は そろって いないので、のこりで わたす）。
+export function buildPayload(state, now = Date.now()) {
+  return {
+    tier: roomOfTier(state.tier).tier,
+    rooms: ROOMS.map(ladderRow),
+    build: state.build ? { tier: state.build.tier, left: Math.max(0, state.build.doneAt - now) } : null,
+    dayMs: BUILD_MS,
+  };
 }
 
 // ---- じぶんの いえ（メインの島）と はじめの かぐ ---------------------------------------

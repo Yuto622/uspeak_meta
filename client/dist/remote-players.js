@@ -238,6 +238,7 @@ export function createRemotePlayers({ worldScene, getInteriorScene, getLocalPosi
         if (rolled) { r.bike.userData.spin(d / r.bike.scale.x); r.bikePhase += d * 1.1; }
         poseRider(r.model, r.bikePhase, rolled);
       }
+      r.label.position.y = r.bike ? 3.75 : 3.15;   // のって いる あいだは 体が 高い ぶん 名札も 上へ
       r.pet.update(r.lastT ? Math.min(0.1, Math.max(0, t - r.lastT)) : 0, moving); r.lastT = t;
       if (r.bubble && now > r.bubbleUntil) { r.group.remove(r.bubble); r.bubble = null; }
     }

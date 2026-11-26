@@ -4,7 +4,7 @@
 // 見た目と 入口だけの きまり（ページが 決める）：コイン・判定は いままでどおり 部屋。自動の 検査（navigator.webdriver）では いつも あいて いる（?hours=1 で ためせる）。
 import { phaseAt, PHASES } from './world-clock.js';
 
-export const SHOP_KINDS = new Set(['food_shop', 'wear_shop', 'block_shop', 'land_shop', 'weapon_shop', 'fish_buy', 'talk_shop']);
+export const SHOP_KINDS = new Set(['food_shop', 'wear_shop', 'block_shop', 'land_shop', 'weapon_shop', 'fish_buy', 'talk_shop', 'bike_shop']);
 let skew = 0;
 export function setClockSkew(ms) { skew = Number(ms) || 0; }
 const forced = (() => { try { return new URLSearchParams(location.search).get('hours'); } catch { return null; } })();

@@ -39,7 +39,6 @@ function merge(list) {
   out.setAttribute('position', new THREE.BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
   return out;
 }
-const mesh = (list, mat) => { const m = new THREE.Mesh(merge(list), mat); m.castShadow = true; return m; };
 
 // 形ごとの 数字。R＝車輪の 半径、tyre＝タイヤの 太さ、tube＝フレームの 太さ。
 const SHAPE = {
@@ -61,7 +60,7 @@ function wheelParts(sh, knobs) {
   return { dark, metal };
 }
 
-const builds = new Map();   // 形 → 部品の ならび を 作る 関数は 下の build() 1 つ。ここは できた 形（geometry）の おぼえ。
+const builds = new Map();   // 形（style）→ できた geometry の おぼえ
 
 // 1 台ぶんの 形（geometry）を 作る。材質とは べつに おぼえて、同じ 形の 2 台目からは 使いまわす（dispose しない）。
 function geometry(style) {

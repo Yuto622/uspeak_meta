@@ -9,6 +9,7 @@ import {
   TOWN, TOWN_ISLAND, BLOCKS, PROPS, PLAZA, ROOMS, STARTER_BLOCKS, STARTER_PROPS, loadTown, DATA_PATH,
   roomOfTier, nextRoom, sanitizeBlocks, sanitizeProps, sanitizeRoom, sanitizePlaza,
   roomPayload, plazaPayload, place, remove, placeProp, removeProp, propCells, TownError,
+  orderBuild, settleBuild, buildPayload, sanitizeBuild, starterRoom, BUILD_MS,
 } from '../src/game/town.js';
 
 const raw = JSON.parse(readFileSync(DATA_PATH, 'utf8'));
@@ -31,7 +32,10 @@ test('a child can build and furnish on their first visit, with no coins at all',
 });
 
 test('rooms grow, and there is always somewhere to move to next', () => {
-  assert.deepEqual(ROOMS.map((r) => r.tier), [1, 2, 3]);
+  assert.deepEqual(ROOMS.map((r) => r.tier), [1, 2, 3, 4, 5, 6]);
+  // 前からの 3 つは id も 大きさも 値段も そのまま（保存した へやが そのまま 読める）。
+  assert.deepEqual(ROOMS.slice(0, 3).map((r) => [r.id, r.grid, r.props, r.price]), [['small', 8, 10, 0], ['medium', 12, 20, 800], ['large', 16, 34, 2500]]);
+  assert.equal(ROOMS.at(-1).id, 'mansion');
   for (let i = 1; i < ROOMS.length; i += 1) {
     assert.ok(ROOMS[i].grid > ROOMS[i - 1].grid);
     assert.ok(ROOMS[i].props > ROOMS[i - 1].props);
@@ -447,4 +451,90 @@ test('かぐ 1000 しゅるい：前からの 31 は そのまま・あたらし
   assert.throws(() => placeProp(state, ['sofa-pink'], { f: 'sofa-nope', x: 0, z: 0, r: 0 }), /no such furniture/);
   assert.equal(PROPS.get('sofa-pink').price, 660);
   assert.equal(PROPS.get('bed_king-royal').price, 15000);
+});
+
+// ---- 大工さんの 増築（2026-11）----
+
+test('the carpenter: an order sets one job a world-clock day ahead, and only the next step can be ordered', async () => {
+  const { CYCLE_SEC } = await import('../../client/dist/world-clock.js');
+  assert.equal(BUILD_MS, CYCLE_SEC * 1000, 'one in-game day, unless a test or a demo shortens it');
+  const now = 1_000_000;
+  const state = { tier: 1, furniture: [] };
+  // コインが たりない：なにも かわらない。
+  assert.throws(() => orderBuild(state, { coins: ROOMS[1].price - 1, now }), /not enough coins/);
+  assert.equal(state.build, undefined);
+  // 1 だん とばしては たのめない。
+  assert.throws(() => orderBuild(state, { coins: 1e9, tier: 3, now }), /one step at a time/);
+  assert.throws(() => orderBuild(state, { coins: 1e9, tier: 1, now }), /one step at a time/);
+  const next = orderBuild(state, { coins: ROOMS[1].price, tier: 2, now });
+  assert.equal(next.id, 'medium');
+  assert.equal(next.price, ROOMS[1].price, 'the caller takes exactly this');
+  assert.deepEqual(state.build, { tier: 2, doneAt: now + BUILD_MS });
+  assert.equal(state.tier, 1, 'the room is its old size while the work goes on');
+  // 工事は 1 つずつ。
+  assert.throws(() => orderBuild(state, { coins: 1e9, now: now + 5 }), /already building/);
+  const pay = buildPayload(state, now + 1000);
+  assert.equal(pay.tier, 1);
+  assert.deepEqual(pay.build, { tier: 2, left: BUILD_MS - 1000 });
+  assert.equal(pay.dayMs, BUILD_MS);
+  assert.deepEqual(pay.rooms.map((r) => r.tier), ROOMS.map((r) => r.tier));
+  assert.ok(pay.rooms.every((r) => r.id && r.name && r.en && r.grid && r.props && r.price >= 0));
+});
+
+test('the carpenter: when the day has passed the room is the bigger one, and the furniture has not moved', () => {
+  const now = 5_000_000;
+  const owned = sanitizeProps(['sofa', 'bed', 'table']);
+  const state = sanitizeRoom({ tier: 1, furniture: [{ f: 'bed', x: -4, z: -4, r: 0 }, { f: 'sofa', x: 1, z: 1, r: 1 }, { f: 'chair', x: 3, z: 3, r: 2 }] }, owned);
+  const before = JSON.parse(JSON.stringify(state.furniture));
+  orderBuild(state, { coins: 800, now });
+  assert.equal(settleBuild(state, now + BUILD_MS - 1), false, 'not a moment early');
+  assert.equal(state.tier, 1);
+  assert.equal(settleBuild(state, now + BUILD_MS), true);
+  assert.equal(state.tier, 2);
+  assert.equal(state.build, undefined);
+  assert.equal(state.built, 2, 'news the child has not been told yet');
+  assert.deepEqual(state.furniture, before);
+  assert.equal(settleBuild(state, now + BUILD_MS * 9), false, 'and it only happens once');
+  const pay = roomPayload(state, owned);
+  assert.equal(pay.grid, ROOMS[1].grid);
+  assert.equal(pay.cap, ROOMS[1].props);
+  // 大きく なった へやの はしに 置ける（前の へやでは 外だった）。
+  placeProp(state, owned, { f: 'table', x: -6, z: -6, r: 0 });
+  // 保存して 読みなおしても 同じ（しらせも のこる）。
+  const again = sanitizeRoom(JSON.parse(JSON.stringify(state)), owned);
+  assert.equal(again.tier, 2);
+  assert.equal(again.built, 2);
+  assert.equal(again.furniture.length, 4);
+  // つぎの 段を そのまま たのめる。いちばん 上まで 行ったら おわり。
+  let t = now + BUILD_MS * 10;
+  while (nextRoom(state.tier)) { orderBuild(state, { coins: 1e9, now: t }); t += BUILD_MS; settleBuild(state, t); }
+  assert.equal(state.tier, ROOMS.length);
+  assert.equal(state.furniture.length, 4, 'all the way up, nothing was lost');
+  assert.throws(() => orderBuild(state, { coins: 1e9, now: t }), /biggest already/);
+});
+
+test('the carpenter: saved rooms from before, and saved jobs that could not be true', () => {
+  const owned = sanitizeProps(['sofa']);
+  // 前の 保存（build も built も 無い）は そのまま。キーも ふえない。
+  assert.deepEqual(sanitizeRoom({ tier: 3, furniture: [{ f: 'sofa', x: -8, z: -8, r: 0 }] }, owned), { tier: 3, furniture: [{ f: 'sofa', x: -8, z: -8, r: 0 }] });
+  assert.deepEqual(sanitizeRoom({ tier: 1, furniture: [], plaza: { blocks: [] }, starter: true, pc: true }, owned), { tier: 1, furniture: [] });
+  // 工事中の 保存は のこる。
+  assert.deepEqual(sanitizeRoom({ tier: 2, furniture: [], build: { tier: 3, doneAt: 123456.7 } }, owned).build, { tier: 3, doneAt: 123456 });
+  // うその 工事：とばした 段・もどる 段・時間が 無い・いちばん 上の 先。
+  assert.equal(sanitizeBuild({ tier: 4, doneAt: 1 }, 2), null);
+  assert.equal(sanitizeBuild({ tier: 2, doneAt: 1 }, 2), null);
+  assert.equal(sanitizeBuild({ tier: 3 }, 2), null);
+  assert.equal(sanitizeBuild({ tier: 3, doneAt: 'soon' }, 2), null);
+  assert.equal(sanitizeBuild({ tier: ROOMS.length + 1, doneAt: 1 }, ROOMS.length), null);
+  assert.equal(sanitizeBuild(null, 1), null);
+  assert.equal(sanitizeRoom({ tier: 1, built: 1 }, owned).built, undefined, 'nothing was built in the first room');
+  assert.equal(sanitizeRoom({ tier: 2, built: 3 }, owned).built, undefined);
+  // はじめの かぐ・パソコンを わたす 道を とおっても 工事は のこる（ClassRoom の privFromRecord と 同じ 呼びかた）。
+  const raw = { tier: 1, furniture: [], build: { tier: 2, doneAt: 99 } };
+  const props = sanitizeProps([]);
+  const state = starterRoom(sanitizeRoom(raw, props), props, raw);
+  assert.deepEqual(state.build, { tier: 2, doneAt: 99 });
+  assert.equal(settleBuild(state, 100), true);
+  assert.equal(state.tier, 2);
+  assert.ok(state.furniture.length >= 5, 'with the starter set where it was put');
 });

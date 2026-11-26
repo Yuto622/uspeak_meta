@@ -260,14 +260,19 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     shell.add(floor);
     // A checkerboard so the squares a child is furnishing are visible without a shader.
     // 2026-11：茶色の タイル（前は 宇宙の みどり。「床は 茶色の タイルに」）。
+    // 2026-11：タイルは 色ごとに 1 回で 描く（InstancedMesh）。大工さんの 増築で へやが 28 × 28（784 まい）まで 大きく なるので。
+    const tiles = [0xb2764a, 0x9a6238].map((c) => { const m = new THREE.InstancedMesh(geo, mat(c), (room.grid * room.grid) / 2); m.receiveShadow = true; m.frustumCulled = false; shell.add(m); return m; });
+    const count = [0, 0]; const at = new THREE.Object3D();
     for (let x = -half; x < half; x += 1) {
       for (let z = -half; z < half; z += 1) {
-        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x9a6238 : 0xb2764a));
-        tile.position.set(x, 0.005, z);
-        tile.scale.set(0.96, 0.02, 0.96);
-        shell.add(tile);
+        const k = (x + z) % 2 ? 1 : 0;
+        at.position.set(x, 0.005, z);
+        at.scale.set(0.96, 0.02, 0.96);
+        at.updateMatrix();
+        tiles[k].setMatrixAt(count[k], at.matrix); count[k] += 1;
       }
     }
+    for (const m of tiles) m.instanceMatrix.needsUpdate = true;
     const wallH = room.height + 0.5;
     for (const [dx, dz, w, d] of [[-0.4, back - 0.15, room.grid + 1.1, 0.3], [back - 0.15, -0.4, 0.3, room.grid + 1.1], [half, 0, 0.3, room.grid]]) {
       const wall = new THREE.Mesh(new THREE.BoxGeometry(w, wallH, d), mat(0x143a2c, 0.2));
@@ -500,7 +505,8 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     } else {
       // Pull back further than the world's camera: a room is small, and a child needs to
       // see the wall they are furnishing as well as the chair in front of them.
-      const distance = THREE.MathUtils.clamp(zoom * 0.62, 13, 24);
+      const big = Math.max(1, (state.room?.grid || 16) / 16);   // 16 より 大きい へや（増築）は その 分 ひいて 見る
+      const distance = THREE.MathUtils.clamp(zoom * 0.62 * big, 13, 24 * big);
       const focus = new THREE.Vector3(player.position.x * 0.35, 1.2, player.position.z * 0.35);
       const desired = new THREE.Vector3(focus.x + Math.sin(yaw) * distance, 1 + distance * 0.78, focus.z + Math.cos(yaw) * distance);
       camera.position.lerp(desired, 1 - Math.exp(-dt * 6));

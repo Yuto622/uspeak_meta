@@ -226,6 +226,42 @@
       "price": 2500,
       "cap": 520,
       "props": 34
+    },
+    {
+      "tier": 4,
+      "id": "grand",
+      "name": "りっぱな 家",
+      "en": "Grand House",
+      "grid": 20,
+      "height": 6,
+      "level": 12,
+      "price": 6000,
+      "cap": 760,
+      "props": 50
+    },
+    {
+      "tier": 5,
+      "id": "villa",
+      "name": "べっそう",
+      "en": "Villa",
+      "grid": 24,
+      "height": 7,
+      "level": 16,
+      "price": 12000,
+      "cap": 1000,
+      "props": 70
+    },
+    {
+      "tier": 6,
+      "id": "mansion",
+      "name": "だいごうてい",
+      "en": "Mansion",
+      "grid": 28,
+      "height": 7,
+      "level": 20,
+      "price": 25000,
+      "cap": 1300,
+      "props": 95
     }
   ],
   "plaza": {

@@ -1124,14 +1124,15 @@ test('a room of your own: furniture inside it, blocks on the plaza, and still th
   a.room.send('plaza:remove', { x: 0, y: 0, z: 0 });
   assert.equal((await nextMessage(a.room, 'plaza:removed')).used, 2);
 
-  // Moving house: the agent's counter, a level and a price.
+  // Moving house: the agent's counter and a price. 2026-11：ふどうさんの「ひっこし」は 大工さんの 増築と 同じ 道
+  // （コイン だけ・工事 1 日。くわしくは carpenter.test.mjs）。
   a.room.send('room:move', {});
-  assert.equal((await nextMessage(a.room, 'room:error')).reason, 'too far');
+  assert.equal((await nextMessage(a.room, 'build:error')).reason, 'too far');
   await stand(agent.wx, agent.wz);
   a.room.send('room:move', {});
-  err = await nextMessage(a.room, 'room:error');
-  assert.equal(err.reason, 'level too low');
-  assert.equal(err.need, ROOMS[1].level);
+  err = await nextMessage(a.room, 'build:error');
+  assert.equal(err.reason, 'not enough coins');
+  assert.equal(err.need, ROOMS[1].price);
 
   // What was built and what was put down both come back with the child.
   await a.room.leave();
