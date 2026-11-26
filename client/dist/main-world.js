@@ -11,6 +11,7 @@
 // ふつうの島より大きいので、createIsland に size / power / land / dock を渡している。
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 import { createRealTrees } from './real-trees.js';
+import { waterPatch } from './water-fx.js';
 import { createMainSeasons, seasonNow } from './main-seasons.js';
 import { isJa } from './i18n.js';
 import { createCastFx } from './cast-fx.js';
@@ -54,7 +55,9 @@ export function createMainWorld({ scene }) {
       const bay = data.bay || BAY;
       const pier = data.pier || PIER;
       const bw = bay.maxX - bay.minX;
-      D((bay.minX + bay.maxX) / 2, -0.55, bay.minZ + 10, bw, 0.2, 20, 0x5fb6c8, 0, true);
+      // 入り江の 水：海と 同じ 水（water-fx.js）の 浅い 色。下に 砂の 底。
+      D((bay.minX + bay.maxX) / 2, -1.2, bay.minZ + 10, bw, 0.2, 20, 0xd9c79a, 0, true);
+      root.add(waterPatch((bay.minX + bay.maxX) / 2, -0.46, bay.minZ + 10, bw, 20));
       for (let i = 0; i <= Math.round((pier.maxZ - pier.minZ) / 1.1); i += 1) D(pier.x, 0.2, pier.minZ + i * 1.1, pier.w, 0.22, 0.95, i % 2 ? 0xc0a077 : 0xb79768);
       for (const side of [-1, 1]) for (let z = pier.minZ + 2; z <= pier.maxZ; z += 3) D(pier.x + side * (pier.w / 2 + 0.1), -0.4, z, 0.3, 1.6, 0.3, 0x8a7350);
       lamp(pier.x + pier.w / 2 + 0.4, pier.maxZ - 1);
@@ -444,7 +447,8 @@ export function createMainWorld({ scene }) {
         const z = (rand() - 0.5) * 84;
         if (!onLand(x, z) || !free(x, z)) continue;
         const roll = rand();
-        if (roll > 0.8) woods.push({ x, z, scale: 0.75 + rand() * 0.55, kind: Math.floor(rand() * 3) });
+        // スタートと 屋台の 南（カメラの 手前）には 木を 立てない：葉が 画面を かくす。
+        if (roll > 0.8) { const kind = Math.floor(rand() * 3), scale = 0.62 + rand() * 0.4; if (!(z > 17 && z < 32 && x > -12 && x < 48)) woods.push({ x, z, scale, kind }); }
         else if (roll > 0.62) bush(x, z, 0.7 + rand() * 0.6);
         else if (roll > 0.56) rock(x, z, 0.5 + rand() * 0.5);
         else flowers(x, z, [0xf0d98a, 0xe89bb0, 0xdfe4ef, 0xe7b06a][Math.floor(rand() * 4)]);

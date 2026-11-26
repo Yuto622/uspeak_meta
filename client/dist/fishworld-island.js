@@ -8,6 +8,7 @@
 // 水から跳ねて出る（写真つき）。地形・さんばし・当たり判定・看板・ミニマップは island-kit、
 // ここは水と岸と、さお・うき・糸・しぶきの演出だけ。
 import * as THREE from './three.module.js';
+import { seaMaterial } from './water-fx.js';
 import { createIsland, NEAR_DISTANCE } from './island-kit.js';
 import { isJa, onLangChange } from './i18n.js';
 
@@ -25,7 +26,9 @@ export function loadFishworldData() {
 
 // 水面。頂点を 時間で揺らす（fishing.js の池と同じ仕掛け）。
 const waterTime = { value: 0 };
-function waterMaterial(color, opacity = 0.93) {
+// 池と 川の 水：海と 同じ 水（water-fx.js）の 浅い 色。前の 色つきの 板は `flatWater` に のこした（使って いない）。
+function waterMaterial() { return seaMaterial({ shallow: 1, amp: 0 }); }
+function flatWater(color, opacity = 0.93) {
   const m = new THREE.MeshStandardMaterial({ color, metalness: 0.05, roughness: 0.6, transparent: true, opacity, side: THREE.DoubleSide }); // つるつるだと 太陽が 白く とぶ（池が まっしろに 見えた）
   m.onBeforeCompile = (s) => {
     s.uniforms.uTime = waterTime;

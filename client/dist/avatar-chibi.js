@@ -14,7 +14,7 @@ const inArm = (a, c, s) => (g, col, p, sc, r, gl) => a(g, col, [p[0] - s * ARM.x
 // 右手に もつ もの（うでと いっしょに ふれる）。
 const HELD = new Set(['sword', 'wand', 'staff', 'ladle', 'hose', 'lasso', 'shuriken', 'honey', 'banana', 'balloon', 'gift', 'broom', 'lantern']);
 
-const FEAT = {
+export const FEAT = {
   // ---- 耳・フード ----
   earRound: (a, c, col, inner) => both((s) => { a('S', col, [s * 0.48, 2.26, -0.04], [0.36, 0.36, 0.22]); if (inner) a('S', inner, [s * 0.48, 2.26, 0.05], [0.2, 0.2, 0.1]); }),
   earPoint: (a, c, col, inner) => both((s) => { a('K', col, [s * 0.4, 2.38, -0.04], [0.36, 0.46, 0.24], [0, 0, s * -0.28]); if (inner) a('K', inner, [s * 0.4, 2.35, 0.04], [0.2, 0.28, 0.12], [0, 0, s * -0.28]); }),

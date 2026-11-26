@@ -1,4 +1,5 @@
 import * as THREE from './three.module.js';
+import {SEA,seaMaterial} from './water-fx.js';
 import {label} from './bilingual.js';
 export function createAtmosphere({scene,camera,renderer,sun,water,box,colliders,rand,clouds,toast}) {
  const mobile=matchMedia('(max-width: 700px)').matches;
@@ -11,10 +12,10 @@ export function createAtmosphere({scene,camera,renderer,sun,water,box,colliders,
  float hash(vec3 p){p=fract(p*.3183099+vec3(.1,.2,.3));p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
  void main(){vec3 d=normalize(vDirection);float h=max(d.y,0.);vec3 horizon=mix(vec3(.99,.70,.43),vec3(.065,.13,.21),uNight);vec3 zenith=mix(vec3(.19,.45,.61),vec3(.008,.022,.07),uNight);vec3 c=mix(horizon,zenith,pow(h,.48));float a=max(dot(d,uSun),0.);c+=vec3(1.,.64,.30)*pow(a,10.)*.30*(1.-uNight);c+=vec3(1.,.84,.53)*smoothstep(.9986,.9995,a)*(1.-uNight)*2.;vec3 md=normalize(vec3(.38,.55,-.7));float moon=smoothstep(.9990,.9994,dot(d,md));c+=vec3(.73,.85,1.)*moon*uNight*1.6;vec3 grid=floor(d*480.);float star=step(.9978,hash(grid))*pow(max(0.,1.-length(fract(d*480.)-.5)*1.8),5.);c+=star*uNight*step(.07,d.y)*(1.5+.5*sin(uTime+hash(grid)*40.));gl_FragColor=vec4(c,1.);}` }));sky.frustumCulled=false;scene.add(sky);scene.add(sun.target);scene.background=null;scene.fog=new THREE.FogExp2(0xd3b99b,.0075);
  // Open water: animated normals, Fresnel sky reflection, sun glints and coastal foam.
- const seaUniforms={uTime:{value:0},uNight:{value:0},uSun:{value:sunDirection}};
- water.material.dispose();water.geometry.dispose();water.geometry=new THREE.PlaneGeometry(400,400,180,180);
- water.material=new THREE.ShaderMaterial({uniforms:seaUniforms,side:THREE.DoubleSide,vertexShader:`uniform float uTime;varying vec3 vWorld;void main(){vec3 p=position;p.z+=sin(p.x*.32+uTime*.75)*.10+cos(p.y*.25+uTime*.55)*.13+sin(p.x*.7+p.y*.38+uTime)*.035;vec4 w=modelMatrix*vec4(p,1.);vWorld=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,fragmentShader:`precision highp float;uniform float uTime;uniform float uNight;uniform vec3 uSun;varying vec3 vWorld;
- void main(){vec2 p=vWorld.xz;float nx=cos(p.x*.32+uTime*.75)*.032+cos(p.x*.7+p.y*.38+uTime)*.024;float nz=sin(p.y*.25-uTime*.55)*.032+cos(p.x*.7+p.y*.38+uTime)*.013;vec3 n=normalize(vec3(-nx,1.,-nz));vec3 v=normalize(cameraPosition-vWorld);float fres=pow(1.-max(dot(n,v),0.),3.);vec3 base=mix(vec3(.055,.37,.40),vec3(.015,.10,.17),uNight);vec3 reflectSky=mix(vec3(.85,.66,.44),vec3(.13,.23,.38),uNight);vec3 col=mix(base,reflectSky,fres*.85);vec3 l=normalize(mix(uSun,normalize(vec3(.38,.55,-.7)),uNight));float spec=pow(max(dot(n,normalize(l+v)),0.),220.);col+=mix(vec3(1.2,.83,.41),vec3(.65,.79,1.),uNight)*spec*.8;float edge=min(max(abs(p.x)-28.,abs(p.y)-24.),max(abs(p.x-135.)-36.,abs(p.y)-34.));float shoreline=(1.-smoothstep(0.,2.6,edge))*step(-.5,edge);float foam=smoothstep(.7,.98,sin(edge*4.-uTime*1.5+sin(p.x*.6)*.4));col=mix(col,mix(vec3(.75,.88,.76),vec3(.22,.40,.47),uNight),shoreline*foam*.65);float rip=sin(p.x*2.4+sin(p.y*1.3)+uTime)*sin(p.y*1.7-uTime*.7);col+=rip*.015;float fog=1.-exp(-length(cameraPosition-vWorld)*.004);col=mix(col,mix(vec3(.80,.68,.53),vec3(.045,.085,.15),uNight),fog);gl_FragColor=vec4(col,1.);}`});
+ // 海は water-fx.js（波・空の うつりこみ・きらめき）。時間・夜・太陽は SEA を みんなで 使う。
+ const seaUniforms=SEA;SEA.uSun.value=sunDirection;
+ water.material.dispose();water.geometry.dispose();water.geometry=new THREE.PlaneGeometry(400,400,96,96);
+ water.material=seaMaterial({shore:true});
  // Dense, individually colored grass uses a single instanced draw.
  const grassCount=mobile?2000:5200,grassGeo=new THREE.PlaneGeometry(.15,.52,1,3);grassGeo.translate(0,.26,0);
  const grassMat=new THREE.MeshStandardMaterial({color:0x9caf50,side:THREE.DoubleSide,roughness:.92});const grassTime={value:0};

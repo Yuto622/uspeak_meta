@@ -546,7 +546,7 @@ UI側でもnearby()で現地にいることを再確認します。
 - 右は ふだん **☰ 1 つ**（`#rail-toggle`・`body[data-rail]`、mobile.css の 14）。押すと ☰ の 左に 絵だけの まるい ボタンが 横 1 列（🏠 ✈ 🎣 📖 📹 🏆、`::before` の 絵文字）。どれかを 押すか ほかを さわると しまう。下の つうしんは 人数の 札を 出さない。ミニマップ・時計・Roblox の きろく は 出さない。
 - ホットバーは たんごちょう・🌍 せかいを えらぶ（`#mapbtn`＝`rpg.openMap()`・2026-11 に もどした：✈ が ☰ の 中で 見つからない）・じぶんの め の 3 つ。🎒 おなかは ロゴの となり（めもりだけ）。
 - **全画面は `fullscreen.js`**（2026-11）：どの 端末でも、さわった ときに（`pointerup`・`touchend`・`keydown`。**`pointerdown` は Chrome が「ユーザーの 操作では ない」と ことわる**）全画面を たのむ。ぬけても つぎに さわると もどる。全画面で ない あいだは「⛶ ぜんがめんに する」ボタン（島の 上の まんなか `#fs-button`・すがた えらびの 左 `#avatar-fs`・ロビーの「クラスに はいる」の 下 `#net-fs`）。iPhone は ページの 全画面が ない（Apple が みとめていない）ので、ボタンは「ホーム画面に 追加」の 案内（`install-hint.js` の `showInstallHint`）。ボタンは **いつも 全画面**（2026-11）。Chrome・Edge が インストールの 画面（`beforeinstallprompt`）を 出せる ときは、そのあと 小さな カード「デスクトップ（ホーム画面）に アイコンを つくる？」（`#install-offer`・popover で いちばん 上・modal の dialog が ひらいて いれば その 中に 入れる＝inert に ならない）。［アイコンを つくる］の タップで `prompt()`（1 回の タップで 全画面と prompt の 両方は できない）。［いまは しない］は 30 日（`uspeak-install-later-v1`）。Chrome は ページを しばらく（30 秒ほど）つかう まで beforeinstallprompt を 出さないので、まだ 来て いない ときは ボタンを「じゅんび ちゅう…」で 待たせ、来たら［アイコンを つくる］に もどす（`ready`）。45 秒 待っても 来ない とき（もう インストール ずみ・前に とじた・Firefox など）だけ［やりかたを 見る］＝`showInstallHint(kind)`（パソコンは デスクトップの 文・Edge は「…」→「アプリ」の 道）。案内も popover＋modal の dialog の 中に 出す。全画面の たのみは pointerup・touchend・click・keydown（iPad の Safari の ため click も）。
-- **同じ むきに 3 びょう すすむと はしる**（`game.js` の `RUN_AFTER`・`autoRun`。むきは 8 ほうこうに まるめる。Shift・スティックを 外まで も そのまま）。ホーム画面の アイコンから ひらいた とき（standalone）と 自動の 検査（`navigator.webdriver`・`?fs=1` で 出す）は 何も 出さない。
+- **同じ むきに 1.5 びょう すすむと はしる**（2026-11 に 3 → 1.5）（`game.js` の `RUN_AFTER`・`autoRun`。むきは 8 ほうこうに まるめる。Shift・スティックを 外まで も そのまま）。ホーム画面の アイコンから ひらいた とき（standalone）と 自動の 検査（`navigator.webdriver`・`?fs=1` で 出す）は 何も 出さない。
 - 右の 列に ボタンを 足したら、ここにも `order` と 絵文字を 1 行 足す（足さないと 空の まるが 出る）。#hunger は この 列の 規則から 外してある。
 - **タスクは 消さない。左上に 1 行の 札**（`.quest-panel.tasks-folded` ＋ `#task-card.folded`）。`tasks.js` は この 画面幅では **保存を 読まず いつも たたんで はじめ**（PC で ひらいた 覚えが 効くと 画面の 半分が カードに なった）、札を 押すと 220px の 小さい カード（いまの 1 つ・つぎの 一覧と 章の ごほうびは 出さない）。カードの そとを さわると たたむ。先生（`body.cm-teacher`）は 🎓 の まるい ボタンの 下に 同じ 札（tasks.css / class-mode.css の 「先生は 隠す」を `!important` で 上書き）。
 - **光の 道の 行き先の 光は ☰ にも のる**（`task-guide.js` の `.task-glow` は `#flight-button, #mapbtn, #rail-toggle`）。✈ が しまわれている あいだ、子は ☰ が 光るのを 見て ひらく。
@@ -2112,3 +2112,10 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
   前の 箱の 体（`buildAvatar` の のこり・`avatar-bodies.js`）は 消して いない：表に ない id の ときの 予備。もどすなら `buildAvatar` の 1 行目を 外す。
 - 約束は 前と 同じ：`userData.limbs`（左あし・右あし・左うで・右うで の Group・つけねで ふれる）・`anchors`（head・face・chest・back・hand）・`worn`。きせかえの 品は 箱の 体の 大きさで 作って あるので、anchor を 大きく して ある（頭 1.5 倍・顔 1.25 倍）。
   手に もつ もの・うでの はね（`HELD`・`inArm`）は うでの Group の 中＝うでと いっしょに ふれる。一覧は `/dev-cast.html?set=avatars`。
+
+## 2026-11 の おわりに かえた 見た目（住人・たべもの・水・走る）
+- **住人も まるい 体**（`villager.js` の `buildVillager`）：島・家の 中・U-Speak島の 人は ぜんぶ island-cast の 体。たねから きまる 見た目（はだ・かみ・こもの・せ）は 前と 同じ 考えかた。`box` の 引数は もう 使わない。
+- **たべものは リアルな 3D**（`food-real.js`）：屋台の 9 しゅるい。`foodShots()` が 小さな レンダラーで 1 回だけ 絵に して すぐ 捨てる（WebGL を 持ちつづけない）。屋台と かばんの 絵文字と 入れかわる（`food.js` の `realPictures`）。かばんの 3D（`bag-preview.js` の `foodModel`）も 同じ 形。一覧は `/dev-food.html`。
+- **水**（`water-fx.js`）：海・メインの島の 入り江・つり島の 池と 川が 同じ シェーダー（波・空の うつりこみ・太陽の きらめき・浅い ところの 光の あみ）。絵も 2 回目の 描画も 使わない。海の 頂点は 180×180 → 96×96 に へらした。時間・夜・太陽は `SEA`（atmosphere.js が 書く）。
+- **走る**：同じ むきに **1.5 秒** すすむと 走る（`game.js` の `RUN_AFTER`。前は 3 秒）。
+- メインの島の 木は スタートと 屋台の 南（カメラの 手前）には 立てない（葉が 画面を かくした）。
