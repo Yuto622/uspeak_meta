@@ -14,6 +14,9 @@ export function shopsOpen(now = Date.now() + skew) {
   if (auto && forced !== '1') return true;
   return phaseAt(now).id !== 'night';
 }
+// いま 夜か（ベッドで ねる・room-world.js）。お店と ちがい、自動の 検査でも 本当の 時計を 見る（?hours=closed は 夜あつかい）。
+export function isNight(now = Date.now() + skew) { return forced === 'closed' || phaseAt(now).id === 'night'; }
+export function nightEndsIn(now = Date.now() + skew) { const p = phaseAt(now); return p.id === 'night' ? Math.ceil(p.endsIn) : 0; }
 // あくまでの 秒（あいて いれば 0）。
 export function opensIn(now = Date.now() + skew) {
   if (shopsOpen(now)) return 0;

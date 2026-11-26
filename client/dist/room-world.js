@@ -11,6 +11,7 @@ import * as THREE from './three.module.js';
 import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
 import { furnitureModel } from './furniture-real.js';
+import { isNight, nightEndsIn } from './shop-hours.js';
 
 const CELL = 1;                 // one floor square, one metre
 const REACH = 8;                // how far the crosshair carries, in squares
@@ -57,6 +58,87 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   let cooldown = 0;
   let wasFirstPerson = false;
   let floor = null;
+
+  // ---- よるは ベッドで ねる（2026-11）------------------------------------------------------
+  // 世界の 時計が 夜の あいだ、ベッドの そばで「🛏 ねる」。ねると ベッドに 横に なり、画面が くらく なる。あさに なるか「おきる」で おきる。
+  // 見た目だけ：時間は とばない（世界の 時計は クラス みんなの もの）。コインも 記録も うごかない。
+  const sleepBtn = document.createElement('button');
+  sleepBtn.id = 'room-sleep'; sleepBtn.type = 'button'; sleepBtn.hidden = true; sleepBtn.setAttribute('translate', 'no');
+  sleepBtn.innerHTML = '🛏 <span class="en">Sleep</span><span class="ja">ねる</span>';
+  const sleepCover = document.createElement('div');
+  sleepCover.id = 'room-sleep-cover'; sleepCover.hidden = true; sleepCover.setAttribute('translate', 'no');
+  sleepCover.innerHTML = '<div class="rs-z">💤</div><p class="rs-t"><span class="en">Good night…</span><span class="ja">おやすみ…</span></p><p class="rs-s"></p><button type="button" class="rs-up">☀ <span class="en">Wake up</span><span class="ja">おきる</span></button>';
+  try {
+    const css = document.createElement('style');
+    css.textContent = `
+#room-sleep{position:fixed;left:50%;bottom:118px;transform:translateX(-50%);z-index:30;min-height:48px;padding:10px 26px;border-radius:999px;border:2px solid #ffb066;background:#1b3a2f;color:#fff4d6;font:800 18px/1.2 inherit;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#room-sleep[hidden],#room-sleep-cover[hidden]{display:none}
+#room-sleep-cover{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:0 16px 9vh;background:radial-gradient(circle at 50% 42%,rgba(12,36,28,0) 0,rgba(12,36,28,.55) 46%,rgba(6,16,12,.92) 100%);color:#fff4d6;text-align:center;animation:rs-in 1.2s ease both}
+#room-sleep-cover .rs-z{font-size:44px;animation:rs-z 2.6s ease-in-out infinite}
+#room-sleep-cover .rs-t{margin:0;font-weight:800;font-size:24px}
+#room-sleep-cover .rs-s{margin:0;font-weight:700;font-size:14px;color:#8ff0c8;min-height:1.3em}
+#room-sleep-cover .rs-up{margin-top:8px;min-height:48px;padding:10px 26px;border-radius:999px;border:0;background:#ffb066;color:#1b3a2f;font:800 17px/1.2 inherit;cursor:pointer}
+@keyframes rs-in{from{opacity:0}to{opacity:1}}
+@keyframes rs-z{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(-10px);opacity:1}}
+@media (prefers-reduced-motion:reduce){#room-sleep-cover,#room-sleep-cover .rs-z{animation:none}}`;
+    document.head.append(css); document.body.append(sleepBtn, sleepCover);
+    for (const el of [sleepBtn, sleepCover]) for (const ev of ['pointerdown', 'touchstart', 'mousedown']) el.addEventListener(ev, (e) => e.stopPropagation());
+    sleepBtn.addEventListener('click', () => sleep());
+    sleepCover.querySelector('.rs-up').addEventListener('click', () => wake());
+  } catch { /* 検査（DOM の ない ところ）では ボタンなし */ }
+  let sleeping = null;       // { bed, back:{x,z,ry}, fp }
+  function bedNear() {
+    let best = null, bd = 2.3;
+    for (const entry of state.props.values()) {
+      if (sized(entry.prop.f).shape !== 'bed') continue;
+      const d = Math.hypot(entry.group.position.x - player.position.x, entry.group.position.z - player.position.z);
+      if (d < bd) { bd = d; best = entry; }
+    }
+    return best;
+  }
+  function sleep() {
+    const bed = bedNear();
+    if (!state.active || sleeping || !bed) return false;
+    if (!isNight()) { toast?.(isJaNow() ? '🌙 よるに なったら ねられるよ。' : '🌙 You can sleep when it is night.'); return false; }
+    sleeping = { bed, back: { x: player.position.x, z: player.position.z, ry: player.rotation.y }, fp: !!view?.firstPerson, order: player.rotation.order };
+    if (view) view.firstPerson = false;          // ねて いる じぶんを 上から 見る
+    document.body.classList.remove('first-person');
+    document.body.dataset.sleeping = '1';
+    sleepBtn.hidden = true; sleepCover.hidden = false; ghost.visible = false;
+    lie();
+    return true;
+  }
+  function lie() {
+    const { bed } = sleeping; const yaw = (bed.prop.r % 4) * Math.PI / 2;
+    // まくらは ベッドの -z がわ（furniture-real.js の bed）。足は +z。体の 原点は 足もと。
+    player.rotation.order = 'YXZ';
+    player.rotation.set(-Math.PI / 2, yaw, 0);
+    player.position.set(bed.group.position.x + Math.sin(yaw) * 0.8, 0.78, bed.group.position.z + Math.cos(yaw) * 0.8);
+  }
+  function wake(morning = false) {
+    if (!sleeping) return false;
+    const s = sleeping; sleeping = null;
+    player.rotation.order = s.order || 'XYZ';
+    player.rotation.set(0, s.back.ry, 0);
+    player.position.set(s.back.x, 0, s.back.z);
+    if (state.active) { if (view) view.firstPerson = s.fp; document.body.classList.toggle('first-person', s.fp); }
+    delete document.body.dataset.sleeping;
+    sleepCover.hidden = true;
+    if (morning) toast?.(isJaNow() ? '☀ おはよう！ あさだよ。' : '☀ Good morning!');
+    return true;
+  }
+  const isJaNow = () => { try { return document.documentElement.dataset.lang !== 'en'; } catch { return true; } };
+  function tickSleep() {
+    if (sleeping) {
+      if (!isNight()) { wake(true); return; }
+      lie();
+      const sec = nightEndsIn(); const el = sleepCover.querySelector('.rs-s');
+      if (el) { const m = Math.floor(sec / 60), ss = String(sec % 60).padStart(2, '0'); const txt = sec ? (isJaNow() ? `あさまで あと ${m}:${ss}` : `Morning in ${m}:${ss}`) : ''; if (el.textContent !== txt) el.textContent = txt; }
+      return;
+    }
+    const show = state.active && isNight() && !document.querySelector('dialog[open]') && !!bedNear();
+    if (sleepBtn.hidden === show) sleepBtn.hidden = !show;
+  }
 
   const key = (x, z) => `${x},${z}`;
   const sized = (id) => state.palette.get(id) || { w: 1, d: 1, h: 1, color: 0xaaaaaa, shape: 'box' };
@@ -127,14 +209,15 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
   function buildShell(room) {
     shell.clear();
     const half = room.grid / 2;
-    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0xe0a060, 0.16));
+    floor = new THREE.Mesh(new THREE.BoxGeometry(room.grid, 0.4, room.grid), mat(0x4a2f1e));   // めじ（タイルの すきまに 見える）
     floor.position.y = -0.2;
     floor.receiveShadow = true;
     shell.add(floor);
     // A checkerboard so the squares a child is furnishing are visible without a shader.
+    // 2026-11：茶色の タイル（前は 宇宙の みどり。「床は 茶色の タイルに」）。
     for (let x = -half; x < half; x += 1) {
       for (let z = -half; z < half; z += 1) {
-        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x143528 : 0x1b4a39, 0.06));
+        const tile = new THREE.Mesh(geo, mat((x + z) % 2 ? 0x9a6238 : 0xb2764a));
         tile.position.set(x, 0.005, z);
         tile.scale.set(0.96, 0.02, 0.96);
         shell.add(tile);
@@ -208,7 +291,9 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   function leave(silent = false) {
     if (!state.active) return false;
+    wake();
     state.active = false;
+    sleepBtn.hidden = true;
     (parent || null)?.add(player);
     document.body.classList.remove('in-room');
     if (view) view.firstPerson = wasFirstPerson;
@@ -307,6 +392,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   function blocked(x, z) {
     if (!state.active || !state.room) return null;
+    if (sleeping) return true;             // ねて いる 間は うごかない
     const half = state.room.grid / 2;
     // The doorway is the one gap in the walls; walking into it leaves.
     if (Math.abs(x) > half - 0.4 || z < -half + 0.4) return true;
@@ -318,7 +404,9 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
 
   function update(t, dt) {
     cooldown = Math.max(0, cooldown - dt);
-    if (!state.active) { ghost.visible = false; return; }
+    if (!state.active) { ghost.visible = false; if (!sleepBtn.hidden) sleepBtn.hidden = true; return; }
+    tickSleep();
+    if (sleeping) { ghost.visible = false; return; }
     const at = aimed();
     state.cursor = at;
     const item = sized(state.hand);
@@ -340,6 +428,14 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     if (!state.active) return false;
     camera.aspect = globalThis.innerWidth / globalThis.innerHeight || camera.aspect;
     camera.updateProjectionMatrix();
+    if (sleeping) {
+      const b = sleeping.bed.group.position;
+      const desired = new THREE.Vector3(b.x + 1.8, 4.6, b.z + 3.6);
+      if (!sleeping.cam) { camera.position.copy(desired); sleeping.cam = true; }   // はじめは とぶ（おそい 端末で 外から ゆっくり 来ない ように）
+      else camera.position.lerp(desired, 1 - Math.exp(-dt * 3));
+      camera.lookAt(b.x, 0.6, b.z);
+      return true;
+    }
     if (firstPerson) {
       camera.position.set(player.position.x, 2.05 + player.position.y, player.position.z);
       camera.lookAt(
@@ -366,7 +462,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     ctx.clearRect(0, 0, 180, 140);
     ctx.fillStyle = '#08160f';
     ctx.fillRect(0, 0, 180, 140);
-    ctx.fillStyle = '#163f31';
+    ctx.fillStyle = '#9a6238';
     ctx.fillRect(90 - half * scale, 70 - half * scale, state.room.grid * scale, state.room.grid * scale);
     ctx.fillStyle = '#ffb066';
     for (const { prop } of state.props.values()) {
@@ -387,6 +483,7 @@ export function createRoom({ player, camera, view, send, toast, speak, learn, on
     onPlaced, onRemoved, onError, placeHere, removeHere, rotate,
     setHand(id) { if (state.owned.includes(id)) state.hand = id; },
     get active() { return state.active; },
+    sleep, wake, get sleeping() { return !!sleeping; },
     get hand() { return state.hand; },
     get rot() { return state.rot; },
   };
