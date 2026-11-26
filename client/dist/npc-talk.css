@@ -1,0 +1,111 @@
+/* 住民との 会話（npc-talk.js）と いえの 中の 帯（npc-home.js）。ブランドの 色：深緑・オレンジ・ミント・クリーム。
+   うごかすのは transform と opacity だけ。字は 11px 以上・おす ところは 34px 以上。 */
+#ntk { position: fixed; inset: 0; z-index: 8; pointer-events: none; font-family: inherit; --ntk-c: #cbbb95; }
+#ntk[hidden] { display: none; }
+#ntk > * { pointer-events: auto; }
+
+/* ---- かおの 絵（右）---- */
+.ntk-portrait { position: absolute; right: max(24px, 7vw); bottom: 44px; height: min(38vh, 380px); aspect-ratio: 1 / 1.04; transform: rotate(-4deg); cursor: pointer; animation: ntk-in .28s ease-out both; }
+.ntk-frame { position: absolute; inset: 0; overflow: hidden; display: grid; place-items: center; border: 9px solid #fffdf6;
+  border-radius: 47% 53% 50% 50% / 53% 47% 55% 45%; box-shadow: 0 10px 28px #0007;
+  background: radial-gradient(circle at 50% 38%, #fff4d6 0 30%, color-mix(in srgb, var(--ntk-c) 55%, #fff4d6) 62%, color-mix(in srgb, var(--ntk-c) 78%, #1b3a2f) 100%); }
+.ntk-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ntk-frame img[hidden], .ntk-emoji[hidden], .ntk-chip img[hidden] { display: none; }
+.ntk-emoji { font-size: min(16vh, 150px); line-height: 1; }
+.ntk-badge { position: absolute; left: -4%; top: -3%; min-width: 52px; height: 52px; padding: 0 8px; display: grid; place-items: center; border-radius: 50%;
+  background: #fffdf6; color: #e27a2d; font: 900 30px/1 system-ui, sans-serif; box-shadow: 0 4px 12px #0006, inset 0 0 0 3px #ffb066; transform: rotate(4deg); }
+.ntk-badge[data-mood="love"] { color: #e0406a; box-shadow: 0 4px 12px #0006, inset 0 0 0 3px #ff8fa8; }
+.ntk-badge[data-mood="surprised"] { color: #c2571a; }
+.ntk-badge[data-mood="sleepy"] { color: #2f8f5b; box-shadow: 0 4px 12px #0006, inset 0 0 0 3px #8ff0c8; }
+.ntk-badge.pop { animation: ntk-pop .45s ease-out; }
+@keyframes ntk-pop { 0% { transform: rotate(4deg) scale(.3); opacity: 0; } 60% { transform: rotate(4deg) translateY(-8px) scale(1.15); opacity: 1; } 100% { transform: rotate(4deg) scale(1); } }
+@keyframes ntk-in { from { transform: rotate(-4deg) translateY(18px); opacity: 0; } to { transform: rotate(-4deg); opacity: 1; } }
+
+/* ---- ことばの はこ（左下）---- */
+.ntk-box { position: absolute; left: max(18px, 6vw); bottom: 34px; width: min(660px, 56vw); min-height: 132px; box-sizing: border-box; padding: 26px 22px 14px;
+  border-radius: 22px; background: #0c241ce8; color: #fff4d6; box-shadow: 0 12px 30px #0008, inset 0 0 0 2px #ffb06688; cursor: pointer;
+  -webkit-user-select: none; user-select: none; animation: ntk-box-in .22s ease-out both; }
+@keyframes ntk-box-in { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+.ntk-tab { position: absolute; left: 18px; top: -18px; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 6px; border-radius: 999px;
+  background: linear-gradient(180deg, #f2b04a, #e27a2d); color: #1b2a1f; box-shadow: 0 4px 10px #0006; }
+.ntk-chip { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: var(--ntk-c); box-shadow: inset 0 0 0 2px #fffdf6; flex: none; }
+.ntk-chip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ntk-name { font-size: 16px; font-weight: 900; white-space: nowrap; }
+.ntk-kind { font-size: 12px; font-weight: 800; white-space: nowrap; padding: 2px 8px; border-radius: 999px; background: #fff4d6cc; color: #1b3a2f; }
+.ntk-close { position: absolute; right: 8px; top: 8px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #ffffff1c; color: #fff4d6; font: 800 16px/1 system-ui, sans-serif; cursor: pointer; }
+.ntk-close:hover { background: #ffffff33; }
+.ntk-hearts { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; margin: 0 40px 6px 0; min-height: 18px; }
+.ntk-h { font-size: 14px; letter-spacing: 1px; white-space: nowrap; }
+.ntk-h b { color: #ff6f91; font-weight: 400; }
+.ntk-h i { color: #ffffff66; font-style: normal; }
+.ntk-fav { font-size: 12px; font-weight: 800; color: #8ff0c8; }
+.ntk-line { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.5; color: #fffdf6; overflow-wrap: anywhere; }
+.ntk-sub { margin: 4px 0 0; font-size: 15px; font-weight: 700; line-height: 1.45; color: #cfe8d8; overflow-wrap: anywhere; }
+.ntk-sub:empty { display: none; }
+.ntk-acts { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+.ntk-acts button { min-height: 38px; padding: 6px 14px; border: 0; border-radius: 12px; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+.ntk-say { margin-right: auto; background: #ffffff1f; color: #fff4d6; font-size: 17px !important; min-width: 44px; }
+.ntk-next { background: #1b3a2f; color: #fff4d6; box-shadow: inset 0 0 0 2px #8ff0c877; }
+.ntk-next i { display: inline-block; font-style: normal; color: #ffb066; margin-left: 4px; animation: ntk-bob 1s ease-in-out infinite; }
+@keyframes ntk-bob { 50% { transform: translateY(4px); } }
+.ntk-go { background: linear-gradient(180deg, #f2b04a, #e27a2d); color: #1b2a1f; box-shadow: 0 3px 0 #a9541b; }
+.ntk-go:active { transform: translateY(2px); box-shadow: 0 1px 0 #a9541b; }
+.ntk-later { background: #ffffff1f; color: #fff4d6; }
+
+/* ---- いえの 中：大きな かおの 絵は 出さない（へやを 見せる）。なまえの 札の 小さな かおだけ ---- */
+#ntk[data-variant="home"] .ntk-portrait { display: none; }
+#ntk[data-variant="talk"] .ntk-chip { display: none; }
+#ntk[data-variant="talk"] .ntk-tab { padding-left: 14px; }
+#ntk[data-variant="home"] .ntk-box { width: min(560px, 60vw); }
+
+/* 会話の 間は、下の 道具（スティック・あげる・はなす・ホットバー）を しまう：はこと かさなる・歩けない ので いらない */
+body[data-npc-talk] .mobile-pad, body[data-npc-talk] #give, body[data-npc-talk] #give-card, body[data-npc-talk] #near, body[data-npc-talk] #npc-talk,
+body[data-npc-talk] .bottom, body[data-npc-talk] #home-bar, body[data-npc-talk] .world-label, body[data-npc-talk] #hunger-notice { display: none !important; }
+body[data-arcade] #ntk, body[data-race] #ntk, body[data-gp] #ntk, body[data-main] #ntk, body[data-warp] #ntk, body[data-class-pause] #ntk { display: none; }
+
+/* ---- はばの せまい 画面 ---- */
+@media (max-width: 900px) {
+  .ntk-box { left: 12px; width: min(560px, calc(100vw - 24px - 34vw)); }
+  .ntk-portrait { right: 12px; height: min(34vh, 30vw); }
+  .ntk-line { font-size: 18px; }
+}
+@media (max-width: 560px) and (orientation: portrait) {
+  .ntk-box, #ntk[data-variant="home"] .ntk-box { left: 10px; right: 10px; width: auto; bottom: 14px; }
+  .ntk-portrait { right: 14px; bottom: auto; top: 16vh; height: 30vh; }
+}
+/* 横もちの スマホ（844×390）：かおは 右に 高さの 46%、はこは 左 */
+@media (max-height: 560px) {
+  .ntk-portrait { right: 14px; bottom: 14px; height: 46vh; }
+  .ntk-frame { border-width: 6px; }
+  .ntk-badge { min-width: 38px; height: 38px; font-size: 22px; }
+  .ntk-emoji { font-size: 22vh; }
+  .ntk-box, #ntk[data-variant="home"] .ntk-box { left: 14px; bottom: 12px; width: calc(100vw - 28px - 46vh - 18px); min-height: 0; padding: 22px 14px 10px; border-radius: 18px; }
+  #ntk[data-variant="home"] .ntk-box { width: min(520px, 62vw); }
+  .ntk-tab { height: 32px; top: -16px; left: 12px; }
+  .ntk-name { font-size: 14px; } .ntk-kind { font-size: 11px; }
+  .ntk-hearts { margin-bottom: 2px; min-height: 16px; } .ntk-h { font-size: 12px; } .ntk-fav { font-size: 11px; }
+  .ntk-line { font-size: 16px; line-height: 1.4; } .ntk-sub { font-size: 12px; margin-top: 2px; }
+  .ntk-acts { margin-top: 6px; gap: 6px; } .ntk-acts button { min-height: 36px; font-size: 13px; padding: 4px 12px; }
+  .ntk-close { width: 34px; height: 34px; right: 6px; top: 6px; }
+}
+
+/* ---- 「💬 はなす」（food-give.js の はこの 中）---- */
+.gv-talk { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 6px 16px; border: 0; border-radius: 12px; background: #0c241c; color: #fff4d6;
+  box-shadow: inset 0 0 0 2px #8ff0c888; font: 800 15px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+.gv-talk .gv-who { color: #ffd246; }
+.gv-talk kbd { padding: 1px 7px; border-radius: 6px; background: #ffffff22; font: 700 12px/1.5 inherit; }
+.gv-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px; }
+@media (pointer: coarse) { .gv-talk kbd { display: none; } }
+
+/* ---- いえの 中の 帯（npc-home.js）：だれの いえか と「そとへ」 ---- */
+#home-bar { position: fixed; left: 50%; top: 74px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 16px; border-radius: 999px;
+  background: #0c241ce0; color: #fff4d6; box-shadow: 0 6px 18px #0006, inset 0 0 0 2px #ffb06666; font-weight: 800; font-size: 14px; white-space: nowrap; }
+#home-bar[hidden] { display: none; }
+#home-bar b { color: #ffd246; }
+#home-bar button { min-height: 36px; padding: 4px 14px; border: 0; border-radius: 999px; background: linear-gradient(180deg, #f2b04a, #e27a2d); color: #1b2a1f; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+@media (max-height: 560px) { #home-bar { top: 50px; font-size: 12px; padding: 4px 6px 4px 12px; } #home-bar button { min-height: 34px; font-size: 12px; } }
+body[data-arcade] #home-bar, body[data-race] #home-bar, body[data-gp] #home-bar, body[data-warp] #home-bar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ntk-portrait, .ntk-box, .ntk-badge.pop, .ntk-next i { animation: none; }
+}

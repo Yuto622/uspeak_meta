@@ -46,6 +46,7 @@ import { createWordHouseUI } from './wordhouse.js';
 import { createFoodUI } from './food.js';
 import { createBagUI } from './bag.js';
 import { createFoodGive } from './food-give.js';
+import { createNpcSocial } from './npc-social.js';
 import { createMainIsland } from './main-island.js';
 import { createRacers } from './racers.js';
 import { createGuestDock } from './guest-dock.js';
@@ -107,6 +108,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   };
   let client = null;
   let room = null;
+  let social = null;   // npc-social.js（下で 作る。currentSpace が 先に 呼ばれても よい ように ここで 名前だけ）
   let reconnectTimer = null;
   let probeTimer = null;
   const prefs = storage.get(localStorage, STORAGE_KEYS.prefs) || {};
@@ -466,13 +468,17 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const food = createFoodUI({ send: (type, payload) => { if (type === 'food:open' || type === 'food:buy') sendMove(); plainSend(type, payload); }, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w), onBagOpen: () => bag.open('food'), onChange: () => bag?.refresh(), onGoFood: () => main?.goHome() });
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
   // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
+  // 住民と はなす・なかよしの 住民の いえ（npc-social.js）。いえは マイルームと 同じ しくみ（rpg.attachHome）。
+  social = createNpcSocial({ player, camera, rpg, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online' });
   const foodGive = createFoodGive({
     player, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onChange: () => bag?.refresh(),
+    onTalk: (at) => social.talkTo(at), onGaveTalk: (m, target) => social.onGave(m, target),
     near: () => {
+      if (social.home.active) return social.nearInHome();
       const id = rpg.state.current; const isl = rpg[id];
       if (rpg.state.busy || rpg.state.mode === 'flight' || rpg.insideBuilding || rpg.inRoom || rpg.inPlaza || typeof isl?.nearest !== 'function' || typeof isl.origin !== 'function') return null;
       const at = isl.nearest(player);
-      if (!at?.spot?.id) return null;
+      if (!at?.spot?.id) return social.nearWalker();
       const o = isl.origin();
       return { island: id, spot: at.spot, x: o.x + at.spot.x, z: o.z + at.spot.z };
     },
@@ -633,6 +639,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   function currentSpace() {
     if (myRoom.active) return 'in:room';
     if (myPlaza.active) return 'in:plaza';
+    // なかよしの 住民の いえ：ひとりだけの 場所（ほかの 子は 見えない・通話に ならない＝部屋の voiceRoomOf は `in:島:建物` だけ）。
+    if (social?.home.active) return `in:home.${room?.sessionId || 'me'}`;
     if (myLand.active) return 'in:land';
     // Inside an island building. The name says which building on which island, and the
     // server checks it against the very place it is being asked about.
@@ -671,7 +679,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     parentQr.setOnline(mode === 'online' || mode === 'reconnecting');
     mission.setAvailable(mode === 'online' || mode === 'reconnecting');
     if (mode === 'offline' || mode === 'connecting') lockPremiumOffline();
-    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); town.hideHud(); voice.setMode('off'); }
+    if (mode === 'offline') { state.progress = null; state.skew = 0; night.setGhosts([]); state.riding = ''; state.speed = 1; race.quit(); if (myRoom.active) myRoom.leave(true); if (myPlaza.active) myPlaza.leave(true); if (myLand.active) myLand.leave(true); social?.leaveHome(true); town.hideHud(); voice.setMode('off'); }
     teacher.setAvailable((mode === 'online' || mode === 'reconnecting') && state.role === 'teacher');
     const out = document.getElementById('logout-button'); if (out) out.hidden = !(mode === 'online' || mode === 'reconnecting');
     classMode.setOnline(mode === 'online' || mode === 'reconnecting');
@@ -906,6 +914,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     r.onMessage('food:error', (m) => food.onError(m));
     r.onMessage('food:gave', (m) => foodGive.onGave(m));
     r.onMessage('food:give:error', (m) => foodGive.onError(m));
+    r.onMessage('home:visit:ok', (m) => social.onVisitOk(m));
+    r.onMessage('home:visit:error', (m) => social.onVisitError(m));
     r.onMessage('wh:result', (m) => { if (m.wallet) applyWallet(m.wallet); if (m.progress) applyProgress(m.progress, m.levels); sfx.judge(m.correct); wordhouse.onResult(m); });
     r.onMessage('wh:error', (m) => wordhouse.onError(m));
     r.onMessage('farm:board', (m) => farm.onBoard(m));
@@ -1472,7 +1482,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     mainLabel: (spot) => main.label(spot),
     fishworld,
     wordhouse,
-    food, foodGive,
+    food, foodGive, social,
     bag,
     main,
     landLabel: (spot) => land.label(spot),

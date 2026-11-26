@@ -27,10 +27,11 @@ export function villagerLook(seed) {
 // たねから 決まる もの は 前と 同じ 考えかた（はだ・かみの 色と 形・こもの・せの 高さ・ズボン）。服の 色は データの まま。
 // `box` は もう 使わない（呼ぶ がわを かえない ために 受けとるだけ）。
 const HAIRDO = { short: 'short', long: 'long', bob: 'bob', twin: 'twin', bun: 'bun', spiky: 'spiky', cap: 'short', straw: 'short', beanie: 'short', bald: 'none', pony: 'pony', side: 'curly' };
-export function buildVillager(box, g, { color, seed }) {
+// `face`（{ noEyes, noMouth, noBlush }）：かおの 部品を かかない（npc-talk.js が ひょうじょうごとの 目と 口を じぶんで かく）。
+export function buildVillager(box, g, { color, seed, face = null }) {
   const L = villagerLook(seed);
   const add = chibiMaker(g);
-  const c = { skin: L.skin, hair: L.hair, style: HAIRDO[L.style] || 'short', top: color, pants: L.pants, accent: L.hat, shoe: 0x4a3b34 };
+  const c = { skin: L.skin, hair: L.hair, style: HAIRDO[L.style] || 'short', top: color, pants: L.pants, accent: L.hat, shoe: 0x4a3b34, ...(face || {}) };
   g.userData.limbs = chibiBody(add, c, g);   // 左あし・右あし・左うで・右うで（アバターと 同じ 約束。ひろばを 歩く 人が ふる）
   const st = L.style, ex = L.extra;
   if (st === 'cap') FEAT.cap(add, c, L.hat);

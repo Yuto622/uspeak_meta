@@ -21,8 +21,11 @@ const WHY = {
 };
 
 export function villagerName(spot) { return String(spot?.character || spot?.en || spot?.name || spot?.id || ''); }
+// なかよしの かぎ（`島:場所`）。会話の 画面（npc-talk.js）・いえ（npc-home.js）も 同じ かぎを 使う。
+export const friendKeyOf = (at) => (at?.spot?.id ? `${at.island}:${at.spot.id}` : '');
 
-export function createFoodGive({ player, food, send, toast, speak = null, isOnline, near, onChange = () => {} }) {
+// onTalk(at)：「💬 はなす」を おした（npc-social.js）。onGaveTalk(m, target)：あげた あとの ひとこと。
+export function createFoodGive({ player, food, send, toast, speak = null, isOnline, near, onChange = () => {}, onTalk = null, onGaveTalk = null }) {
   const state = { id: '', near: null, pending: false, sig: '', target: null };
 
   // ---- 頭の 上の たべもの ----
@@ -128,10 +131,12 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
   function paintPanel() {
     const at = state.near;
     const busy = !at || !isOnline() || document.querySelector('dialog[open]');
-    const key = at ? `${at.island}:${at.spot.id}` : '';
+    const key = friendKeyOf(at);
     const fr = key ? friend(key) : null;
-    if (busy || (!state.id && !fr)) { if (!panel.hidden) { panel.hidden = true; state.sig = ''; } return; }
-    const sig = [key, state.id, fr?.points, fr?.left, fr?.favourite, state.pending, isJa()].join('|');
+    // 「💬 はなす」：たべものを 持って いなくても、住民の そばなら 出す（ひろばを 歩く 人は じぶんの ボタンが ある）。
+    const canTalk = !!onTalk && !!at && !at.walker;
+    if (busy || (!state.id && !fr && !canTalk)) { if (!panel.hidden) { panel.hidden = true; state.sig = ''; } return; }
+    const sig = [key, state.id, fr?.points, fr?.left, fr?.favourite, state.pending, isJa(), canTalk].join('|');
     if (sig === state.sig) return;
     state.sig = sig;
     const name = villagerName(at.spot);
@@ -144,17 +149,27 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     else if (done) act = `<p class="gv-note">${L('Come back tomorrow!', 'きょうは ここまで。また あした！')}</p>`;
     else act = `<button type="button" class="gv-btn" ${state.pending ? 'disabled' : ''}><span class="gv-gift">🎁 ${foodName(state.id)}</span><span>${isJa() ? `${who(name)}に あげる` : `Give to ${who(name)}`}</span><kbd>G</kbd></button>`;
     const fav = fr?.favourite ? `<p class="gv-fav">${L('Loves', 'だいすき')}：<span translate="no">${esc(fr.favourite)}</span></p>` : '';
-    panel.innerHTML = `${fr ? `<div class="gv-friend"><span class="gv-title">${isJa() ? `${who(name)} と なかよし` : `Friends with ${who(name)}`}</span>${meter(fr.points)}</div>${fav}` : ''}${act}`;
+    const talkBtn = canTalk ? `<button type="button" class="gv-talk">💬 <span>${isJa() ? `${who(name)} と はなす` : `Talk to ${who(name)}`}</span><kbd>T</kbd></button>` : '';
+    if (!state.id && !fr && talkBtn) act = '';        // まだ なにも あげて いない 住民：はなす だけ
+    panel.innerHTML = `${fr ? `<div class="gv-friend"><span class="gv-title">${isJa() ? `${who(name)} と なかよし` : `Friends with ${who(name)}`}</span>${meter(fr.points)}</div>${fav}` : ''}<div class="gv-row">${act}${talkBtn}</div>`;
     panel.hidden = false;
     const btn = panel.querySelector('.gv-btn');
     if (btn) btn.onclick = give;
+    const tb = panel.querySelector('.gv-talk');
+    if (tb) tb.onclick = talkNow;
+  }
+
+  function talkNow() {
+    const at = state.near;
+    if (!at || !onTalk || panel.hidden || at.walker) return;
+    try { onTalk(at); } catch { /* 会話が ひらけなくても あげる ことは できる */ }
   }
 
   function give() {
     const at = state.near;
     if (!at || !state.id || state.pending || panel.hidden) return;
     state.pending = true; state.sig = '';
-    state.target = { x: at.x, z: at.z, name: villagerName(at.spot), key: `${at.island}:${at.spot.id}` };
+    state.target = { x: at.x, z: at.z, name: villagerName(at.spot), key: friendKeyOf(at), at };
     send('food:give', { island: at.island, spot: at.spot.id, id: state.id });
     setTimeout(() => { if (state.pending) { state.pending = false; state.sig = ''; } }, 3000);
   }
@@ -171,6 +186,7 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     card.hidden = false; card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
     clearTimeout(cardTimer); cardTimer = setTimeout(() => { card.hidden = true; }, 4000);
     speak?.('Here you are!', { japanese: false, rate: 0.9 });
+    try { onGaveTalk?.(m, t); } catch { /* お礼の ひとことが 出なくても あげた ことは かわらない */ }
   }
   function onError(m) {
     state.pending = false; state.sig = '';
@@ -179,9 +195,10 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
   }
 
   addEventListener('keydown', (e) => {
-    if (e.key !== 'g' && e.key !== 'G') return;
-    if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || panel.hidden || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || '') || e.target?.isContentEditable) return;
-    give();
+    const k = String(e.key || '').toLowerCase();
+    if (k !== 'g' && k !== 't') return;
+    if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || panel.hidden || document.body.dataset.npcTalk || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || '') || e.target?.isContentEditable) return;
+    if (k === 't') talkNow(); else give();
   });
   onLangChange(() => { state.sig = ''; });
 
@@ -216,5 +233,5 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     }
   }
 
-  return { hold, drop, toggle, give, onGave, onError, update, get id() { return state.id; }, state, root, panel, card };
+  return { hold, drop, toggle, give, talk: talkNow, onGave, onError, update, get id() { return state.id; }, state, root, panel, card };
 }
