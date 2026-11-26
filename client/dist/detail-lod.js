@@ -14,7 +14,9 @@ import * as THREE from './three.module.js';
 const SMALL = 6.5;        // これより 大きい まとまり（建物・島・海）は 相手に しない
 const FAR = 62;           // ここより 遠い 人・小物は 描かない
 const FAR_MID = 92;       // 中くらいの もの（半径 2.5 より 大きい）は もう少し 遠くまで
-const SHADOW = 30;        // ここより 遠い ものは 影を 落とさない
+const SHADOW = 30;
+const TINY = 1.6;
+const SPECK = 0.16;        // これより 小さい 部品は 影を 落とさない          // 1 つだけの 部品は これより 小さい ものだけ        // ここより 遠い ものは 影を 落とさない
 const HIDE = 31;          // 描かない ときの レイヤー（カメラも 影の カメラも 0 しか 見ない）
 const RESCAN = 3;         // 新しく 生まれた もの（島が 建つ・となりの 子が 来る）を 3 秒ごとに さがす
 
@@ -22,14 +24,20 @@ export function createDetailLod({ scene, player, skip = [] }) {
   const items = [];               // { g, r, off, far, shade }
   const known = new WeakSet();
   const box = new THREE.Box3(), sph = new THREE.Sphere(), at = new THREE.Vector3();
-  let clock = 0, scanClock = RESCAN, enabled = true;
+  let lastTick = -1, lastScan = -1e9, enabled = true, shown = false;
 
   const skipped = (o) => o === player || skip.includes(o);
   function meshesOf(g) {
     const out = [];
     g.traverse((o) => {
       if (!(o.isMesh || o.isSprite || o.isPoints || o.isLine)) return;
-      if (o.userData.lodCast === undefined) o.userData.lodCast = o.castShadow;   // もとの 影の 設定（はじめて 見た とき）
+      if (o.userData.lodCast === undefined) {
+        o.userData.lodCast = o.castShadow;   // もとの 影の 設定（はじめて 見た とき）
+        // 目・口・ボタンのような ごく 小さい 部品の 影は 見えない ので 落とさない（影の 絵を 描く 回数が へる）。
+        const gs = o.geometry && (o.geometry.boundingSphere || (o.geometry.computeBoundingSphere(), o.geometry.boundingSphere));
+        o.updateWorldMatrix(true, false);
+        o.userData.lodTiny = !!gs && gs.radius * o.matrixWorld.getMaxScaleOnAxis() < SPECK;
+      }
       out.push(o);
     });
     return out;
@@ -50,10 +58,20 @@ export function createDetailLod({ scene, player, skip = [] }) {
                 c.updateWorldMatrix(true, false);
                 const off = c.worldToLocal(sph.center.clone());
                 known.add(c);
-                items.push({ g: c, r: sph.radius, off, far: false, shade: true });
+                items.push({ g: c, r: sph.radius, off, far: null, shade: null });
                 continue;
               }
             }
+          }
+        }
+        // まとまりに 入って いない 小さな 部品（U-Speak島の 小物など）も 1 つずつ。
+        else if ((c.isMesh || c.isSprite) && c.geometry) {
+          if (!c.geometry.boundingSphere) c.geometry.computeBoundingSphere();
+          const r = (c.geometry.boundingSphere?.radius || 0) * Math.max(c.scale.x, c.scale.y, c.scale.z);
+          if (!c.isInstancedMesh && r > 0 && r <= TINY) {
+            known.add(c);
+            items.push({ g: c, r, off: c.geometry.boundingSphere.center.clone(), far: null, shade: null });
+            continue;
           }
         }
         if (depth < 6 && c.children.length) walk(c, depth + 1);
@@ -68,12 +86,17 @@ export function createDetailLod({ scene, player, skip = [] }) {
   }
   function setShade(it, shade) {
     if (it.shade === shade) return; it.shade = shade;
-    for (const m of meshesOf(it.g)) m.castShadow = shade ? m.userData.lodCast : false;
+    for (const m of meshesOf(it.g)) m.castShadow = shade ? m.userData.lodCast && !m.userData.lodTiny : false;
   }
-  function update(dt) {
-    if (!enabled) return;
-    scanClock += dt; if (scanClock >= RESCAN) { scanClock = 0; scan(); }
-    clock += dt; if (clock < 0.25) return; clock = 0;
+  function update() {
+    // ひこうきで とんで いる 間（じぶんが かくれて いる）は ぜんぶ 出す：ひこうきや 行き先が 遠い ので。
+    const active = enabled && player.visible;
+    if (!active) { if (shown) return; shown = true; for (const it of items) { setFar(it, false); setShade(it, true); } return; }
+    shown = false;
+    // 時計は 本当の 時間（dt は 0.04 で 切られる ので、おそい 端末では 3 秒が 何十秒にも なって しまう）。
+    const now = performance.now() / 1000;
+    if (now - lastScan >= RESCAN) { lastScan = now; scan(); }
+    if (now - lastTick < 0.25) return; lastTick = now;
     const px = player.position.x, pz = player.position.z;
     for (let i = items.length - 1; i >= 0; i--) {
       const it = items[i];
@@ -84,6 +107,6 @@ export function createDetailLod({ scene, player, skip = [] }) {
       setShade(it, d <= SHADOW);
     }
   }
-  function setEnabled(on) { enabled = !!on; if (!enabled) for (const it of items) { setFar(it, false); setShade(it, true); } }
-  return { update, scan, setEnabled, get count() { return items.length; }, get hidden() { return items.filter((q) => q.far).length; } };
+  function setEnabled(on) { enabled = !!on; }
+  return { update, scan, setEnabled, has: (o) => known.has(o), item: (o) => items.find((q) => q.g === o), get count() { return items.length; }, get hidden() { return items.filter((q) => q.far).length; } };
 }
