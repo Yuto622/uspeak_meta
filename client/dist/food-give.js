@@ -174,6 +174,19 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     setTimeout(() => { if (state.pending) { state.pending = false; state.sig = ''; } }, 3000);
   }
 
+  // 会話の 画面から あげる（npc-talk.js の たべものの ボタン）。そばに いる 相手に、かばんの 1 こを そのまま。
+  function giveTo(info, id) {
+    if (state.pending || !info?.key || !food.state.bag.some((b) => b.id === id)) return false;
+    const i = info.key.indexOf(':'); if (i < 1) return false;
+    const near = state.near && friendKeyOf(state.near) === info.key ? state.near : null;
+    const at = near ? { ...near, info: near.info || info } : { island: info.key.slice(0, i), spot: { id: info.key.slice(i + 1), character: info.name?.en || info.name?.ja || '' }, x: player.position.x, z: player.position.z, info };
+    state.pending = true; state.sig = '';
+    state.target = { x: at.x, z: at.z, name: villagerName(at.spot), key: info.key, at };
+    send('food:give', { island: at.island, spot: at.spot.id, id });
+    setTimeout(() => { if (state.pending) { state.pending = false; state.sig = ''; } }, 3000);
+    return true;
+  }
+
   function onGave(m) {
     state.pending = false; state.sig = '';
     food.apply({ bag: m.bag, friends: m.friends, friendRules: m.friendRules });
@@ -233,5 +246,5 @@ export function createFoodGive({ player, food, send, toast, speak = null, isOnli
     }
   }
 
-  return { hold, drop, toggle, give, talk: talkNow, onGave, onError, update, get id() { return state.id; }, state, root, panel, card };
+  return { hold, drop, toggle, give, giveTo, talk: talkNow, onGave, onError, update, get id() { return state.id; }, state, root, panel, card };
 }

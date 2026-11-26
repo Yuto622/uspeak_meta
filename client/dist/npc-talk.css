@@ -42,6 +42,12 @@
 .ntk-line { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.5; color: #fffdf6; overflow-wrap: anywhere; }
 .ntk-sub { margin: 4px 0 0; font-size: 15px; font-weight: 700; line-height: 1.45; color: #cfe8d8; overflow-wrap: anywhere; }
 .ntk-sub:empty { display: none; }
+.ntk-gift { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+.ntk-gift[hidden] { display: none; }
+.ntk-gift-cap { font-weight: 800; font-size: 13px; color: #ffb066; margin-right: 2px; }
+.ntk-food { display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 10px; border: 1px solid rgba(255, 176, 102, .55); border-radius: 999px; background: rgba(255, 244, 214, .1); color: #fff4d6; font: 700 13px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+.ntk-food i { font-style: normal; font-size: 18px; } .ntk-food small { font-size: 12px; color: #8ff0c8; }
+.ntk-food:active { transform: scale(.96); }
 .ntk-acts { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 10px; }
 .ntk-acts button { min-height: 38px; padding: 6px 14px; border: 0; border-radius: 12px; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
 .ntk-say { margin-right: auto; background: #ffffff1f; color: #fff4d6; font-size: 17px !important; min-width: 44px; }

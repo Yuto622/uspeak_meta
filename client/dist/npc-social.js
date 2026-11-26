@@ -23,13 +23,15 @@ export function residentInfo(island, spot) {
   return { key: `${island}:${spot.id}`, name: { en: name, ja: name }, seed: villagerSeed(spot), color: Number(spot.color) || 0xcbbb95 };
 }
 
-export function createNpcSocial({ player, camera, rpg, food, send, toast = () => {}, speak = null, isOnline = () => false }) {
+export function createNpcSocial({ player, camera, rpg, food, send, toast = () => {}, speak = null, isOnline = () => false, give = null }) {
   let pending = null; let pendingTimer = 0; let colors = null;
   const talk = createNpcTalk({
     speak,
     friends: () => food?.state?.friends || {},
     rules: () => food?.state?.friendRules || { max: 10, per: 3, perDay: 3, invite: 3 },
     onVisit: (who) => visit(who),
+    bag: () => food?.state?.bag || [],
+    onGive: (who, id) => { try { give?.(who, id); } catch { /* あげられなくても 会話は つづく */ } },
   });
   const home = createNpcHome({
     player, camera, toast,
@@ -86,7 +88,8 @@ export function createNpcSocial({ player, camera, rpg, food, send, toast = () =>
       const at = target?.at;
       const info = at?.info || (at?.spot?.id ? residentInfo(at.island, at.spot) : null);
       if (!info || info.key !== m?.key) return;
-      setTimeout(() => { if (!talk.isOpen) openTalk(info, { mode: 'thanks', favourite: !!m.favourite, inHome: home.active }); }, 900);
+      // 会話の 中から あげた ときは、その 会話を お礼の ひとことに かえる。
+      setTimeout(() => { openTalk(info, { mode: 'thanks', favourite: !!m.favourite, inHome: home.active }); }, talk.isOpen ? 350 : 900);
     } catch { /* お礼が 出なくても あげた ことは かわらない */ }
   }
 

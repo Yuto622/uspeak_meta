@@ -478,7 +478,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // 持ち物（🎒）：たべもの・ふく・いえ・ブロック。中身は 部屋（bag:get）。
   // たべものを 頭の 上に もつ・住民に あげる（food-give.js）。そばの 住民は いまの 島の island-kit の nearest。
   // 住民と はなす・なかよしの 住民の いえ（npc-social.js）。いえは マイルームと 同じ しくみ（rpg.attachHome）。
-  social = createNpcSocial({ player, camera, rpg, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online' });
+  social = createNpcSocial({ player, camera, rpg, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online', give: (info, id) => foodGive.giveTo(info, id) });
   // としょかんの 中（library.js）：ほんだな＝よみもの島の 本だな、つくえ＝しゅくだい・ふくしゅう・たんごちょう（どれも 前から ある 画面）。
   library = createLibrary({
     player, camera, toast, rpg, isOnline: () => state.mode === 'online',

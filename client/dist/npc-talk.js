@@ -98,7 +98,7 @@ export function portraitShots(who) {
 }
 
 // ---- 画面 ---------------------------------------------------------------------------------
-export function createNpcTalk({ speak = null, friends = () => ({}), rules = () => ({ max: 10, per: 3, perDay: 3, invite: 3 }), onVisit = null, onClose = null } = {}) {
+export function createNpcTalk({ speak = null, friends = () => ({}), rules = () => ({ max: 10, per: 3, perDay: 3, invite: 3 }), onVisit = null, onClose = null, bag = () => [], onGive = null } = {}) {
   const state = { open: false, who: null, lines: [], at: 0, variant: 'talk', choice: false, pics: null, sig: '' };
   const turns = new Map();     // key → 話した 回数（この ページの 間だけ）
   let el = null; let ui = null;
@@ -113,13 +113,14 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
         <div class="ntk-hearts"></div>
         <p class="ntk-line"></p>
         <p class="ntk-sub"></p>
+        <div class="ntk-gift" hidden></div>
         <div class="ntk-acts"></div>
       </div>`;
     document.body.appendChild(el);
     ui = {
       frame: el.querySelector('.ntk-frame'), img: el.querySelector('.ntk-frame img'), emoji: el.querySelector('.ntk-emoji'), badge: el.querySelector('.ntk-badge'),
       chip: el.querySelector('.ntk-chip img'), name: el.querySelector('.ntk-name'), kind: el.querySelector('.ntk-kind'), hearts: el.querySelector('.ntk-hearts'),
-      line: el.querySelector('.ntk-line'), sub: el.querySelector('.ntk-sub'), acts: el.querySelector('.ntk-acts'), box: el.querySelector('.ntk-box'),
+      line: el.querySelector('.ntk-line'), sub: el.querySelector('.ntk-sub'), acts: el.querySelector('.ntk-acts'), gift: el.querySelector('.ntk-gift'), box: el.querySelector('.ntk-box'),
     };
     el.querySelector('.ntk-close').addEventListener('click', (e) => { e.stopPropagation(); close(); });
     ui.box.addEventListener('click', (e) => { if (e.target?.closest?.('button')) return; advance(); });
@@ -193,6 +194,19 @@ export function createNpcTalk({ speak = null, friends = () => ({}), rules = () =
       acts += `<button type="button" class="ntk-next" data-do="next" aria-label="${last ? L('Close', 'とじる') : L('Next', 'つぎへ')}">${last ? L('OK', 'おわり') : L('Next', 'つぎへ')} <i>${last ? '■' : '▼'}</i></button>`;
     }
     ui.acts.innerHTML = acts;
+    // もって いる たべものを そのまま あげる（2026-11：「話してるときに 食べ物 もってたら 簡単に あげれるように」）。おすと 1 こ わたす。きめるのは 部屋。
+    let items = []; try { items = (bag() || []).filter((b) => b && b.id && b.n > 0).slice(0, 6); } catch { items = []; }
+    const giftOn = !!onGive && items.length > 0 && !state.choice;
+    ui.gift.hidden = !giftOn;
+    if (giftOn) {
+      ui.gift.innerHTML = `<span class="ntk-gift-cap">🎁 ${L('Give', 'あげる')}</span>` + items.map((b) => `<button type="button" class="ntk-food" data-give="${String(b.id).replace(/[^a-z0-9_-]/gi, '')}"><i>${b.icon || '🍎'}</i><span>${String(b.en || '').replace(/[<>&"]/g, '')}</span><small>×${b.n}</small></button>`).join('');
+      for (const b of ui.gift.querySelectorAll('[data-give]')) b.onclick = (e) => {
+        e.stopPropagation();
+        if (state.giveLock) return;
+        state.giveLock = true; setTimeout(() => { state.giveLock = false; }, 1300);
+        try { onGive(who, b.dataset.give); } catch { /* あげられなくても 会話は つづく */ }
+      };
+    } else ui.gift.innerHTML = '';
     ui.acts.querySelector('.ntk-say').onclick = (e) => { e.stopPropagation(); sayLine(); };
     // 行が かわったら 自動で 読み上げる（🔊 を おさなくても 流れる。同じ 行の 描きなおしでは 読まない）。
     if (state.spoken !== line) { state.spoken = line; sayLine(); }

@@ -493,7 +493,7 @@ export function createMainWorld({ scene }) {
         }
       }
 
-      // プラネタリウム（北西）＝グリフィス天文台の 形。外がわは 材質ごとに 1 メッシュ（4 回の 描画）。夜は まど・玄関が 灯り、白い かべが うっすら 光る（下の setNight）。
+      // プラネタリウム（北西）＝グリフィス天文台の 形。外がわは 材質ごとに 1 メッシュ（5 回の 描画）。夜は まど・玄関が 灯り、白い かべが うっすら 光る（下の setNight）。
       // 木を まく 前に 建てる（keep で 建物と 前の しばふから 木と 草花を よける）。
       try {
         const P = PLANETARIUM_AT;
@@ -501,7 +501,6 @@ export function createMainWorld({ scene }) {
         ext.group.position.set(P.x, 0.2, P.z);            // 島の 地面は y 0.2
         root.add(ext.group);
         for (const o of ext.obstacles) obstacles.push({ x: P.x + o.x, z: P.z + o.z, w: o.w, d: o.d });
-        for (const [lx, lz] of ext.lamps) lamp(P.x + lx, P.z + lz);
         // 建物と しばふの 道の 下に 見えない 箱（地面より 下）：草むら（plantTufts）が 床や 道から 生えない ように マスを ふさぐ。
         D(P.x, 0.1, P.z - 1.6, 21.6, 0.1, 13, 0x8a8478, 0, 'cobble');
         D(P.x, 0.1, P.z + 10.4, 2.6, 0.1, 10.4, 0x8a8478, 0, 'cobble');

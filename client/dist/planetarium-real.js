@@ -60,7 +60,8 @@ export function buildPlanetariumExterior() {
     wall: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.82, emissive: 0xffc98a, emissiveIntensity: 0 }),
     dome: new THREE.MeshStandardMaterial({ map: ct, vertexColors: true, roughness: 0.42, metalness: 0.35, emissive: 0x1c2a26, emissiveIntensity: 0 }),
     plain: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.75, metalness: 0.08 }),
-    glass: new THREE.MeshStandardMaterial({ color: 0x4a4436, roughness: 0.3, metalness: 0.1, emissive: 0xffb84d, emissiveIntensity: 0 }),
+    glass: new THREE.MeshStandardMaterial({ color: 0x121a20, roughness: 0.22, metalness: 0.3, emissive: 0xffb84d, emissiveIntensity: 0 }),
+    globe: new THREE.MeshStandardMaterial({ color: 0xf4efe2, roughness: 0.5, emissive: 0xffd08a, emissiveIntensity: 0.05 }),
   };
   const W = (g, color = WHITE) => B.add('wall', g, { color, ...K });
   const P = (g, color) => B.add('plain', g, { color, ...K });
@@ -166,7 +167,15 @@ export function buildPlanetariumExterior() {
   W(cyl(KI.x, 1.55, KI.z, 1.0, 0.9, 0.12, 16), SHADE);
   P(cyl(KI.x, 1.67, KI.z, 0.1, 0.95, 0.4, 16), 0x2f332e);
   B.add('glass', box(KI.x, 0.7, KI.z + 0.76, 0.55, 0.5, 0.08));
-  B.flush(group, M, { noShadow: ['glass'] });
+  // 街灯（ほそい 柱に 白い 玉。夜は あたたかく 光る＝emissive だけ）。
+  const lamps = [[-2.1, 8.4], [2.1, 8.4], [-2.1, 12.6], [2.1, 12.6], [-8.8, 7.9], [9.4, 12.4], [-4.6, 6.0], [4.6, 6.0]];
+  for (const [x, z] of lamps) {
+    P(cyl(x, 0, z, 0.13, 0.17, 0.22, 10), 0x2c3430);
+    P(cyl(x, 0.22, z, 0.045, 0.065, 2.25, 8), 0x2c3430);
+    P(cyl(x, 2.47, z, 0.12, 0.05, 0.08, 10), 0x2c3430);
+    const globe = new THREE.SphereGeometry(0.2, 14, 10); globe.translate(x, 2.74, z); B.add('globe', globe, K);
+  }
+  B.flush(group, M, { noShadow: ['glass', 'globe'] });
 
   // 玄関の 足もとの 光の 輪（夜だけ。光は 足さない＝加算の 板 1 まい）。
   let pool = null;
@@ -177,7 +186,7 @@ export function buildPlanetariumExterior() {
   // 夜：まどと 玄関が こはく色に 灯り、白い かべが 下から てらされた ように うっすら 光る（emissive だけ）。
   function setNight(n) {
     const k = Math.max(0, Math.min(1, n || 0));
-    M.glass.emissiveIntensity = 1.9 * k; M.wall.emissiveIntensity = 0.2 * k; M.dome.emissiveIntensity = 0.5 * k;
+    M.glass.emissiveIntensity = 1.9 * k; M.globe.emissiveIntensity = 0.05 + 1.7 * k; M.wall.emissiveIntensity = 0.2 * k; M.dome.emissiveIntensity = 0.5 * k;
     if (pool) { pool.material.opacity = 0.55 * k; pool.visible = k > 0.03; }
   }
   // 当たり判定（半分の はば・おくゆき）。玄関の 前（だん）と しばふの 道は あけて ある。
@@ -189,9 +198,8 @@ export function buildPlanetariumExterior() {
     ...ramp.filter((_, i) => i % 2 === 0).map((p) => ({ x: p.x, z: p.z, w: 0.55, d: 0.55 })),
     { x: -4.5, z: ZF + 0.75, w: 2.2, d: 0.25 }, { x: 4.5, z: ZF + 0.75, w: 2.2, d: 0.25 },
     { x: OB.x, z: OB.z, w: 1.35, d: 1.35 }, { x: KI.x, z: KI.z, w: 0.8, d: 0.8 },
+    ...lamps.map(([x, z]) => ({ x, z, w: 0.12, d: 0.12 })),
   ];
-  // 街灯を 立てる 場所（main-world.js が island-kit の lamp() で 立てる＝夜の 光の 輪も つく）。
-  const lamps = [[-2.1, 8.4], [2.1, 8.4], [-2.1, 12.6], [2.1, 12.6], [-8.6, 8.2], [9.6, 12.6]];
   return { group, obstacles, setNight, lamps, door: { x: 0, z: PLANETARIUM.door }, lawn: { w: HX * 2 + 4, z0: -7.8, z1: LAWN.z1 + 1 }, obelisk: OB };
 }
 
