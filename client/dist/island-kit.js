@@ -6,7 +6,7 @@
 // differ, so that is all each island module writes.
 import * as THREE from './three.module.js';
 import { buildVillager, villagerSeed } from './villager.js';
-import { placeHost } from './island-cast.js';
+import { placeHost, buildCastMember } from './island-cast.js';
 import { createHouseBatch } from './real-house.js';
 import { groundMaterial, groundKind, grassTufts } from './ground-fx.js';
 import { createRealTrees } from './real-trees.js';
@@ -230,6 +230,13 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
   }
 
   // A voxel villager in the same style as the islanders on Willow.
+  function castPerson(id, x, z) {
+    const g = buildCastMember(id);
+    if (!g) return null;
+    g.position.set(x, 0, z);
+    root.add(g);
+    return g;
+  }
   function person(color, skin, x, z, seed) {
     const g = new THREE.Group();
     g.position.set(x, 0, z);
@@ -545,7 +552,8 @@ export function createIsland({ scene, build, seed = 20250910, size = null, power
 
   // A resident with a nameplate, at one of the island's spots.
   function resident(def) {
-    const npc = person(Number(def.color), 0xe8c39a, def.x, def.z, villagerSeed(def));
+    // def.cast（island-cast.js の id）が あれば その キャラクター（メインの島の ゆぴちゃん）。ほかは たねから きまる 住人。
+    const npc = (def.cast && castPerson(def.cast, def.x, def.z)) || person(Number(def.color), 0xe8c39a, def.x, def.z, villagerSeed(def));
     // labelBg / labelWidth：札の 色と 幅（英検の つり場は 級の 色で「🎣 英検3級 · Sora」を 1 枚に）。
     const label = sprite(def.label || def.character, def.x, 3.5, def.z, { width: def.labelWidth || 4.4, size: def.labelSize || 40, depthTest: false, ...(def.labelBg ? { background: def.labelBg } : {}) });
     // 住人の下の一言。英語が無いデータもある（その時は日本語のまま出る）。

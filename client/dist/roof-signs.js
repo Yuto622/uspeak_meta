@@ -120,6 +120,19 @@ const SIGN = {
     const gold = P({ color: 0xf5c542, roughness: 0.2, metalness: 1 }); const k = new THREE.Group(); k.position.set(0.95, 1.2, 0.2); k.rotation.z = -0.3; g.add(k);
     add(k, new THREE.TorusGeometry(0.3, 0.09, 10, 24), gold, 0, 0.5, 0); add(k, new THREE.CylinderGeometry(0.07, 0.07, 1.0, 10), gold, 0, -0.3, 0); for (const yy of [-0.62, -0.4]) add(k, slab(0.26, 0.12, 0.08, 0.02), gold, 0.16, yy, 0);
   },
+  yupi(g) {                                                  // ピンクの ハートと ふきだし（ゆぴちゃんの おはなしルーム）
+    const y = post(g, 0.3) + 1.1;
+    const h = new THREE.Shape();
+    h.moveTo(0, -0.95); h.bezierCurveTo(-0.35, -0.6, -1.05, -0.2, -1.05, 0.3); h.bezierCurveTo(-1.05, 0.8, -0.55, 1.05, -0.25, 1.0); h.bezierCurveTo(-0.08, 0.97, 0, 0.82, 0, 0.7);
+    h.bezierCurveTo(0, 0.82, 0.08, 0.97, 0.25, 1.0); h.bezierCurveTo(0.55, 1.05, 1.05, 0.8, 1.05, 0.3); h.bezierCurveTo(1.05, -0.2, 0.35, -0.6, 0, -0.95);
+    const geo = new THREE.ExtrudeGeometry(h, { depth: 0.3, bevelEnabled: true, bevelSize: 0.08, bevelThickness: 0.08, bevelSegments: 4, curveSegments: 16 }); geo.translate(0, 0, -0.15);
+    add(g, geo, P({ color: 0xff5f98, roughness: 0.22, clearcoat: 1, emissive: 0xff3f86, emissiveIntensity: 0.2 }), -0.4, y, 0);
+    add(g, new THREE.SphereGeometry(0.16, 16, 10), P({ color: 0xffffff, roughness: 0.2 }), -0.95, y + 0.52, 0.24).scale.set(1, 0.6, 0.3);
+    const white = P({ color: 0xffffff, roughness: 0.4, clearcoat: 0.5 });
+    add(g, slab(1.3, 0.86, 0.14, 0.4), white, 0.95, y + 0.95, 0.12);
+    add(g, poly([[0, 0], [0.32, 0], [-0.08, -0.34]], 0.1), white, 0.62, y + 0.56, 0.12);
+    for (const dx of [-0.32, 0, 0.32]) add(g, new THREE.SphereGeometry(0.09, 12, 8), P({ color: 0xff5f98, roughness: 0.3 }), 0.95 + dx, y + 0.95, 0.22);
+  },
   word_house(g) {                                            // A・B・C の つみき
     const face = (ch, bg) => tex(128, (c, S) => { c.fillStyle = bg; c.fillRect(0, 0, S, S); c.strokeStyle = 'rgba(255,255,255,0.75)'; c.lineWidth = 8; c.strokeRect(8, 8, S - 16, S - 16); c.fillStyle = '#fff'; c.font = '900 84px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(ch, S / 2, S / 2 + 6); });
     [['A', '#d9483b', -0.6, 0.5, 0.2], ['B', '#3f8fd8', 0.6, 0.5, -0.15], ['C', '#f2a531', 0, 1.5, 0.3]].forEach(([ch, bg, x, y, turn]) => add(g, slab(1, 1, 1, 0.1), P({ map: face(ch, bg), color: 0xffffff, roughness: 0.4, clearcoat: 0.5 }), x, y, 0, [0, turn, 0]));

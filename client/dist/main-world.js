@@ -340,6 +340,20 @@ export function createMainWorld({ scene }) {
             }
             break;
           }
+          case 'yupi': {
+            // ゆぴちゃんの おはなしルーム：ピンクと 白の ひさし、屋根に ハートと ふきだし（roof-signs.js）。
+            // わき：ピンクの 花の うえきばち と ハートの かんばん（光る）。戸口の 前（x ±1.4）と 道は あける。
+            awning(0xff8fbf, 0xfff4f8);
+            for (const sx of [L, R]) {
+              D(sx, 0.35, fz, 1.0, 0.7, 0.8, 0xfff4f8); D(sx, 0.74, fz, 0.86, 0.1, 0.66, 0x7a5a3a);
+              D(sx, 1.0, fz, 0.8, 0.45, 0.6, 0x6fbf73);
+              for (const [ox, oz, c] of [[-0.25, -0.15, 0xff6fa5], [0.2, 0.1, 0xffb3cf], [0.05, -0.2, 0xffffff], [-0.1, 0.2, 0xff8fbf], [0.3, -0.1, 0xff6fa5]]) D(sx + ox, 1.28, fz + oz, 0.18, 0.14, 0.18, c);
+              solid(sx, fz, 0.5, 0.4);
+            }
+            // ハートの かんばん（左の かべ）：箱 3 つで ハートの 形。
+            for (const [ox, oy, w] of [[-0.22, 2.55, 0.42], [0.22, 2.55, 0.42], [0, 2.25, 0.5], [0, 2.02, 0.22]]) D(L + 0.2 + ox, oy, front + 0.12, w, 0.4, 0.1, 0xff5f98, 0.6);
+            break;
+          }
           case 'burger': {
             // 屋根に 大きな ハンバーガー（パン・レタス・チーズ・にく・パン）。
             const by = roofY + 0.2;
@@ -669,6 +683,7 @@ export function createMainWorld({ scene }) {
     }
     // 入れる場所：建物の タイル ＋ 色の まるに 絵。
     const COLORS = { land_ferry: '#1f8aa6', word_house: '#e27a2d', level_sign: '#1b3a2f', fish_buy: '#2f9e8f', fishing: '#1f8aa6', gate: '#7a5cc8', food_shop: '#e0a526', wear_shop: '#d9668d', block_shop: '#8a9a4a', land_shop: '#5a7fb0', weapon_shop: '#6b4c9c', bike_shop: '#e27a2d', talk_shop: '#4fae6b', blockwild: '#b5603a', homework: '#d9763a', my_home: '#d9483b', library: '#a9532c', planetarium: '#2f6f8f' };
+    const DECOR_COLORS = { yupi: '#f06fa5' };   // ゆぴちゃんの おはなしルームは ピンク（ほかの 英会話の お店は みどり）
     const GATE = { park: '🎡', ride: '🏁', town: '🧱', meadow: '🏰', fishworld: '🌊' };
     const ICON = { land_ferry: '⛵', bike_shop: '🚲', word_house: '📖', level_sign: '🔁', fish_buy: '🐟', fishing: '🎣', eiken_pier: '🎣', homework: '📚', library: '🏛', planetarium: '🔭' };
     for (const sp of d.spots) {
@@ -695,7 +710,7 @@ export function createMainWorld({ scene }) {
       const r = sp.id === target ? 5.8 : 4.4;
       ctx.fillStyle = sp.id === target ? '#ffd246' : '#ffffff';
       ctx.beginPath(); ctx.arc(x, y, r + 1.2, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = sp.kind === 'eiken_pier' ? `#${Number(sp.color).toString(16).padStart(6, '0')}` : COLORS[sp.kind] || '#4fae6b';
+      ctx.fillStyle = sp.kind === 'eiken_pier' ? `#${Number(sp.color).toString(16).padStart(6, '0')}` : DECOR_COLORS[sp.decor] || COLORS[sp.kind] || '#4fae6b';
       ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
       ctx.font = '7px sans-serif';
       ctx.fillText(sp.kind === 'gate' ? (GATE[sp.to] || '🌀') : (ICON[sp.kind] || sp.icon || '•'), x, y + 0.5);

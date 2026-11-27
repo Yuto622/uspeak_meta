@@ -87,6 +87,8 @@ export function portraitModel({ color, seed }, kind = 'smile') {
 
 const shots = new Map();      // seed|color → Promise<{ smile: url, … } | null>
 export function portraitShots(who) {
+  // 島の キャラクター（spot.cast。いまは ゆぴちゃん だけ）は その 子の 絵（yupi.js）。
+  if (who?.cast === 'yupi') return import('./yupi.js').then((m) => m.yupiPortraits()).catch(() => null);
   const id = `${who.seed}|${who.color}`;
   if (!shots.has(id)) {
     shots.set(id, import('./food-real.js')

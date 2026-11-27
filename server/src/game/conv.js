@@ -46,6 +46,12 @@ export function loadConv(file = CONV_PATH, mainFile = MAIN_PATH) {
     for (const topic of spot.topics) {
       if (!topic.id || topicById.has(topic.id)) throw new Error(`conv.json: bad or duplicate topic "${topic.id}"`);
       if (!topic.opening || !topic.situation) throw new Error(`conv.json: topic "${topic.id}" has no scene`);
+      // じゆうに はなす 場面（free: true・ゆぴちゃんの おはなしルーム）：目あては なし。おわりは turnLimit か 子どもが とじた とき。コインも XP も ない。
+      if (topic.free === true) {
+        if (topic.goals?.length) throw new Error(`conv.json: free topic "${topic.id}" has aims`);
+        topicById.set(topic.id, { ...topic, goals: [], hints: topic.hints || [], free: true, spot: spot.id, grade: spot.grade || '5', persona: spot.persona || '', character: spot.character || '', scene: home === island ? '英会話島 (Conversation Isle)' : 'メインの島 (Main Island)' });
+        continue;
+      }
       if (!Array.isArray(topic.goals) || topic.goals.length < 2 || topic.goals.length > 4) {
         throw new Error(`conv.json: topic "${topic.id}" needs two to four aims`);
       }
@@ -55,7 +61,7 @@ export function loadConv(file = CONV_PATH, mainFile = MAIN_PATH) {
         if (!goal.en || !goal.ja) throw new Error(`conv.json: aim "${goal.id}" needs both languages`);
         seen.add(goal.id);
       }
-      topicById.set(topic.id, { ...topic, spot: spot.id, grade: spot.grade || '5', scene: home === island ? '英会話島 (Conversation Isle)' : 'メインの島 (Main Island)' });
+      topicById.set(topic.id, { ...topic, spot: spot.id, grade: spot.grade || '5', persona: spot.persona || '', scene: home === island ? '英会話島 (Conversation Isle)' : 'メインの島 (Main Island)' });
     }
     // どの島の 家か（部屋は その島の 座標で「家の中にいるか」を 見る）。
     spot.home = { id: home.id, x: home.x, z: home.z, radius: home.radius ?? island.radius ?? 5 };
@@ -78,7 +84,10 @@ export function asMission(topic) {
     id: `conv:${topic.id}`,
     grade: topic.grade,
     title: topic.title,
-    character: 'ウーピー',
+    // persona：話す 相手（'' ＝ ウーピー、'yupi' ＝ ゆぴちゃん）。free：目あての ない じゆうな 会話。
+    persona: topic.persona || '',
+    free: !!topic.free,
+    character: topic.persona === 'yupi' ? 'Yupi' : 'ウーピー',
     place: topic.place || CONV.spotById.get(topic.spot)?.name || '英会話島',
     scene: topic.scene || '英会話島 (Conversation Isle)',
     situation: topic.situation,
@@ -93,6 +102,7 @@ export function asMission(topic) {
 // when a child is actually stuck.
 // 答えの れい（まだ 言えて いない 目あての お手本の 文、3 つまで）。AI が 出さない ときと、さいしょの 1 回に。
 export function starters(topic, met = []) {
+  if (topic.free) return (topic.hints || []).slice(0, 3);
   return (topic.goals || []).map((g, i) => (met.includes(g.id) ? '' : topic.hints?.[i] || '')).filter(Boolean).slice(0, 3);
 }
 
@@ -108,6 +118,8 @@ export function topicPayload(topic) {
     opening: topic.opening,
     aims: topic.goals.map((g) => ({ id: g.id, ja: g.ja })),
     turnLimit: CONV.turnLimit,
+    free: !!topic.free,
+    persona: topic.persona || '',
   };
 }
 

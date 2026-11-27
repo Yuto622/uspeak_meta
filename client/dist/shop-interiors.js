@@ -1,4 +1,4 @@
-// メインの島の お店の 中（バーガーや・ピザや・ほんや・けいたいや・でんきや）— 入ったら「その お店」だと 分かる 内装。
+// メインの島の お店の 中（バーガーや・ピザや・ほんや・けいたいや・でんきや・ゆぴちゃんの おはなしルーム）— 入ったら「その お店」だと 分かる 内装。
 //
 // island-interior.js の 部屋（幅 14・奥の カウンター z=-3.2・入口 z=8.4）の 上に 置く。
 // まんなかの 通り道（x が -2〜2）は あけておく：入口から カウンターまで まっすぐ 歩けるように。
@@ -161,6 +161,63 @@ export function furnish(decor, { B, root }) {
       B(-2, 2.15, -3.2, 1.0, 0.6, 0.7, 0xf2f4f6); B(-2.15, 2.15, -2.84, 0.6, 0.42, 0.02, 0x2a3a3a, 0.2);
       B(2, 2.05, -3.2, 0.9, 0.4, 0.4, 0xd9343c); cyl(0.12, 0.05, 0x2a2a2a, 1.8, 2.05, -2.98).rotation.x = Math.PI / 2;
       light(0xcfe6ff, 5, 0, 3.6, -5);
+      break;
+    }
+    case 'yupi': {
+      // ゆぴちゃんの おはなしルーム：ピンクの かべと じゅうたん・ふかふかの ソファと クッション・うえき・ぬいぐるみの たな・ハート。
+      // この お店だけ 色を 宇宙の みどりに よせない（island-interior.js の tinting）。まんなかの 通り道（x -2〜2）は あける。
+      const heart = (x, y, z, k, color, glow) => {
+        const d = mesh(new THREE.BoxGeometry(k, k, 0.12), color, x, y - k * 0.12, z, glow); d.rotation.z = Math.PI / 4;
+        for (const s of [-1, 1]) { const c = mesh(new THREE.CylinderGeometry(k * 0.5, k * 0.5, 0.12, 24), color, x + s * k * 0.36, y + k * 0.24, z, glow); c.rotation.x = Math.PI / 2; }
+      };
+      B(0, 2.6, -7.08, 14.4, 5.0, 0.1, 0xffdbe7);                            // うしろの かべ
+      for (const sx of [-1, 1]) B(sx * 7.22, 2.6, 0.6, 0.1, 5.0, 16.8, 0xffe4ec); // よこの かべ
+      for (const sx of [-1, 1]) B(sx * 7.22, 0.5, 0.6, 0.14, 0.9, 16.8, 0xf6b3c9); // こしいた
+      B(0, 0.09, 0.5, 14.2, 0.04, 15.8, 0xf7d6e1);                            // ゆか（やわらかい じゅうたん）
+      rug(0, 2.8, 6, 5, 0xffc2d6, 0xfff0f5);                                  // まんなかの チェックの ラグ
+      B(0, 0.95, -2.39, 7.4, 1.5, 0.04, 0xffc4d8);                             // カウンターの まえ（ピンク）
+      // まど（あかるい 空）2 つずつ。
+      for (const sx of [-1, 1]) for (const z of [-2.5, 3.5]) { B(sx * 7.16, 2.9, z, 0.06, 1.7, 2.0, 0xfff7fb); B(sx * 7.13, 2.9, z, 0.04, 1.4, 1.7, 0xbfe6ff, 0.5); B(sx * 7.12, 2.9, z, 0.05, 1.4, 0.08, 0xfff7fb); }
+      // ソファ 2 つ（むかいあう）と クッション。
+      for (const sx of [-1, 1]) {
+        const x = sx * 5.2, z = 2.6;
+        B(x, 0.42, z, 1.4, 0.5, 3.2, 0xff8fb6); B(x + sx * 0.6, 1.0, z, 0.32, 1.2, 3.2, 0xff7aa6);
+        for (const e of [-1, 1]) B(x, 0.75, z + e * 1.5, 1.4, 0.7, 0.3, 0xff7aa6);
+        B(x - sx * 0.05, 0.72, z, 1.2, 0.12, 2.7, 0xffb3cd);
+        [[-0.75, 0xfff4f8], [0.1, 0xffd84a], [0.85, 0xb48cff]].forEach(([dz, c]) => { const q = B(x + sx * 0.25, 1.05, z + dz, 0.3, 0.55, 0.55, c); q.rotation.y = 0.2 * sx; });
+        block(x, z, 0.8, 1.7);
+        // よこの まるい テーブルと マグカップ。
+        cyl(0.5, 0.08, 0xfff4f8, x, 0.72, z + 2.6); cyl(0.07, 0.7, 0xd9a0b4, x, 0.36, z + 2.6, 0, 8);
+        cyl(0.12, 0.2, sx < 0 ? 0xff6f9f : 0x9fd8ff, x + 0.15, 0.86, z + 2.55, 0, 12);
+        block(x, z + 2.6, 0.5, 0.5);
+      }
+      // すみの うえき（大きな はっぱ）と ゆかの ランプ。
+      for (const [x, z] of [[-6.3, 7.3], [6.3, 7.3], [-6.4, -1.4], [6.4, -1.4]]) {
+        cyl(0.42, 0.7, 0xfff4f8, x, 0.35, z, 0, 16);
+        mesh(new THREE.SphereGeometry(0.62, 14, 10), 0x6fbf73, x, 1.2, z).scale.y = 1.2;
+        mesh(new THREE.SphereGeometry(0.38, 12, 8), 0x86d08a, x + 0.25, 1.75, z - 0.1);
+        block(x, z, 0.45, 0.45);
+      }
+      for (const sx of [-1, 1]) { cyl(0.05, 2.2, 0xfff4f8, sx * 6.3, 1.1, 5.4, 0, 8); const shade = cyl(0.32, 0.4, 0xffe9a8, sx * 6.3, 2.3, 5.4, 0.6, 16); shade.scale.set(1, 1, 1); block(sx * 6.3, 5.4, 0.3, 0.3); }
+      // うしろの すみ：ぬいぐるみの たな（くまと うさぎ）。
+      for (const sx of [-1, 1]) {
+        const x = sx * 5.6;
+        B(x, 1.3, -6.5, 2.0, 2.6, 0.7, 0xfff4f8);
+        for (const y of [0.9, 1.8]) B(x, y, -6.2, 1.9, 0.08, 0.7, 0xf6b3c9);
+        [[-0.5, 0.95, 0xd9a072], [0.4, 0.95, 0xffffff], [-0.3, 1.85, 0xb48cff], [0.5, 1.85, 0xffd84a]].forEach(([dx, y, c]) => {
+          mesh(new THREE.SphereGeometry(0.24, 12, 10), c, x + dx, y + 0.24, -6.15); mesh(new THREE.SphereGeometry(0.2, 12, 10), c, x + dx, y + 0.6, -6.1);
+          for (const e of [-1, 1]) mesh(new THREE.SphereGeometry(0.08, 8, 6), c, x + dx + e * 0.13, y + 0.8, -6.1);
+        });
+        block(x, -6.5, 1.0, 0.4);
+        heart(sx * 4.7, 3.7, -6.98, 0.9, 0xff5f98, 0.7);                       // かべの ハート（光る）
+      }
+      // うしろの かべの ちいさな あかり（ガーランド）。
+      for (let i = 0; i < 15; i += 1) mesh(new THREE.SphereGeometry(0.09, 8, 6), [0xffd84a, 0xff8fbf, 0xffffff][i % 3], -6.3 + i * 0.9, 5.3 - Math.sin((i / 14) * Math.PI) * 0.35, -6.98, 1.2);
+      // カウンターの 上：ハートの クッキーの びんと 花。
+      cyl(0.3, 0.55, 0xe8f6ff, -2.4, 2.15, -3.2, 0.1, 14); for (let i = 0; i < 3; i += 1) heart(-2.4 + (i - 1) * 0.12, 2.05 + i * 0.12, -3.0, 0.16, 0xffb07a, 0);
+      cyl(0.16, 0.4, 0xfff4f8, 2.4, 2.07, -3.2, 0, 12); for (const [dx, dz, c] of [[0, 0, 0xff6f9f], [0.14, 0.08, 0xffb3cf], [-0.12, 0.1, 0xffffff]]) mesh(new THREE.SphereGeometry(0.12, 10, 8), c, 2.4 + dx, 2.4, -3.2 + dz);
+      light(0xffc2dc, 7, 0, 3.4, 2.5);
+      light(0xffe0b0, 4, 0, 3.0, -5.2);
       break;
     }
     default:

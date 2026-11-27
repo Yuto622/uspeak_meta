@@ -89,7 +89,7 @@ function hair(add, c) {
   if (st === 'side') add('S', h, [0.5, 1.7, 0.12], [0.3, 0.7, 0.5]);
 }
 
-// ---- 20 人。build(add, c) は その 子だけの ぼうし・道具・かざり。右手は x = +0.63, y = 0.74。----
+// ---- 21 人。build(add, c, opts) は その 子だけの ぼうし・道具・かざり。右手は x = +0.63, y = 0.74。----
 export const CAST = [
   { id: 'main', island: 'メインの島', name: 'キャプテン・マリン', en: 'Captain Marine', role: 'みなとの あんないにん', note: '白い ぼうしの 三角と 金の ボタン。ぼうえんきょうで「あっちだよ」',
     skin: 0xf1c9a2, hair: 0x3a2a22, style: 'short', top: 0x1f4e79, pants: 0xf4efe2, accent: GOLD, bg: 0x8fd3e8, coat: true,
@@ -196,14 +196,39 @@ export const CAST = [
     build(add) { for (let i = 0; i < 4; i += 1) add('C', i % 2 ? WHITE : 0x3d6fb0, [0, 2.44 + i * 0.2, -0.02], [0.72 - i * 0.03, 0.2, 0.7 - i * 0.03]); add('C', 0x3d6fb0, [0, 2.34, -0.02], [1.2, 0.06, 1.16]); add('O', GOLD, [0, 3.26, -0.02], [0.2, 0.2, 0.2], null, 0.4);
       add('S', 0xe5533d, [0, 1.64, 0.6], [0.16, 0.16, 0.16]); for (const y of [1.12, 0.9, 0.68]) add('S', GOLD, [0, y, 0.37], [0.1, 0.1, 0.06]);
       [[0xff7fa8, 0.6, 2.5], [0x7ed0ff, 0.96, 2.76], [0xffd84a, 1.2, 2.38]].forEach(([c, x, y]) => { add('S', c, [x, y, 0.1], [0.44, 0.52, 0.44]); add('C', 0xe8e8e8, [(x + 0.66) / 2, (y + 0.8) / 2, 0.1], [0.012, Math.hypot(x - 0.66, y - 0.8), 0.012], [0, 0, -Math.atan2(x - 0.66, y - 0.8)]); }); } },
+  // メインの島の おはなしルーム（2026-11）：ピンクの ききやく。ながい うさぎの 耳（シルエット）と ハートの クッション（道具）。
+  // 口は opts.mouth（'smile'＝いつも・'open'＝話して いる 絵）。会話の 画面の 絵は yupi.js が この 形から 焼く。
+  { id: 'yupi', island: 'メインの島', name: 'ゆぴちゃん', en: 'Yupi', role: 'おはなしルームの ききやく', note: 'ながい うさぎの 耳と ハートの クッション。ぜんぶ ピンクで、やさしく きいて くれる',
+    skin: 0xffb3cd, hair: 0xef5a94, style: 'bob', top: 0xff9cc2, pants: 0xf27aa8, shoe: 0xfff4f8, accent: 0xff4f8b, bg: 0xffe0ec, coat: 0xffb3d0, noEars: true, noMouth: true, eyeColor: 0x5a2448,
+    build(add, c, opts = {}) {
+      const heart = (x, y, z, k, color, glow = 0, tilt = 0) => {
+        for (const sx of [-1, 1]) add('S', color, [x + sx * 0.28 * k, y + 0.12 * k, z], [0.62 * k, 0.62 * k, 0.42 * k], null, glow);
+        add('K', color, [x, y - 0.3 * k, z], [1.1 * k, 0.78 * k, 0.42 * k], [Math.PI, 0, tilt], glow);
+      };
+      // うさぎの 耳（外がわに すこし ひらく）・内がわは うすい ピンク。
+      for (const sx of [-1, 1]) {
+        add('P', c.skin, [sx * 0.5, 2.36, -0.06], [0.26, 0.34, 0.2], [0.1, 0, sx * -0.62]);
+        add('P', 0xff8fb6, [sx * 0.52, 2.36, 0.02], [0.14, 0.24, 0.1], [0.1, 0, sx * -0.62]);
+      }
+      heart(0.34, 2.2, 0.36, 0.22, c.accent, 0.25);                          // ハートの かみどめ
+      // 口：いつもは 小さな にっこり、話して いる 絵は あけた 口。
+      if (opts.mouth === 'open') { add('S', 0x9a3550, [0, 1.53, 0.545], [0.2, 0.16, 0.08]); add('S', 0xf38aa8, [0, 1.495, 0.575], [0.12, 0.07, 0.04]); }
+      else add('A', 0xa5483f, [0, 1.56, 0.555], [0.13, 0.11, 0.13], [Math.PI, 0, 0]);
+      // 白い えりと むねの ハート（光る）。
+      add('C', 0xfff4f8, [0, 1.3, 0.02], [0.7, 0.1, 0.6]);
+      heart(0, 1.06, 0.4, 0.2, 0xff4f8b, 0.35);
+      // ハートの クッションを だきしめる（りょう手の まえ）。
+      heart(0, 0.84, 0.5, 0.52, 0xff6f9f, 0.05, 0);
+      add('S', 0xfff4f8, [0.12, 0.94, 0.62], [0.09, 0.08, 0.04]);
+    } },
 ];
 
-export function buildCastMember(id) {
+export function buildCastMember(id, opts = {}) {
   const c = CAST.find((m) => m.id === id); if (!c) return null;
   const group = new THREE.Group();
   const add = maker(group);
   body(add, c, group);
-  c.build(add, c);
+  c.build(add, c, opts);
   group.userData.cast = c;
   return group;
 }

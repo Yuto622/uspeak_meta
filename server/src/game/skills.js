@@ -33,6 +33,7 @@ const BY_MODE = {
   speak: 'speak',
   speaking: 'speak',        // 英検スピーキング
   conv: 'speak',            // 英会話島: マイクで話す
+  'conv-free': 'speak',     // ゆぴちゃんの おはなしルーム: じゆうに 話す（英語で 話せた 回）
   interview: 'speak',       // 面接の間
   mission: 'speak',         // おつかい島: お店の人と話す
   reading: 'read',          // 英検リーディング

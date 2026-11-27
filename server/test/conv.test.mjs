@@ -16,7 +16,8 @@ const { buildSystemPrompt, PERSONA } = await import('../src/ai/tutor.js');
 test('英会話島: four houses, eight scenes, and every aim in two languages', () => {
   assert.equal(CONV.id, 'conv');
   assert.equal(CONV.island.spots.length, 4);
-  const topics = [...CONV.topicById.values()];
+  // ゆぴちゃんの じゆうな 会話（free）は 目あてが ない：free-talk.test.mjs が 見る。
+  const topics = [...CONV.topicById.values()].filter((t) => !t.free);
   assert.equal(topics.filter((t) => CONV.island.spots.some((sp) => sp.id === t.spot)).length, 8, 'two scenes per house');
   // メインの島の 5 つの お店も 2 つずつ（けいたいや・でんきや・ほんや・ピザや・バーガーや）。
   assert.equal(topics.filter((t) => t.scene.startsWith('メインの島')).length, 10, 'the five Main Island shops talk too');

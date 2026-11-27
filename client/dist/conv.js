@@ -16,6 +16,8 @@
 import { loadConvData } from './conv-island.js';
 
 import { createCharacter, characterStageHtml } from './character.js';
+// ゆぴちゃん（メインの島の おはなしルーム）：動画では なく 3D を 焼いた 絵 2 まい（yupi.js）。はじめて 入った ときに 1 回だけ 描く。
+const yupiPictures = () => import('./yupi.js').then((m) => m.yupiShots()).catch(() => null);
 
 const $ = (s, root = document) => root.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -44,7 +46,12 @@ export function createConvUI({ send, toast, isOnline }) {
     confirm: '',        // a sentence the microphone was not sure about, waiting for ✓
     typing: false,      // the ⌨ box is open
     recap: null,        // the end of a scene: what was said, and what to say better
+    persona: '',        // '' ＝ ウーピー、'yupi' ＝ ゆぴちゃん（お店の spot.persona）
+    free: false,        // 目あての ない じゆうな 会話（サーバーの topic.free）
+    tipAt: 0,           // じゆうな 会話の 💡（れいが ない とき）に つぎに 出す 見本の 文
   };
+  // 話す 相手の なまえ（画面の 文字。英語の ときは i18n-dom が lang.json で 訳す）。
+  const who = () => (state.persona === 'yupi' ? 'ゆぴちゃん' : 'ウーピー');
   let quietTimer = 0;
   // The island file is fetched once, when this is built: the HUD asks for the name of the
   // house a child is standing in before they have opened anything.
@@ -61,12 +68,14 @@ export function createConvUI({ send, toast, isOnline }) {
     <div class="conv-body">
       <section class="conv-stage" id="conv-stage" data-mouth="idle" data-video="on">
         ${characterStageHtml('conv')}
+        <div class="conv-yupi" aria-hidden="true"><div class="conv-yupi-fig"><img class="conv-yupi-idle" alt="" decoding="async" hidden><img class="conv-yupi-talk" alt="" decoding="async" hidden></div><span class="conv-yupi-none">💗</span></div>
         <p id="conv-ja" class="conv-ja" translate="no" hidden></p>
         <span class="conv-ear" aria-hidden="true">👂</span>
       </section>
       <section class="conv-side">
         <div id="conv-picker" class="conv-picker" hidden></div>
         <ul id="conv-aims" class="conv-aims" hidden></ul>
+        <p id="conv-free" class="conv-free" hidden>💗 なんでも はなして いいよ。目あては ないよ。</p>
         <ol id="conv-log" class="conv-log" aria-live="polite"></ol>
         <p id="conv-hint" class="conv-hint" hidden></p>
         <div id="conv-recap" class="conv-recap" hidden></div>
@@ -74,7 +83,7 @@ export function createConvUI({ send, toast, isOnline }) {
     </div>
     <footer class="conv-foot" id="conv-foot" hidden>
       <div id="conv-help" class="conv-help" hidden>
-        <small>こう いって みよう（おすと ウーピーが いうよ → まねして 🎤）</small>
+        <small id="conv-help-lead">こう いって みよう（おすと ウーピーが いうよ → まねして 🎤）</small>
         <div id="conv-chips" class="conv-chips" translate="no"></div>
       </div>
       <div id="conv-confirm" class="conv-confirm" hidden>
@@ -129,16 +138,32 @@ export function createConvUI({ send, toast, isOnline }) {
     render();
   }
   const hush = () => upee.hush();
+  // ゆぴちゃんの 絵（いつもの 顔・口を あけた 顔）。話して いる 間（data-mouth="talking"）は conv.css が 口を ぱくぱく・ふわっと はねる。
+  let yupiAsked = false;
+  function showYupi() {
+    if (yupiAsked) return;
+    yupiAsked = true;
+    const box = $('.conv-yupi', stage);
+    yupiPictures().then((pics) => {
+      if (!pics?.idle) { box.dataset.pics = 'off'; return; }
+      const idleImg = $('.conv-yupi-idle', box); const talkImg = $('.conv-yupi-talk', box);
+      idleImg.src = pics.idle; talkImg.src = pics.talk || pics.idle;
+      idleImg.hidden = false; talkImg.hidden = false;
+      box.dataset.pics = 'on';
+    });
+  }
 
   // ---- the screen --------------------------------------------------------------------
 
   function render() {
     $('#conv-place', dialog).textContent = state.house ? `${state.house.tone || state.house.icon || ""} ${state.house.name}`.trim() : '英会話島';
-    $('#conv-title', dialog).textContent = state.topic ? state.topic.title : 'なにを はなす？';
+    $('#conv-title', dialog).textContent = state.topic ? state.topic.title : (state.persona === 'yupi' ? 'ゆぴちゃんと おはなし' : 'なにを はなす？');
     $('#conv-turn', dialog).textContent = state.topic ? `${state.turn} / ${state.turnLimit}` : '';
     const picking = !state.topic;
     $('#conv-picker', dialog).hidden = !picking;
-    $('#conv-aims', dialog).hidden = picking;
+    $('#conv-aims', dialog).hidden = picking || state.free;
+    $('#conv-free', dialog).hidden = picking || !state.free || !!state.recap;
+    $('#conv-help-lead', dialog).textContent = `こう いって みよう（おすと ${who()}が いうよ → まねして 🎤）`;
     $('#conv-foot', dialog).hidden = picking;
     if (picking) return;
     $('#conv-aims', dialog).innerHTML = state.aims.map((aim) => {
@@ -146,10 +171,10 @@ export function createConvUI({ send, toast, isOnline }) {
       return `<li class="${met ? 'met' : ''}"><span>${met ? '✓' : '・'}</span>${esc(aim.ja)}</li>`;
     }).join('');
     $('#conv-log', dialog).innerHTML = state.log.map((line, i) => (
-      `<li class="conv-${line.who}"><b>${line.who === 'me' ? 'じぶん' : 'ウーピー'}</b>${esc(line.text)}${line.who === 'upee' ? `<button type="button" class="conv-replay" data-line="${i}" aria-label="もう一度 きく">🔊</button>` : ''}</li>`
+      `<li class="conv-${line.who}"><b>${line.who === 'me' ? 'じぶん' : who()}</b>${esc(line.text)}${line.who === 'upee' ? `<button type="button" class="conv-replay" data-line="${i}" aria-label="もう一度 きく">🔊</button>` : ''}</li>`
     )).join('')
       // 考えて いる あいだは すぐ「…」（へんじが くるまで 何も うごかないと、きこえなかったと 思って しまう）。
-      + (state.busy ? '<li class="conv-upee conv-think"><b>ウーピー</b><i></i><i></i><i></i></li>' : '')
+      + (state.busy ? `<li class="conv-upee conv-think"><b>${who()}</b><i></i><i></i><i></i></li>` : '')
       + (state.listening && state.heard ? `<li class="conv-me conv-live"><b>じぶん</b>${esc(state.heard)}…</li>` : '');
     const log = $('#conv-log', dialog);
     log.scrollTop = log.scrollHeight;
@@ -160,7 +185,7 @@ export function createConvUI({ send, toast, isOnline }) {
     mic.disabled = state.busy || state.done || !SPEECH;
     mic.classList.toggle('on', state.listening);
     mic.classList.toggle('copy', !!state.picked && !state.listening);
-    $('#conv-mic-label', dialog).textContent = !SPEECH ? 'マイクは つかえません' : state.listening ? 'きいてるよ… おわったら もう一度 おす' : state.busy ? 'ウーピーが かんがえ中…' : state.picked ? 'まねして いって みよう' : 'おして はなす';
+    $('#conv-mic-label', dialog).textContent = !SPEECH ? 'マイクは つかえません' : state.listening ? 'きいてるよ… おわったら もう一度 おす' : state.busy ? `${who()}が かんがえ中…` : state.picked ? 'まねして いって みよう' : 'おして はなす';
     stage.dataset.listen = state.listening ? '1' : '';
     $('#conv-send', dialog).disabled = state.busy || state.done;
     $('#conv-text', dialog).disabled = state.busy || state.done;
@@ -188,9 +213,12 @@ export function createConvUI({ send, toast, isOnline }) {
 
   function renderPicker() {
     const list = state.house?.topics || [];
-    $('#conv-picker', dialog).innerHTML = `<p class="conv-pick-lead">${esc(state.house?.ja || '')}</p>`
+    const yupi = state.persona === 'yupi';
+    $('#conv-picker', dialog).innerHTML = `<p class="conv-pick-lead">${esc(state.house?.sub?.ja || state.house?.ja || '')}</p>`
       + list.map((t) => `<button type="button" data-topic="${esc(t.id)}"><strong>${esc(t.title)}</strong><small>${esc(t.en || '')}</small></button>`).join('')
-      + '<p class="conv-fine">ウーピーは まちがいを なおしません。つたわれば 大丈夫。</p>';
+      // ゆぴちゃんは ききやく：こまった ことは 大人にも（安全の ひとこと）。
+      + (yupi ? '<p class="conv-fine">ゆぴちゃんは なんでも きいて くれるよ。こまった ことや しんぱいな ことは、おうちの 人や 先生にも はなしてね。</p>'
+        : '<p class="conv-fine">ウーピーは まちがいを なおしません。つたわれば 大丈夫。</p>');
     dialog.querySelectorAll('[data-topic]').forEach((b) => {
       b.onclick = () => { send('conv:start', { topic: b.dataset.topic }); };
     });
@@ -273,8 +301,8 @@ export function createConvUI({ send, toast, isOnline }) {
   function recapHtml(r) {
     const met = state.aims.filter((a) => state.aimsMet.includes(a.id));
     const tips = (r.tips || []).map((t, i) => `<li><span class="conv-said" translate="no">${esc(t.said)}</span><span class="conv-arrow">→</span><b translate="no">${esc(t.better)}</b><button type="button" data-tip="${i}" aria-label="きく">🔊</button></li>`).join('');
-    return `<h3>${state.aimsMet.length >= state.aims.length ? '🎉 ぜんぶ できた！' : '👏 よく がんばったね'}</h3>
-      <p class="conv-recap-aims">${met.map((a) => `✓ ${esc(a.ja)}`).join('　') || 'つぎは 目あてを 1 つ やって みよう'}</p>
+    return `<h3>${state.free ? '💗 たくさん はなせたね' : state.aimsMet.length >= state.aims.length ? '🎉 ぜんぶ できた！' : '👏 よく がんばったね'}</h3>
+      ${state.free ? '' : `<p class="conv-recap-aims">${met.map((a) => `✓ ${esc(a.ja)}`).join('　') || 'つぎは 目あてを 1 つ やって みよう'}</p>`}
       ${r.said?.length ? `<h4>いえた 文</h4><ul class="conv-recap-said" translate="no">${r.said.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
       ${tips ? `<h4>こう いうと もっと いいよ</h4><ul class="conv-recap-tips">${tips}</ul>` : ''}
       <div class="conv-recap-acts"><button type="button" data-recap="again" class="primary">🔁 もう一度 はなす</button><button type="button" data-recap="other">🏠 ほかの はなし</button><button type="button" data-recap="end">おわる</button></div>`;
@@ -315,6 +343,16 @@ export function createConvUI({ send, toast, isOnline }) {
     if (state.suggestions.length) { state.help = !state.help; render(); return; }
     const topic = (state.house?.topics || []).find((t) => t.id === state.topic?.id);
     if (!topic) return;
+    if (state.free || !Array.isArray(topic.goals)) {
+      // じゆうな 会話：見本の 文を じゅんばんに。
+      const list = topic.hints || [];
+      const said = list[state.tipAt++ % Math.max(1, list.length)];
+      if (!said) return;
+      state.hint = said;
+      render();
+      say(said, { keep: true });
+      return;
+    }
     const at = topic.goals.findIndex((g) => !state.aimsMet.includes(g.id));
     const said = at < 0 ? null : topic.hints?.[at];
     if (!said) { status('もう ぜんぶ 言えたね！'); return; }
@@ -348,11 +386,14 @@ export function createConvUI({ send, toast, isOnline }) {
     // same file the island is built from and the server judges positions against.
     // spotId は 英会話島の 家の id か、家そのもの（メインの島の お店は main_island.json に ある）。
     async enter(spotId) {
-      if (!isOnline()) { toast('オンラインのときに ウーピーと 話せます。'); return; }
+      if (!isOnline()) { toast(typeof spotId === 'object' && spotId?.persona === 'yupi' ? 'オンラインのときに ゆぴちゃんと 話せます。' : 'オンラインのときに ウーピーと 話せます。'); return; }
       data = data || await loadConvData();
       const house = typeof spotId === 'object' ? spotId : (data?.island?.spots || []).find((s) => s.id === spotId);
       if (!house) return;
       state.house = house;
+      state.persona = house.persona || '';
+      state.free = false;
+      state.tipAt = 0;
       state.topic = null;
       state.log = [];
       state.hint = '';
@@ -362,7 +403,9 @@ export function createConvUI({ send, toast, isOnline }) {
       state.done = false;
       state.busy = false;
       fresh();
-      loadVideo();
+      stage.dataset.who = state.persona;
+      if (state.persona === 'yupi') showYupi();
+      else loadVideo();
       renderPicker();
       render();
       if (!dialog.open) dialog.showModal();
@@ -375,6 +418,8 @@ export function createConvUI({ send, toast, isOnline }) {
     // ---- what the server says
     onOpened(m) {
       state.topic = { id: m.topic, title: m.title, en: m.en };
+      state.free = !!m.free;
+      if (m.persona !== undefined && m.persona !== state.persona) { state.persona = m.persona || ''; stage.dataset.who = state.persona; if (state.persona === 'yupi') showYupi(); }
       state.aims = m.aims || [];
       state.aimsMet = m.aimsMet || [];
       state.turn = m.turn || 0;
@@ -427,7 +472,7 @@ export function createConvUI({ send, toast, isOnline }) {
         'too fast': 'ちょっと まってね。',
         'turn limit': '今日の おはなしは ここまで。また 来てね。',
         'daily limit': '今日は たくさん 話したね。また あした！',
-        'ai unavailable': 'ウーピーが いま 出られません。少し してから もう一度。',
+        'ai unavailable': state.persona === 'yupi' ? 'ゆぴちゃんが いま おやすみ中。すこし してから もう一度。' : 'ウーピーが いま 出られません。少し してから もう一度。',
         'unknown topic': 'その おはなしは ありません。',
       }[m?.reason];
       if (said) { status(said); toast(said); }

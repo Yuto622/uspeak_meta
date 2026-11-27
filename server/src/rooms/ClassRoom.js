@@ -102,7 +102,7 @@ const ENGLISH_WORD = /^[A-Za-z][A-Za-z' -]{0,30}$/;
 export function quizEventOf(row, lastQid = '') {
   const qid = String(row?.[3] || ''); const mode = String(row?.[4] || '');
   const head = qid.split(':')[0];
-  if (!qid || mode === 'chat' || mode === 'speak' || mode === 'conv' || mode === 'mission' || mode === 'interview') return null;
+  if (!qid || mode === 'chat' || mode === 'speak' || mode === 'conv' || mode === 'conv-free' || mode === 'mission' || mode === 'interview') return null;
   if (['quick', 'eiken', 'fw', 'hw', 'wh', 'review', 'interview', 'conv', 'mission', 'chat', 'read', 'abc'].includes(head)) return null;
   const parts = qid.split(':');
   const data = { correct: Number(row[6]) === 1, fast: false, retry: qid === lastQid };
@@ -1961,7 +1961,8 @@ export class ClassRoom extends Room {
       const priv = this.priv.get(sessionId);
       if (priv) {
         addAnswer(priv.skills, row[4], Number(row[6]) === 1);
-        taskAnswer(priv.tasks, { qid: row[3], mode: row[4], correct: Number(row[6]) === 1 });
+        // じゆうな 会話（conv-free）は タスクの「答える」に 数えない（答えの ない 会話・コインの タスクに つながらない）。
+        if (row[4] !== 'conv-free') taskAnswer(priv.tasks, { qid: row[3], mode: row[4], correct: Number(row[6]) === 1 });
         this.taskTouch(sessionId);
         this.markStudied(priv);
         // **11か所ある学習ログの書き込みは全部ここを通る**ので、月の箱もここで足す。
@@ -2854,12 +2855,17 @@ export class ClassRoom extends Room {
     }
 
     const xp = gained.length * CONV.reward.aimXp;
+    // じゆうな 会話（ゆぴちゃん）は 目あても 正解も ない：記録は 会話と 同じ 1 行（mode 'conv-free'＝はなす の 練習・
+    // 英語の 語が 2 つ 以上 あれば 1）。タスクの「答える」には 数えない（コインに つながらない）・XP なし・正答率にも 入れない。
+    const spoke = topic.free ? ((utterance.match(/[A-Za-z']+/g) || []).length >= 2 ? 1 : 0) : (gained.length ? 1 : 0);
     this.appendLearning([
-      new Date(now).toISOString(), this.classCode, priv.name, `conv:${topic.id}`, 'conv',
-      utterance.slice(0, 80), gained.length ? 1 : 0, xp, client.sessionId,
+      new Date(now).toISOString(), this.classCode, priv.name, `conv:${topic.id}`, topic.free ? 'conv-free' : 'conv',
+      utterance.slice(0, 80), spoke, xp, client.sessionId,
     ]);
-    priv.stats.attempts += 1;
-    if (gained.length) priv.stats.correct += 1;
+    if (!topic.free) {
+      priv.stats.attempts += 1;
+      if (gained.length) priv.stats.correct += 1;
+    }
     const level = this.awardXp(client.sessionId, xp, `conv:${topic.id}`);
 
     const payload = {
@@ -2868,12 +2874,13 @@ export class ClassRoom extends Room {
       levels: level?.levels || 0, done: false,
       suggestions: result.suggestions?.length ? result.suggestions : convStarters(topic, state.goalsMet),
       replyJa: result.replyJa || '',
+      free: !!topic.free,
     };
 
     // Finishing a scene pays once, the first time, and stops at the day's ceiling. Talking
     // is the point of the island, so the XP for each aim is paid whether or not the coins
     // have run out.
-    if (result.complete && !state.done) {
+    if (result.complete && !state.done && !topic.free) {
       state.done = true;
       taskBumpKey(priv.tasks, `convdone:${topic.spot}`); this.taskTouch(client.sessionId);
       const left = roomLeft(priv.caps, 'conv', CONV.dailyCoinCap);

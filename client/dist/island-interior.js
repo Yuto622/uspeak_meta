@@ -14,6 +14,7 @@ import { addProps, themeOf } from './interior-props.js';
 import { buildVillager, villagerSeed } from './villager.js';
 import { say, live } from './canvas-say.js';
 import { furnish } from './shop-interiors.js';
+import { buildCastMember } from './island-cast.js';
 import { addStars } from './cosmic-kit.js';
 
 const COUNTER_Z = -3.2;         // the counter, across the room from the door
@@ -176,14 +177,17 @@ export function createIslandInteriors({ player, camera, toast }) {
     B(0, 1.78, COUNTER_Z, 7.8, 0.18, 1.9, 0xf2d9b0, 0.25);
     B(0, 0.24, COUNTER_Z + 0.82, 7.4, 0.1, 0.06, 0x8ff0c8, 0.3);
     // メインの島の お店（spot.decor）は お店ごとの 内装（shop-interiors.js）。当たり判定も そこから。
-    tinting = true;
+    // ゆぴちゃんの おはなしルームは ピンクの まま（宇宙の みどりに よせない）。
+    tinting = spot.decor !== 'yupi';
     try {
       solid = spot.decor ? furnish(spot.decor, { B, root }) : [];
       if (!spot.decor) for (const [x, y, z, w, h, d, c] of DRESSING[spot.kind] || DRESSING.plaza) B(x, y, z, w, h, d, c);
     } finally { tinting = false; }
     // 役わりの 小物（本の 山・スピーカー・えんぴつ…）。色は そのまま。お店ごとの 内装（decor）が ある ときは 足さない。
     if (!spot.decor) solid = solid.concat(addProps(themeOf(islandId, spot), { B }));
-    npc = person(accent, 0, COUNTER_Z - 1.5, villagerSeed(spot));
+    // カウンターの 人：spot.cast が あれば その キャラクター（ゆぴちゃん）。外に 立って いた 子と 同じ 形。
+    const cast = spot.cast ? buildCastMember(spot.cast) : null;
+    if (cast) { cast.position.set(0, 0, COUNTER_Z - 1.5); root.add(cast); npc = cast; } else npc = person(accent, 0, COUNTER_Z - 1.5, villagerSeed(spot));
     npc.rotation.y = Math.PI;
     sign(`${spot.tone || spot.icon || ''} ${spot.name}`.trim(), spot.character || '', 0, 4.2, -6.9);
     sign('でぐち · EXIT', '歩いて そとへ', 0, 3.5, DOOR_Z + 0.2);

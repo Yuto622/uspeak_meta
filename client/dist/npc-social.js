@@ -20,7 +20,7 @@ const WHY = {
 // 島の 住民（island-kit の spot）→ 会話の 画面に わたす 形。かぎは food-give.js と 同じ。
 export function residentInfo(island, spot) {
   const name = String(spot?.character || spot?.en || spot?.name || spot?.id || '');
-  return { key: `${island}:${spot.id}`, name: { en: name, ja: name }, seed: villagerSeed(spot), color: Number(spot.color) || 0xcbbb95 };
+  return { key: `${island}:${spot.id}`, name: { en: name, ja: name }, seed: villagerSeed(spot), color: Number(spot.color) || 0xcbbb95, ...(spot.cast ? { cast: spot.cast } : {}) };
 }
 
 export function createNpcSocial({ player, camera, rpg, food, send, toast = () => {}, speak = null, isOnline = () => false, give = null }) {

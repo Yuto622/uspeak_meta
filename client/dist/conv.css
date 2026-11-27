@@ -196,3 +196,29 @@
 .conv-pick-lead { font-size: 13px; opacity: .9; }
 /* 英語の 画面では 場面の 題と 下の 英語が 同じ ことばに なるので、下は 出さない。 */
 html[data-lang="en"] #conv-picker [data-topic] small { display: none; }
+
+/* ゆぴちゃん（メインの島の おはなしルーム）：動画の かわりに 3D を 焼いた 絵 2 まい（yupi.js）。
+   話して いる 間（data-mouth="talking"）は 口を あけた 絵を ぱくぱく かさね、ふわっと はねて ピンクに 光る。 */
+.conv-yupi { position: absolute; inset: 0; display: none; align-items: flex-end; justify-content: center; overflow: hidden;
+  background: radial-gradient(circle at 50% 36%, #fff1f6 0%, #ffd0e1 46%, #f39abd 100%); }
+.conv-stage[data-who="yupi"] .conv-yupi { display: flex; }
+.conv-stage[data-who="yupi"] video, .conv-stage[data-who="yupi"] .conv-owl { display: none !important; }
+.conv-stage[data-who="yupi"] { background: #f7b6cf; }
+.conv-yupi::before, .conv-yupi::after { content: '♥'; position: absolute; color: #ffffffaa; font-size: 34px; top: 12%; left: 12%; transform: rotate(-14deg); }
+.conv-yupi::after { left: auto; right: 13%; top: 22%; font-size: 24px; transform: rotate(12deg); }
+.conv-yupi-fig { position: relative; height: 118%; aspect-ratio: 1 / 1; margin-bottom: -4%; transform-origin: 50% 90%; }
+.conv-yupi-fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.conv-yupi-talk { opacity: 0; }
+.conv-stage[data-mouth="talking"] .conv-yupi-talk { animation: yupi-mouth .32s steps(1, end) infinite; }
+.conv-stage[data-mouth="talking"] .conv-yupi-fig { animation: yupi-bob .64s ease-in-out infinite; filter: drop-shadow(0 0 18px #ff6fa5aa); }
+@keyframes yupi-mouth { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes yupi-bob { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3%) scale(1.02, .985); } }
+.conv-yupi-none { display: none; font-size: clamp(64px, 12vw, 132px); align-self: center; }
+.conv-yupi[data-pics="off"] .conv-yupi-none { display: block; }
+.conv-stage[data-who="yupi"][data-mouth="talking"] .conv-yupi-none { animation: yupi-bob .64s ease-in-out infinite; }
+.conv-stage[data-who="yupi"] .conv-line { background: linear-gradient(transparent, #5a1f3ae6 32%); }
+.conv-stage[data-who="yupi"] .conv-ja { background: #5a1f3ae6; }
+.conv-stage[data-who="yupi"] .conv-ear { filter: drop-shadow(0 0 8px #ff8fbf); }
+.conv-free { margin: 0; font-size: 13px; line-height: 1.5; padding: 8px 10px; border-radius: 10px; background: #ff8fbf26; }
+@media (prefers-reduced-motion: reduce) { .conv-stage[data-mouth="talking"] .conv-yupi-fig { animation: none; } }
+.conv-stage[data-who="yupi"] .conv-line, .conv-stage[data-who="yupi"] .conv-ja, .conv-stage[data-who="yupi"] .conv-ear { z-index: 1; }
