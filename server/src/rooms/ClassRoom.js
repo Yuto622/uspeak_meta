@@ -64,7 +64,8 @@ import { WARDROBE, shopPayload, priceOf, wear as wearItem, sanitizeOwned as sani
 import { createGate } from '../game/gate.js';
 import { FARM, sanitizeFarm, settle as settleFarm, statePayload as farmPayload, prepare as prepareFarm, judge as judgeFarm, askPayload as farmAsk, spotForAct, FarmError } from '../game/farm.js';
 import { reportPath, exportPath, classPath } from '../game/report.js';
-import { createTutor } from '../ai/tutor.js';
+import { createTutor, scriptedComment } from '../ai/tutor.js';
+import { DAY_BUDGET } from '../game/day-budget.js';
 import { FISH_BY_ID } from '../../../client/dist/fishing-data.js';
 import { log, who } from '../log.js';
 
@@ -80,6 +81,23 @@ const HW_DONE_COINS = 20;
 const HW_CAP = 60;
 const FISH_CAST_GAP_MS = config.answerMinIntervalMs * 5; // ふだんは 2 秒（答えの 間かく 400ms × 5）
 const FISH_CAST_TTL_MS = 5 * 60_000;
+// 2026-11（セキュリティの みなおし）：上限の なかった コインの 口（ことばの 答え・ことばの 小屋・カートの ゲート・
+// ことばのジム）を 1 日 まとめて ここまで に する。ほかの 島の 上限（150〜240）より ずっと 多い ので、ふつうに
+// あそぶ 子は とどかない。とどいた あとも XP と 学習の 記録は そのまま（ほかの 島と おなじ 考え）。
+// 苦手の 復習（review）は 別の 上限：にがての 箱は わざと まちがえれば いつでも ふやせる ため。
+// どちらも 入りなおしで もどらない（game/day-budget.js）。
+export const PRACTICE_CAP = Math.max(0, Number(process.env.PRACTICE_COIN_CAP ?? 400) || 0);
+export const PHRASE_XP_CAP = Math.max(0, Number(process.env.PHRASE_XP_CAP ?? 100) || 0);
+export const REVIEW_CAP = Math.max(0, Number(process.env.REVIEW_COIN_CAP ?? 90) || 0);
+// メッセージの あふれ（1 人の ページが ループで 送りつづける）を 部屋の 入口で 止める。ふつうの ページは
+// 1 秒に 20 回の move と ときどきの ボタンなので、ずっと 下に いる。
+const MSG_RATE = Math.max(1, Number(process.env.MSG_RATE_PER_SEC) || 80);
+const MSG_BURST = Math.max(MSG_RATE, Number(process.env.MSG_BURST) || 400);
+// ランキング（部屋の 全員を 保存してから クラスの 記録 ぜんぶを 読む）は 1 人 1 秒に 1 回。
+const BOARD_GAP_MS = 1000;
+// 位置の 名前（'willow'・'in:main:books'・'in:home.<id>'）。ほかの 子の 画面と 先生の 一覧に そのまま 出るので、
+// 島や 建物の id に つかう 文字だけ。
+const SPACE_RE = /^[A-Za-z0-9_.:\-]{1,48}$/;
 
 // タスク（tasks/engine.js）：コインが うごく ところは ぜんぶ applyOp を 通るので、ここで 1 枚 つつんで
 // 「なにが おきたか」を その子の タスクに 数える。だれの 財布かは 部屋が 入室の ときに 登録する。
@@ -120,7 +138,7 @@ export function quizEventOf(row, lastQid = '') {
   return { world, data };
 }
 
-export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007, STOPPED: 4008 };
+export const ERR = { NAME_REQUIRED: 4000, NAME_IN_USE: 4001, ROOM_FULL: 4002, NOT_ON_ROSTER: 4004, WRONG_PIN: 4005, TOO_MANY: 4006, CLASS_REQUIRED: 4007, STOPPED: 4008, CLASS_SPELLING: 4009 };
 // 名簿の「先生か」を 読みなおす 間かく（admin で 保存したら すぐ。名簿が スプレッドシートの ときの ための 保険）。
 const ROLE_RECHECK_MS = 60 * 1000;
 const POSITION_RESTORE_MS = 2 * 60 * 60 * 1000; // restore last position only within a lesson window
@@ -229,6 +247,13 @@ export class ClassRoom extends Room {
     // silently opening a second room for the same class.
     const existing = await matchMaker.query({ name: 'class', classCode: options.classCode });
     if (existing.some((r) => r.roomId !== this.roomId)) throw new ServerError(ERR.ROOM_FULL, 'class is full');
+    // 記録は「クラスコード（小文字に そろえた もの）＋なまえ」。'Sakura' と 'sakura' は 同じ 記録なのに、部屋わけ
+    // （filterBy）は 入力の まま くらべるので、2 つ目の 部屋が できて しまう。そう なると 同じ 子の 記録を 2 つの 部屋が
+    // べつべつに 書きかえ（買った ものが 消える）、「その なまえは つかわれて いる」の 守りも すりぬける。2 つ目は 作らない。
+    const siblings = await matchMaker.query({ name: 'class' });
+    if (siblings.some((r) => r.roomId !== this.roomId && sanitizeClassCode(r.metadata?.classCode ?? r.classCode) === this.classCode)) {
+      throw new ServerError(ERR.CLASS_SPELLING, 'class code spelled differently');
+    }
     this.setMetadata({ classCode: this.classCode });
     this.setState(new RoomState());
     this.state.classCode = this.classCode;
@@ -241,6 +266,7 @@ export class ClassRoom extends Room {
     this.classMode = { paused: false, token: 0, resumeTimer: null, lastGather: 0, lastMove: 0, lastReq: new Map(), run: null, runSeq: 0 };
     const rawOnMessage = this.onMessage.bind(this);
     this.onMessage = (type, cb) => rawOnMessage(type, (client, msg) => {
+      if (!this.msgAllowed(client)) return;
       if (this.classMode.paused && blockedWhilePaused(type) && this.state.players.get(client.sessionId)?.role !== 'teacher') return;
       return cb(client, msg);
     });
@@ -409,7 +435,7 @@ export class ClassRoom extends Room {
     this.onMessage('voice:leave', (client) => this.onVoiceLeave(client, 'left'));
     this.onMessage('voice:msg', (client, msg) => this.onVoiceMsg(client, msg));
     this.onMessage('rtc:signal', (client, msg) => this.onRtcSignal(client, msg));
-    this.onMessage('ping', (client, t) => client.send('pong', { t, server: Date.now() }));
+    this.onMessage('ping', (client, t) => client.send('pong', { t: Number.isFinite(t) ? t : 0, server: Date.now() }));
 
     this.tutor = options.tutor || createTutor();
     // The register is read once per class and cached; the gate below decides who is let
@@ -660,6 +686,7 @@ export class ClassRoom extends Room {
     const name = this.state.players.get(id)?.name;
     this.priv.delete(id);
     this.state.players.delete(id);
+    this.msgBuckets?.delete(id);
     if (this.state.teacherId === id) this.state.teacherId = '';
     log.info(`[room ${this.roomId}] left ${who(name)} (${id}) clients=${this.clients.length}`);
   }
@@ -669,13 +696,58 @@ export class ClassRoom extends Room {
     return null;
   }
 
+  // 1 人の ページの メッセージの 数（トークンの バケツ）。あふれた ぶんは すてる（部屋 全体が おそく ならない ように）。
+  msgAllowed(client) {
+    const now = Date.now();
+    let b = this.msgBuckets?.get(client.sessionId);
+    if (!this.msgBuckets) this.msgBuckets = new Map();
+    if (!b) { b = { tokens: MSG_BURST, at: now, warned: 0 }; this.msgBuckets.set(client.sessionId, b); }
+    b.tokens = Math.min(MSG_BURST, b.tokens + ((now - b.at) / 1000) * MSG_RATE);
+    b.at = now;
+    if (b.tokens < 1) {
+      if (now - b.warned > 10_000) { b.warned = now; log.warn(`[room ${this.roomId}] dropping messages from ${client.sessionId} (flood)`); }
+      return false;
+    }
+    b.tokens -= 1;
+    return true;
+  }
+
+  // ランキングは 1 回ごとに 部屋の 全員を 保存してから クラスの 記録 ぜんぶを 読む。1 人 1 秒に 1 回。
+  boardOk(client, key) {
+    const priv = this.priv.get(client.sessionId);
+    if (!priv) return false;
+    const now = Date.now();
+    priv.boardAt ||= {};
+    if (now - (priv.boardAt[key] || 0) < BOARD_GAP_MS) return false;
+    priv.boardAt[key] = now;
+    return true;
+  }
+
+  // 上限の なかった 練習の コイン（ことばの 答え・小屋・カート・ジム）を、きょうの 上限の 中で はらう。はらった 数を かえす。
+  payCapped(sessionId, kind, cap, amount, id) {
+    const priv = this.priv.get(sessionId);
+    if (!priv || !(amount > 0)) return 0;
+    const paid = DAY_BUDGET.take(this.classCode, priv.name, kind, amount, cap);
+    if (paid <= 0) return 0;
+    const entry = applyOp(priv.wallet, { type: 'award', amount: paid, id });
+    this.store.appendCoin(this.coinRow(sessionId, entry));
+    return paid;
+  }
+  // 定型文の XP（1 タップ 1 XP）は 1 日 PHRASE_XP_CAP 回まで。ボタンの 連打で 今週の XP の ランキングを 動かせない ように。
+  phraseXp(priv) { return DAY_BUDGET.take(this.classCode, priv.name, 'phrase', REWARDS.phrase.xp, PHRASE_XP_CAP); }
+  payPractice(sessionId, amount, id) { return this.payCapped(sessionId, 'practice', PRACTICE_CAP, amount, id); }
+
+  // AI の 回数（英会話島・おつかい・面接の ひとこと）。1 日 1 人 config.ai.dailyTurnsPerStudent まで。入りなおしで もどらない。
+  aiTurnsLeft(priv) { return DAY_BUDGET.left(this.classCode, priv.name, 'ai', config.ai.dailyTurnsPerStudent); }
+  aiSpend(priv) { DAY_BUDGET.add(this.classCode, priv.name, 'ai', 1); }
+
   // ---- messages ----------------------------------------------------------------
 
   onMove(client, msg) {
     const player = this.state.players.get(client.sessionId);
     const priv = this.priv.get(client.sessionId);
     if (!player || !priv || !msg || typeof msg !== 'object') return;
-    if (typeof msg.s === 'string' && msg.s.length <= 48) {
+    if (typeof msg.s === 'string' && SPACE_RE.test(msg.s)) {
       // Walking out of the room is hanging up. Nobody presses anything to leave a call
       // here, the same way nobody presses anything to leave a building.
       if (player.space !== msg.s && this.voice.has(client.sessionId)) this.dropVoice(client.sessionId, 'moved');
@@ -726,11 +798,7 @@ export class ClassRoom extends Room {
     const xp = rate.xp;
     const level = this.awardXp(client.sessionId, xp, result.questionId);
     let walletChanged = false;
-    if (rate.coins > 0) {
-      const entry = applyOp(priv.wallet, { type: 'award', amount: rate.coins, id: result.questionId });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
-      walletChanged = true;
-    }
+    if (rate.coins > 0 && this.payPractice(client.sessionId, rate.coins, result.questionId) > 0) walletChanged = true;
     if (result.fishId && result.correct) {
       const entry = applyOp(priv.wallet, { type: 'catch', id: result.fishId });
       this.store.appendCoin(this.coinRow(client.sessionId, entry));
@@ -806,7 +874,7 @@ export class ClassRoom extends Room {
       return;
     }
     priv.progress.chats += 1;
-    const level = this.awardXp(client.sessionId, REWARDS.phrase.xp, `phrase:${id}`);
+    const level = this.awardXp(client.sessionId, this.phraseXp(priv), `phrase:${id}`);
     this.broadcast('chat', { from: client.sessionId, name: player.name, id, t: now });
     // Named 'xp', not 'progress': the client already sends 'progress' upward for the
     // adventure save blob, and two meanings on one name is how bugs get planted.
@@ -820,6 +888,8 @@ export class ClassRoom extends Room {
     const player = this.state.players.get(client.sessionId);
     const priv = this.priv.get(client.sessionId);
     if (!player || !priv) return '';
+    // 幼児モードの 子は 定型文だけ（クラスの チャットでも 部屋の 書く チャンネルでも）。
+    if (priv.kids) { client.send('chat:blocked', { reason: 'kids' }); return ''; }
     if (!this.state.freeChat && player.role !== 'teacher') {
       client.send('chat:blocked', { reason: 'free off' });
       return '';
@@ -851,7 +921,7 @@ export class ClassRoom extends Room {
     const me = this.state.players.get(client.sessionId);
     if (!me || me.role !== 'teacher' || !msg || typeof msg !== 'object') return;
     const cmd = msg.cmd;
-    const point = () => ({ space: typeof msg.space === 'string' ? msg.space.slice(0, 48) : me.space, x: clamp(num(msg.x, me.x), -WORLD_LIMIT, WORLD_LIMIT), z: clamp(num(msg.z, me.z), -WORLD_LIMIT, WORLD_LIMIT) });
+    const point = () => ({ space: typeof msg.space === 'string' && SPACE_RE.test(msg.space) ? msg.space : me.space, x: clamp(num(msg.x, me.x), -WORLD_LIMIT, WORLD_LIMIT), z: clamp(num(msg.z, me.z), -WORLD_LIMIT, WORLD_LIMIT) });
     switch (cmd) {
       case 'gather': {
         const target = point();
@@ -1047,9 +1117,10 @@ export class ClassRoom extends Room {
         // - **前の記録は消さない。** 取り消せるようにしておく。
         // - **前のレポートのリンクは生かす。** 保護者に配ったURLは変えられないので、
         //   前の記録に「引っ越し先」を書いて、そちらを見せる（index.js の /report）。
-        const from = typeof msg.from === 'string' ? msg.from.trim() : '';
-        const names = Array.isArray(msg.names) ? msg.names.map((n) => String(n ?? '').trim()).filter(Boolean).slice(0, 200) : [];
-        if (!from || from === this.classCode) { client.send('teacher:ack', { cmd, ok: false, error: 'from must be another class' }); return; }
+        // 記録の 鍵と 同じ 形に そろえる（ほかの 形の 文字で 記録を 作らない）。
+        const from = typeof msg.from === 'string' && msg.from.trim() ? sanitizeClassCode(msg.from) : '';
+        const names = Array.isArray(msg.names) ? [...new Set(msg.names.slice(0, 400).map((n) => sanitizeName(n)).filter(Boolean))].slice(0, 200) : [];
+        if (!from || from === 'default' || from === this.classCode) { client.send('teacher:ack', { cmd, ok: false, error: 'from must be another class' }); return; }
         if (!names.length) { client.send('teacher:ack', { cmd, ok: false, error: 'no names' }); return; }
         const moved = []; const skipped = [];
         for (const name of names) {
@@ -2055,8 +2126,8 @@ export class ClassRoom extends Room {
 
     const payload = { ...result, hut: session.hut };
     if (result.correct) {
-      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.wordQuiz.coins, id: `quiz:${session.difficulty}` });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      payload.coins = this.payPractice(client.sessionId, REWARDS.wordQuiz.coins, `quiz:${session.difficulty}`);
+      payload.capped = payload.coins < REWARDS.wordQuiz.coins;
       const level = this.awardXp(client.sessionId, REWARDS.wordQuiz.xp, `quiz:${session.difficulty}`);
       payload.levels = level?.levels || 0;
     }
@@ -2069,9 +2140,7 @@ export class ClassRoom extends Room {
     if (result.done) {
       // Roblox paid a bonus for a clean ten, and it is the reason children replay a hut.
       if (result.perfect) {
-        const bonus = applyOp(priv.wallet, { type: 'award', amount: PERFECT_BONUS_COINS, id: `quiz:${session.difficulty}:perfect` });
-        this.store.appendCoin(this.coinRow(client.sessionId, bonus));
-        payload.perfectBonus = PERFECT_BONUS_COINS;
+        payload.perfectBonus = this.payPractice(client.sessionId, PERFECT_BONUS_COINS, `quiz:${session.difficulty}:perfect`);
       }
       priv.quiz = null;
       log.info(`[room ${this.roomId}] ${who(priv.name)} finished a ${session.difficulty} set ${result.score}/${result.total}`);
@@ -2109,11 +2178,10 @@ export class ClassRoom extends Room {
     const payload = { id: session.id, i: result.i, correct: result.correct, answer: result.answer };
     if (result.correct) {
       priv.stats.correct += 1;
-      const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.kart.coins, id: `kart:g${session.grade}` });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
+      payload.coins = this.payPractice(client.sessionId, REWARDS.kart.coins, `kart:g${session.grade}`);
+      if (payload.coins < REWARDS.kart.coins) payload.capped = true;
       const level = this.awardXp(client.sessionId, REWARDS.kart.xp, `kart:g${session.grade}`);
       payload.levels = level?.levels || 0;
-      payload.coins = REWARDS.kart.coins;
     }
     this.appendLearning([
       new Date(now).toISOString(), this.classCode, priv.name, `race:kart:${result.en}`, 'race', // 学習記録では「レース」の ことば（quizEventOf が racing に 分ける）
@@ -2177,10 +2245,7 @@ export class ClassRoom extends Room {
     const gymTyped = session.mode === 'speak' && msg?.typed === true;
     const payload = { ...result, mode: session.mode, typed: gymTyped };
     if (result.correct) {
-      if (!gymTyped) {
-        const entry = applyOp(priv.wallet, { type: 'award', amount: REWARDS.gym.coins, id: `gym:${session.mode}` });
-        this.store.appendCoin(this.coinRow(client.sessionId, entry));
-      }
+      if (!gymTyped) payload.coins = this.payPractice(client.sessionId, REWARDS.gym.coins, `gym:${session.mode}`);
       const level = this.awardXp(client.sessionId, REWARDS.gym.xp, `gym:${session.mode}`);
       payload.levels = level?.levels || 0;
     }
@@ -2443,6 +2508,7 @@ export class ClassRoom extends Room {
   }
 
   onRank(client) {
+    if (!this.boardOk(client, 'rank')) return;
     const key = weekIndex();
     const me = this.priv.get(client.sessionId);
     const boards = this.classBoards();
@@ -2581,6 +2647,8 @@ export class ClassRoom extends Room {
     if (!room) { client.send('voice:error', { reason: 'not in a room' }); return; }
     if (!this.voiceOpenFor(player.space)) { client.send('voice:error', { reason: 'closed' }); return; }
     if ((room === TALK.id || String(room).startsWith(`in:${TALK.id}:`)) && this.islandLocked(id, 'talk')) { client.send('voice:error', { reason: 'premium' }); return; }
+    // 入れない（プレミアムの）島の 建物の 中の 通話にも 入れない（位置は ページの 申告なので、部屋で 見る）。
+    { const isl = String(room).startsWith('in:') ? String(room).split(':')[1] : ''; if (isl && this.islandLocked(id, isl)) { client.send('voice:error', { reason: 'premium' }); return; } }
     if (config.callsNeedTeacher && player.role !== 'teacher' && !this.teacherPresent()) { client.send('voice:error', { reason: 'no teacher' }); return; }
     // A microphone open all day is the same exposure a runaway AI conversation would be,
     // and it had no guard at all: a tab left in a call room, forgotten overnight, would
@@ -2719,7 +2787,7 @@ export class ClassRoom extends Room {
       return;
     }
     priv.progress.chats += 1;
-    const level = this.awardXp(id, REWARDS.phrase.xp, `phrase:${phrase}`);
+    const level = this.awardXp(id, this.phraseXp(priv), `phrase:${phrase}`);
     toRoom({ from: id, name: player.name, id: phrase, room, t: now });
     client.send('xp', { ...this.progressPayload(id), levels: level?.levels || 0 });
   }
@@ -2740,7 +2808,8 @@ export class ClassRoom extends Room {
     // Offers and answers are a handful; ICE candidates are chatty but finite. A flood is
     // something else, and it stops here.
     const now = Date.now();
-    if (now - seat.since > 5000) { seat.since = now; seat.signals = 0; }
+    // 自分の 時計で 数える（seat.since は 通話の 分数の 時計で、1 秒ごとに すすむ ため、ここで 使うと 0 に もどらなかった）。
+    if (!seat.sigAt || now - seat.sigAt > 5000) { seat.sigAt = now; seat.signals = 0; }
     seat.signals += 1;
     if (seat.signals > SIGNAL_BURST) { client.send('voice:error', { reason: 'too fast' }); return; }
     this.clients.find((c) => c.sessionId === to)?.send('rtc:signal', { from, kind: String(msg?.kind || '').slice(0, 16), data });
@@ -2812,6 +2881,9 @@ export class ClassRoom extends Room {
     if (!priv || !state) return;
     const topic = CONV.topicById.get(state.topic);
     if (!topic) { priv.conv = null; return; }
+    // プレミアムが 名簿で はずれたら、ひらいた ままの 会話も そこで おわり（AI は 毎回 お金が かかる）。
+    { const house = CONV.spotById.get(topic.spot); const onConvIsland = !house?.home || house.home.id === CONV.id;
+      if (this.islandLocked(client.sessionId, onConvIsland ? 'conv' : 'talkshops')) { priv.conv = null; client.send('conv:error', { reason: 'premium' }); return; } }
     // Walking out of the house does not end the conversation, it only stops the talking
     // until the child walks back in — the same rule the errand's shop has.
     if (!this.atConvHouse(client.sessionId, state.spot)) {
@@ -2827,13 +2899,15 @@ export class ClassRoom extends Room {
     if (state.turns.length >= CONV.turnLimit) { client.send('conv:error', { reason: 'turn limit' }); return; }
     const day = new Date(now).toISOString().slice(0, 10);
     if (priv.convDay !== day) { priv.convDay = day; priv.convTurnsToday = 0; }
-    // One budget for every AI conversation a child has in a day, wherever they have it.
-    if (priv.convTurnsToday + (priv.missionTurnsToday || 0) >= config.ai.dailyTurnsPerStudent) {
+    // One budget for every AI conversation a child has in a day, wherever they have it —
+    // kept outside the seat, so leaving and joining again does not refill it.
+    if (this.aiTurnsLeft(priv) <= 0) {
       client.send('conv:error', { reason: 'daily limit' });
       return;
     }
     priv.lastConvAt = now;
     priv.convTurnsToday += 1;
+    this.aiSpend(priv);
 
     let result;
     try {
@@ -3169,7 +3243,9 @@ export class ClassRoom extends Room {
     this.robloxEvent(client.sessionId, 'interview', 'eiken', { grade: session.grade, right: result.right, total: result.total, missed: [...new Set(missed.map((p) => p.ja))] });
     let comment = null;
     try {
-      comment = await this.tutor.comment({ grade: session.grade, right: result.right, total: result.total, missed });
+      // AI の ひとことも 1 日の AI の 回数に 入れる。のこって いなければ 台本の ひとこと（中身は 点から 書くので まちがえない）。
+      if (this.aiTurnsLeft(priv) > 0) { this.aiSpend(priv); comment = await this.tutor.comment({ grade: session.grade, right: result.right, total: result.total, missed }); }
+      else comment = scriptedComment({ grade: session.grade, right: result.right, total: result.total, missed });
     } catch (err) {
       log.warn(`[room ${this.roomId}] interview comment failed:`, err.message);
     }
@@ -4039,7 +4115,7 @@ export class ClassRoom extends Room {
     const priv = this.priv.get(client.sessionId);
     if (!priv) return;
     if (!this.atLandSpot(client.sessionId, 'board')) { client.send('land:error', { reason: 'too far', spot: this.landSpotPayload('board') }); return; }
-    const name = typeof msg?.name === 'string' ? msg.name.trim() : '';
+    const name = typeof msg?.name === 'string' ? msg.name.trim().slice(0, 32) : '';
     let land = null; let found = false;
     for (const [id, p] of this.priv) {
       const player = this.state.players.get(id);
@@ -4725,9 +4801,10 @@ export class ClassRoom extends Room {
     if (state.turns.length >= MISSIONS.turnLimit) { this.endMission(client, priv, mission, 'turn limit'); return; }
     const day = new Date(now).toISOString().slice(0, 10);
     if (priv.missionDay !== day) { priv.missionDay = day; priv.missionTurnsToday = 0; }
-    if (priv.missionTurnsToday >= config.ai.dailyTurnsPerStudent) { client.send('mission:error', { reason: 'daily limit' }); return; }
+    if (this.aiTurnsLeft(priv) <= 0) { client.send('mission:error', { reason: 'daily limit' }); return; }
     priv.lastMissionAt = now;
     priv.missionTurnsToday += 1;
+    this.aiSpend(priv);
 
     let result;
     try {
@@ -4908,7 +4985,7 @@ export class ClassRoom extends Room {
     const now = Date.now();
     if (now - this.classMode.lastGather < CLASS_LIMIT.gatherMs) { client.send('class:toast', { text: 'Wait a moment and try again · すこし まってから もう一度' }); return; }
     this.classMode.lastGather = now;
-    const target = { space: typeof msg?.space === 'string' ? msg.space.slice(0, 48) : me.space, x: clamp(num(msg?.x, me.x), -WORLD_LIMIT, WORLD_LIMIT), z: clamp(num(msg?.z, me.z), -WORLD_LIMIT, WORLD_LIMIT) };
+    const target = { space: typeof msg?.space === 'string' && SPACE_RE.test(msg.space) ? msg.space : me.space, x: clamp(num(msg?.x, me.x), -WORLD_LIMIT, WORLD_LIMIT), z: clamp(num(msg?.z, me.z), -WORLD_LIMIT, WORLD_LIMIT) };
     const list = this.classStudents();
     for (const { client: c } of list) c.send('class:incoming', { by: me.name });
     this.clock.setTimeout(() => {
@@ -5036,15 +5113,12 @@ export class ClassRoom extends Room {
     }
     this.appendLearning([new Date(now).toISOString(), this.classCode, priv.name, `review:${r.word}`.slice(0, 160), 'review', String(msg?.choice ?? '').slice(0, 40), r.ok ? 1 : 0, 0, client.sessionId]);
     priv.stats.attempts += 1;
-    const paid = r.ok && r.pay;   // 「ぜんぶの ことば」で 出た、にがてで ない ことばは コインなし
+    // 「ぜんぶの ことば」で 出た、にがてで ない ことばは コインなし。にがての 箱は まちがえれば ふえるので、1 日の 上限（REVIEW_CAP）の 中で。
     if (r.ok) priv.stats.correct += 1;
-    if (paid) {
-      const entry = applyOp(priv.wallet, { type: 'award', amount: REVIEW_COIN, id: 'review_correct' });
-      this.store.appendCoin(this.coinRow(client.sessionId, entry));
-    }
+    const paid = r.ok && r.pay ? this.payCapped(client.sessionId, 'review', REVIEW_CAP, REVIEW_COIN, 'review_correct') : 0;
     // Roblox と 同じ 形の 記録（world=review・level=Review）。これが また 箱を 進める。
     this.robloxEvent(client.sessionId, 'quiz', 'review', { correct: r.ok, word: r.word, level: 'Review', fast: false, retry: false }, now);
-    client.send('review:result', { i, ok: r.ok, word: r.word, coins: paid ? REVIEW_COIN : 0, ...this.walletPayload(client.sessionId) });
+    client.send('review:result', { i, ok: r.ok, word: r.word, coins: paid, ...(r.ok && r.pay && !paid ? { capped: true } : {}), ...this.walletPayload(client.sessionId) });
     const run = set.classRun && this.classMode.run?.id === set.classRun ? this.classMode.run : null;
     if (run) {
       run.total += 1;

@@ -17,6 +17,7 @@ import { t as tr, isJa } from './i18n.js';
 import { makeKit, seeded, mat, geo, BEACH, SEA_Y, JETTY_Y } from './land-kit.js';
 import { THEMES_A, BUILD_A } from './land-themes-a.js';
 import { THEMES_B, BUILD_B } from './land-themes-b.js';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 export const THEMES = { ...THEMES_A, ...THEMES_B };
 const BUILD = { ...BUILD_A, ...BUILD_B };
@@ -259,7 +260,7 @@ export function createLand({ player, camera, view, toast, onLeave }) {
     if (view) view.firstPerson = false;
     document.body.classList.remove('first-person');
     const where = document.querySelector('.location');
-    if (where) where.innerHTML = `<span>✦</span><b class="en">${payload.en}</b><i class="ja">${payload.name}</i>`;
+    if (where) where.innerHTML = `<span>✦</span><b class="en">${esc(payload.en)}</b><i class="ja">${esc(payload.name)}</i>`;
     const mapTitle = document.querySelector('.map-panel>div b');
     if (mapTitle) mapTitle.textContent = `${payload.owner || ''}'s ${payload.en}`;
     if (ride) startRide('in');

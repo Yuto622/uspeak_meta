@@ -801,3 +801,49 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  i18n.setLang('ja');
  console.log('PASS: 画面で組み立てた文（ · ・絵文字・2文・話す人・型の穴）を訳す（14件）。');
 }
+
+{
+ // **セキュリティの 穴を もどさない**（2026-11 の 点検）。文字で 見る だけの 安い 検査。
+ // 同梱ゲーム（racers/ blockwild/ puyo/ suika/ vendor/）は 上の バイト検査が 見るので ここでは 見ない。
+ const { readdirSync, readFileSync } = await import('node:fs');
+ const { fileURLToPath } = await import('node:url');
+ const dir = fileURLToPath(new URL('../dist/', import.meta.url));
+ const read = (f) => readFileSync(dir + f, 'utf8');
+ const own = readdirSync(dir).filter((f) => /\.(js|html)$/.test(f) && f !== 'three.module.js');
+ const bad = [];
+ for (const f of own) {
+   const src = read(f);
+   // 1. 文字を コードに しない（CSP は 'unsafe-inline' なので、これが あると XSS が そのまま 動く）。
+   if (/\beval\s*\(|new\s+Function\s*\(|set(?:Timeout|Interval)\s*\(\s*['"`]/.test(src)) bad.push(`${f}: eval / new Function / 文字の setTimeout`);
+   // 2. 先生の 鍵・先生パスワードを localStorage に 書かない（共用の iPad）。
+   for (const line of src.split('\n')) if (/localStorage/.test(line) && /\.set\(|setItem/.test(line) && /teacherKey|\bpin\b/.test(line)) bad.push(`${f}: 先生の 鍵を localStorage に 書いている`);
+ }
+ // 3. 答えの 入った 問題の 束は サーバーだけ（client/dist に 置かない）。
+ const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}${e.name}/`) : [`${d}${e.name}`]));
+ const SERVER_ONLY = /(^|\/)(eiken-bank|word-quiz|hut-quiz|fishworld-quiz|interview-bank|farm-bank|battle-bank|exam-bank)(\.json|\/)/;
+ for (const p of walk(dir)) {
+   const rel = p.slice(dir.length);
+   if (SERVER_ONLY.test(rel)) bad.push(`${rel}: サーバーだけの 問題の 束が client/dist に ある`);
+   if (/\.json$/.test(rel) && /Server only — answers included/.test(readFileSync(p, 'utf8'))) bad.push(`${rel}: 「Server only — answers included」の 束`);
+ }
+ // 4. ?server= は ページも つなぐ 先も 開発の 場所の ときだけ（net-config.js）。
+ const cfg = read('net-config.js');
+ if (!/isDevHost\(location\.hostname\)\s*&&\s*isDevHost\(hostOf\(/.test(cfg)) bad.push('net-config.js: ?server= が ページと つなぐ 先の 両方を 見ていない');
+ const { isDevHost } = await import('../dist/net-config.js');
+ for (const h of ['localhost', '127.0.0.1', '192.168.1.5', '10.0.0.2', '172.20.1.1', '[::1]']) if (!isDevHost(h)) bad.push(`isDevHost(${h}) が false`);
+ for (const h of ['localhost.evil.com', '10.evil.com', 'uspeak.example', '192.168.1.5.evil.com', '']) if (isDevHost(h)) bad.push(`isDevHost(${h}) が true`);
+ // 5. 部屋から 来る 名前を 上の 札（.location）に 入れる ところは esc を 通す。
+ for (const [f, pat] of [['room-world.js', /\$\{esc\(payload\.name\)\}/], ['plaza-world.js', /\$\{esc\(payload\.name\)\}/], ['land-world.js', /\$\{esc\(payload\.name\)\}/], ['island-interior.js', /\$\{esc\(spot\.name\)\}/]]) {
+   if (!pat.test(read(f))) bad.push(`${f}: 上の 札の 名前が esc を 通っていない`);
+ }
+ // 6. ほかの 子の 名前・チャットを 出す 画面は esc を 通す（代表の 場所を 名指しで）。
+ for (const [f, pat] of [
+   ['chat.js', /\$\{escapeHtml\(m\.who\)\}[^\n]*\$\{escapeHtml\(m\.text\)\}/],
+   ['teacher.js', /data-child="\$\{esc\(p\.name\)\}"[^\n]*>\$\{esc\(p\.name\)\}/],
+   ['voice.js', /\$\{esc\(p\.name \|\| '…'\)\}/],
+   ['lobby.js', /<b>\$\{esc\(n\)\}<\/b>/],
+   ['daily.js', /<b>\$\{esc\(r\.name\)\}<\/b>/],
+ ]) if (!pat.test(read(f))) bad.push(`${f}: 名前・チャットが esc を 通っていない`);
+ if (bad.length) { console.error(`FAIL: ${bad.join('\n  ')}`); process.exit(1); }
+ console.log('PASS: セキュリティ（eval なし・先生の 鍵は localStorage に ない・問題の 束は サーバーだけ・?server= は 開発だけ・名前は esc）。');
+}

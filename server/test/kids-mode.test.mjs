@@ -106,3 +106,23 @@ test('部屋：welcome に のる・かえると 入ったままの 子に と�
   assert.equal(saved.classes.sakura.on, true); assert.equal(saved.classes.sakura.students.mio, 'off'); assert.equal(saved.classes.momiji.on, true);
   await Promise.all([kid.leave(), kid2.leave(), teacher.leave()]);
 });
+
+// 2026-11（セキュリティの みなおし）：幼児モードの 子は じぶんの 文を 書けない。クラスの チャットだけで なく、
+// 部屋の 中の 書く チャンネル（voice:msg の text）でも 部屋が ことわる（前は こちらは 通って いた）。
+test('部屋：幼児モードの 子は 部屋の 中の 書く チャンネルでも 文を 送れない', async () => {
+  const r = await adminApi('/kids', put({ classCode: 'momiji', on: true }));
+  assert.equal(r.status, 200);
+  const teacher = await new Client(ws).joinOrCreate('class', { classCode: 'momiji', name: 'Sensei', teacherKey: 'testkey12345' });
+  await nextMessage(teacher, 'welcome');
+  const kid = await new Client(ws).joinOrCreate('class', { classCode: 'momiji', name: 'Yui' });
+  assert.equal((await nextMessage(kid, 'welcome')).kids, true);
+  for (const c of [kid, teacher]) c.send('move', { s: 'in:main:books', x: 0, z: 0 });
+  await new Promise((r2) => setTimeout(r2, 200));
+  let leaked = false; teacher.onMessage('voice:msg', (m) => { if (m.text) leaked = true; });
+  const blocked = nextMessage(kid, 'chat:blocked');
+  kid.send('voice:msg', { text: 'hello from a kid' });
+  assert.equal((await blocked).reason, 'kids');
+  await new Promise((r2) => setTimeout(r2, 300));
+  assert.equal(leaked, false);
+  await Promise.all([kid.leave(), teacher.leave()]);
+});

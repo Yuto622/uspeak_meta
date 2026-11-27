@@ -12,6 +12,7 @@ import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
 import { furnitureModel } from './furniture-real.js';
 import { isNight, nightEndsIn } from './shop-hours.js';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const CELL = 1;                 // one floor square, one metre
 const REACH = 8;                // how far the crosshair carries, in squares
@@ -337,7 +338,7 @@ body[data-sleeping] #room-acts,body[data-sleeping] #room-hud,body[data-sleeping]
     // is a piece of floor something can stand on.
     view?.look?.(0, -0.42);
     const where = document.querySelector('.location');
-    if (where) where.innerHTML = `<span>✦</span> ${payload.en || 'YOUR ROOM'} <small>${payload.name} · 屋内</small>`;
+    if (where) where.innerHTML = `<span>✦</span> ${esc(payload.en || 'YOUR ROOM')} <small>${esc(payload.name)} · 屋内</small>`;
     const mapTitle = document.querySelector('.map-panel>div b');
     if (mapTitle) mapTitle.textContent = payload.en || 'YOUR ROOM';
     return true;

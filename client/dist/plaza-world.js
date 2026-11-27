@@ -11,6 +11,7 @@ import * as THREE from './three.module.js';
 import { SPACE_BG, addStars } from './cosmic-kit.js';
 import { say, live } from './canvas-say.js';
 import { blockGeometry, blockMaterial } from './town-real.js';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const CELL = 1;                 // one block, one metre
 const REACH = 6;                // how far the crosshair carries, in blocks
@@ -147,7 +148,7 @@ export function createPlaza({ player, camera, view, send, toast, speak, learn, o
     // is a piece of floor a block can go on.
     view?.look?.(0, -0.42);
     const where = document.querySelector('.location');
-    if (where) where.innerHTML = `<span>✦</span> ${payload.en || 'BUILD PLAZA'} <small>${payload.name} · まちづくり島</small>`;
+    if (where) where.innerHTML = `<span>✦</span> ${esc(payload.en || 'BUILD PLAZA')} <small>${esc(payload.name)} · まちづくり島</small>`;
     const mapTitle = document.querySelector('.map-panel>div b');
     if (mapTitle) mapTitle.textContent = payload.en || 'BUILD PLAZA';
     return true;

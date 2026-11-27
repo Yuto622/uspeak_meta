@@ -60,3 +60,18 @@ test('プレミアムで ない 子：2 つの 島に 🔒、英会話島の 家
   assert.ok(t.welcome.islands.includes('eiken5'), 'but sees which islands are premium');
   await Promise.all([ken.room.leave(), pia.room.leave(), t.room.leave()]);
 });
+
+// 2026-11（セキュリティの みなおし）：位置は ページの 申告なので、プレミアムの 島の 建物の 中（in:eiken5:…）だと 言っても、
+// その 島が 🔒 の 子は 通話に 入れない。プレミアムの 子は 入れる。
+test('プレミアムの 島の 建物の 中の 通話は、🔒 の 子には ひらかない', async () => {
+  const ken = await join('6-2', 'Ken');
+  const pia = await join('6-2', 'Pia');
+  assert.ok(ken.welcome.locked.includes('eiken5'));
+  for (const x of [ken, pia]) x.room.send('move', { s: 'in:eiken5:reading', x: 0, z: 0 });
+  await new Promise((r) => setTimeout(r, 200));
+  ken.room.send('voice:join');
+  assert.equal((await nextMessage(ken.room, 'voice:error')).reason, 'premium');
+  pia.room.send('voice:join');
+  assert.equal((await nextMessage(pia.room, 'voice:room')).room, 'in:eiken5:reading');
+  await Promise.all([ken.room.leave(), pia.room.leave()]);
+});

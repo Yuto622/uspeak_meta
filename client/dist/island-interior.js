@@ -16,6 +16,7 @@ import { say, live } from './canvas-say.js';
 import { furnish } from './shop-interiors.js';
 import { buildCastMember } from './island-cast.js';
 import { addStars } from './cosmic-kit.js';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const COUNTER_Z = -3.2;         // the counter, across the room from the door
 const DOOR_Z = 8.4;             // walking past this on the way out leaves
@@ -207,7 +208,7 @@ export function createIslandInteriors({ player, camera, toast }) {
     cooldown = 0.9;
     document.body.classList.add('in-building');
     const where = document.querySelector('.location');
-    if (where) where.innerHTML = `<span>✦</span> ${spot.en || spot.name} <small>${spot.name} · 屋内</small>`;
+    if (where) where.innerHTML = `<span>✦</span> ${esc(spot.en || spot.name)} <small>${esc(spot.name)} · 屋内</small>`;
     return true;
   }
 

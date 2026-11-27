@@ -13,6 +13,7 @@
 // client only renders what it is told.
 import { config } from '../config.js';
 import { log } from '../log.js';
+import { findUnkindWord, hasContact, stripInvisible } from '../game/say.js';
 
 // How plainly the character must speak, by Eiken grade.
 const REGISTER = {
@@ -108,7 +109,8 @@ const SAD = [
   /かなしい|悲しい|さみしい|寂しい|さびしい|こわい|怖い|しんぱい|心配|つらい|辛い|ないちゃ|泣い|おこ(?:って|られ)|いたい|痛い|ひとりぼっち/,
 ];
 export function distressOf(text) {
-  const t = String(text ?? '');
+  // 見えない 文字や 全角の 英字で「die」を ばらしても 見のがさない（NFKC で そろえ、見えない 文字は 消す）。
+  const t = stripInvisible(String(text ?? '')).normalize('NFKC');
   if (URGENT.some((re) => re.test(t))) return 'urgent';
   if (SAD.some((re) => re.test(t))) return 'sad';
   return '';
@@ -228,7 +230,11 @@ const TURN_SCHEMA = {
   },
 };
 
-const clean = (v, max) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, max) : '');
+// 子どもの 画面に 出る 文。見えない 文字・制御文字・山かっこ（HTML に なる もの）は ここで 落とす。
+const clean = (v, max) => (typeof v === 'string' ? stripInvisible(v).replace(/[\u0000-\u001f\u007f-\u009f]/g, ' ').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, max) : '');
+// AI の へんじが 子どもに とどいて よいか：モデルの 名前・ことばの 表（チャットと 同じ）・連絡先（URL など）が ない こと。
+// プロンプトを こえて 言わされた（子どもの 文で あやつられた）へんじは、ここで 止まる。
+export const kidSafe = (t) => !!t && !mentionsModel(t) && !findUnkindWord(t) && !hasContact(t);
 
 // Keeps a malformed or hostile model response from reaching a child or a record.
 export function sanitizeTurn(raw, mission, previousGoals = []) {
@@ -237,11 +243,12 @@ export function sanitizeTurn(raw, mission, previousGoals = []) {
   for (const id of Array.isArray(raw?.goalsMet) ? raw.goalsMet : []) if (valid.has(id)) met.add(id);
   const goalsMet = [...met];
   let reply = clean(raw?.reply, MAX_REPLY_CHARS);
+  let broken = false;
   if (!reply) reply = 'Sorry, could you say that again?';
-  else if (mentionsModel(reply)) reply = mission.persona === 'yupi' ? YUPI_FALLBACK : IN_CHARACTER_FALLBACK;
+  else if (!kidSafe(reply)) { reply = mission.persona === 'yupi' ? YUPI_FALLBACK : IN_CHARACTER_FALLBACK; broken = true; }
   const hint = clean(raw?.hint, MAX_HINT_CHARS);
   // 子どもを 助ける 文（画面に 出すだけ）。英語の 答えの れいは 英語だけ・短く。
-  const safe = (v, max) => { const t = clean(v, max); return t && !mentionsModel(t) ? t : ''; };
+  const safe = (v, max) => { const t = clean(v, max); return t && kidSafe(t) ? t : ''; };
   const suggestions = [...new Set((Array.isArray(raw?.suggestions) ? raw.suggestions : []).map((x) => safe(x, MAX_SUGGESTION_CHARS)).filter((x) => x && !JA_CHARS.test(x)))].slice(0, 3);
   const better = safe(raw?.better, MAX_SUGGESTION_CHARS * 2);
   return {
@@ -249,10 +256,11 @@ export function sanitizeTurn(raw, mission, previousGoals = []) {
     goalsMet,
     // 目あての ない 会話（free）は おわらない（おわりは 回数か 子どもが とじた とき）。
     complete: !mission.free && mission.goals.length > 0 && goalsMet.length === mission.goals.length,
-    hint: mentionsModel(hint) ? '' : hint,
+    hint: kidSafe(hint) ? hint : '',
     suggestions,
     better: JA_CHARS.test(better) ? '' : better,
-    replyJa: safe(raw?.replyJa, MAX_REPLY_CHARS),
+    // へんじを かえた ときは、その 日本語も もとの へんじの もの なので 出さない。
+    replyJa: broken ? '' : safe(raw?.replyJa, MAX_REPLY_CHARS),
   };
 }
 
@@ -330,7 +338,7 @@ function createOpenAiTutor() {
       try { parsed = JSON.parse(res.choices?.[0]?.message?.content ?? ''); } catch { /* falls back below */ }
       const en = clean(parsed?.en, MAX_REPLY_CHARS);
       const ja = clean(parsed?.ja, MAX_HINT_CHARS);
-      if (!en || mentionsModel(en) || mentionsModel(ja)) return scriptedComment(about);
+      if (!en || !kidSafe(en) || (ja && !kidSafe(ja))) return scriptedComment(about);
       return { en, ja: ja || scriptedComment(about).ja };
     },
   };
