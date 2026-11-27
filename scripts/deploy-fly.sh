@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
 # One-shot Fly.io deploy for the U-Speak multiplayer server.
 #
-#   ./scripts/deploy-fly.sh <app-name> <teacher-key>
+#   ./scripts/deploy-fly.sh <app-name>
+#
+# The teacher key is read from $TEACHER_KEY or asked for without echo (a key given as the
+# second argument still works but stays in the shell history). Secrets reach flyctl on
+# stdin (`fly secrets import`), never on its command line.
 #
 # Creates the app on first run, keeps CORS_ORIGINS in sync with the app name,
 # and deploys. Safe to re-run: later runs just redeploy.
 set -euo pipefail
 
 APP="${1:-}"
-TEACHER_KEY="${2:-}"
+TEACHER_KEY="${2:-${TEACHER_KEY:-}}"
 REGION="${FLY_REGION:-nrt}"
 
+if [ -n "$APP" ] && [ -z "$TEACHER_KEY" ] && [ -t 0 ]; then
+  read -rsp "teacher key (8+ characters, not shown): " TEACHER_KEY; echo >&2
+fi
 if [ -z "$APP" ] || [ -z "$TEACHER_KEY" ]; then
-  echo "usage: $0 <app-name> <teacher-key>" >&2
+  echo "usage: [TEACHER_KEY=...] $0 <app-name>" >&2
   echo "  app-name    : globally unique, lowercase letters/digits/dashes (e.g. uspeak-multiplayer)" >&2
   echo "  teacher-key : 8+ characters, given to teachers only" >&2
   exit 1
@@ -45,10 +52,19 @@ PY
 
 # 2. Secrets. Google Sheets values are optional; set them here if present in the environment.
 echo "==> setting secrets"
-SECRETS=("TEACHER_KEY=${TEACHER_KEY}")
-[ -n "${GOOGLE_SHEET_ID:-}" ] && SECRETS+=("GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}")
-[ -n "${GOOGLE_SERVICE_ACCOUNT_JSON:-}" ] && SECRETS+=("GOOGLE_SERVICE_ACCOUNT_JSON=${GOOGLE_SERVICE_ACCOUNT_JSON}")
-fly secrets set --app "$APP" --stage "${SECRETS[@]}"
+# One NAME=VALUE per line on stdin; a multi-line value goes in triple quotes.
+secret_line() {
+  case "$2" in
+    *$'\n'*) printf '%s="""\n%s\n"""\n' "$1" "$2" ;;
+    *) printf '%s=%s\n' "$1" "$2" ;;
+  esac
+}
+{
+  secret_line TEACHER_KEY "$TEACHER_KEY"
+  [ -n "${GOOGLE_SHEET_ID:-}" ] && secret_line GOOGLE_SHEET_ID "$GOOGLE_SHEET_ID"
+  [ -n "${GOOGLE_SERVICE_ACCOUNT_JSON:-}" ] && secret_line GOOGLE_SERVICE_ACCOUNT_JSON "$GOOGLE_SERVICE_ACCOUNT_JSON"
+  true
+} | fly secrets import --app "$APP" --stage
 
 # 3. Deploy. --remote-only builds on Fly's builders, so no local Docker is needed.
 echo "==> deploying"

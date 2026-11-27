@@ -88,8 +88,10 @@ if (-not $fresh) {
 
 if ($set.Count -gt 0) {
   Write-Host "==> Fly に 入れます：$(($set | ForEach-Object { ($_ -split '=')[0] }) -join '・')（中身は 出しません）"
-  # 鍵は この スクリプトの 中から わたす（打った コマンドの 履歴には のこらない・画面にも 出さない）。
-  fly secrets set @set -a $App | Out-Null
+  # 鍵は 標準入力で わたす（fly secrets import）。コマンドの 引数に 置かないので、履歴にも
+  # ほかの プロセスからの 一覧（タスクマネージャーの コマンドライン）にも 出ない。画面にも 出さない。
+  $OutputEncoding = New-Object System.Text.UTF8Encoding $false
+  ($set -join "`n") | fly secrets import -a $App | Out-Null
   $code = $LASTEXITCODE
   $hadKey = [bool]($set | Where-Object { $_ -like 'ROBLOX_OPEN_CLOUD_KEY=*' })
   $plain = $null; $set = $null

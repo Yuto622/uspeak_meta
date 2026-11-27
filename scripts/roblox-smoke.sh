@@ -21,7 +21,12 @@ command -v curl >/dev/null 2>&1 || { echo "curl が要ります" >&2; exit 1; }
 
 NOW_MS=$(( $(date +%s) * 1000 ))
 STAMP=$(date +%s)
-H=(-sS -H "Content-Type: application/json" -H "X-USpeak-Key: ${KEY}")
+# 鍵は curl の 引数にも 置かない（ps で 見える）。0600 の 一時ファイルから -H @file で 読ませる。
+HDR_FILE=$(mktemp)
+trap 'rm -f "$HDR_FILE"' EXIT
+chmod 600 "$HDR_FILE"
+printf 'X-USpeak-Key: %s\n' "$KEY" > "$HDR_FILE"
+H=(-sS -H "Content-Type: application/json" -H "@${HDR_FILE}")
 
 echo "==> 1. 鍵なしは 401"
 code=$(curl -sS -o /dev/null -w '%{http_code}' -H "Content-Type: application/json" -d '{"events":[]}' "${BASE}/api/roblox/events")

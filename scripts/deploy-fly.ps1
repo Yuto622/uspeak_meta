@@ -1,13 +1,17 @@
 # One-shot Fly.io deploy for the U-Speak multiplayer server (Windows PowerShell).
 #
-#   .\scripts\deploy-fly.ps1 uspeak-multiplayer 'teacher-password'
+#   .\scripts\deploy-fly.ps1 uspeak-multiplayer
+#
+# The teacher key is asked for without echo (pass -TeacherKey only from automation: a key on
+# the command line stays in the PowerShell history). Secrets reach flyctl on stdin
+# (`fly secrets import`), never on its command line.
 #
 # Creates the app on first run, keeps CORS_ORIGINS in sync with the app name,
 # and deploys using Fly's remote builder (no local Docker needed).
 # Safe to re-run: later runs just redeploy.
 param(
   [Parameter(Mandatory = $true)][string]$AppName,
-  [Parameter(Mandatory = $true)][string]$TeacherKey,
+  [string]$TeacherKey = '',
   [string]$Region = 'nrt'
 )
 $ErrorActionPreference = 'Stop'
@@ -18,6 +22,11 @@ foreach ($name in 'Tls12', 'Tls13') {
   try { [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::$name } catch { }
 }
 
+if (-not $TeacherKey) {
+  $secure = Read-Host -AsSecureString 'teacher key (8+ characters, not shown)'
+  $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
+  try { $TeacherKey = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr) } finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) }
+}
 if ($TeacherKey.Length -lt 8) { throw 'teacher key must be at least 8 characters' }
 if ($AppName -notmatch '^[a-z0-9][a-z0-9-]*$') { throw 'app name must be lowercase letters, digits and dashes' }
 if (-not (Get-Command fly -ErrorAction SilentlyContinue)) {
@@ -46,11 +55,20 @@ Write-Host "fly.toml: app=$AppName CORS_ORIGINS=$url"
 
 # 3. Secrets. Google Sheets values are optional; set them as environment variables to include them.
 Write-Host '==> setting secrets'
-$secrets = @("TEACHER_KEY=$TeacherKey")
-if ($env:GOOGLE_SHEET_ID) { $secrets += "GOOGLE_SHEET_ID=$($env:GOOGLE_SHEET_ID)" }
-if ($env:GOOGLE_SERVICE_ACCOUNT_JSON) { $secrets += "GOOGLE_SERVICE_ACCOUNT_JSON=$($env:GOOGLE_SERVICE_ACCOUNT_JSON)" }
-fly secrets set --app $AppName --stage @secrets
-if ($LASTEXITCODE -ne 0) { throw 'could not set secrets' }
+# One NAME=VALUE per line; a value with line breaks (a pretty-printed service-account JSON)
+# goes in triple quotes, which `fly secrets import` reads as one multi-line value.
+function Format-Secret([string]$name, [string]$value) {
+  if ($value -match "[\r\n]") { return "$name=`"`"`"`n$($value -replace "`r", '')`n`"`"`"" }
+  return "$name=$value"
+}
+$secrets = @(Format-Secret 'TEACHER_KEY' $TeacherKey)
+if ($env:GOOGLE_SHEET_ID) { $secrets += Format-Secret 'GOOGLE_SHEET_ID' $env:GOOGLE_SHEET_ID }
+if ($env:GOOGLE_SERVICE_ACCOUNT_JSON) { $secrets += Format-Secret 'GOOGLE_SERVICE_ACCOUNT_JSON' $env:GOOGLE_SERVICE_ACCOUNT_JSON }
+$OutputEncoding = New-Object System.Text.UTF8Encoding $false
+($secrets -join "`n") | fly secrets import --app $AppName --stage
+$code = $LASTEXITCODE
+$secrets = $null; $TeacherKey = $null
+if ($code -ne 0) { throw 'could not set secrets' }
 
 # 4. Deploy. --remote-only builds on Fly's builders, so Docker Desktop is not required.
 Write-Host '==> deploying'

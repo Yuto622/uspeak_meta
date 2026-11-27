@@ -7,3 +7,20 @@ server/data
 loadtest-results
 docs
 client/tests
+# Nothing below is needed at runtime. Keep it out of the build context (it is uploaded to
+# Fly's remote builder) and out of the image: local logs and the tunnel's report secret,
+# test fixtures, load-test output, and any spreadsheet / key file that lands in the tree.
+**/loadtest-results
+server/test
+server/loadtest
+.tunnel-logs
+**/*.log
+**/__pycache__
+**/*.xlsx
+**/*.xls
+**/*.csv
+**/*.pem
+**/*.p12
+**/*.key
+**/*service-account*.json
+**/*credentials*.json
