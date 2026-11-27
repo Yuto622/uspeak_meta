@@ -35,7 +35,10 @@ export function cleanText(t) {
 }
 
 // generate(text, { lang, model, voice, instructions }) → Buffer（テストでは にせものを わたす）
-export function createTts({ dir, apiKey = '', model = 'gpt-4o-mini-tts', voice = 'coral', dailyNew = 3000, timeoutMs = 15000, generate = null, log = console, now = Date.now } = {}) {
+// maxCacheBytes：DATA_DIR/tts に のこす 音の 合計の 上限（既定 1GB・TTS_CACHE_MAX_MB）。ログインの いらない 口なので、
+// だれかが 文を かえて 作らせつづけても ボリュームが いっぱいに ならない（いっぱいだと 記録の 保存まで こける）。
+// こえたら 新しい 文は 作らず 503（ブラウザの 声に もどる）。もう ある 音は いつも どおり 返す。
+export function createTts({ dir, apiKey = '', model = 'gpt-4o-mini-tts', voice = 'coral', dailyNew = 3000, maxCacheBytes = 1024 * 1024 * 1024, timeoutMs = 15000, generate = null, log = console, now = Date.now } = {}) {
   let clientPromise = null;
   const openai = async (text, opts) => {
     if (!clientPromise) clientPromise = import('openai').then(({ default: OpenAI }) => new OpenAI({ apiKey, timeout: timeoutMs, maxRetries: 1 }));
@@ -46,6 +49,14 @@ export function createTts({ dir, apiKey = '', model = 'gpt-4o-mini-tts', voice =
   const make = generate || (apiKey ? openai : null);
   const pending = new Map(); // 同じ 文を 同時に たのまれても 1 回だけ 作る
   let day = ''; let made = 0;
+  let cacheBytes = null; // DATA_DIR/tts の 合計（はじめて 作る ときに 1 回 数える）
+  const cacheSize = async () => {
+    if (cacheBytes !== null) return cacheBytes;
+    let n = 0;
+    for (const f of await fs.readdir(dir).catch(() => [])) { if (f.endsWith('.mp3')) n += (await fs.stat(path.join(dir, f)).catch(() => null))?.size || 0; }
+    cacheBytes = n;
+    return n;
+  };
 
   async function get(rawText, rawLang, { voice: rawVoice = '', style: rawStyle = '' } = {}) {
     const text = cleanText(rawText);
@@ -62,13 +73,15 @@ export function createTts({ dir, apiKey = '', model = 'gpt-4o-mini-tts', voice =
     const today = new Date(now()).toISOString().slice(0, 10);
     if (today !== day) { day = today; made = 0; }
     if (made >= dailyNew) return { status: 503 };
+    if (file && maxCacheBytes > 0 && await cacheSize() >= maxCacheBytes) { log.warn?.('[tts] cache is full; not making new audio'); return { status: 503 }; }
+    if (pending.has(key)) return pending.get(key);
     made += 1;
     const job = (async () => {
       try {
         const audio = await make(text, { lang, model, voice: v, instructions: (narr ? NARR : STYLE)[lang] });
         if (!audio?.length) return { status: 502 };
         if (file) {
-          try { await fs.mkdir(dir, { recursive: true }); await fs.writeFile(`${file}.tmp`, audio); await fs.rename(`${file}.tmp`, file); }
+          try { await fs.mkdir(dir, { recursive: true }); await fs.writeFile(`${file}.tmp`, audio); await fs.rename(`${file}.tmp`, file); if (cacheBytes !== null) cacheBytes += audio.length; }
           catch (err) { log.warn?.('[tts] could not cache:', err.message); }
         }
         return { status: 200, audio, cached: false };

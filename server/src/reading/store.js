@@ -7,7 +7,7 @@ import { blankProgress, sanitizeProgress, bookById, artPath, ART_VERSION, starsO
 const key = (classCode, name) => `${String(classCode ?? '').normalize('NFKC').toLowerCase().trim()}|${String(name ?? '').normalize('NFKC').trim()}`;
 
 export class ReadingStore {
-  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.students = {}; }
+  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.students = Object.create(null); }
 
   async init() {
     if (this.file) {

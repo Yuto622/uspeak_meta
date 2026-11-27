@@ -52,7 +52,8 @@ export function parseDelimited(text) {
   rows.push(row);
   // Trailing empty line(s) from a final newline are not rows.
   while (rows.length && rows[rows.length - 1].every((c) => c.trim() === '')) rows.pop();
-  return rows.map((r) => r.map((c) => c.trim()));
+  // rosterToCsv が 数式よけに つけた 先頭の ' を はずす（書き出した CSV を そのまま 読みもどせる ように）。
+  return rows.map((r) => r.map((c) => c.trim().replace(/^'(?=[=+\-@])/, '')));
 }
 
 // Text (CSV, TSV, a paste) -> [{ class, name, note }], ANY_CLASS for every-class rows.
@@ -61,7 +62,9 @@ export function rosterFromText(text) {
 }
 
 const csvCell = (v) => {
-  const s = String(v ?? '');
+  let s = String(v ?? '');
+  // 数式として 読まれない ように（Excel が = + - @ を 式に する）。読みもどすときは parseDelimited が ' を はずす。
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 

@@ -20,15 +20,15 @@ const MAX_HISTORY = 40;
 export class RoadmapStore {
   constructor(file, { log = console, now = Date.now } = {}) {
     this.file = file; this.log = log; this.now = now;
-    this.classes = {}; this.students = {}; this.updatedAt = 0;
+    this.classes = Object.create(null); this.students = Object.create(null); this.updatedAt = 0;
   }
 
   async init() {
     if (this.file) {
       try {
         const raw = JSON.parse(await fs.readFile(this.file, 'utf8'));
-        this.classes = raw.classes && typeof raw.classes === 'object' ? raw.classes : {};
-        this.students = raw.students && typeof raw.students === 'object' ? raw.students : {};
+        this.classes = Object.assign(Object.create(null), raw.classes && typeof raw.classes === 'object' ? raw.classes : {});
+        this.students = Object.assign(Object.create(null), raw.students && typeof raw.students === 'object' ? raw.students : {});
         this.updatedAt = Number(raw.updatedAt) || 0;
       } catch (err) { if (err.code !== 'ENOENT') this.log.warn('[roadmap] could not read', this.file, err.message); }
     }

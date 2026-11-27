@@ -9,7 +9,7 @@ const key = (classCode, name) => `${fold(classCode)}|${String(name ?? '').normal
 const MAX_CLASSES = 500;
 
 export class AbcStore {
-  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.students = {}; this.settings = {}; }
+  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.students = Object.create(null); this.settings = Object.create(null); }
 
   async init() {
     if (this.file) {

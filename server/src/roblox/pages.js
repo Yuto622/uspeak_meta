@@ -120,7 +120,7 @@ export function parentHtml(s, { madeAt = Date.now(), live = true } = {}) {
   const g = guess ? guess.values.week ?? guess.values.all : null;
   const tables = M.filter((m) => m.unit === 'table').map((m) => `<section><h2>${esc(m.label_ja)}</h2>${tableMetric(m, 'all')}${hasWeek(m) && Array.isArray(m.values.week) && m.values.week.length ? `<details><summary class="fine">今週だけ見る</summary>${tableMetric(m, 'week')}</details>` : ''}</section>`).join('');
   const lists = M.filter((m) => m.unit === 'list').map((m) => `<section><h2>${esc(m.label_ja)}</h2>${listMetric(m)}</section>`).join('');
-  const who = s.child?.name && s.child.name !== s.username ? `${s.child.name} さん <small>（Roblox: <span translate="no">${esc(s.username)}</span>）</small>` : `<span translate="no">${esc(s.username)}</span> さん`;
+  const who = s.child?.name && s.child.name !== s.username ? `${esc(s.child.name)} さん <small>（Roblox: <span translate="no">${esc(s.username)}</span>）</small>` : `<span translate="no">${esc(s.username)}</span> さん`;
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -235,7 +235,8 @@ export function classSection(rows, { classCode, token = '', now = Date.now() } =
 
 export function classCsv(rows, { now = Date.now() } = {}) {
   const extra = classColumns(rows);
-  const q = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  // 数式として 読まれない ように（= + - @ ではじまる 文字は 先頭に ' を つける。CSV インジェクション。game/report.js と 同じ）。
+  const q = (v) => { let t = String(v ?? ''); if (typeof v === 'string' && /^[=+\-@\t\r]/.test(t)) t = `'${t}`; return `"${t.replace(/"/g, '""')}"`; };
   const val = (row, key, period = 'week') => { const m = row.metrics.find((x) => x.key === key); const v = m ? m.values[period] : null; return v === null || v === undefined ? '' : Array.isArray(v) ? JSON.stringify(v) : v; };
   const head = ['username', 'name', 'registered', 'study_minutes_week', 'questions_week', 'accuracy_week', 'guess_rate_week', 'last_seen', 'streak_days', 'flags', ...extra.map((c) => `${c.key}_week`)];
   const lines = rows.map((row) => [

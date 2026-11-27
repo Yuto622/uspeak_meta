@@ -198,6 +198,10 @@ export async function startServer({ port = config.port, storeOverride = null, tt
     next();
   });
 
+  // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
+  // **口より 前に 置く。** 前は 下の /report・/class・/export を 作った あとに 置いて いたので、その 3 つ（PDF を 組む 重い 口も）には 効いて いなかった。
+  app.use(['/api/liff', '/r', '/report', '/report-live', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
+
   // 問題の形式（7つ）の見た目と操作を試す開発用のページ（client/dist/dev-formats.html）。
   app.get('/dev/formats', (req, res) => res.redirect(302, '/dev-formats.html'));
 
@@ -458,8 +462,6 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); robloxBooksAdminExtension({ assets: robloxBookAssets, log })(ctx); kidsAdmin(ctx); abcAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
   const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
-  // 子どもの 名前や リンクが 入る 口には 1 つの IP から 1 分 120 回まで（総当たりの 守り）。
-  app.use(['/api/liff', '/r', '/report', '/class', '/export', '/teacher'], rateLimit({ windowMs: 60_000, max: 120 }));
   // なまえを えらんで 入る（クラスの QR）。その クラスの 子どもの なまえ だけ・1 つの IP から 1 分 30 回まで。
   mountJoinNames(app, { kids: kidsStore, classrooms, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
   if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
@@ -471,7 +473,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // （鍵は Roblox の Secrets から 読む。test/roblox-setup.test.mjs が 鍵らしい 文字が ない ことを 見る）。きまった 3 つの 名前だけ 出す。
   const ROBLOX_SETUPS = { abc: 'setup-abc-place.lua', books: 'setup-books-place.lua', drill: 'setup-drill-place.lua' };
   app.get('/roblox-setup/:name', (req, res) => {
-    const file = ROBLOX_SETUPS[String(req.params.name || '').replace(/\.lua$/, '')];
+    const key = String(req.params.name || '').replace(/\.lua$/, '');
+    const file = Object.hasOwn(ROBLOX_SETUPS, key) ? ROBLOX_SETUPS[key] : null;
     if (!file) { res.status(404).type('text/plain').send('not found'); return; }
     fs.readFile(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../roblox', file), 'utf8', (err, text) => {
       if (err) { res.status(404).type('text/plain').send('not found'); return; }
@@ -487,7 +490,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // Roblox 版からの口（鍵がなければ開かない）。
   roblox.mount(app);
   // 自然な 声（鍵が なければ 503 で、ブラウザの 声に もどる）。
-  const tts = createTts({ dir: config.storeBackend === 'memory' ? '' : path.resolve(config.dataDir, 'tts'), apiKey: config.ai.apiKey, model: config.ai.ttsModel, voice: config.ai.ttsVoice, dailyNew: config.ai.ttsDailyNew, timeoutMs: config.ai.timeoutMs, generate: ttsGenerate, log });
+  const tts = createTts({ dir: config.storeBackend === 'memory' ? '' : path.resolve(config.dataDir, 'tts'), apiKey: config.ai.apiKey, model: config.ai.ttsModel, voice: config.ai.ttsVoice, dailyNew: config.ai.ttsDailyNew, maxCacheBytes: config.ai.ttsCacheMaxMb * 1024 * 1024, timeoutMs: config.ai.timeoutMs, generate: ttsGenerate, log });
   tts.mount(app);
   mountRoadmapApi(app, { service: roadmap, roadmap: roadmapStore, roblox, key: config.roblox.key, log });
 

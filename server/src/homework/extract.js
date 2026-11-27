@@ -6,7 +6,7 @@
 // どちらで 読んでも、**先生が admin で たしかめて「くばる」を 押すまで 子どもには 出ない**（AI は 答えを まちがえる ことが ある）。
 import { config } from '../config.js';
 import { assignKinds, KINDS, MAX_ITEMS } from './items.js';
-import { readFile, parseAiken, parseGift } from './files.js';
+import { readFile, parseAiken, parseGift, hasAikenAnswer, hasGiftBraces } from './files.js';
 
 const JA = /[぀-ヿ㐀-鿿]/;
 const cut = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
@@ -17,7 +17,8 @@ const unnumber = (s) => cut(s).replace(/^(?:[QＱ]?\s*\d{1,3}\s*[.．)）:：、
 export function parseRules(text) {
   const items = [];
   let title = '';
-  const lines = String(text || '').replace(/\r\n?/g, '\n').split('\n').map(cut).filter(Boolean);
+  // 1 行は 300 字まで（問題 1 つには じゅうぶん。何 MB も ある 1 行で 下の 正規表現が 止まらない ように）。
+  const lines = String(text || '').replace(/\r\n?/g, '\n').split('\n').map((l) => cut(l).slice(0, 300)).filter(Boolean);
   for (let i = 0; i < lines.length && items.length < MAX_ITEMS; i += 1) {
     const raw = lines[i];
     if (!title && /^(?:#|title[:：]|だい[:：]|題[:：])/i.test(raw)) { title = raw.replace(/^(?:#+|title[:：]|だい[:：]|題[:：])\s*/i, ''); continue; }
@@ -174,8 +175,8 @@ export async function extractHomework({ text = '', files = [], images = [] } = {
     }
     if (!got || !got.items.length) {
       // Aiken・GIFT を はりつけた ときも ここで 読める
-      const aiken = /^\s*ANSWER\s*:/im.test(allText) ? parseAiken(allText) : [];
-      const gift = !aiken.length && /\{[^}]*[=~][^}]*\}/.test(allText) ? parseGift(allText) : [];
+      const aiken = hasAikenAnswer(allText, { strict: false }) ? parseAiken(allText) : [];
+      const gift = !aiken.length && hasGiftBraces(allText) ? parseGift(allText) : [];
       got = aiken.length ? { title: '', items: aiken } : gift.length ? { title: '', items: gift } : parseRules(allText);
     }
     items = items.concat(got.items);

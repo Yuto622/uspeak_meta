@@ -23,15 +23,21 @@ const cut = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
 const JA = /[぀-ヿ㐀-鿿]/;
 
 // ---- zip（xlsx / docx / pptx / odt / ods は zip の 中の XML）--------------------------------------
-export function unzip(buf) {
+// zip 爆弾の 守り：ひらいた あとの 大きさに 上限（1 つ 40MB・ぜんぶで 120MB・中身は 2000 こまで）。
+// 小さな ファイルが 何 GB にも ふくらんで サーバーの メモリを 食いつぶさない ように。
+export const UNZIP_MAX_ENTRY = 40 * 1024 * 1024;
+export const UNZIP_MAX_TOTAL = 120 * 1024 * 1024;
+const UNZIP_MAX_FILES = 2000;
+export function unzip(buf, { maxEntry = UNZIP_MAX_ENTRY, maxTotal = UNZIP_MAX_TOTAL } = {}) {
   const files = new Map();
+  let total = 0;
   // 中央ディレクトリの おわり（EOCD）を うしろから さがす
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65557); i -= 1) if (buf.readUInt32LE(i) === 0x06054b50) { eocd = i; break; }
   if (eocd < 0) throw new Error('zip ではありません');
   const count = buf.readUInt16LE(eocd + 10);
   let p = buf.readUInt32LE(eocd + 16);
-  for (let n = 0; n < count && p + 46 <= buf.length; n += 1) {
+  for (let n = 0; n < Math.min(count, UNZIP_MAX_FILES) && p + 46 <= buf.length; n += 1) {
     if (buf.readUInt32LE(p) !== 0x02014b50) break;
     const method = buf.readUInt16LE(p + 10);
     const size = buf.readUInt32LE(p + 20);
@@ -43,18 +49,32 @@ export function unzip(buf) {
     const start = local + 30 + buf.readUInt16LE(local + 26) + buf.readUInt16LE(local + 28);
     const raw = buf.subarray(start, start + size);
     if (size > 30_000_000) continue;
-    try { files.set(name, method === 8 ? zlib.inflateRawSync(raw) : method === 0 ? raw : null); } catch { /* こわれた 1 つは とばす */ }
+    const room = Math.min(maxEntry, maxTotal - total);
+    if (room <= 0) throw new Error('ファイルの 中身が 大きすぎます');
+    let out = null;
+    try {
+      out = method === 8 ? zlib.inflateRawSync(raw, { maxOutputLength: room }) : method === 0 ? (raw.length <= room ? raw : null) : null;
+    } catch (err) {
+      if (err?.code === 'ERR_BUFFER_TOO_LARGE') throw new Error('ファイルの 中身が 大きすぎます');
+      /* こわれた 1 つは とばす */
+    }
+    if (out) { total += out.length; files.set(name, out); }
   }
   return files;
 }
 
-const xmlText = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n)).replace(/&amp;/g, '&');
+const xmlText = (s) => String(s).replace(/<[^<>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d{1,7});/g, (m, n) => (+n <= 0x10ffff ? String.fromCodePoint(+n) : '')).replace(/&amp;/g, '&');
+
+// `<x …>…</x>` を 正規表現で 拾う 前に、さいごの 閉じタグより うしろを 切る。閉じない ひらきタグが たくさん ある
+// こわれた（わざと 作った）XML で、正規表現が ひらきタグ ごとに 終わりまで 読みなおして 何分も 止まる（ReDoS）のを ふせぐ。
+const upToLast = (s, ...closes) => { const str = String(s); let end = -1; for (const c of closes) { const i = str.lastIndexOf(c); if (i >= 0) end = Math.max(end, i + c.length); } return end < 0 ? '' : str.slice(0, end); };
 
 // 段落ごとに 1 行の 文に する（docx の <w:p>、pptx の <a:p>、odt の <text:p>）
 function paragraphs(xml, tag) {
   const out = [];
   const re = new RegExp(`<${tag}[ >][\\s\\S]*?</${tag}>`, 'g');
-  for (const m of String(xml).match(re) || []) {
+  const closes = tag === 'text:(?:p|h)' ? ['</text:p>', '</text:h>'] : [`</${tag}>`];
+  for (const m of upToLast(xml, ...closes).match(re) || []) {
     const t = cut(xmlText(m.replace(/<w:tab\/>|<a:tab\/>|<text:tab\/>/g, '\t').replace(/<w:br\/>|<a:br\/>|<text:line-break\/>/g, '\n')));
     if (t) out.push(t);
   }
@@ -83,19 +103,19 @@ export function xlsxRows(buf) {
   const z = unzip(buf);
   const shared = [];
   const ss = z.get('xl/sharedStrings.xml')?.toString('utf8') || '';
-  for (const si of ss.match(/<si>[\s\S]*?<\/si>/g) || []) shared.push(xmlText((si.match(/<t[^>]*>[\s\S]*?<\/t>/g) || []).join('')));
+  for (const si of upToLast(ss, '</si>').match(/<si>[\s\S]*?<\/si>/g) || []) shared.push(xmlText((upToLast(si, '</t>').match(/<t[^>]*>[\s\S]*?<\/t>/g) || []).join('')));
   const sheetName = [...z.keys()].filter((k) => /^xl\/worksheets\/sheet\d+\.xml$/.test(k)).sort()[0];
   if (!sheetName) throw new Error('シートが 見つかりません');
   const xml = z.get(sheetName).toString('utf8');
   const rows = [];
-  for (const r of xml.match(/<row[\s\S]*?<\/row>/g) || []) {
+  for (const r of upToLast(xml, '</row>').match(/<row[\s\S]*?<\/row>/g) || []) {
     const row = [];
-    for (const c of r.match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g) || []) {
+    for (const c of upToLast(r, '</c>').match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g) || []) {
       const ref = (c.match(/ r="([A-Z]+)\d+"/) || [])[1] || '';
       const col = ref ? [...ref].reduce((n, ch) => n * 26 + ch.charCodeAt(0) - 64, 0) - 1 : row.length;
       const type = (c.match(/ t="([^"]+)"/) || [])[1] || '';
-      const v = (c.match(/<v>([\s\S]*?)<\/v>/) || [])[1];
-      const inline = (c.match(/<is>([\s\S]*?)<\/is>/) || [])[1];
+      const v = (upToLast(c, '</v>').match(/<v>([\s\S]*?)<\/v>/) || [])[1];
+      const inline = (upToLast(c, '</is>').match(/<is>([\s\S]*?)<\/is>/) || [])[1];
       row[col] = type === 's' ? shared[Number(v)] ?? '' : type === 'inlineStr' ? xmlText(inline || '') : xmlText(v ?? '');
     }
     rows.push(Array.from(row, (x) => cut(x ?? '')));
@@ -105,13 +125,13 @@ export function xlsxRows(buf) {
 // OpenDocument 表(.ods)
 export function odsRows(buf) {
   const c = unzip(buf).get('content.xml')?.toString('utf8') || '';
-  const table = (c.match(/<table:table [\s\S]*?<\/table:table>/) || [''])[0];
+  const table = (upToLast(c, '</table:table>').match(/<table:table [\s\S]*?<\/table:table>/) || [''])[0];
   const rows = [];
-  for (const r of table.match(/<table:table-row[\s\S]*?<\/table:table-row>/g) || []) {
+  for (const r of upToLast(table, '</table:table-row>').match(/<table:table-row[\s\S]*?<\/table:table-row>/g) || []) {
     const row = [];
-    for (const cell of r.match(/<table:table-cell[\s\S]*?(?:\/>|<\/table:table-cell>)/g) || []) {
+    for (const cell of upToLast(r, '/>', '</table:table-cell>').match(/<table:table-cell[\s\S]*?(?:\/>|<\/table:table-cell>)/g) || []) {
       const rep = Math.min(50, Number((cell.match(/table:number-columns-repeated="(\d+)"/) || [])[1] || 1));
-      const t = cut(xmlText((cell.match(/<text:p>[\s\S]*?<\/text:p>/g) || []).join(' ')));
+      const t = cut(xmlText((upToLast(cell, '</text:p>').match(/<text:p>[\s\S]*?<\/text:p>/g) || []).join(' ')));
       for (let i = 0; i < rep; i += 1) row.push(t);
     }
     rows.push(row);
@@ -135,6 +155,20 @@ export function delimitedRows(text) {
   }
   if (cell !== '' || row.length) { row.push(cut(cell)); rows.push(row); }
   return rows.filter((r) => r.some(Boolean));
+}
+
+// 書式の 見わけ（Aiken の「ANSWER: B」の 行・GIFT の {=…}／{~…}）。正規表現の /^\s*…$/m や /\{[^}]*[=~]…/ は
+// 改行や「{」が たくさん ある 文で 何秒も 止まる（ReDoS）ので、1 回 なめるだけの 書き方に した。中身は 同じ。
+export const hasAikenAnswer = (t, { strict = true } = {}) => String(t).split('\n').some((l) => (strict ? /^\s*ANSWER\s*:\s*[A-H]\s*$/i : /^\s*ANSWER\s*:/i).test(l));
+export function hasGiftBraces(t) {
+  const s = String(t); let open = false;
+  for (let i = 0; i < s.length; i += 1) {
+    const ch = s[i];
+    if (ch === '{') open = true;
+    else if (ch === '}') open = false;
+    else if (open && (ch === '=' || ch === '~') && s.indexOf('}', i) >= 0) return true;
+  }
+  return false;
 }
 
 // ---- 表 → 問題 -------------------------------------------------------------------------------------
@@ -244,11 +278,11 @@ export function parseGift(text) {
 // Moodle XML（multichoice / shortanswer / matching / truefalse）
 export function parseMoodleXml(xml) {
   const items = [];
-  const text = (s) => cut(xmlText((String(s).match(/<text>([\s\S]*?)<\/text>/) || [])[1] || '').replace(/<!\[CDATA\[|\]\]>/g, ''));
-  for (const q of String(xml).match(/<question type="[^"]+"[\s\S]*?<\/question>/g) || []) {
+  const text = (s) => cut(xmlText((upToLast(s, '</text>').match(/<text>([\s\S]*?)<\/text>/) || [])[1] || '').replace(/<!\[CDATA\[|\]\]>/g, ''));
+  for (const q of upToLast(xml, '</question>').match(/<question type="[^"]+"[\s\S]*?<\/question>/g) || []) {
     const type = q.match(/type="([^"]+)"/)[1];
-    const prompt = text((q.match(/<questiontext[\s\S]*?<\/questiontext>/) || [''])[0]);
-    const answers = (q.match(/<answer [\s\S]*?<\/answer>/g) || []).map((a) => ({ ok: Number((a.match(/fraction="([\d.-]+)"/) || [])[1] || 0) > 0, t: text(a) }));
+    const prompt = text((upToLast(q, '</questiontext>').match(/<questiontext[\s\S]*?<\/questiontext>/) || [''])[0]);
+    const answers = (upToLast(q, '</answer>').match(/<answer [\s\S]*?<\/answer>/g) || []).map((a) => ({ ok: Number((a.match(/fraction="([\d.-]+)"/) || [])[1] || 0) > 0, t: text(a) }));
     if (type === 'multichoice' || type === 'truefalse') {
       const right = answers.find((a) => a.ok);
       if (prompt && right && answers.length >= 2) items.push({ kind: 'mc', prompt, answer: right.t, wrong: answers.filter((a) => a !== right).map((a) => a.t) });
@@ -256,8 +290,8 @@ export function parseMoodleXml(xml) {
       const right = answers.find((a) => a.ok);
       if (right && /^[A-Za-z'-]+$/.test(right.t)) items.push({ kind: 'type', en: right.t, ja: prompt });
     } else if (type === 'matching') {
-      for (const sq of q.match(/<subquestion[\s\S]*?<\/subquestion>/g) || []) {
-        const a = text(sq); const b = text((sq.match(/<answer>[\s\S]*?<\/answer>/) || [''])[0]);
+      for (const sq of upToLast(q, '</subquestion>').match(/<subquestion[\s\S]*?<\/subquestion>/g) || []) {
+        const a = text(sq); const b = text((upToLast(sq, '</answer>').match(/<answer>[\s\S]*?<\/answer>/) || [''])[0]);
         if (a && b) items.push(JA.test(a) && !JA.test(b) ? { en: b, ja: a } : { en: a, ja: b });
       }
     }
@@ -311,7 +345,7 @@ export async function readFile({ name = '', type = '', data = '' }) {
   if (ext === 'gift') return { items: parseGift(asText()), format: 'gift' };
   // テキスト：書式を 見わける（Aiken → GIFT → 表っぽい → ふつうの 文）
   const t = ext === 'html' || ext === 'htm' ? xmlText(asText().replace(/<(br|p|div|li|tr)[^>]*>/gi, '\n')) : asText();
-  if (/^\s*ANSWER\s*:\s*[A-H]\s*$/im.test(t)) { const items = parseAiken(t); if (items.length) return { items, format: 'aiken' }; }
-  if (/\{[^}]*[=~][^}]*\}/.test(t)) { const items = parseGift(t); if (items.length) return { items, format: 'gift' }; }
+  if (hasAikenAnswer(t)) { const items = parseAiken(t); if (items.length) return { items, format: 'aiken' }; }
+  if (hasGiftBraces(t)) { const items = parseGift(t); if (items.length) return { items, format: 'gift' }; }
   return { text: t };
 }

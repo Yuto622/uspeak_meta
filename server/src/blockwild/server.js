@@ -23,6 +23,7 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from '
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import { who } from '../log.js';
+import { cleanSay } from '../game/say.js';
 
 export const BW_MAX_PLAYERS = 20;
 export const BW_W = 256;            // the vendored world is 256 × 256 × 64 (src/world.js)
@@ -33,6 +34,16 @@ const TICK_MS = 100;                // positions go out ten times a second, like
 const TIME_SYNC_MS = 20000;
 const SAVE_DEBOUNCE_MS = 2000;
 const BLOCKS_PER_SEC = 300;         // more than a child can click; less than a loop can flood
+// The door takes no password (the vendored client knows none), so what a stranger can make
+// it hold is bounded: a class code looks like one (the room's sanitizeClassCode keeps
+// [a-z0-9_-]; tests and old saves use capitals), at most MAX_WORLDS worlds sit in memory
+// (an empty one is saved and dropped to make room), at most SPAWN_CONCURRENCY generators
+// run at once, and chat goes through the same check as the class chat (game/say.js:
+// no phone numbers, links or unkind words), at most one line every CHAT_MIN_MS.
+const CODE = /^[A-Za-z0-9_-]{1,40}$/;
+export const MAX_WORLDS = 200;
+const SPAWN_CONCURRENCY = 2;
+const CHAT_MIN_MS = 1500;
 
 const int = (v, lo, hi) => (Number.isInteger(v) && v >= lo && v <= hi ? v : null);
 const num = (v, lo, hi, fb = 0) => (Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : fb);
@@ -69,8 +80,24 @@ export function computeSpawn(seed, { timeoutMs = 20000 } = {}) {
   });
 }
 
-export function createBlockwildServer({ server, dataDir, log = console, maxPlayers = BW_MAX_PLAYERS, originAllowed = () => true, spawnFor = computeSpawn, now = Date.now } = {}) {
+export function createBlockwildServer({ server, dataDir, log = console, maxPlayers = BW_MAX_PLAYERS, originAllowed = () => true, spawnFor = computeSpawn, now = Date.now, maxWorlds = MAX_WORLDS } = {}) {
   const worlds = new Map();
+  // Generators in flight: each one fills ~12 MB and a core for a second or two.
+  let spawning = 0; const spawnQueue = [];
+  const nextSpawn = () => { while (spawning < SPAWN_CONCURRENCY && spawnQueue.length) { const job = spawnQueue.shift(); spawning += 1; job().finally(() => { spawning -= 1; nextSpawn(); }); } };
+  const queuedSpawn = (seed) => new Promise((resolve) => { spawnQueue.push(() => Promise.resolve().then(() => spawnFor(seed)).then(resolve, () => resolve(null))); nextSpawn(); });
+  // Room for one more world: drop an empty one (saved first). False when every world has children in it.
+  const makeRoom = () => {
+    if (worlds.size < maxWorlds) return true;
+    for (const [code, w] of worlds) {
+      if (w.players.size || w.sockets || !w.spawn) continue;
+      save(w);
+      if (w.dirty) continue;                 // could not save: keep it
+      worlds.delete(code);
+      return true;
+    }
+    return false;
+  };
   const wss = new WebSocketServer({ noServer: true, maxPayload: 32 * 1024, perMessageDeflate: false });
   let closed = false;
 
@@ -101,7 +128,7 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
   function world(code) {
     let w = worlds.get(code);
     if (!w) { w = load(code); worlds.set(code, w); }
-    if (!w.ready) w.ready = w.spawn ? Promise.resolve(w.spawn) : spawnFor(w.seed).then((s) => { w.spawn = s || [BW_W / 2 + 0.5, 40, BW_W / 2 + 0.5]; w.dirty = true; scheduleSave(w); return w.spawn; });
+    if (!w.ready) w.ready = w.spawn ? Promise.resolve(w.spawn) : queuedSpawn(w.seed).then((s) => { w.spawn = s || [BW_W / 2 + 0.5, 40, BW_W / 2 + 0.5]; w.dirty = true; scheduleSave(w); return w.spawn; });
     return w;
   }
   const timeOf = (w) => w.timeBase + (now() - w.timeAt) / 1000;
@@ -136,9 +163,11 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
 
   function attach(ws, code) {
     const w = world(code);
+    w.sockets = (w.sockets || 0) + 1;      // still connecting: not a world to drop
     let me = null;
     let blockBudget = BLOCKS_PER_SEC;
     let budgetAt = now();
+    let lastChat = 0; let lastChatText = '';
     const timer = setTimeout(() => { if (!me) ws.close(1000, 'no join'); }, 12000);
 
     ws.on('message', async (data, isBinary) => {
@@ -199,8 +228,14 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
           break;
         }
         case 'chat': {
-          const text = String(m.text ?? '').replace(/[\u0000-\u001f]/g, '').trim().slice(0, 120);
-          if (text) broadcast(w, { t: 'chat', from: me.name, text });
+          // The class chat's own check (game/say.js): a stranger at this door must not be able
+          // to hand a child a phone number, a link or an unkind word.
+          const t = now();
+          if (t - lastChat < CHAT_MIN_MS) break;
+          const said = cleanSay(String(m.text ?? '').replace(/[\u0000-\u001f]/g, '').trim().slice(0, 120), { last: lastChatText });
+          if (!said.ok) { if (said.reason !== 'empty') send(me, { t: 'sys', text: 'その ことばは おくれません' }); break; }
+          lastChat = t; lastChatText = said.text;
+          broadcast(w, { t: 'chat', from: me.name, text: said.text });
           break;
         }
         default: break;          // mobhit / needmob: this server keeps no mobs
@@ -208,6 +243,7 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
     });
     ws.on('close', () => {
       clearTimeout(timer);
+      w.sockets -= 1;
       if (!me) return;
       w.players.delete(me.id);
       broadcast(w, { t: 'leave', id: me.id });
@@ -258,7 +294,9 @@ export function createBlockwildServer({ server, dataDir, log = console, maxPlaye
     }
     if (closed || !originAllowed(req.headers.origin)) { socket.write('HTTP/1.1 403 Forbidden\r\n\r\n'); socket.destroy(); return; }
     let code = 'default';
-    try { code = decodeURIComponent(m[1] || 'default').trim().slice(0, 40) || 'default'; } catch { /* keep default */ }
+    try { code = decodeURIComponent(m[1] || 'default').trim() || 'default'; } catch { code = ''; }
+    if (!CODE.test(code)) { socket.write('HTTP/1.1 404 Not Found\r\n\r\n'); socket.destroy(); return; }
+    if (!worlds.has(code) && !makeRoom()) { socket.write('HTTP/1.1 503 Service Unavailable\r\n\r\n'); socket.destroy(); return; }
     wss.handleUpgrade(req, socket, head, (ws) => attach(ws, code));
   });
 

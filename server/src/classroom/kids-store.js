@@ -12,14 +12,15 @@ const MAX_CLASSES = 500;
 const MAX_STUDENTS = 400;
 
 export class KidsStore {
-  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.classes = {}; this.rooms = {}; this.version = 0; }
+  // 表は 親の ない オブジェクト（クラスや 名前が「__proto__」「constructor」でも Object.prototype を さわらない）。
+  constructor(file, { log = console } = {}) { this.file = file; this.log = log; this.classes = Object.create(null); this.rooms = Object.create(null); this.version = 0; }
 
   async init() {
     if (this.file) {
       try {
         const raw = JSON.parse(await fs.readFile(this.file, 'utf8'));
         for (const [code, v] of Object.entries(raw.classes || {}).slice(0, MAX_CLASSES)) {
-          const students = {};
+          const students = Object.create(null);
           for (const [n, m] of Object.entries(v?.students || {}).slice(0, MAX_STUDENTS)) if (m === 'on' || m === 'off') students[fold(n)] = m;
           if (fold(code)) this.classes[fold(code)] = { on: v?.on === true, students, ...(v?.pick === true ? { pick: true } : {}) };
         }
@@ -44,7 +45,7 @@ export class KidsStore {
     const code = fold(classCode);
     if (!code) return false;
     if (!this.classes[code] && Object.keys(this.classes).length >= MAX_CLASSES) return false;
-    (this.classes[code] ||= { on: false, students: {} }).on = on === true;
+    (this.classes[code] ||= { on: false, students: Object.create(null) }).on = on === true;
     await this.save();
     return true;
   }
@@ -54,7 +55,7 @@ export class KidsStore {
     const code = fold(classCode);
     if (!code) return false;
     if (!this.classes[code] && Object.keys(this.classes).length >= MAX_CLASSES) return false;
-    const c = (this.classes[code] ||= { on: false, students: {} });
+    const c = (this.classes[code] ||= { on: false, students: Object.create(null) });
     if (on === true) c.pick = true; else delete c.pick;
     await this.save();
     return true;
@@ -71,7 +72,7 @@ export class KidsStore {
   async setStudent(classCode, name, mode) {
     const code = fold(classCode); const n = fold(name);
     if (!code || !n || !KIDS_MODES.includes(mode)) return false;
-    const c = (this.classes[code] ||= { on: false, students: {} });
+    const c = (this.classes[code] ||= { on: false, students: Object.create(null) });
     if (mode === 'inherit') delete c.students[n];
     else { if (!c.students[n] && Object.keys(c.students).length >= MAX_STUDENTS) return false; c.students[n] = mode; }
     await this.save();

@@ -93,6 +93,8 @@ export const config = Object.freeze({
     ttsModel: (env.OPENAI_TTS_MODEL ?? 'gpt-4o-mini-tts').trim(),
     ttsVoice: (env.OPENAI_TTS_VOICE ?? 'coral').trim(),
     ttsDailyNew: int('TTS_DAILY_NEW', 3000),
+    // DATA_DIR/tts の 上限（MB）。0 で 上限なし。
+    ttsCacheMaxMb: Math.max(0, int('TTS_CACHE_MAX_MB', 1024)),
   },
   // 大広間（SFU）. A mesh is six children; a school assembly is a hundred, and a hundred
   // browsers cannot each hold ninety-nine connections. A LiveKit server forwards the

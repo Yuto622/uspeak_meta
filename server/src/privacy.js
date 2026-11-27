@@ -33,6 +33,10 @@ export function startRetention({ store, parentReports = null, days = 400, log = 
   return () => { clearTimeout(first); clearInterval(timer); };
 }
 
+// 要求を 送ってきた 本当の IP。Fly の 前段が つける `Fly-Client-IP` は **Fly の 上で 動いて いる ときだけ** 信じる
+// （Fly の 外＝LAN・ほかの ホストでは だれでも その 頭を 書けるので、しめ出しを 1 回ごとに 別の IP の ふりで すり抜けられる）。
+export const clientIp = (req) => (process.env.FLY_APP_NAME && req.get?.('fly-client-ip')) || req.ip || 'unknown';
+
 // 1 つの IP から 短い 時間に 来すぎる 要求を ことわる（名前の 総当たり・リンクの 総当たり）。鍵は Fly が くれる 本当の IP。
 export function rateLimit({ windowMs = 60_000, max = 120, now = Date.now } = {}) {
   const hits = new Map(); // ip -> { n, at }
@@ -40,7 +44,7 @@ export function rateLimit({ windowMs = 60_000, max = 120, now = Date.now } = {})
   return (req, res, next) => {
     const t = now();
     if (t - sweep > windowMs) { sweep = t; for (const [k, v] of hits) if (t - v.at > windowMs) hits.delete(k); }
-    const ip = req.get('fly-client-ip') || req.ip || 'unknown';
+    const ip = clientIp(req);
     const h = hits.get(ip);
     if (!h || t - h.at > windowMs) { hits.set(ip, { n: 1, at: t }); next(); return; }
     h.n += 1;

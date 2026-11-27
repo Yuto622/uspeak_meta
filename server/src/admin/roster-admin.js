@@ -19,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { ipTag } from '../log.js';
+import { clientIp } from '../privacy.js';
 import { decodeUpload, rosterFromText, rosterToCsv } from '../store/roster-text.js';
 import { isTrueCell } from '../store/roster-sheet.js';
 import { validateMetric, metricToRow, parseMetric } from '../game/roblox-metrics.js';
@@ -37,7 +38,8 @@ const safeEqual = (a, b) => {
   const x = Buffer.from(String(a)); const y = Buffer.from(String(b));
   return x.length === y.length && timingSafeEqual(x, y);
 };
-const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decodeURIComponent(v.join('='))]));
+const decode = (v) => { try { return decodeURIComponent(v); } catch { return ''; } };
+const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decode(v.join('='))]));
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet = false, isProduction = false, log = console, now = Date.now, extend = null }) {
@@ -60,6 +62,8 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
     return f.count >= FAILS_PER_WINDOW;
   };
   const noteFail = (ip) => {
+    // 表が 大きく なりすぎない ように（たくさんの IP から まちがえられても メモリを 食わない）。
+    if (fails.size > 10000) for (const [k, v] of fails) if (now() - v.at > WINDOW_MS) fails.delete(k);
     const f = fails.get(ip);
     if (!f || now() - f.at > WINDOW_MS) fails.set(ip, { count: 1, at: now() });
     else f.count += 1;
@@ -80,7 +84,7 @@ export function mountAdmin(app, { access, roblox = null, adminKey, teacherKeySet
   });
 
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
-    const ip = req.ip || 'unknown';
+    const ip = clientIp(req);
     if (tooManyFails(ip)) { log.warn(`[admin] login locked for ${ipTag(ip)}`); res.redirect(303, '/admin?locked'); return; }
     const given = String(req.body?.password ?? '');
     if (!safeEqual(given, adminKey)) {

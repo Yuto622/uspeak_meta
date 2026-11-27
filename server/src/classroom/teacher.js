@@ -10,6 +10,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import express from 'express';
 import { ipTag } from '../log.js';
+import { clientIp } from '../privacy.js';
 import { mountHomeworkApi, page as homeworkPage } from '../homework/admin.js';
 import { signClass } from '../game/report.js';
 import { mountKidsApi, kidsPage } from './kids.js';
@@ -21,7 +22,8 @@ const WINDOW_MS = 10 * 60 * 1000;
 const EXTRACTS_PER_HOUR = 40;
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decodeURIComponent(v.join('='))]));
+const decode = (v) => { try { return decodeURIComponent(v); } catch { return ''; } };
+const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decode(v.join('='))]));
 const safeEqual = (a, b) => { const x = Buffer.from(String(a)); const y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
 
 export function mountTeacherHomework(app, { classrooms, homework, secret, aiReady = false, isProduction = false, log = console, now = Date.now, kids = null, rosterRows = async () => [] }) {
@@ -43,7 +45,11 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     res.append('Set-Cookie', `${COOKIE}=${value}; Path=/teacher; HttpOnly; SameSite=Strict; Max-Age=${maxAgeSec}${isProduction || req?.secure ? '; Secure' : ''}`);
   };
   const locked = (ip) => { const f = fails.get(ip); return !!f && now() - f.at <= WINDOW_MS && f.count >= FAILS_PER_WINDOW; };
-  const noteFail = (ip) => { const f = fails.get(ip); if (!f || now() - f.at > WINDOW_MS) fails.set(ip, { count: 1, at: now() }); else f.count += 1; };
+  const noteFail = (ip) => {
+    // 表が 大きく なりすぎない ように（たくさんの IP から まちがえられても メモリを 食わない）。古い 行を すてる。
+    if (fails.size > 10000) for (const [k, v] of fails) if (now() - v.at > WINDOW_MS) fails.delete(k);
+    const f = fails.get(ip); if (!f || now() - f.at > WINDOW_MS) fails.set(ip, { count: 1, at: now() }); else f.count += 1;
+  };
 
   const router = express.Router();
   router.use((req, res, next) => {
@@ -74,7 +80,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     res.send(kidsPage({ room: { name: room.name, classes: room.classes } }));
   });
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
-    const ip = req.get('fly-client-ip') || req.ip || 'unknown';
+    const ip = clientIp(req);
     if (locked(ip)) { log.warn(`[teacher] login locked for ${ipTag(ip)}`); res.redirect(303, '/teacher/homework?locked'); return; }
     const room = classrooms.byPassword(req.body?.password);
     if (!room || !room.classes.length) { noteFail(ip); log.warn(`[teacher] wrong password from ${ipTag(ip)}`); res.redirect(303, '/teacher/homework?bad'); return; }
