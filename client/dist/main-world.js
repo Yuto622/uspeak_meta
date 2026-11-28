@@ -62,7 +62,7 @@ export function createMainWorld({ scene }) {
   let city = null;                  // 北西の 高層ビルの まち（main-city.js）。かざり（入れない）。
   let carpenter = null;             // じぶんの いえの となりの 大工さん・増築の 形・足場（carpenter.js）。
   let west = null;                  // ビルの まちの 西の 通り（main-west.js）。中は venue.js（別の シーン）。
-  let lastNight = 0;                // いまの 夜の こさ（venue.js が 中の 夜に つかう）
+  let lastNight = 0, westTick = 0;                // いまの 夜の こさ（venue.js が 中の 夜に つかう）
   const island = createIsland({
     scene,
     seed: 4242,
@@ -772,7 +772,7 @@ export function createMainWorld({ scene }) {
   function update(t, player) {
     baseUpdate(t, player);
     if (fx && island.visible) fx.update(t, player);
-    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); city?.update(t, player); carpenter?.update(t); if (west && player && player.position.x - island.origin().x < -70) west.update(t); }
+    if (island.visible) { realTrees?.update(t); seasons?.update(t, player); spinGates?.(t); plaza?.update(t); walkers?.update(t, player); city?.update(t, player); carpenter?.update(t); if (west && player) { const lx = player.position.x - island.origin().x; if ((++westTick & 7) === 0) west.near(lx, player.position.z - island.origin().z); if (lx < -70) west.update(t); } }
     const open = shopsOpen(); if (open !== shopsLit && shopHouses.length) { shopsLit = open; for (const [hx, hz] of shopHouses) island.setHouseLit?.(hx, hz, open); }
   }
   const baseNight = island.setNight;

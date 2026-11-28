@@ -83,6 +83,11 @@ export function buildWest({ root, D, sprite, obstacles, lamp }) {
 
   function setNight(n) { for (const p of Object.values(parts)) p.setNight?.(n); }
   function update(t) { for (const p of Object.values(parts)) p.update?.(t); }
+  // 遠くから（スタート・広場）は 描かない：建物の ふちから 110 より 遠い とき（霧の 中で ほぼ 見えない・描画 約 40 回と 20 万 三角形）。
+  const HALFW = { aquarium: 14, mall: 36, boutique: 12, furniture: 13 };
+  function near(lx, lz) {
+    for (const [id, p] of Object.entries(parts)) { const on = Math.hypot(lx - p.x, lz - p.z) - HALFW[id] < 110; if (p.group.visible !== on) p.group.visible = on; }
+  }
   // 歩道の 高さ（見た目の 床。島の 地面 0.2 からの 高さ）。モールの 歩道は +0.14、ふくや・かぐやの 歩道は +0.24。
   function floorY(lx, lz) {
     const m = WEST.mall;
@@ -103,5 +108,5 @@ export function buildWest({ root, D, sprite, obstacles, lamp }) {
     r(B.x - 8, B.z - 7, B.x + 8, B.z + 7, '#d8cbb4');
     r(F.x - 9, F.z - 7, F.x + 9, F.z + 7, '#3a3a40');
   }
-  return { parts, setNight, update, floorY, drawMap };
+  return { parts, setNight, update, near, floorY, drawMap };
 }

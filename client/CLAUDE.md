@@ -2267,3 +2267,9 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - ClassRoom の 入る・毎秒の tick・出る・`appendLearning`・`aiSpend`・`onChat`・`coinRow` に つないで ある。端末は UA から（iPad は pc に なりがち・ページが `options.device` を 送れば そちら）。
 - 画面は 1 まいの HTML（手書きの SVG の グラフ・外の ライブラリなし）：概要（人数・時間・曜日×時間の 色の 表・端末・場所・正答率）、生徒一覧（並べかえ・小さな グラフ・CSV）、生徒の 記録（1 年の カレンダー・毎日の 時間・場所・時間帯・セッション・答え・ロードマップ・宿題・本）。先生は じぶんの 教室の クラスだけ。API は `/admin/api/usage/*`（1 分 120 回・入力チェック・CSV の 式 止め）。
 - 400 日で けす（RETENTION_DAYS が みじかければ そちら）。1 人分を けすと 使用履歴も きえる（`privacy.js`）。デプロイ前の 時間・場所は ない（月の 分・週の XP など 前から ある ものは 出る・「≈」）。テスト：`server/test/usage.test.mjs`。
+
+## 西の まち（水族館・モール・MAISON U・ROYAL HOME／2026-11）
+- メインの島の ビル街の 西に 土地（`main-west.js` の `WEST.land`＝x -246…-74, z -74…-20・`PLAZA.annex.also` の `...CITY.rects` の すぐ あと・じてんしゃやの 四角は さいご の まま）。新しい 大通り（`roads` の さいご・z -31・B どおりに つながる）に 南むきで 横ならび：水族館（-227）・モール（-175）・MAISON U（-120）・ROYAL HOME（-93）。spot の kind は `aquarium`／`mall`／`boutique`／`furniture`（`_shop` で おわらない＝夜も あいて いる）。
+- 水族館の 外がわは `aquarium-ext.js`（描画 6 回）。中は 4 つとも `venue.js`（`rpg.attachVenue`・図書館と 同じ べつの シーン・入った ときに はじめて 作る・`in:aquarium` など・「🚪 そとへ」）。服屋と 家具屋は 外用と 中用の 2 つを 作る（外は 入れない）。歩道は 少し 高い（`floorY`）。
+- 建物は 110 より 遠いと かくす（8 コマごと）。ミニマップは 西に いる あいだ まんなかを 西へ ずらす。
+- **アリーナ島を うごかした**（world (-140,-110) → (-136,-48)・arena.json と rpg-data.js）。橋も：main→arena は 大通りの 南岸から、arena→forest を main→forest に、arena→town と town→fishworld の はしを 少し。server/test/bridges.test.mjs は メインの島を 2 つの 箱で 見る。
