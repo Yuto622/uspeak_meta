@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U-Speak すいぞくかん（見本）</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#02070a;color:#fff4d6;font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+  canvas{display:block;width:100vw;height:100vh;touch-action:none;cursor:grab}
+  canvas:active{cursor:grabbing}
+  .bar{position:fixed;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:8px;max-width:calc(100vw - 24px)}
+  .bar button{font:inherit;font-size:14px;font-weight:700;min-height:38px;padding:0 14px;border-radius:999px;border:2px solid #2f5a48;background:#14332acc;color:#fff4d6;cursor:pointer}
+  .bar button[aria-pressed="true"]{background:#e27a2d;border-color:#ffb066;color:#fff}
+  .bar .sep{width:6px}
+  #info{position:fixed;left:12px;bottom:12px;font-size:13px;background:#0c241cd9;border:1px solid #2f5a48;border-radius:12px;padding:8px 12px;line-height:1.5;max-width:calc(100vw - 48px)}
+  #info b{color:#8ff0c8}
+  #help{position:fixed;right:12px;bottom:12px;font-size:12px;color:#cfe0d4;background:#0c241cb3;border-radius:10px;padding:6px 10px}
+  body.shot .bar,body.shot #info,body.shot #help{display:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="bar" id="views"></div>
+<div id="info">…</div>
+<div id="help">ドラッグ：みまわす ・ WASD／やじるし：あるく ・ ホイール：まえ／うしろ</div>
+<script type="module">
+import * as THREE from './three.module.js';
+import { buildAquarium, aquariumTextureMB } from './aquarium-real.js';
+
+const Q = new URLSearchParams(location.search);
+if (Q.get('shot')) document.body.classList.add('shot');
+const canvas = document.querySelector('#c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerHeight, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.05, 300);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
+const aq = buildAquarium(); scene.add(aq.group);
+if (Q.get('only')) { const keep = Q.get('only').split(','); for (const m of aq.group.children) m.visible = keep.some((k) => m.name === `aqua-${k}`); }
+if (Q.get('q')) aq.setQuality(Q.get('q'));
+
+// 見る 場所（カメラの 位置 → 見る 点）
+const VIEWS = {
+  balcony: { label: 'まどの ホール（2かい） Porthole hall', pos: [0.6, 6.75, 8.6], look: [0, 5.0, -25], fov: 56 },
+  floor: { label: 'ホールの ゆか Hall floor', pos: [2.2, 1.55, -9], look: [0, 5.0, -25], fov: 62 },
+  gallery: { label: 'ペンギンの ろうか Penguin gallery', pos: [16.0, 1.6, 10.2], look: [19.6, 1.25, -14], fov: 62 },
+  penguins: { label: 'ペンギン アップ Penguins', pos: [18.7, 1.35, -1.5], look: [24.5, 1.6, -5.5], fov: 52 },
+  entrance: { label: 'いりぐち Entrance', pos: [3.2, 1.65, 24.3], look: [-1.2, 2.6, 13], fov: 64 },
+};
+const look = { yaw: 0, pitch: 0 };
+function setView(name) {
+  const v = VIEWS[name] || VIEWS.balcony;
+  camera.fov = v.fov; camera.updateProjectionMatrix(); camera.position.set(...v.pos);
+  const d = new THREE.Vector3(...v.look).sub(camera.position).normalize();
+  look.yaw = Math.atan2(-d.x, -d.z); look.pitch = Math.asin(d.y); apply();
+  document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+}
+function apply() { look.pitch = Math.max(-1.3, Math.min(1.3, look.pitch)); camera.rotation.set(look.pitch, look.yaw, 0, 'YXZ'); }
+const box = document.querySelector('#views');
+for (const [k, v] of Object.entries(VIEWS)) { const b = document.createElement('button'); b.dataset.view = k; b.textContent = v.label; b.onclick = () => setView(k); box.append(b); }
+const sep = document.createElement('span'); sep.className = 'sep'; box.append(sep);
+const qb = document.createElement('button'); let low = Q.get('q') === 'low'; qb.textContent = '軽く Low'; qb.setAttribute('aria-pressed', String(low));
+qb.onclick = () => { low = !low; aq.setQuality(low ? 'low' : 'high'); qb.setAttribute('aria-pressed', String(low)); }; box.append(qb);
+setView(Q.get('view'));
+
+let drag = null;
+canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', (e) => { if (!drag) return; look.yaw += (e.clientX - drag.x) * 0.004; look.pitch += (e.clientY - drag.y) * 0.004; drag = { x: e.clientX, y: e.clientY }; apply(); });
+canvas.addEventListener('pointerup', () => { drag = null; });
+const fwd = new THREE.Vector3(), side = new THREE.Vector3();
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); camera.getWorldDirection(fwd); camera.position.addScaledVector(fwd, -Math.sign(e.deltaY) * 0.8); }, { passive: false });
+const keys = new Set(); addEventListener('keydown', (e) => keys.add(e.key.toLowerCase())); addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
+
+const clock = new THREE.Clock(); let frames = 0, upd = 0, last = 0;
+const T = Q.get('t') ? +Q.get('t') : null;
+function frame() {
+  const dt = Math.min(0.1, clock.getDelta()), t = T ?? clock.elapsedTime;
+  const sp = (keys.has('shift') ? 6 : 2.6) * dt;
+  fwd.set(-Math.sin(look.yaw), 0, -Math.cos(look.yaw)); side.set(fwd.z * -1, 0, fwd.x);
+  if (keys.has('w') || keys.has('arrowup')) camera.position.addScaledVector(fwd, sp);
+  if (keys.has('s') || keys.has('arrowdown')) camera.position.addScaledVector(fwd, -sp);
+  if (keys.has('a') || keys.has('arrowleft')) camera.position.addScaledVector(side, sp);
+  if (keys.has('d') || keys.has('arrowright')) camera.position.addScaledVector(side, -sp);
+  const u0 = performance.now(); aq.update(t); upd += performance.now() - u0;
+  renderer.render(scene, camera); frames += 1;
+  if (frames % 10 === 1) {
+    const info = renderer.info.render;
+    document.querySelector('#info').innerHTML = `<b>U-SPEAK AQUARIUM</b> ・ 描画 <b>${info.calls}</b> 回 ・ 三角形 <b>${info.triangles.toLocaleString()}</b>（モデル ${aq.triangles.toLocaleString()}） ・ もよう ${aquariumTextureMB()} MB ・ 作る ${aq.buildMs} ms ・ update ${(upd / frames * 1000).toFixed(1)} µs`;
+    Object.assign(document.body.dataset, { calls: info.calls, tris: info.triangles, texmb: aquariumTextureMB(), buildms: aq.buildMs, updus: (upd / frames * 1000).toFixed(2) });
+  }
+  if (frames >= 3) document.body.dataset.ready = '1';
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>
