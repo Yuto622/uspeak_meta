@@ -9,7 +9,8 @@
 import { isJa } from './i18n.js';
 import { KIDS_ISLANDS, kidsOn } from './kids.js';
 import { neighboursOf } from './bridges-data.js';
-import { MAP_ISLANDS, mountWorldMap, shortName, markSvg, ROUTE, SEA_NAMES } from './world-map.js';
+import { MAP_ISLANDS, mountWorldMap, shortName, markSvg, ROUTE, SEA_NAMES, seaOf, advFog } from './world-map.js';
+const TAB_NAMES = { main: { en: 'Central', ja: 'まんなか' }, eiken: { en: 'Eiken', ja: 'えいけん' }, adv: { en: 'Adventure', ja: 'ぼうけん' } };   // いちらんの タブ（海の 名前の みじかい 形）
 
 // 「🗺 ちず」（ぬった 地形の ちず＝world-paint.js・はじめは こちら）・「📍 あんない」（たいらな あんないの ちず＝world-map.js の SVG）・
 // 「🃏 カード」（いままでの カード）。えらんだ ものを この 端末に 覚える。
@@ -96,16 +97,20 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   let view = readView();
   // えの ちずに 出す 島（幼児モードは メイン・よみもの・つり・きせかえ・じぶんの 島 だけ 押せる）。番号は world-map.js の MAP_ISLANDS。
   // いちらんは 海ごと・みちの 順（まんなかの うみ＝メインの島から 橋の 順・英検＝5級 → 1級・ぼうけん＝ひらく 順）
+  const fogged = new Set(advFog(state.unlocked).fog);   // きりの 中の ぼうけんの 島は「？？？」（名前を 見せない・押せない）
+  const MIST_MARK = '<svg viewBox="-22 -22 44 44" aria-hidden="true"><circle r="19" fill="#2c4a3e" stroke="#9cc4b6" stroke-width="3"/><g fill="#d9efe6"><circle cx="-6" cy="3" r="7"/><circle cx="4" cy="0" r="8"/><circle cx="9" cy="5" r="5"/><rect x="-12" y="4" width="25" height="6" rx="3"/></g></svg>';
+  let tab = seaOf(state.current || 'main');
   const listRow = (r) => {
+    if (fogged.has(r.id)) return `<li data-sea="adv"><button type="button" class="locked fogged" disabled aria-label="？？？（まだ ひみつ）" translate="no"><i class="wl-m">${MIST_MARK}</i><span class="wl-name">？？？</span><em class="wl-st" aria-hidden="true">🔒</em></button></li>`;
     const open = state.unlocked(r.id), prem = state.premium?.(r.id), here = r.id === state.current;
     const mark = here ? '<em class="wl-st here" aria-hidden="true">★</em>' : !open ? `<em class="wl-st" aria-hidden="true">${prem ? '🔒' : '☁'}</em>` : '';
-    return `<li><button type="button" class="${open ? '' : 'locked'}${here ? ' here' : ''}" data-wm-pick="${esc(r.id)}" translate="no">
-      <i class="wl-m">${markSvg(r.id)}</i><span class="wl-name"><b class="en">${esc(shortName(r))}</b><i class="ja">${esc(r.yomi || r.name)}</i></span>${mark}</button></li>`;
+    return `<li data-sea="${r.sea}"><button type="button" class="${open ? '' : 'locked'}${here ? ' here' : ''}" data-wm-pick="${esc(r.id)}" translate="no">
+      <i class="wl-m">${markSvg(r.id)}</i><span class="wl-name"><b class="en">${esc(shortName(r))}</b><i class="ja">${esc((r.yomi || r.name).replace(/^えいけん /, ''))}</i></span>${mark}</button></li>`;   // タブが「えいけん」なので はぶく
   };
   const byId = Object.fromEntries(MAP_ISLANDS.map((r) => [r.id, r]));
   const listHtml = ['main', 'eiken', 'adv'].map((sea) => {
     const rows = ROUTE[sea].map((id) => byId[id]).filter((r) => r && (!kid || KIDS_ISLANDS.includes(r.id)));
-    return rows.length ? `<li class="wl-sea" data-sea="${sea}"><b class="en">${SEA_NAMES[sea].en}</b><i class="ja">${SEA_NAMES[sea].ja}</i></li>${rows.map(listRow).join('')}` : '';
+    return rows.map(listRow).join('');
   }).join('');
   const small = globalThis.matchMedia?.('(max-height: 500px), (max-width: 900px)').matches;   // スマホ・小さい 画面は パネルを たたんで はじめる
   const keyRow = (icon, en, ja) => `<li><span class="wk-i" aria-hidden="true">${KEY_ICONS[icon]}</span><span><b class="en">${en}</b><i class="ja">${ja}</i></span></li>`;
@@ -125,7 +130,8 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
       <div class="wmap-title" aria-hidden="true"><span class="wt-in"><b>U-SPEAK WORLD</b><small translate="no">ユースピーク ワールド</small></span></div>
       <details class="wmap-panel wmap-list"${small ? '' : ' open'}>
         <summary><b class="en">Islands</b><i class="ja">しまの いちらん</i></summary>
-        <ol>${listHtml}</ol>
+        <div class="wl-tabs" role="tablist" aria-label="うみ">${['main', 'eiken', 'adv'].map((sea) => `<button type="button" role="tab" data-sea="${sea}" aria-selected="${sea === tab}" title="${SEA_NAMES[sea].ja}"><b class="en">${TAB_NAMES[sea].en}</b><i class="ja">${TAB_NAMES[sea].ja}</i></button>`).join('')}</div>
+        <ol role="tabpanel">${listHtml}</ol>
       </details>
       <details class="wmap-panel wmap-key"${small ? '' : ' open'}>
         <summary><b class="en">KEY</b><i class="ja">せつめい</i></summary>
@@ -154,13 +160,21 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   host.querySelector('.wm-close').onclick = () => onClose?.();
   host.querySelectorAll('.wm-book, .wmap-book').forEach((b) => { b.onclick = () => onBook?.(); });
   host.querySelectorAll('[data-world]').forEach((b) => { b.onclick = () => onPick?.(b.dataset.world); });
+  // いちらんの タブ：えらぶと その 海の 島だけ・ちずも その 海へ。ちずで 海に よると タブも かわる。
+  const setTab = (sea) => {
+    tab = sea;
+    host.querySelectorAll('.wl-tabs [data-sea]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.sea === sea)));
+    host.querySelectorAll('.wmap-list ol > li[data-sea]').forEach((li) => { li.hidden = li.dataset.sea !== sea; });
+  };
+  setTab(tab);
+  host.querySelectorAll('.wl-tabs [data-sea]').forEach((b) => { b.onclick = () => { setTab(b.dataset.sea); mapCtl?.focusSea(b.dataset.sea); }; });
   host.querySelectorAll('[data-wm-pick]').forEach((b) => { b.onclick = () => onPick?.(b.dataset.wmPick); });
   // えの ちず：下絵は 1 回だけ 作って 使いまわす。ここで かくのは「いま ここ」・🔒・くもだけ（world-map.js）。
   mapCtl?.destroy(); mapCtl = null;
   const wm = host.querySelector('.wm');
   const mount = (first) => {
     if (mapCtl) return;
-    mapCtl = mountWorldMap(host.querySelector('.wmap'), { state: { ...state, isJa: isJa() }, onPick, kid, kids: KIDS_ISLANDS, fresh: first, style: view === 'guide' ? 'guide' : 'paint' });
+    mapCtl = mountWorldMap(host.querySelector('.wmap'), { state: { ...state, isJa: isJa() }, onPick, onSea: (sea) => { if (sea !== tab) setTab(sea); }, kid, kids: KIDS_ISLANDS, fresh: first, style: view === 'guide' ? 'guide' : 'paint' });
   };
   const setView = (v, save) => {
     view = v; wm.classList.toggle('is-map', v !== 'cards'); wm.classList.toggle('is-cards', v === 'cards');

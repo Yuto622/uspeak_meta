@@ -435,3 +435,21 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wl-m { flex: none; display: grid; place-items: center; width: 30px; height: 30px; font-style: normal; }
 .wl-m svg { width: 30px; height: 30px; overflow: visible; }
 .wmap-list li button.locked .wl-m { opacity: .55; }
+/* ぼうけんの きり：きりの 中の 島は しるしも 名前も 出さない。きりは ゆっくり ただよう（transform だけ） */
+.wm-svg .wm-num.fog, .wm-svg .wm-label.fog { display: none; }
+.wm-svg .wm-mist-in { animation: wm-mist 14s ease-in-out infinite alternate; }
+.wm-svg .wm-mist:nth-child(2n) .wm-mist-in { animation-duration: 18s; animation-direction: alternate-reverse; }
+@keyframes wm-mist { from { transform: translate(-7px, 2px); } to { transform: translate(7px, -3px); } }
+@media (prefers-reduced-motion: reduce) { .wm-svg .wm-mist-in { animation: none; } }
+/* いちらんの タブ（まんなか／えいけん／ぼうけん） */
+.wmap-list .wl-tabs { display: flex; gap: 4px; padding: 6px 6px 0; }
+.wmap-list .wl-tabs button { flex: 1; min-height: 32px; padding: 2px 4px; border: 2px solid #8ff0c8; border-radius: 99px; background: transparent; color: #8ff0c8; font: 900 12px/1.1 var(--wm-font); cursor: pointer; }
+.wmap-list .wl-tabs button[data-sea="eiken"] { border-color: #f2b04a; color: #f2b04a; }
+.wmap-list .wl-tabs button[data-sea="adv"] { border-color: #ffb066; color: #ffb066; }
+.wmap-list .wl-tabs button[aria-selected="true"] { background: #8ff0c8; color: #0c241c; }
+.wmap-list .wl-tabs button[data-sea="eiken"][aria-selected="true"] { background: #f2b04a; color: #0c241c; }
+.wmap-list .wl-tabs button[data-sea="adv"][aria-selected="true"] { background: #ffb066; color: #0c241c; }
+.wmap-list .wl-tabs .en, .wmap-list .wl-tabs .ja { font-style: normal; font-size: inherit; }
+.wmap-list li[hidden] { display: none; }
+.wmap-list li button.fogged { color: #8aa59a; cursor: default; }
+.wmap-list li button.fogged:hover { background: transparent; }
