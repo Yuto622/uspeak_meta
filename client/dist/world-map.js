@@ -440,10 +440,11 @@ export function markSvg(id) {
 // 名前の 札：英語の とき 英語、日本語の とき ひらがなの よみ（わかち書き・rpg-data.js の yomi）。
 function labelSvg(r) {
   return `<g class="wm-label" data-island="${esc(r.id)}" translate="no"><rect class="wm-pill"/>`
-    + `<text class="wm-ltext" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(shortName(r))}</tspan><tspan class="ja">${esc(r.yomi || r.name)}</tspan></text>`
+    + `<text class="wm-ltext" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(shortName(r))}</tspan><tspan class="ja">${esc(LABEL_TEXT(r, true)[0])}</tspan></text>`
     + `<text class="wm-sub" font-size="11.5" text-anchor="middle" dominant-baseline="central"></text></g>`;
 }
-const LABEL_TEXT = (r, ja) => [ja ? (r.yomi || r.name) : shortName(r), ''];
+// えいけんの うみの 中では「えいけん 」を はぶく（海の 名前と 旗で わかる・札が ならぶ ように 短く）
+const LABEL_TEXT = (r, ja) => [ja ? (r.yomi || r.name).replace(/^えいけん /, '') : shortName(r), ''];
 // 文字の はば（canvas で はかる・1 回だけ）
 const widths = new Map();
 let measureCtx = null;
@@ -526,11 +527,12 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   // 札の ばしょ えらび（ひらく・うごかし おわる・パネルを たたむ・ことばを かえる たびに 1 回）：
   // 番号の まるは 島の まんなか。名前の 札は こうほ（下・上・右・左・島の 外・ななめ）から、ほかの 札・番号・ほかの 島・パネル・
   // 「きみは ここ」に かさならない ものを えらぶ。どこにも おけない 札は かくす（番号は のこる・ちかづくと 出る）。
+  let seaW = 0;   // focusSea で よった ときの はば
   const layout = () => {
     const [W, H] = size(), k = W / v.w, ja = getLang() === 'ja', guide = style === 'guide';
     const mid = false, vb = view.getBoundingClientRect();
     // ひいた 見え方（3 つの 海が ぜんぶ 見える）では 島の 名前を 出さず、海の 名前の 札だけ。海に ちかづくと 島の 名前。
-    const overview = v.w > fit().w * 0.72;
+    const overview = v.w > fit().w * 0.72 && !(seaW && v.w <= seaW * 1.05);   // 海に よったら（たて長の ぼうけんの うみも）名前を 出す
     svg.dataset.overview = overview ? '1' : '';
     const toS = (x, z) => [W / 2 + (x - v.cx) * k, H / 2 + (z - v.cy) * k];
     const hit = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
@@ -542,11 +544,24 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
       if (r.id === 'main') return [r.id, [toS(MX - 78, 0)[0], toS(0, MZ - 74)[1], toS(MX + 88, 0)[0], toS(0, MZ + 43)[1]]];
       const [x, z] = toS(r.x, r.z), rx = r.rx * 0.82 * k, rz = r.rz * 0.82 * k; return [r.id, [x - rx, z - rz, x + rx, z + rz]];
     });
-    const far = k < 0.4, ms = far ? 0.8 : 1, nr = 21 * ms; svg.dataset.far = far ? '1' : '';   // とおくは 番号の まるだけ（あんないの 絵の まるは ちかづくと）   // とても ひいた とき（スマホ）は しるしを すこし 小さく（押せる はばは のこす）
+    const far = k < 0.4, ms = Math.max(0.6, Math.min(1, k / 0.5)), nr = 21 * ms; svg.dataset.far = far ? '1' : '';   // とおくは 番号の まるだけ（あんないの 絵の まるは ちかづくと）   // とても ひいた とき（スマホ）は しるしを すこし 小さく（押せる はばは のこす）
     for (const n of nums) {
       const [x, z] = numAt(n.r), [sx, sy] = toS(x, z);
       n.g.setAttribute('transform', `translate(${f(x)} ${f(z)}) scale(${f(ms / k * 1000) / 1000})`);
       if (!n.g.classList.contains('off')) blocks.push([sx - nr, sy - nr, sx + nr, sy + nr]);
+    }
+    const bannerBoxes = [];
+    for (const B of banners) {   // 海の 名前の 札（ひいた ときだけ・海の わくの 上の ふち）。スマホは 小さく。ほかの 札と かさなれば よこへ よける
+      B.box = null; if (!overview) { B.g.style.display = 'none'; continue; }
+      const sm = W < 700 || H < 500, fs = sm ? 14 : 20, t = ja ? SEA_NAMES[B.id].ja : SEA_NAMES[B.id].en, w = textW(t, fs) + (sm ? 26 : 40), h = sm ? 28 : 40;
+      B.g.querySelector('text').setAttribute('font-size', fs);
+      B.rect.setAttribute('x', f(-w / 2)); B.rect.setAttribute('y', -h / 2); B.rect.setAttribute('width', f(w)); B.rect.setAttribute('height', h); B.rect.setAttribute('rx', h / 2);
+      const q = SEAS[B.id], [sx, sy] = toS((q.x0 + q.x1) / 2, q.z0);
+      let cx = sx; const cy = Math.max(sy - 2, 4 + h / 2);
+      for (const P of bannerBoxes) if (hit([cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2], P)) cx = cx >= (P[0] + P[2]) / 2 ? P[2] + 6 + w / 2 : P[0] - 6 - w / 2;
+      cx = Math.max(4 + w / 2, Math.min(W - 4 - w / 2, cx));
+      const R = [cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2]; bannerBoxes.push(R); B.box = R;
+      B.g.style.display = ''; B.g.setAttribute('transform', `translate(${f(v.cx + (cx - W / 2) / k)} ${f(v.cy + (cy - H / 2) / k)}) scale(${f(1 / k * 1000) / 1000})`);
     }
     const placed = [];
     if (pinR && here) {   // 「きみは ここ」：ピンの すぐ 上（だめなら 下・よこ）に、線で ピンと つなぐ。ほかの 島の となりには ださない。
@@ -562,9 +577,15 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
         if (!inView(R) || blocks.some((b) => !mine(b) && hit(R, b)) || hit(R, pinBox)) continue;
         best = [dx, dy, R]; break;
       }
-      if (!best) for (const [dx, dy] of cands.slice(0, 2)) { const R = [sx + dx - tw / 2, sy + dy - th / 2, sx + dx + tw / 2, sy + dy + th / 2]; if (inView(R)) { best = [dx, dy, R]; break; } }   // せまい ときは ピンの 真上か 真下（ほかの 札が よける）
+      if (!best) {   // せまい ときは ピンの となりで、ほかの しるしに かかる 数が いちばん すくない ところ（ほかの 札が よける）
+        let bestN = Infinity;
+        for (const [dx, dy] of cands) { const R = [sx + dx - tw / 2, sy + dy - th / 2, sx + dx + tw / 2, sy + dy + th / 2]; if (!inView(R) || hit(R, pinBox)) continue; const n = blocks.filter((b) => !mine(b) && hit(R, b)).length; if (n < bestN) { bestN = n; best = [dx, dy, R]; } }
+      }
       blocks.push(pinBox);
       if (best) {
+        // 札が 海の 名前に かかる ときは、海の 名前を わくの 下の ふちへ（「きみは ここ」が さき）
+        for (const B of banners) { const i = B.box; if (!i || !hit(best[2], i)) continue; const q = SEAS[B.id], hh = i[3] - i[1], [, sy2] = toS(0, q.z1), cy2 = Math.min(H - 4 - hh / 2, sy2 + 2), cx2 = (i[0] + i[2]) / 2;
+          B.g.setAttribute('transform', `translate(${f(v.cx + (cx2 - W / 2) / k)} ${f(v.cy + (cy2 - H / 2) / k)}) scale(${f(1 / k * 1000) / 1000})`); i[1] = cy2 - hh / 2; i[3] = cy2 + hh / 2; }
         placed.push(best[2]); tag.style.display = ''; tag.style.left = `${f(best[0] - tw / 2)}px`; tag.style.top = `${f(best[1] - th / 2)}px`; tag.style.transform = 'none';
         // 線：ピン（上なら ピンの 頭・ほかは まるの ふち）から 札の ふちへ
         const fx = 0, fy = best[1] < -40 ? -64 : best[1] > 0 ? nr : -38;
@@ -599,14 +620,6 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
       const t = ja ? P.p.ja : P.p.en, w = textW(t, 12) + 18, h = 22;
       P.rect.setAttribute('x', f(-w / 2)); P.rect.setAttribute('y', -h / 2); P.rect.setAttribute('width', f(w)); P.rect.setAttribute('height', h); P.rect.setAttribute('rx', 11);
       const [x, z] = MW(P.p.x, P.p.z); put(P, [[0, 0], [0, 16], [0, -16]], w, h, x, z, 'main');
-    }
-    for (const B of banners) {   // 海の 名前の 札（ひいた ときだけ・海の 上の まんなか）
-      if (!overview) { B.g.style.display = 'none'; continue; }
-      const t = ja ? SEA_NAMES[B.id].ja : SEA_NAMES[B.id].en, w = textW(t, 20) + 40, h = 40;
-      B.rect.setAttribute('x', f(-w / 2)); B.rect.setAttribute('y', -h / 2); B.rect.setAttribute('width', f(w)); B.rect.setAttribute('height', h); B.rect.setAttribute('rx', 20);
-      const q = SEAS[B.id], [sx, sy] = toS((q.x0 + q.x1) / 2, q.z0);
-      const cy = Math.max(sy - 2, 4 + h / 2);   // 札は わくの 上の ふちに またがる（島の しるしに かからない）
-      B.g.style.display = ''; B.g.setAttribute('transform', `translate(${f((q.x0 + q.x1) / 2)} ${f(v.cy + (cy - H / 2) / k)}) scale(${f(1 / k * 1000) / 1000})`);
     }
   };
   const banners = [...svg.querySelectorAll('.wm-seabanner')].map((g) => ({ g, id: g.dataset.sea, rect: g.querySelector('rect') }));
@@ -692,7 +705,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   view.onwheel = (e) => { e.preventDefault(); zoomAt(Math.exp(-Math.max(-60, Math.min(60, e.deltaY)) * 0.004), e.clientX, e.clientY); };
   // 押した 島へ（ひっぱった ときは 押さない）。どう なるかは rpg.js（onPick）が 決める。
   view.onclick = (e) => { if (moved > 6) { moved = 0; return; } const g = e.target.closest?.('[data-island]'); if (g && !g.classList.contains('off')) { onPick?.(g.dataset.island); return; } const sea = e.target.closest?.('[data-sea]'); if (sea && svg.dataset.overview) focusSea(sea.dataset.sea); };
-  const focusSea = (id) => { const q = SEAS[id]; if (!q) return; moved0 = true; Object.assign(v, fit(q)); draw(); };
+  const focusSea = (id) => { const q = SEAS[id]; if (!q) return; moved0 = true; Object.assign(v, fit(q)); seaW = v.w; draw(); };
   const mid = () => { const b = view.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2]; };
   view.onkeydown = (e) => {
     const g = e.target.closest?.('.wmi');
