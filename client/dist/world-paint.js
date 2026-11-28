@@ -11,8 +11,8 @@
 import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ } from './world-map.js';
 import { LINKS } from './bridges-data.js';
 
-export const WORLD_TILE = { x0: -560, x1: 540, z0: -640, z1: 530, ppu: 1.6, clouds: true };
-export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 6, clouds: false };
+export const WORLD_TILE = { x0: -560, x1: 540, z0: -640, z1: 530, ppu: 1.3, clouds: true };
+export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
 
 // ── ノイズ（決まった 乱数・value noise と fbm）──────────────────
 const PERM = new Uint8Array(512);
@@ -70,13 +70,13 @@ const slice = () => new Promise((r) => (globalThis.requestIdleCallback ? request
 // ひとつの 四角（tile）を かく。かえすのは canvas。
 async function paintTile(T) {
   const W = Math.round((T.x1 - T.x0) * T.ppu), H = Math.round((T.z1 - T.z0) * T.ppu), N = W * H, u = 1 / T.ppu;
-  const L = new Float32Array(N).fill(-3), K = new Uint8Array(N), I = new Uint8Array(N), Hh = new Float32Array(N);
+  const L = new Float32Array(N).fill(-2.4), K = new Uint8Array(N), I = new Uint8Array(N), Hh = new Float32Array(N);
   let t0 = now();
   const yieldIf = async () => { if (now() - t0 > 24) { await slice(); t0 = now(); } };
   // 1. 陸らしさ（島ごとに まわり だけ）
   for (let ii = 0; ii < MAP_ISLANDS.length; ii++) {
     const r = MAP_ISLANDS[ii], main = r.id === 'main';
-    const ex = main ? 150 : r.rx * 2.6, ez = main ? 130 : r.rz * 2.6;
+    const ex = main ? 140 : r.rx * 2.5, ez = main ? 120 : r.rz * 2.5;
     const px0 = Math.max(0, Math.floor((r.x - ex - T.x0) * T.ppu)), px1 = Math.min(W, Math.ceil((r.x + ex - T.x0) * T.ppu));
     const py0 = Math.max(0, Math.floor((r.z - ez - T.z0) * T.ppu)), py1 = Math.min(H, Math.ceil((r.z + ez - T.z0) * T.ppu));
     const sx = (ii * 37.7) % 100, k = kindOf(r);
@@ -89,7 +89,7 @@ async function paintTile(T) {
         else {
           const dx = (x - r.x) / r.rx, dz = (z - r.z) / r.rz;
           const q = (Math.abs(dx) ** 2.6 + Math.abs(dz) ** 2.6) ** (1 / 2.6);
-          l = 1 - q + fbm(x / 26 + sx, z / 26 + sx, 4) * 0.34;
+          l = 1 - q + fbm(x / 26 + sx, z / 26 + sx, q > 1.6 ? 2 : 4) * 0.34;
         }
         if (l > L[i]) { L[i] = l; K[i] = main ? 1 : k; I[i] = ii; }
       }
@@ -140,7 +140,7 @@ async function paintTile(T) {
         // 海（ふかさで 色）と 波・あわ
         const d = l < -0.02 ? -l : 0.05 + Math.min(0.2, -h * 0.1);
         const inner = h < 0 && l >= -0.02;
-        c = inner ? mixc(NEAR, LAGOON, sstep(0, 0.6, -h)) : d < 0.35 ? mixc(NEAR, SHAL, sstep(0.02, 0.35, d)) : d < 1.3 ? mixc(SHAL, MID, sstep(0.35, 1.3, d)) : mixc(MID, DEEP, sstep(1.3, 2.6, d));
+        c = inner ? mixc(NEAR, LAGOON, sstep(0, 0.6, -h)) : d < 0.3 ? mixc(NEAR, SHAL, sstep(0.02, 0.3, d)) : d < 0.85 ? mixc(SHAL, MID, sstep(0.3, 0.85, d)) : mixc(MID, DEEP, sstep(0.85, 1.4, d));
         const w = noise(x / 3 + z / 9, z / 2.2) * 0.5 + noise(x / 13, z / 6) * 0.5;
         const k = (w * 0.06 + (hash(px, py) - 0.5) * 0.03) * 255;
         c = [c[0] + k, c[1] + k, c[2] + k];
@@ -171,13 +171,21 @@ async function paintTile(T) {
         const cliff = sstep(0.55, 1.2, slope / (ex * 1.2));
         if (cliff > 0) { const strata = (Math.sin(h * 2.6 + noise(x / 6, z / 6) * 2) * 0.5 + 0.5) * 0.25; base = mixc(base, mixc(P[2], RGB('#5a3a2a'), strata), cliff); }
         // 雪（高い ところ）
-        if (k === 2 && h > 12 + noise(x / 6, z / 6) * 4) base = mixc(base, P[3], sstep(0, 0.6, 1 - slope * 0.25));
+        if (k === 2 && h > 6 + noise(x / 6, z / 6) * 3) base = mixc(base, P[3], sstep(0, 0.6, 1 - slope * 0.25));
         // すなはま
         const beach = 1 - sstep(0.015, 0.07 + noise(x / 7, z / 7) * 0.02, l);
         if (beach > 0 && k !== 2) base = mixc(base, l < 0.025 ? SAND_WET : SAND, beach);
         const tex = (hash(px, py) - 0.5) * 14;
         const f = Math.max(0.35, Math.min(1.35, 0.42 + lit * 0.78)) * shade;
         c = [base[0] * f + tex, base[1] * f + tex, base[2] * f + tex];
+      }
+      if (T.clouds) {   // まわりの 雲（うずまく ノイズ・左上が あかるい）
+        const od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1);
+        if (od > -110) {
+          const n = fbm(x / 70 + 11, z / 70, 5), sw = fbm(x / 34 + n * 2.2, z / 34 - n * 2.2, 3);
+          const dens = sstep(-0.1, 0.45, (od + 60) / 150 + n * 0.55 + sw * 0.3);
+          if (dens > 0) { const lt = 0.82 + (fbm((x - 6) / 34 + n * 2.2, (z - 6) / 34 - n * 2.2, 3) - sw) * 2.4 + n * 0.25; const cc = Math.max(0.62, Math.min(1.04, lt)); c = mixc(c, [255 * cc, 255 * Math.min(1.02, cc + 0.01), 255 * Math.min(1.03, cc + 0.03)], dens); }
+        }
       }
       const o = i * 4; D[o] = c[0]; D[o + 1] = c[1]; D[o + 2] = c[2]; D[o + 3] = 255;
     }
@@ -190,10 +198,11 @@ async function paintTile(T) {
   drawRoadsAndVillages(g, T); await slice();
   drawBridges(g); await slice();
   drawMain(g); await slice();
-  if (T.clouds) drawClouds(g, T);
   g.restore();
   return cv;
 }
+
+const CF = { x0: -400, x1: 395, z0: -480, z1: 390 };   // 雲の 内がわ（ぜんぶの 島の わく）
 
 // ── 2D の 絵 ──────────────────────────────────────────────────
 const SUN = [0.7, 0.9];   // かげの 向き（右下へ）
@@ -352,11 +361,11 @@ export function paintWorld() {
     if (!globalThis.document?.createElement('canvas').getContext?.('2d')) return null;
     const t = now();
     const world = await paintTile(WORLD_TILE);
-    const wUrl = await toUrl(world);
+    const wUrl = await toUrl(world); const wMs = Math.round(now() - t);
     const out = { world: { url: wUrl, ...WORLD_TILE }, main: null, ms: 0 };
     const main = await paintTile(MAIN_TILE);
     out.main = { url: await toUrl(main), ...MAIN_TILE };
-    out.ms = Math.round(now() - t);
+    out.ms = Math.round(now() - t); out.worldMs = wMs;
     return out;
   })().catch((e) => { console.warn('[world-paint]', e); return null; });
   return job;
