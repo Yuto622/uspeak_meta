@@ -84,13 +84,13 @@ function smooth(p) {
 const inBlob = (r, x, z, k = 1) => (Math.abs((x - r.x) / (r.rx * k)) ** 2.6 + Math.abs((z - r.z) / (r.rz * k)) ** 2.6) <= 1;
 
 // メインの島：もとの 角まるの 四角（54×43・power 4）＋ つき出した 土地（main-plaza.js の PLAZA.annex と also）。島の 中の 座標。
-const MX = -26, MZ = -79;
-const MAIN_RECTS = [
+export const MX = -26, MZ = -79;
+export const MAIN_RECTS = [
   { x0: 52, x1: 88, z0: -30, z1: 33, r: 7 }, { x0: 12, x1: 72, z0: -47, z1: -26, r: 7 },
   { x0: -78, x1: -40, z0: -74, z1: -1, r: 9 }, { x0: -78, x1: -14, z0: -74, z1: -40, r: 9 },   // ビルの まち（main-city.js の CITY.rects）
   { x0: -64, x1: -44, z0: 20, z1: 40, r: 6 }, { x0: -70, x1: -48, z0: -2, z1: 31, r: 8 },
 ];
-const MAIN_BAY = { x0: -16, x1: 22, z0: 25 };   // main_island.json の bay（さんばしの 入り江）
+export const MAIN_BAY = { x0: -16, x1: 22, z0: 25 };   // main_island.json の bay（さんばしの 入り江）
 const inMain = (x, z) => {
   const lx = x - MX, lz = z - MZ;
   if (MAIN_RECTS.some((a) => lx >= a.x0 && lx <= a.x1 && lz >= a.z0 && lz <= a.z1)) return true;
@@ -252,7 +252,7 @@ const LANDMARK = {
 
 // ── メインの島：まちの 中（島の 中の 座標 → 世界）───────────────
 const MW = (x, z) => [MX + x, MZ + z];
-const MAIN_ROADS = [   // main_island.json の island.roads ＋ ビルの まちの 道（main-city.js）
+export const MAIN_ROADS = [   // main_island.json の island.roads ＋ ビルの まちの 道（main-city.js）
   [[-66, 16], [58, 16]], [[-6, -36], [-6, 16]], [[-6, -31.5], [68, -31.5]], [[-59.5, 35.6], [-18.5, 35.6]], [[-18.5, 16], [-18.5, 36.9]], [[-40, -13.5], [-6, -13.5]],
   [[58, 16], [84, 16]], [[-63, -72], [-63, 14]], [[-46, -72], [-46, -2]], [[-30, -72], [-30, -42]], [[-76, -13.5], [-40, -13.5]], [[-76, -31], [-40, -31]], [[-76, -49], [-16, -49]],
 ];
