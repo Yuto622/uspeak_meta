@@ -327,14 +327,14 @@ vec3 waterShade(vec3 alb,vec3 p,vec3 n,float tank,vec3 extra){
   float depth=max(surf-p.y,0.); float dw=waterLen(p,tank);
   vec3 col;
   if(tank>.5&&tank<1.5&&p.y>WLV){
-    col=alb*(vec3(.36,.50,.62)*(.45+.55*max(n.y,0.))+vec3(.08,.15,.22)*max(-n.x,0.))+extra*.6;
+    col=alb*(vec3(.78,.86,.95)*(.38+.72*max(n.y,0.))+vec3(.16,.26,.34)*max(-n.x,0.)+vec3(.10,.22,.30)*caus(p.zx*1.3)*max(n.y,0.))+extra*.6;
     return col*(1.-.15*smoothstep(0.,6.,dw));
   }
   float cz=caus(p.xz*(tank<.5?1.:1.7)+p.y*.2);
-  vec3 sun=(tank<.5?vec3(.42,.76,1.):vec3(.55,.86,1.05))*exp(-depth*.05);
+  vec3 sun=(tank<.5?vec3(.55,.82,1.05):vec3(.55,.86,1.05))*exp(-depth*.04);
   float up=max(n.y,0.);
   col=alb*sun*(.20+.55*up+.18*max(dot(n,normalize(uCam-p)),0.)+2.4*cz*up*exp(-depth*.035))+extra;
-  col*=exp(-vec3(.26,.06,.025)*(depth*.55+dw));
+  col*=exp(-vec3(.19,.05,.022)*(depth*.2+dw));
   float f=1.-exp(-dw*fogK(tank));
   return mix(col,fogCol(p,tank),f);
 }
@@ -465,12 +465,13 @@ void main(){ if(vB>3.5&&vB<4.5&&gl_FrontFacing) discard; vec3 n=normalize(vN)*(g
   } else if(vB<3.5){ // ペンギンの 水そう・水より 上の 氷の かべ
     float g=texture2D(uNoise,p.zy*.25).g, r=texture2D(uNoise,p.zy*.9).r;
     vec3 alb=vC*(.75+.35*g)*(.9+.2*r);
-    c=alb*mix(vec3(.16,.30,.42),vec3(.34,.48,.58),clamp((p.y-WLV)/2.8,0.,1.));
+    c=alb*mix(vec3(.32,.46,.58),vec3(.70,.80,.90),clamp((p.y-WLV)/1.6,0.,1.));
   } else if(vB<4.5){ // クラゲの 柱の 中
     float h=clamp((p.y-${J.y0.toFixed(2)})/3.3,0.,1.); vec3 v=normalize(p-uCam);
     c=mix(vec3(.004,.02,.08),vec3(.04,.18,.48),h*h)*(1.+.4*caus(vec2(atan(p.x-${J.x.toFixed(2)},p.z-${J.z.toFixed(2)})*1.2,p.y)*1.2));
   } else { // 水より 上の 天井（空の 光）
-    c=vC*vec3(.13,.2,.27)*(.7+.5*texture2D(uNoise,p.xz*.2).g);
+    vec2 lq=vec2(p.x-24.5,mod(p.z,4.)-2.); float pan=smoothstep(.9,.8,abs(lq.x)/3.2)*smoothstep(1.9,1.6,abs(lq.y));
+    c=vC*mix(vec3(.30,.38,.45),vec3(1.25,1.32,1.40),pan)*(.85+.3*texture2D(uNoise,p.xz*.2).g);
   }
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
@@ -491,7 +492,7 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 a=abs(n);
     alb=mix(alb,vec3(.55,.30,.40),smoothstep(.62,.7,texture2D(uNoise,uv*.9+.5).r)*.35*(tank<.5?1.:0.)); }
   else if(kind<1.5){ float gr=texture2D(uNoise,uv*1.6).a; alb=vC*(.55+.75*smoothstep(.15,.6,gr)); n=normalize(n+vec3(gr-.5)*.35); }
   else if(kind<2.5){ float tip=smoothstep(.2,1.,vB); float pol=texture2D(uNoise,uv*7.).r; alb=mix(vC*(.8+.4*pol),vec3(.85,.80,.70),tip*.55); extra=vC*.10*tip; }
-  else if(kind<3.5){ float rg=fract(length(vP.xz)*6.); alb=vC*(.75+.35*smoothstep(.3,.6,rg)*smoothstep(.95,.6,rg)); alb=mix(alb,vC*1.3+.08,smoothstep(.55,.9,n.y)*.25); }
+  else if(kind<3.5){ float rg=texture2D(uNoise,uv*2.2).a; alb=vC*(.7+.5*smoothstep(.1,.5,rg)); alb=mix(alb,vC*1.3+.08,smoothstep(.55,.9,n.y)*.25); }
   else if(kind<4.5){ // 雪を かぶった 岩・氷
     float nn=texture2D(uNoise,vP.xz*.35+vP.y*.2).g, fine=texture2D(uNoise,uv*1.7).r;
     float snow=smoothstep(.38,.72,n.y+(nn-.5)*.55+(fine-.5)*.2)*smoothstep(WLV-.05,WLV+.25,vP.y);
@@ -515,7 +516,7 @@ const CARD_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vC; 
 void main(){ vec2 u=vUv; float m; vec3 alb=vC; float tr=.25;
   if(vB<.5){ vec2 q=(u-vec2(.5,0.))*vec2(2.,1.05); float d=length(q); float ins=smoothstep(1.,.96,d+texture2D(uNoise,u*1.3).g*.12);
     float ang=atan(q.x,q.y); float vein=smoothstep(.07,.0,abs(fract(ang*2.6+d*.4)-.5))*smoothstep(.15,.4,d);
-    float net=smoothstep(.30,.55,texture2D(uNoise,u*vec2(2.3,2.)).a); float stem=smoothstep(.04,.0,abs(q.x))*step(d,.45);
+    float net=max(smoothstep(.22,.42,texture2D(uNoise,u*vec2(2.3,2.)).a),smoothstep(.3,.5,texture2D(uNoise,u*vec2(4.6,4.)+.37).a)); float stem=smoothstep(.04,.0,abs(q.x))*step(d,.45);
     m=ins*max(max(net,vein),stem); alb=vC*(.8+.4*net);
   } else if(vB<1.5){ float wd=(.32+.12*sin(u.y*11.+vC.r*9.))*(1.-u.y*.55); float x=abs(u.x-.5);
     m=smoothstep(wd,wd-.04,x)*smoothstep(.0,.03,u.y)*smoothstep(1.,.96,u.y);
@@ -623,7 +624,7 @@ void main(){
   if(stand>.5&&q.z>.15){ float a=sin(uTime*.45+ph*2.)*.9*smoothstep(.15,.22,q.z); q=rz(q,a); nn=rz(nn,a); }
   q*=aShape.y; vec3 p; vec3 n;
   if(stand>.5){
-    vec3 u=vec3(q.x,q.z,-q.y)+vec3(0.,.37*aShape.y,0.); vec3 un=vec3(nn.x,nn.z,-nn.y);
+    vec3 u=vec3(q.x,q.z,-q.y)+vec3(0.,.455*aShape.y,0.); vec3 un=vec3(nn.x,nn.z,-nn.y);
     float sway=sin(uTime*1.1+ph)*.04; u=vec3(u.x*cos(sway)-u.y*sin(sway),u.x*sin(sway)+u.y*cos(sway),u.z);
     p=aPath.xyz+ry(u,aPath.w); n=ry(un,aPath.w);
   } else {
@@ -640,21 +641,34 @@ void main(){
 const PENG_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vB; varying float vPart; varying float vStand;
 void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 b=vB; vec3 alb;
   if(vPart<.5){
-    float belly=smoothstep(.02,-.03,b.y+.012*sin(b.z*9.))*step(b.z,.19);
-    alb=mix(vec3(.025,.028,.035),vec3(.86,.87,.86),belly);
-    float ep=smoothstep(.03,.018,length(vec2(b.z-.275,abs(b.x)-.06)))*step(.025,b.y);
+    float belly=smoothstep(.015,-.025,b.y+.01*sin(b.z*9.)-.02*smoothstep(.05,-.25,b.z))*smoothstep(.215,.18,b.z);
+    alb=mix(vec3(.03,.034,.042),vec3(.90,.91,.90),belly);
+    alb=mix(alb,vec3(.10,.11,.13),smoothstep(.3,.7,abs(b.x)/.14)*(1.-belly)*.5);
+    float ep=smoothstep(.024,.014,length(vec2((b.z-.29)*.8,abs(b.x)-.055)))*step(.02,b.y)+smoothstep(.012,.0,abs(length(vec2(b.z-.29,b.x))-.055))*step(.06,b.y)*.8;
+    ep=clamp(ep,0.,1.);
     alb=mix(alb,vec3(.9),ep);
     float eye=smoothstep(.012,.008,length(vec3(abs(b.x)-.072,b.y-.035,b.z-.29)));
     alb=mix(alb,vec3(.01),eye);
-  } else if(vPart<1.5) alb=vec3(.95,.32,.05);
+  } else if(vPart<1.5) alb=mix(vec3(.98,.30,.05),vec3(.05),smoothstep(.43,.45,b.z));
   else if(vPart<2.5) alb=mix(vec3(.03,.03,.04),vec3(.8),smoothstep(.0,-.02,b.y)*.6);
-  else alb=vec3(.95,.42,.12);
+  else alb=vec3(.98,.50,.32);
   vec3 v=normalize(uCam-vP); vec3 r=reflect(-v,n);
   float wet=vStand>.5?.35:1.;
   vec3 spec=vec3(.5,.8,1.)*pow(max(r.y,0.),10.)*.5*wet+vec3(.2,.4,.5)*pow(1.-max(dot(n,v),0.),3.)*.25;
   vec3 c=waterShade(alb,vP,n,1.,spec);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
+
+// ペンギンの あわの すじ（Points）。aT＝おくれ・ゆらぎの 位相・大きさ・よこの ずれ。
+const TRAIL_VERT = `${COMMON} uniform float uH; attribute vec4 aPath; attribute vec4 aPar; attribute vec4 aShape; attribute vec4 aT; varying float vA; varying float vK;
+void main(){ float lag=aT.x; float ph=aPar.y; float th=(uTime-lag)*aPar.x+ph;
+  vec3 P=aPath.xyz+vec3(aPath.w*cos(th),aPar.z*sin(th*2.3+ph*3.),aShape.x*sin(th));
+  P+=vec3(sin(uTime*3.+aT.y)*.03*lag+aT.w*lag,lag*(.42+lag*.12),cos(uTime*2.3+aT.y)*.03*lag);
+  vec4 mv=modelViewMatrix*vec4(P,1.);
+  float dw=waterLen(P,1.);
+  vA=exp(-dw*.09)*(1.-lag/1.8)*step(P.y,WLV-.02)*1.2; vK=1.;
+  gl_PointSize=clamp(aT.z*(.6+lag*.5)*projectionMatrix[1][1]*uH*.5/max(-mv.z,.1),1.,24.);
+  gl_Position=projectionMatrix*mv; }`;
 
 // クラゲ（加算・ふわふわ）。
 const JELLY_VERT = `${COMMON} attribute vec4 aJ; attribute vec4 iJ;
@@ -719,31 +733,52 @@ void main(){ vec3 v=normalize(vP-uCam); vec3 n=normalize(vN); if(dot(n,v)>0.)n=-
     vec2 gq=vP.x>13.2?vec2(h.x-16.,mod(h.z,3.5)-1.75):vec2(mod(h.x,4.)-2.,mod(h.z-15.,3.34)-1.67);
     refl+=vec3(1.,.9,.75)*smoothstep(.2,.05,length(gq))*1.6*(vP.x>13.2||vP.z>15.?1.:0.); }
   if(vA>2.5){ vec3 dw=normalize(WC-vP); refl+=vec3(.05,.33,.6)*pow(max(dot(r,dw),0.),12.)*1.2*inHall(vP); }
+  vec3 band=vec3(0.);
+  if(vA>.5&&vA<1.5){ // 水面の ゆれる 帯（ガラスの 内がわ）
+    float wy=WLV+.035*sin(vP.z*2.7+uTime*1.6)+.02*sin(vP.z*6.1-uTime*2.2)+.012*sin(vP.z*13.-uTime*3.1);
+    float dy=vP.y-wy; band=vec3(.55,.85,1.)*(smoothstep(.022,.0,abs(dy))*1.4+smoothstep(.0,-.12,dy)*smoothstep(-.22,-.05,dy)*.25)+vec3(.30,.45,.55)*smoothstep(.0,.03,dy)*smoothstep(.12,.02,dy)*.5; }
   float sm=texture2D(uNoise,(vP.xy+vP.zz)*.17).g; float sc=texture2D(uNoise,(vP.zy+vP.xx)*.9).b;
   float a=clamp(fr*(.75+.6*sm)+(vA<2.5?.05:.035)+smoothstep(.62,.8,sc)*.025,0.,1.);
-  vec3 c=refl*a+(vA<1.5?haze(vP):vec3(0.))+vC*a;
+  vec3 c=refl*a+(vA<1.5?haze(vP):vec3(0.))+vC*a+band;
   gl_FragColor=vec4(c,a);
   ${OUT} }`;
 
-// 人：はだ・上・下・かみ・くつ を part で。うで・あたまは インスタンスごと（iPose＝うでの 角度・あたまの 大きさ・ゆれ）。
-const PEOPLE_VERT = `${COMMON} attribute float part; attribute float aArm; attribute float aHead; attribute vec3 iSkin; attribute vec3 iTop; attribute vec3 iBot; attribute vec3 iHair; attribute vec4 iPose;
-varying vec3 vP; varying vec3 vN; varying vec3 vTint;
+// 人：part＝0 はだ 1 上 2 下 3 かみ 4 くつ 5 ながい かみ。aArm＝1 右うで 2 左うで、aHead＝あたま。
+// iPose＝右うでの 角度・あたまの 大きさ・ゆれの 位相・かみの 形、iPose2＝左うでの 角度・うでを ひらく・あたまの 上むき・せなかの まがり。
+const PEOPLE_VERT = `${COMMON} attribute float part; attribute float aArm; attribute float aHead; attribute vec3 iSkin; attribute vec3 iTop; attribute vec3 iBot; attribute vec3 iHair; attribute vec4 iPose; attribute vec4 iPose2;
+varying vec3 vP; varying vec3 vN; varying vec3 vTint; varying vec3 vL; varying float vPart; varying float vHead;
+vec3 rx(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(v.x,v.y*c-v.z*s,v.y*s+v.z*c);}
+vec3 rz(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(v.x*c-v.y*s,v.x*s+v.y*c,v.z);}
 void main(){ vec3 q=position; vec3 nn=normal;
-  if(aArm>.5){ float a=-iPose.x; float py=1.44; vec3 d=q-vec3(0.,py,0.); float c=cos(a),s=sin(a); q=vec3(q.x,py+d.y*c-d.z*s,d.y*s+d.z*c); nn=vec3(nn.x,nn.y*c-nn.z*s,nn.y*s+nn.z*c); }
-  if(aHead>.5){ vec3 nk=vec3(0.,1.5,0.); q=nk+(q-nk)*iPose.y; }
-  q.x+=sin(uTime*.8+iPose.z)*.008*q.y;
+  if(part>4.5&&iPose.w<.5){ q=vec3(0.,1.6,-.02); }
+  if(aArm>.5){ float sd=aArm<1.5?1.:-1.; float a=-(aArm<1.5?iPose.x:iPose2.x); float ab=iPose2.y*sd;
+    vec3 sh=vec3(sd*.195,1.42,0.); vec3 d=q-sh; d=rz(rx(d,a),ab); q=sh+d; nn=rz(rx(nn,a),ab);
+    float sw=sin(uTime*.9+iPose.z+sd)*.01; q.z+=sw*(1.42-q.y); }
+  if(aHead>.5){ vec3 nk=vec3(0.,1.5,0.); vec3 d=(q-nk)*iPose.y; d=rx(d,-iPose2.z+sin(uTime*.5+iPose.z)*.04); q=nk+d; nn=rx(nn,-iPose2.z); }
+  if(q.y>.95){ float bend=iPose2.w*(q.y-.95); q=vec3(q.x,.95+(q.y-.95)*cos(iPose2.w),q.z+bend); }
+  q.x+=sin(uTime*.8+iPose.z)*.006*q.y;
   vec4 w=instanceMatrix*vec4(q,1.); vP=w.xyz; vN=normalize(mat3(instanceMatrix)*nn);
-  vTint=part<.5?iSkin:part<1.5?iTop:part<2.5?iBot:part<3.5?iHair:iBot*.35+.01;
+  vTint=part<.5?iSkin:part<1.5?iTop:part<2.5?iBot:part<3.5?iHair:part<4.5?iBot*.3+vec3(.02):iHair;
+  vL=position; vPart=part; vHead=aHead;
   gl_Position=projectionMatrix*modelViewMatrix*w; }`;
-const PEOPLE_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vTint;
+const PEOPLE_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vTint; varying vec3 vL; varying float vPart; varying float vHead;
 void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 v=normalize(vP-uCam);
-  float g=texture2D(uNoise,vP.xy*3.1+vP.z).r;
-  vec3 alb=vTint*(.85+.3*g);
+  float g=texture2D(uNoise,vL.xy*9.1+vL.z*3.).r;
+  vec3 alb=vTint*(.88+.24*g);
+  if(vPart>.5&&vPart<1.5) alb*=.9+.12*step(.5,fract(vL.y*14.))*step(.5,fract(vTint.g*7.));
+  if(vPart>.5&&vPart<2.5) alb*=1.-.25*smoothstep(.02,.0,abs(vL.y-.93))*step(vPart,1.5);
+  if(vHead>.5&&vPart<.5&&vL.z>.055){ float ex=abs(vL.x)-.031;
+    float eye=smoothstep(.012,.008,length(vec2(ex,(vL.y-1.632)*.85)));
+    float brow=smoothstep(.006,.003,abs(vL.y-1.658+ex*ex*4.))*step(abs(ex),.019);
+    float mouth=smoothstep(.004,.002,abs(vL.y-1.572-vL.x*vL.x*3.))*step(abs(vL.x),.017);
+    alb=mix(alb,vec3(.95,.93,.9),smoothstep(.016,.012,length(vec2(ex*.8,vL.y-1.632)))*.6);
+    alb=mix(alb,vec3(.03,.02,.02),eye); alb=mix(alb,vTint*.35,mouth*.6); alb=mix(alb,vec3(.10,.07,.05),brow*.8);
+    alb=mix(alb,vec3(.85,.45,.42),smoothstep(.025,.0,length(vec2(abs(vL.x)-.05,vL.y-1.6)))*.18); }
   vec3 L=roomLight(vP,n);
   float rim=pow(1.-abs(dot(n,v)),2.5);
   vec3 Lw=WC-vP; float k=(WR*WR)/(dot(Lw,Lw)*.8+WR*WR)*inHall(vP);
   vec3 rl=vec3(.05,.32,.6)*k*max(dot(n,normalize(Lw)),0.)*1.2+vec3(.08,.35,.55)*(1.-inHall(vP))*max(n.x,0.)*.6;
-  vec3 c=alb*L+rim*rl*1.8+haze(vP);
+  vec3 c=alb*(L+vec3(.006,.008,.01))+rim*rl*1.8+haze(vP);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
 
@@ -784,14 +819,15 @@ function withBody(g, w, part, side = 0, wFn = null) {
   g.setAttribute('aBody', new THREE.BufferAttribute(a, 3)); return g;
 }
 // エイ（はば 2・頭 +z）。
-function rayGeometry() {
-  const pos = [], N = 10, M = 6;
-  const half = (z) => (z > 0.1 ? 0.25 + (0.5 - z) * 1.85 : 1.0 - (0.1 - z) * 1.4); // z∈[-0.6,0.5]
-  const V = (i, j) => { const z = -0.6 + (j / M) * 1.1, hw = Math.max(0.02, half(z)), x = -hw + (i / N) * hw * 2; const y = 0.07 * (1 - Math.min(1, Math.abs(x) * 1.2)) * (1 - Math.abs(z + 0.05) * 1.2); return [x, y, z]; };
-  for (let j = 0; j < M; j += 1) for (let i = 0; i < N; i += 1) { const a = V(i, j), b = V(i + 1, j), c = V(i + 1, j + 1), d = V(i, j + 1); pos.push(...a, ...b, ...c, ...a, ...c, ...d); const ay = (p) => [p[0], -p[1] * 0.4, p[2]]; pos.push(...ay(a), ...ay(c), ...ay(b), ...ay(a), ...ay(d), ...ay(c)); }
-  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); g.computeVertexNormals();
-  const tail = limb([0, 0, -0.55], [0, 0, -1.6], 0.025, 0.004, 4);
-  return mergeWithBody([withBody(g, 0, 0, 0, (x, y, z) => Math.max(0, -z)), withBody(tail.toNonIndexed(), 1, 0)]);
+function rayGeometry() { // マンタ：まるい 頭・とがった つばさ（先が うしろへ）・まんなかが ふくらむ
+  const pos = [], N = 18, M = 10;
+  const V = (i, j) => { const zn = -1 + (j / M) * 2, hw = 1.02 * Math.pow(Math.max(0, 1 - Math.abs(zn + 0.1) / 1.1), 0.75) * (zn > 0.7 ? 1 - (zn - 0.7) * 1.2 : 1) + 0.02;
+    const xn = -1 + (i / N) * 2, x = xn * hw, z = zn * 0.5 - 0.32 * xn * xn * hw; const y = 0.13 * Math.pow(Math.max(0, 1 - Math.abs(xn)), 1.6) * (1 - zn * zn * 0.7); return [x, y, z]; };
+  for (let j = 0; j < M; j += 1) for (let i = 0; i < N; i += 1) { const a = V(i, j), b = V(i + 1, j), c = V(i + 1, j + 1), d = V(i, j + 1); pos.push(...a, ...b, ...c, ...a, ...c, ...d); const ay = (p) => [p[0], -p[1] * 0.35, p[2]]; pos.push(...ay(a), ...ay(c), ...ay(b), ...ay(a), ...ay(d), ...ay(c)); }
+  const g = smoothNormals(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)));
+  const tail = limb([0, 0, -0.5], [0, 0, -1.5], 0.025, 0.004, 4);
+  const lobes = []; for (const s of [-1, 1]) { const l = limb([s * 0.12, 0, 0.5], [s * 0.13, -0.03, 0.66], 0.035, 0.02, 4).toNonIndexed(); lobes.push(withBody(l, 0, 0)); }
+  return mergeWithBody([withBody(g, 0, 0, 0, (x, y, z) => Math.max(0, -z)), withBody(tail.toNonIndexed(), 1, 0), ...lobes]);
 }
 function mergeWithBody(list) {
   const out = mergeSimple(list); let n = out.attributes.position.count; const a = new Float32Array(n * 3); let v = 0;
@@ -819,42 +855,52 @@ function sharkGeometry() {
   const w = (x, y, z) => Math.min(1, Math.max(0, (0.2 - z) / 0.85));
   return mergeWithBody([withBody(body, 0, 0, 0, w), withBody(fins, 0, 1, 0, w)]);
 }
-// ペンギン（およぐ 形・頭が +z・おなかが -y、長さ 約 0.8）。aBody.y：0 からだ 1 くちばし 2 つばさ 3 足。
+// ペンギン（およぐ 形・頭が +z・おなかが -y、長さ 約 0.85）。aBody.y：0 からだ 1 くちばし 2 つばさ 3 足。
 function penguinGeometry() {
-  const pr = [[0.001, -0.37], [0.035, -0.34], [0.085, -0.25], [0.125, -0.12], [0.135, -0.02], [0.125, 0.09], [0.098, 0.17], [0.088, 0.22], [0.093, 0.27], [0.078, 0.32], [0.045, 0.355], [0.001, 0.37]];
-  const lat = new THREE.LatheGeometry(pr.map(([r, y]) => new THREE.Vector2(r, y)), 12); lat.rotateX(Math.PI / 2); lat.scale(0.95, 1.05, 1);
+  const pr = [[0.001, -0.40], [0.03, -0.37], [0.07, -0.30], [0.108, -0.2], [0.133, -0.08], [0.14, 0.02], [0.132, 0.12], [0.112, 0.19], [0.097, 0.235], [0.094, 0.27], [0.09, 0.305], [0.075, 0.34], [0.045, 0.368], [0.001, 0.382]];
+  const lat = new THREE.LatheGeometry(pr.map(([r, y]) => new THREE.Vector2(r, y)), 14); lat.rotateX(Math.PI / 2); lat.scale(0.95, 1.0, 1);
   lat.computeVertexNormals(); const body = lat.toNonIndexed(); lat.dispose();
-  const beak = limb([0, 0.005, 0.34], [0, -0.005, 0.44], 0.024, 0.004, 6).toNonIndexed();
-  const parts = [withBody(body, 0, 0), withBody(beak, 0, 1)];
+  const beak = limb([0, -0.005, 0.355], [0, -0.018, 0.455], 0.024, 0.005, 6).toNonIndexed();
+  const tail = limb([0, 0.01, -0.36], [0, 0.03, -0.46], 0.03, 0.006, 5).toNonIndexed();
+  const parts = [withBody(body, 0, 0), withBody(beak, 0, 1), withBody(tail, 0, 0)];
+  const fan = (c, pts) => { const a = []; for (let i = 0; i < pts.length - 1; i += 1) a.push(...c, ...pts[i], ...pts[i + 1]); const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(a), 3)); g.computeVertexNormals(); return g; };
   for (const s of [-1, 1]) {
-    const f = new THREE.BoxGeometry(0.022, 0.05, 0.27, 1, 1, 3).toNonIndexed(); const p = f.attributes.position;
-    for (let i = 0; i < p.count; i += 1) { const z = p.getZ(i); p.setY(i, p.getY(i) * (1 - Math.max(0, -z) * 2.4)); }
-    f.computeVertexNormals(); f.translate(s * 0.118, 0.0, -0.01); parts.push(withBody(f, 0, 2, s));
-    const ft = new THREE.BoxGeometry(0.045, 0.02, 0.075).toNonIndexed(); ft.translate(s * 0.04, -0.06, -0.37); parts.push(withBody(ft, 0, 3, s));
+    const f = new THREE.BoxGeometry(0.026, 0.06, 0.29, 1, 1, 4).toNonIndexed(); const p = f.attributes.position;
+    for (let i = 0; i < p.count; i += 1) { const z = p.getZ(i), k = Math.max(0, -z); p.setY(i, p.getY(i) * (1 - k * 2.6)); p.setX(i, p.getX(i) * (1 - k * 1.5)); }
+    f.computeVertexNormals(); f.translate(s * 0.122, 0.0, -0.01); parts.push(withBody(f, 0, 2, s));
+    const ft = fan([s * 0.045, -0.07, -0.33], [[s * 0.07, -0.085, -0.43], [s * 0.05, -0.095, -0.46], [s * 0.02, -0.09, -0.45], [s * 0.01, -0.085, -0.42]]);
+    const ft2 = fan([s * 0.045, -0.07, -0.33], [[s * 0.01, -0.085, -0.42], [s * 0.02, -0.09, -0.45], [s * 0.05, -0.095, -0.46], [s * 0.07, -0.085, -0.43]]);
+    parts.push(withBody(ft, 0, 3, s), withBody(ft2, 0, 3, s));
   }
   return mergeWithBody(parts);
 }
-// 人（1.7 m・+z むき）。part：0 はだ 1 上 2 下 3 かみ 4 くつ。aArm／aHead。
+// 人（1.7 m・+z むき）。part：0 はだ 1 上 2 下 3 かみ 4 くつ 5 ながい かみ。aArm 1 右 2 左／aHead。
 function humanGeometry() {
   const parts = [];
-  const add = (g0, part, arm = 0, head = 0) => { const g = g0.index ? g0.toNonIndexed() : g0; if (!g.attributes.normal) g.computeVertexNormals(); const c = g.attributes.position.count; g.setAttribute('part', new THREE.BufferAttribute(new Float32Array(c).fill(part), 1)); g.setAttribute('aArm', new THREE.BufferAttribute(new Float32Array(c).fill(arm), 1)); g.setAttribute('aHead', new THREE.BufferAttribute(new Float32Array(c).fill(head), 1)); g.deleteAttribute('uv'); parts.push(g); };
+  const add = (g0, part, arm = 0, head = 0) => { const g = g0.index ? g0.toNonIndexed() : g0; if (!g.attributes.normal) g.computeVertexNormals(); const c = g.attributes.position.count; g.setAttribute('part', new THREE.BufferAttribute(new Float32Array(c).fill(part), 1)); g.setAttribute('aArm', new THREE.BufferAttribute(new Float32Array(c).fill(arm), 1)); g.setAttribute('aHead', new THREE.BufferAttribute(new Float32Array(c).fill(head), 1)); if (g.attributes.uv) g.deleteAttribute('uv'); parts.push(g); };
   for (const s of [-1, 1]) {
-    add(limb([s * 0.09, 0.07, 0], [s * 0.095, 0.5, 0.01], 0.05, 0.064), 2);
-    add(limb([s * 0.095, 0.5, 0.01], [s * 0.1, 0.9, 0], 0.065, 0.085), 2);
-    add(ell(s * 0.09, 0.045, 0.045, 0.055, 0.045, 0.125, 8, 5), 4);
+    add(ell(s * 0.09, 0.045, 0.035, 0.05, 0.042, 0.12, 7, 4), 4); add(box(s * 0.09, 0, 0.03, 0.105, 0.018, 0.25), 4);
+    add(limb([s * 0.09, 0.07, 0], [s * 0.093, 0.48, 0.012], 0.042, 0.056, 6), 2);
+    add(ell(s * 0.094, 0.49, 0.014, 0.058, 0.05, 0.06, 6, 4), 2);
+    add(limb([s * 0.094, 0.5, 0.012], [s * 0.098, 0.9, 0], 0.06, 0.082, 6), 2);
   }
   const y0 = 0.9;
-  add(ell(0, y0 + 0.02, 0, 0.17, 0.12, 0.12, 10, 5), 2);
-  { const g = new THREE.CylinderGeometry(0.19, 0.155, 0.52, 12, 2); g.scale(1, 1, 0.62); g.translate(0, y0 + 0.3, 0); add(g, 1); }
-  add(ell(0, y0 + 0.56, 0, 0.19, 0.07, 0.12, 10, 4, 0, Math.PI / 2), 1);
-  add(limb([0, y0 + 0.58, 0], [0, y0 + 0.66, 0.005], 0.045, 0.042, 6), 0, 0, 1);
-  add(ell(0, y0 + 0.77, 0.008, 0.088, 0.112, 0.1, 12, 9), 0, 0, 1);
-  add(ell(0, y0 + 0.8, -0.008, 0.095, 0.103, 0.106, 12, 7, 0, Math.PI * 0.62), 3, 0, 1);
-  for (const s of [-1, 1]) {
-    const sh = [s * 0.205, y0 + 0.54, 0];
-    add(limb(sh, [s * 0.235, y0 + 0.25, 0], 0.055, 0.047), 1, 1);
-    add(limb([s * 0.235, y0 + 0.25, 0], [s * 0.245, y0 - 0.02, 0.02], 0.045, 0.036), 0, 1);
-    add(ell(s * 0.247, y0 - 0.07, 0.025, 0.035, 0.06, 0.03, 6, 5), 0, 1);
+  add(ell(0, y0 + 0.02, 0, 0.17, 0.12, 0.115, 10, 5), 2);
+  { const pr = [[0.155, 0.88], [0.165, 0.97], [0.148, 1.08], [0.158, 1.22], [0.185, 1.34], [0.175, 1.42], [0.11, 1.47], [0.045, 1.49]];
+    const g = new THREE.LatheGeometry(pr.map(([r, y]) => new THREE.Vector2(r, y)), 10); g.scale(1, 1, 0.62); add(g, 1); }
+  add(limb([0, 1.45, 0], [0, 1.53, 0.008], 0.042, 0.038, 7), 0, 0, 1);
+  add(ell(0, 1.625, 0.01, 0.084, 0.106, 0.096, 12, 9), 0, 0, 1);
+  add(ell(0, 1.6, 0.096, 0.013, 0.02, 0.018, 6, 4), 0, 0, 1);
+  for (const s of [-1, 1]) add(ell(s * 0.085, 1.615, 0.0, 0.014, 0.028, 0.02, 6, 4), 0, 0, 1);
+  add(ell(0, 1.652, -0.006, 0.091, 0.098, 0.103, 12, 7, 0, Math.PI * 0.56), 3, 0, 1);
+  add(ell(0, 1.61, -0.035, 0.089, 0.085, 0.075, 8, 5), 3, 0, 1);
+  add(ell(0, 1.47, -0.07, 0.085, 0.16, 0.045, 8, 5), 5, 0, 1);
+  for (const [s, arm] of [[1, 1], [-1, 2]]) {
+    add(ell(s * 0.19, 1.41, 0, 0.062, 0.062, 0.062, 7, 5), 1, arm);
+    add(limb([s * 0.2, 1.42, 0], [s * 0.222, 1.14, 0], 0.052, 0.046, 6), 1, arm);
+    add(limb([s * 0.222, 1.14, 0], [s * 0.232, 0.89, 0.025], 0.04, 0.032, 6), 0, arm);
+    add(ell(s * 0.235, 0.84, 0.03, 0.026, 0.055, 0.02, 7, 5), 0, arm);
+    add(limb([s * 0.225, 0.87, 0.045], [s * 0.215, 0.83, 0.07], 0.012, 0.009, 5), 0, arm);
   }
   const names = ['position', 'normal', 'part', 'aArm', 'aHead'];
   let nv = 0; for (const p of parts) nv += p.attributes.position.count;
@@ -882,7 +928,7 @@ export function buildAquarium(opts = {}) {
   const t0 = now(); const rnd = rng(opts.seed || 2026);
   const group = new THREE.Group(); group.name = 'aquarium';
   U.uNoise.value = noiseTexture();
-  const B = batch(), obstacles = [], ANEMS = [];
+  const B = batch(), obstacles = [], ANEMS = [], LEDGES = [];
   const ob = (x, z, w, d) => obstacles.push({ x, z, w, d });
   const WALL = 0x5a646a, WALL2 = 0x4a545a, CEIL = 0x3a4248, DARK = 0x22282c, SLAB = 0x58626a;
   const room = (g, c = WALL) => B.add('room', g, c, { aA: 0, aB: 0 });
@@ -1023,7 +1069,7 @@ export function buildAquarium(opts = {}) {
     { const g = new THREE.CylinderGeometry(0.55, 0.55, 5.2, 20, 1); g.rotateZ(Math.PI / 2); g.rotateY(0.5); g.translate(1.8, 0.35, -31.5); prop(g, 0, 0xb2a487); }
     for (let i = 0; i < 9; i += 1) { const g = box(0, 0, 0, 0.6 + rnd() * 0.9, 0.4 + rnd() * 0.5, 0.5 + rnd() * 0.8); g.rotateY(rnd() * 3); g.rotateZ((rnd() - 0.5) * 0.4); g.translate(-7 + rnd() * 14, -0.15, -30 - rnd() * 10); prop(g, 0, 0xa9997b); }
     // 手前の 岩の 尾根（ガラスの すぐ おく・左右）＝ さんごの 台
-    const ridge = [[-8.6, -26.9, 1.9, 1.2, 1.1], [-6.2, -27.2, 1.6, 0.9, 1.0], [-10.6, -27.4, 1.5, 1.6, 1.2], [6.4, -26.9, 1.7, 1.0, 1.0], [8.7, -27.3, 1.9, 1.4, 1.2], [10.8, -27.8, 1.4, 1.9, 1.3], [-3.2, -26.6, 0.9, 0.45, 0.7], [3.4, -26.7, 1.0, 0.5, 0.75]];
+    const ridge = [[-8.6, -27.0, 1.9, 2.2, 1.1], [-5.6, -27.0, 1.5, 2.9, 1.0], [-3.6, -26.9, 1.1, 1.9, 0.8], [-10.6, -27.6, 1.5, 3.2, 1.2], [5.4, -27.0, 1.6, 3.2, 1.0], [3.5, -26.8, 1.0, 1.7, 0.8], [8.4, -27.3, 1.9, 2.4, 1.2], [10.8, -27.8, 1.4, 3.4, 1.3], [-1.6, -26.8, 0.8, 0.6, 0.6], [1.8, -27.0, 0.9, 0.7, 0.7]];
     ridge.forEach(([x, z, sx, sy, sz], i) => prop(rock(x, -0.2, z, sx, sy, sz, 40 + i * 2.7, { detail: 2, rough: 0.33 }), 0, [0x5c544a, 0x6a5e50, 0x4e4a44][i % 3]));
     // さんご（色と 形の しゅるい）
     const STAG = [0xb070d0, 0xe8d6b8, 0x6fa0d8, 0xd8a050, 0xf09ab0, 0x9ad0a0], BRAIN = [0x8aa040, 0xc8a050, 0x7a9a7a, 0xd07a50, 0xb0b060], TABLE = [0x9a8a6a, 0x80a090, 0xc0a070, 0x8a7ab0];
@@ -1041,11 +1087,11 @@ export function buildAquarium(opts = {}) {
     const pen = (x, y, z, h, c) => { for (let k = 0; k < 2; k += 1) { const g = new THREE.PlaneGeometry(h * 0.45, h, 1, 4); g.translate(0, h / 2, 0); g.rotateY(k * Math.PI / 2 + rnd()); g.translate(x, y, z); card(g, 0, c, 2); } };
     const anemone = (x, y, z, s, c) => { ANEMS.push([x, y + 0.22 * s, z]); prop(cyl(x, y - 0.05, z, 0.13 * s, 0.16 * s, 0.14 * s, 10), 0, 0x8a5a50); const g = new THREE.CylinderGeometry(0.32 * s, 0.12 * s, 0.3 * s, 16, 3, true); g.translate(x, y + 0.22 * s, z); card(g, 0, c, 3); };
     const reef = [[-10, -29, 2.2], [-8.3, -31.5, 3.0], [9.6, -29.5, 1.9], [10.8, -32.4, 4.9], [-11.2, -33.8, 4.2], [8, -35, 1.5], [0.5, -28.6, 0.6], [-5.5, -27.6, 0.5], [5.5, -27.4, 0.45],
-      [-8.6, -26.9, 1.2], [-6.2, -27.2, 0.85], [-10.6, -27.4, 1.6], [6.4, -26.9, 1.0], [8.7, -27.3, 1.4], [10.8, -27.8, 1.9]];
+      [-8.6, -27.0, 2.0], [-5.6, -27.0, 2.6], [-3.6, -26.9, 1.7], [5.4, -27.0, 2.9], [3.5, -26.8, 1.55], [8.4, -27.3, 2.2], [-1.6, -26.8, 0.5], [1.8, -27.0, 0.6]];
     reef.forEach(([x, z, h], i) => {
-      const n = i >= 9 ? 7 : 5;
+      const n = i >= 9 ? 6 : 4;
       for (let k = 0; k < n; k += 1) {
-        const a = rnd() * TAU, rr = 0.2 + rnd() * (i >= 9 ? 0.9 : 1.2), cx = x + Math.cos(a) * rr, cz = z + Math.sin(a) * rr, y = h * (0.55 + rnd() * 0.3);
+        const a = rnd() * TAU, rr = 0.15 + rnd() * (i >= 9 ? 0.7 : 1.2), cx = x + Math.cos(a) * rr, cz = z + Math.sin(a) * rr, y = h * (i >= 9 ? 0.78 + rnd() * 0.18 : 0.55 + rnd() * 0.3);
         const kind = (i + k) % 7;
         if (kind === 0 || kind === 4) branchy(cx, y, cz, 0.8 + rnd() * 0.5, pickc(STAG)); else if (kind === 1) brain(cx, y, cz, 0.6 + rnd() * 0.5, pickc(BRAIN)); else if (kind === 2) table(cx, y, cz, 0.7 + rnd() * 0.5, pickc(TABLE));
         else if (kind === 3) fan(cx, y - 0.1, cz, 1.0 + rnd() * 0.9, 0.9 + rnd() * 0.8, pickc(FAN)); else if (kind === 5) anemone(cx, y, cz, 1 + rnd() * 0.6, pickc(ANEM)); else whip(cx, y, cz, 1.0 + rnd() * 1.2, pickc(WHIP));
@@ -1055,7 +1101,7 @@ export function buildAquarium(opts = {}) {
     for (let i = 0; i < 34; i += 1) { const x = -9.5 + rnd() * 19, z = -27.3 - rnd() * 15; if (Math.abs(x) < 3 && z > -33) continue; const k = i % 6;
       if (k === 0) brain(x, 0.05, z, 0.5 + rnd() * 0.4, pickc(BRAIN)); else if (k === 1) whip(x, 0, z, 0.6 + rnd(), pickc(WHIP)); else if (k === 2) branchy(x, 0, z, 0.6 + rnd() * 0.4, pickc(STAG)); else if (k === 3) fan(x, 0, z, 0.8 + rnd() * 0.8, 0.8 + rnd() * 0.9, pickc(FAN)); else if (k === 4) pen(x, 0, z, 0.5 + rnd() * 0.5, 0xf0c070); else anemone(x, 0.1, z, 0.9 + rnd() * 0.5, pickc(ANEM)); }
     // とおくの 岩の 影（奥行きの 層）
-    for (let i = 0; i < 7; i += 1) prop(rock(-12 + i * 4 + (rnd() - 0.5) * 2, -0.2, -42.5 + rnd() * 1.5, 1.6 + rnd(), 2 + rnd() * 3.5, 1.2, 90 + i, { detail: 1, rough: 0.3 }), 0, 0x4a5050);
+    for (let i = 0; i < 7; i += 1) prop(rock(-12 + i * 4 + (rnd() - 0.5) * 2, -0.2, -42.5 + rnd() * 1.5, 2.2 + rnd(), 1.6 + rnd() * 2.2, 1.4, 90 + i, { detail: 2, rough: 0.3 }), 0, 0x4a5050);
   }
 
   /* ── ペンギンの ろうか ── */
@@ -1106,11 +1152,14 @@ export function buildAquarium(opts = {}) {
     for (const z of [z0, z1]) { tank(panel((x0 + x1) / 2, (wl - 0.4) / 2, z, x1 - x0, wl + 0.4, z === z0 ? 0 : Math.PI), 1, 1, 0x4a5c66); tank(panel((x0 + x1) / 2, wl + 1.4, z, x1 - x0, 2.8, z === z0 ? 0 : Math.PI), 1, 3, 0xcfe0ea); }
     const surf = new THREE.PlaneGeometry(x1 - x0, L, 4, 8); surf.rotateX(Math.PI / 2); surf.translate((x0 + x1) / 2, wl, zc); tank(surf, 1, 2, 0xffffff);
     tank(flatPanel((x0 + x1) / 2, 3.9, zc, x1 - x0, L, false), 1, 5, 0x8fb4c8);
-    // 氷の 岩：おくの だん（水の 上に 出る）・水の 中の 岩
-    for (let z = z0 + 0.5; z < z1; z += 1.7 + rnd() * 1.2) prop(rock(27.4 + rnd() * 1.2, 1.1, z, 1.6 + rnd() * 0.6, 1.45 + rnd() * 0.15, 1.2 + rnd() * 0.5, z * 1.7, { detail: 1, rough: 0.22, flat: -0.8 }), 1, [0xd6e6ee, 0xc6dae4, 0xe2eef4][Math.floor(rnd() * 3)]);
-    prop(rock(23.6, 1.2, -6.5, 1.3, 1.3, 2.2, 4.4, { detail: 1, rough: 0.25, flat: -0.8 }), 1, 0xd2e3ec);
-    prop(rock(24.4, 1.0, 4.5, 1.0, 1.4, 1.4, 8.8, { detail: 1, rough: 0.25, flat: -0.8 }), 1, 0xcfe0ea);
-    for (let i = 0; i < 16; i += 1) prop(rock(21.2 + rnd() * 5.5, -0.42, z0 + 1 + rnd() * (L - 2), 0.25 + rnd() * 0.5, 0.2 + rnd() * 0.25, 0.25 + rnd() * 0.5, i * 2.3, { detail: 1, rough: 0.3 }), 1, 0x6f8088);
+    // 雪を かぶった 岩：おくの かべ（天井まで）・水の 上の たな（ペンギンが 立つ）・水の 中の 岩
+    for (let z = z0 + 0.6, i = 0; z < z1; z += 1.9 + rnd() * 0.8, i += 1) prop(rock(28.4 + rnd() * 0.6, 1.2, z, 1.5 + rnd() * 0.5, 2.5 + rnd() * 0.4, 1.3 + rnd() * 0.4, 60 + i * 1.7, { detail: 2, rough: 0.3, flat: -0.6 }), 1, 0x8a96a0, 0, 4);
+    for (let z = z0 + 1.2, i = 0; z < z1 - 0.8; z += 2.3 + rnd() * 1.1, i += 1) {
+      const T = 2.38 + rnd() * 0.35, sy = 1.3 + rnd() * 0.3, cap = 0.62, x = 24.6 + (i % 2 ? 0.9 : 0) + rnd() * 0.6;
+      prop(rock(x, T - cap * sy, z, 1.3 + rnd() * 0.6, sy, 1.0 + rnd() * 0.5, 80 + i * 2.3, { detail: 2, rough: 0.26, flat: -0.7, cap }), 1, 0x8a96a0, 0, 4);
+      LEDGES.push([x, T, z]);
+    }
+    for (let i = 0; i < 12; i += 1) prop(rock(21.4 + rnd() * 4.5, -0.42, z0 + 1 + rnd() * (L - 2), 0.3 + rnd() * 0.5, 0.25 + rnd() * 0.3, 0.3 + rnd() * 0.5, i * 2.3, { detail: 1, rough: 0.3 }), 1, 0x6f8088);
   }
 
   /* ── 入口の ホール ── */
@@ -1187,7 +1236,7 @@ export function buildAquarium(opts = {}) {
   const fishList = [];
   const F0 = (o) => fishList.push({ G: o.ph * 3, br: 0, dr: 0, ...o });
   // ① イワシの 大きな むれ：みんな 同じ はやさ・位相は 1.3 rad の 中＝ひとかたまりで まわり、ふくらんだり ちぢんだり する
-  for (let i = 0; i < 200; i += 1) { const u = rnd(), v = rnd(), w = rnd(); const off = [(u - 0.5) * 1.3, (v - 0.5) * 1.1, (w - 0.5) * 1.3];
+  for (let i = 0; i < 175; i += 1) { const u = rnd(), v = rnd(), w = rnd(); const off = [(u - 0.5) * 1.3, (v - 0.5) * 1.1, (w - 0.5) * 1.3];
     fishList.push({ c: [1.0 + off[0], 7.6 + off[1], -33.2 + off[2]], R: 4.4, Rz: 3.3, sp: 0.36, ph: rnd() * 1.3 + Math.pow(rnd(), 3) * 0.6, A: 0.7, k: 0, L: 0.25 + rnd() * 0.05, D: 0.85, Wd: 0.9, G: 0.8, br: 0.14, dr: 1.4 }); }
   // ② タカサゴの むれ（ぎゃくまわり・ひくい ところ）
   for (let i = 0; i < 110; i += 1) { const off = [(rnd() - 0.5) * 1.2, (rnd() - 0.5) * 0.8, (rnd() - 0.5) * 1.2];
@@ -1229,18 +1278,18 @@ export function buildAquarium(opts = {}) {
   {
     const base = penguinGeometry(), list = [];
     for (let i = 0; i < 15; i += 1) { const Rz = 7 + rnd() * 5; list.push({ c: [24.3 + (rnd() - 0.5) * 1.6, 0.85 + rnd() * 0.5, -4.5 + (rnd() - 0.5) * 6], R: 1.6 + rnd() * 1.4, Rz, sp: (rnd() > 0.4 ? 1 : -1) * (1.5 + rnd() * 0.8) / Rz, ph: rnd() * TAU, A: 0.25 + rnd() * 0.3, st: 0, s: 0.95 + rnd() * 0.15 }); }
-    const stands = [];
-    for (let z = -19; z < 10.5; z += 1.1 + rnd() * 2.6) stands.push([27.0 + rnd() * 1.3, z]);
-    stands.slice(0, 13).forEach(([x, z]) => list.push({ c: [x, PG.waterline + 0.32, z], R: -Math.PI / 2 + (rnd() - 0.5) * 2.2, Rz: 0, sp: 0, ph: rnd() * TAU, A: 0, st: 1, s: 0.95 + rnd() * 0.12 }));
-    list.push({ c: [23.6, PG.waterline + 0.42, -6.8], R: -Math.PI / 2 + 0.4, Rz: 0, sp: 0, ph: 1.3, A: 0, st: 1, s: 1 });
-    list.push({ c: [23.9, PG.waterline + 0.42, -5.6], R: -Math.PI / 2 - 0.6, Rz: 0, sp: 0, ph: 2.9, A: 0, st: 1, s: 0.98 });
-    list.push({ c: [24.3, PG.waterline + 0.5, 4.3], R: -Math.PI / 2 + 0.2, Rz: 0, sp: 0, ph: 0.5, A: 0, st: 1, s: 1.05 });
+    LEDGES.forEach(([x, T, z], i) => { const k = i % 3 === 1 ? 2 : 1; for (let m = 0; m < k; m += 1) list.push({ c: [x - 0.55 + m * 0.35 + (rnd() - 0.5) * 0.25, T - 0.02, z + (m - 0.5) * 0.55 + (rnd() - 0.5) * 0.3], R: -Math.PI / 2 + (rnd() - 0.5) * 2.0, Rz: 0, sp: 0, ph: rnd() * TAU, A: 0, st: 1, s: 0.95 + rnd() * 0.15 }); });
     const n = list.length, g = new THREE.InstancedBufferGeometry();
     for (const k of ['position', 'normal', 'aBody']) g.setAttribute(k, base.attributes[k]);
     const a = new Float32Array(n * 4), b = new Float32Array(n * 4), c = new Float32Array(n * 4);
     list.forEach((p, i) => { a.set([...p.c, p.R], i * 4); b.set([p.sp, p.ph, p.A, p.st], i * 4); c.set([p.Rz, p.s, 0, 0], i * 4); });
     g.setAttribute('aPath', new THREE.InstancedBufferAttribute(a, 4)); g.setAttribute('aPar', new THREE.InstancedBufferAttribute(b, 4)); g.setAttribute('aShape', new THREE.InstancedBufferAttribute(c, 4));
     g.instanceCount = n; put('penguins', g, shader('penguins', PENG_VERT, PENG_FRAG, { vertexColors: false }));
+    // あわの すじ（およぐ ペンギンの うしろ）：同じ 道を すこし 前の 時間で なぞり、上へ のぼる
+    const sw = list.filter((q) => !q.st), per = 22, tn = sw.length * per, tp = new Float32Array(tn * 3), ta = new Float32Array(tn * 4), tb = new Float32Array(tn * 4), tc = new Float32Array(tn * 4), tt = new Float32Array(tn * 4);
+    sw.forEach((q, i) => { for (let k = 0; k < per; k += 1) { const j = i * per + k; ta.set([...q.c, q.R], j * 4); tb.set([q.sp, q.ph, q.A, 0], j * 4); tc.set([q.Rz, q.s, 0, 0], j * 4); tt.set([(k / per) * 1.7 + rnd() * 0.06, rnd() * TAU, 0.018 + rnd() * 0.03, (rnd() - 0.5) * 0.12], j * 4); } });
+    const tg = new THREE.BufferGeometry(); tg.setAttribute('position', new THREE.BufferAttribute(tp, 3)); tg.setAttribute('aPath', new THREE.BufferAttribute(ta, 4)); tg.setAttribute('aPar', new THREE.BufferAttribute(tb, 4)); tg.setAttribute('aShape', new THREE.BufferAttribute(tc, 4)); tg.setAttribute('aT', new THREE.BufferAttribute(tt, 4));
+    const trail = hook(new THREE.Points(tg, shader('trail', TRAIL_VERT, DOTS_FRAG, { vertexColors: false, extra: add }))); trail.name = 'aqua-trail'; trail.frustumCulled = false; trail.renderOrder = 2; group.add(trail); meshes.trail = trail;
   }
 
   /* ── クラゲ ── */
@@ -1268,30 +1317,35 @@ export function buildAquarium(opts = {}) {
   /* ── 人（こども と おとな） ── */
   {
     const base = humanGeometry();
+    const BAL = AQUARIUM.hall.balcony, PI = Math.PI;
+    // [x, y, z, 向き, 大きさ, 右うで, 左うで, まえかがみ, 上むき, かみ(0 みじかい 1 ながい), うでを ひらく]
     const P = [
-      // ホール（まどの 前）
-      [-1.4, 0, -20.0, Math.PI, 0.7, 0, 0], [-0.5, 0, -20.6, Math.PI + 0.1, 0.66, 2.5, 0], [1.9, 0, -19.2, Math.PI - 0.15, 0.72, 0.3, 0], [3.3, 0, -20.8, Math.PI - 0.3, 1.0, 0, 0],
-      [-4.6, 0, -21.4, Math.PI + 0.3, 0.64, 0.9, 0.05], [-3.6, 0, -18.0, Math.PI + 0.2, 1.02, 0, 0], [5.6, 0, -18.5, Math.PI - 0.5, 0.7, 0, 0],
-      // バルコニー
-      [-10.0, AQUARIUM.hall.balcony, -15, Math.PI / 2 + 0.6, 1.0, 1.15, 0.1], [-9.4, AQUARIUM.hall.balcony, -13.8, Math.PI / 2 + 0.6, 0.7, 1.4, 0.1], [9.6, AQUARIUM.hall.balcony, -9, -Math.PI / 2 - 0.6, 0.98, 1.15, 0.12],
-      // ろうか（手すりに もたれる 子）
-      [18.85, 0, 6.2, Math.PI / 2, 0.76, 0.75, 0.12], [18.85, 0, 5.4, Math.PI / 2 - 0.2, 0.72, 0.8, 0.1], [18.8, 0, 0.8, Math.PI / 2, 0.78, 0.7, 0.12], [17.6, 0, 1.6, Math.PI / 2 + 0.3, 1.0, 0, 0],
-      [18.85, 0, -4.4, Math.PI / 2 + 0.1, 0.74, 0.8, 0.12], [18.85, 0, -9.8, Math.PI / 2, 0.75, 2.5, 0.04], [18.3, 0, -10.6, Math.PI / 2 - 0.4, 1.03, 0, 0],
-      // 入口
-      [1.2, 0, 21.5, Math.PI + 0.2, 1.0, 0, 0], [0.6, 0, 21.2, Math.PI + 0.2, 0.68, 0.4, 0], [-4.8, 0, 17.5, 0.9, 0.98, 0, 0],
+      // ホール（まどの 前）：ゆびさす 子・手を のばす 子・写真を とる 人・親子
+      [-1.4, 0, -20.2, PI, 0.66, 2.05, 0.15, 0, 0.42, 1, 0.1], [-0.8, 0, -20.7, PI + 0.1, 0.58, 2.6, 2.5, 0, 0.5, 0, 0.18], [-1.9, 0, -19.4, PI + 0.15, 1.02, 0.15, 0.35, 0, 0.25, 1, 0.05],
+      [1.9, 0, -19.6, PI - 0.15, 0.72, 0.2, 0.1, 0, 0.35, 0, 0.05], [2.5, 0, -19.1, PI - 0.25, 1.06, 1.45, 1.4, 0, 0.3, 0, -0.12], [3.3, 0, -20.9, PI - 0.3, 0.98, 0.1, 0.12, 0, 0.3, 1, 0.04],
+      [-4.6, 0, -21.4, PI + 0.3, 0.62, 1.9, 0.1, 0.04, 0.5, 1, 0.1], [-3.6, 0, -18.0, PI + 0.2, 1.0, 0.05, 0.1, 0, 0.18, 0, 0.04], [5.6, 0, -18.5, PI - 0.5, 0.74, 0.1, 0.2, 0, 0.3, 0, 0.05],
+      [0.4, 0, -16.4, PI + 0.05, 0.95, 0.2, 0.1, 0, 0.2, 1, 0.04], [-6.4, 0, -15.5, PI + 0.6, 1.04, 0.1, 0.1, 0, 0.15, 0, 0.05],
+      // バルコニー（手すりに もたれる）
+      [-10.0, BAL, -15, PI / 2 + 0.6, 1.0, 0.9, 0.85, 0.12, 0.2, 0, 0.1], [-9.4, BAL, -13.8, PI / 2 + 0.6, 0.7, 1.9, 0.6, 0.06, 0.4, 1, 0.1], [9.6, BAL, -9, -PI / 2 - 0.6, 0.98, 0.85, 0.9, 0.12, 0.2, 1, 0.1], [9.9, BAL, -11, -PI / 2 - 0.5, 1.03, 0.1, 0.1, 0, 0.2, 0, 0.05],
+      // ろうか（手すりに もたれる 子・ゆびさす 子・うしろの 大人）
+      [18.85, 0, 6.2, PI / 2, 0.7, 1.05, 1.0, 0.12, 0.1, 1, 0.1], [18.85, 0, 5.4, PI / 2 - 0.2, 0.64, 1.9, 0.3, 0.08, 0.25, 0, 0.12], [18.8, 0, 0.8, PI / 2, 0.76, 1.0, 1.05, 0.12, 0.05, 0, 0.1], [17.6, 0, 1.6, PI / 2 + 0.3, 1.0, 0.1, 0.3, 0, 0.05, 1, 0.05],
+      [18.85, 0, -4.4, PI / 2 + 0.1, 0.62, 2.3, 2.2, 0.05, 0.45, 1, 0.15], [18.85, 0, -9.8, PI / 2, 0.72, 0.95, 1.0, 0.12, 0.1, 0, 0.1], [18.3, 0, -10.6, PI / 2 - 0.4, 1.03, 0.15, 0.1, 0, 0.05, 0, 0.05], [18.0, 0, -3.6, PI / 2 + 0.2, 1.05, 1.5, 1.45, 0, 0.1, 1, -0.1],
+      // 入口（親子・うけつけの 人・ならぶ 人）
+      [1.2, 0, 21.5, PI + 0.2, 1.0, 0.1, 0.45, 0, 0.05, 1, 0.06], [0.6, 0, 21.2, PI + 0.2, 0.64, 0.5, 0.1, 0, 0.15, 0, 0.06], [-4.8, 0, 17.6, 0.9, 0.98, 0.3, 0.3, 0.05, 0, 0, 0.05], [-6.6, 0, 18.5, PI / 2 + 0.5, 1.0, 0.6, 0.55, 0, -0.05, 1, 0.08],
+      [-2.4, 0, 19.6, PI - 0.4, 1.02, 0.1, 0.1, 0, 0.1, 0, 0.05], [-2.0, 0, 20.1, PI - 0.2, 0.7, 0.1, 1.2, 0, 0.3, 1, 0.06],
     ];
     const n = P.length, m = new THREE.InstancedMesh(base, shader('people', PEOPLE_VERT, PEOPLE_FRAG, { vertexColors: false }), n);
     const at = () => new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
-    const A = { iSkin: at(), iTop: at(), iBot: at(), iHair: at() }, pose = new THREE.InstancedBufferAttribute(new Float32Array(n * 4), 4);
-    const SKIN = [0xf1c7a5, 0xe0ac85, 0xc68a62, 0x9c6644, 0xf5d3b8, 0xe8b894], TOPC = [0xe8e6e0, 0x2b3550, 0xc23a3a, 0x3f6b55, 0xe0a030, 0x5a6aa0, 0xd9a3a8, 0x222326, 0x7fb0d8, 0xf0d040, 0x8a5a9a];
-    const BOTC = [0x3b4e6e, 0x262f42, 0x1f2022, 0xb49f7a, 0x55585c, 0x2f3238, 0x6a3a3a], HAIR = [0x1c1512, 0x2e2018, 0x4a3324, 0x6b4a2e, 0x161210];
+    const A = { iSkin: at(), iTop: at(), iBot: at(), iHair: at() }, pose = new THREE.InstancedBufferAttribute(new Float32Array(n * 4), 4), pose2 = new THREE.InstancedBufferAttribute(new Float32Array(n * 4), 4);
+    const SKIN = [0xf1c7a5, 0xe0ac85, 0xc68a62, 0x9c6644, 0xf5d3b8, 0xe8b894, 0x7a4a30], TOPC = [0xe8e6e0, 0x2b3550, 0xc23a3a, 0x3f6b55, 0xe0a030, 0x5a6aa0, 0xd9a3a8, 0x222326, 0x7fb0d8, 0xf0d040, 0x8a5a9a, 0xf2f0ea, 0xe06a40];
+    const BOTC = [0x3b4e6e, 0x262f42, 0x1f2022, 0xb49f7a, 0x55585c, 0x2f3238, 0x6a3a3a, 0x8a3a5a], HAIR = [0x1c1512, 0x2e2018, 0x4a3324, 0x6b4a2e, 0x161210, 0xa07848];
     const o = new THREE.Object3D(), cc = new THREE.Color(), pick = (arr) => cc.setHex(arr[Math.floor(rnd() * arr.length)]);
-    P.forEach(([x, y, z, ry, s, arm, lean], i) => {
-      o.position.set(x, y, z); o.rotation.set(lean, ry, 0, 'YXZ'); o.scale.set(s * (0.95 + rnd() * 0.1), s, s); o.updateMatrix(); m.setMatrixAt(i, o.matrix);
+    P.forEach(([x, y, z, ry, sc, ra, la, lean, up, hair, ab], i) => {
+      o.position.set(x, y, z); o.rotation.set(0, ry, 0, 'YXZ'); o.scale.set(sc * (0.95 + rnd() * 0.1), sc * (0.97 + rnd() * 0.06), sc); o.updateMatrix(); m.setMatrixAt(i, o.matrix);
       A.iSkin.setXYZ(i, ...pick(SKIN).toArray()); A.iTop.setXYZ(i, ...pick(TOPC).toArray()); A.iBot.setXYZ(i, ...pick(BOTC).toArray()); A.iHair.setXYZ(i, ...pick(HAIR).toArray());
-      pose.setXYZW(i, arm, s < 0.8 ? 1.22 : 1.0, rnd() * 6, 0);
+      pose.setXYZW(i, ra, sc < 0.8 ? 1.25 : 1.0, rnd() * 6, hair); pose2.setXYZW(i, la, ab, up, lean);
     });
-    for (const [k, a] of Object.entries(A)) m.geometry.setAttribute(k, a); m.geometry.setAttribute('iPose', pose);
+    for (const [k, a] of Object.entries(A)) m.geometry.setAttribute(k, a); m.geometry.setAttribute('iPose', pose); m.geometry.setAttribute('iPose2', pose2);
     hook(m); m.name = 'aqua-people'; m.frustumCulled = false; group.add(m); meshes.people = m;
   }
 

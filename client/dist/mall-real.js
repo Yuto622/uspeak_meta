@@ -386,7 +386,7 @@ void main() {
   vec4 mvPosition = viewMatrix * w; gl_Position = projectionMatrix * mvPosition;
   #include <fog_vertex>
 }`;
-const GLASS_FS = `uniform sampler2D uEnv; uniform sampler2D uSky; uniform sampler2D uRooms; uniform float uNight; uniform vec3 uSun; uniform float uRefl;
+const GLASS_FS = `uniform sampler2D uEnv; uniform sampler2D uSky; uniform sampler2D uRooms; uniform float uNight; uniform vec3 uSun; uniform float uRefl; uniform vec3 uHazeC; uniform vec2 uHaze;
 varying vec3 vW; varying vec3 vN; varying vec2 vUv; varying vec3 vP;
 #include <common>
 #include <fog_pars_fragment>
@@ -460,14 +460,28 @@ void main() {
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
   #include <fog_fragment>
+  gl_FragColor.rgb = mix(gl_FragColor.rgb, uHazeC, (1.0 - exp(-distance(vW, cameraPosition) * uHaze.x)) * uHaze.y);
 }`;
 function glassMaterial(env, sky, rooms) {
   const m = new THREE.ShaderMaterial({
-    uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uNight: { value: 0 }, uRefl: { value: 1 }, uSun: { value: new THREE.Vector3(-0.47, 0.74, 0.4) } }]),
+    uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uNight: { value: 0 }, uRefl: { value: 1 }, uHazeC: { value: new THREE.Color(1, 1, 1) }, uHaze: { value: new THREE.Vector2(0, 0) }, uSun: { value: new THREE.Vector3(-0.47, 0.74, 0.4) } }]),
     vertexShader: GLASS_VS, fragmentShader: GLASS_FS, vertexColors: true, fog: true,
   });
   // テクスチャは merge の あとで（merge は テクスチャを 複製して しまう）。
   m.uniforms.uEnv = { value: env }; m.uniforms.uSky = { value: sky }; m.uniforms.uRooms = { value: rooms };
+  return m;
+}
+// 吹きぬけの おくの かすみ（空気の 遠近）：画面の 色を 遠いほど あわい 色へ。fog を 使わない（シーンを さわらない）・光も 描画も ふえない。
+// haze＝{ c: Color（出力の 色）, k: vec2(こさ, 上限) } を ぜんぶの 材質で 共有する。
+function hazeify(m, haze) {
+  const prev = m.onBeforeCompile, key = m.customProgramCacheKey();
+  m.onBeforeCompile = (sh, r) => {
+    prev.call(m, sh, r);
+    sh.uniforms.uHazeC = haze.c; sh.uniforms.uHaze = haze.k;
+    sh.fragmentShader = `uniform vec3 uHazeC;\nuniform vec2 uHaze;\n${sh.fragmentShader}`.replace('#include <fog_fragment>', `#include <fog_fragment>
+      gl_FragColor.rgb = mix(gl_FragColor.rgb, uHazeC, (1.0 - exp(-length(vViewPosition) * uHaze.x)) * uHaze.y);`);
+  };
+  m.customProgramCacheKey = () => `${key}|haze`;
   return m;
 }
 
@@ -722,6 +736,17 @@ export function buildMallExterior(opts = {}) {
     obstacles.push({ x, z: 8.6, w: 0.18, d: 0.18 });
   }
 
+  /* 歩道の こまかい もの：ベンチ・ごみばこ・自転車の スタンド・入口の 案内板 */
+  for (const x of [-30, -18, -6.2, 25, 31]) {
+    SF(box(x, 0.42, 6.0, 1.8, 0.06, 0.5), 0x8a5f3c, 3, 1, 1);
+    for (const sx of [-0.7, 0.7]) { MT(box(x + sx, 0.14, 6.0, 0.06, 0.28, 0.46), 0x34383c); MT(box(x + sx, 0.14, 6.0, 0.14, 0.02, 0.5), 0x34383c); }
+    SH.push(floorQuad(x, 0.148, 6.0, 2.4, 1.1, BLOB)); obstacles.push({ x, z: 6.0, w: 0.95, d: 0.3 });
+  }
+  for (const x of [-24, -0.5, 13, 34]) { MT(cyl(x, 0.14, 6.1, 0.24, 0.22, 0.85, 14), 0x4a4f55); MT(cyl(x, 0.99, 6.1, 0.25, 0.25, 0.05, 14), 0x2a2d31); SH.push(floorQuad(x, 0.148, 6.1, 0.9, 0.9, BLOB)); obstacles.push({ x, z: 6.1, w: 0.26, d: 0.26 }); }
+  for (let k = 0; k < 5; k += 1) { const t = new THREE.TorusGeometry(0.34, 0.022, 4, 10, Math.PI); t.rotateY(Math.PI / 2); t.translate(-12.4 + k * 0.7, 0.5, 6.2); MT(t, 0x9aa0a6); for (const dz of [-0.34, 0.34]) MT(cyl(-12.4 + k * 0.7, 0.14, 6.2 + dz, 0.022, 0.022, 0.36, 6), 0x9aa0a6); }
+  SH.push(floorQuad(-11, 0.148, 6.2, 3.8, 1.0, BLOB)); obstacles.push({ x: -11, z: 6.2, w: 1.7, d: 0.4 });
+  { const x = MALL.door.x - 3.4, z = 6.4; MT(cyl(x, 0.14, z, 0.05, 0.05, 2.5, 8), 0x3a3d42); MT(box(x, 1.9, z, 1.2, 0.62, 0.08), 0x2f3236); S('entr', 1.14, 0.56, mat4(x, 2.21, z + 0.045)); S('entr', 1.14, 0.56, mat4(x, 2.21, z - 0.045, Math.PI)); obstacles.push({ x, z, w: 0.1, d: 0.1 }); }
+
   /* 左：ガラスの アトリウム（まるい 屋根） x -35〜-25 */
   {
     const X0 = -35, X1 = -25, cx = -30, ZB = -16, H = 11;
@@ -855,7 +880,7 @@ export function buildMallExterior(opts = {}) {
 
   /* 歩道の 人（ふつうの 頭身・ポーズは 立つ／歩く） */
   const walkers = [];
-  for (let i = 0; i < 22; i += 1) { const x = -33 + rnd() * 66; if (Math.abs(x - MALL.door.x) < 1.5 || trees.some((t) => Math.abs(t - x) < 0.9)) continue; const z = 1.6 + rnd() * 6.6; const stride = rnd() < 0.7 ? (rnd() - 0.5) * 0.9 : 0; walkers.push({ x, z, ry: rnd() < 0.5 ? Math.PI / 2 + (rnd() - 0.5) * 0.5 : -Math.PI / 2 + (rnd() - 0.5) * 0.5, walk: [0, 0, stride] }); }
+  for (let i = 0; i < 22; i += 1) { const x = -33 + rnd() * 66; if (Math.abs(x - MALL.door.x) < 1.5 || trees.some((t) => Math.abs(t - x) < 0.9)) continue; const z = 1.6 + rnd() * 6.6; if (z > 5.2 && z < 6.9 && [-30, -18, -6.2, 25, 31, -24, -0.5, 13, 34, -11, -12.4, -9.6].some((bx) => Math.abs(bx - x) < 1.4)) continue; const stride = rnd() < 0.7 ? (rnd() - 0.5) * 0.9 : 0; walkers.push({ x, z, kid: i % 6 === 4, ry: rnd() < 0.5 ? Math.PI / 2 + (rnd() - 0.5) * 0.5 : -Math.PI / 2 + (rnd() - 0.5) * 0.5, walk: [0, 0, stride] }); }
   walkers.push({ x: MALL.door.x - 1.2, z: 6.2, ry: Math.PI, walk: [0, 0, 0.3] }, { x: MALL.door.x + 1.4, z: 5.8, ry: -2.6, walk: [0, 0, 0] }, { x: MALL.door.x + 0.6, z: 3.8, ry: 0.3, walk: [0, 0, -0.35] });
   for (const p of walkers) SH.push(floorQuad(p.x, 0.15, p.z, 0.8, 0.8, BLOB));
   const people = crowdOf(walkers, false, rnd, peopleMaterial(time), 'mall-people');
@@ -905,34 +930,34 @@ function interiorTextures() {
     g2 = g;
     const S = (i, paint) => { g.save(); g.beginPath(); g.rect(0, i * 256, 512, 256); g.clip(); g.translate(0, i * 256); paint(512, 256); g.restore(); };
     S(0, (W, H) => {   // オーク（板の はば 0.18 m）
-      const rows = 11, rh = H / rows, pal = [[226, 196, 154], [216, 184, 140], [232, 204, 164], [210, 178, 134], [222, 190, 146], [236, 212, 176]];
+      const rows = 11, rh = H / rows, pal = [[182, 160, 130], [176, 152, 122], [188, 166, 136], [170, 147, 118], [180, 157, 127], [192, 171, 142], [166, 143, 114]];
       for (let r = 0; r < rows; r += 1) {
         let x = -((r * 157) % 260);
         while (x < W) {
           const len = 150 + rnd() * 130, c = pal[Math.floor(rnd() * pal.length)];
           g.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`; g.fillRect(x, r * rh, len, rh);
-          g.save(); g.beginPath(); g.rect(x, r * rh, len, rh); g.clip(); woodLines(x, r * rh, len, rh, 7, 0.13, 2.5);
+          g.save(); g.beginPath(); g.rect(x, r * rh, len, rh); g.clip(); woodLines(x, r * rh, len, rh, 6, 0.08, 2.5);
           if (rnd() < 0.15) { g.strokeStyle = 'rgba(110,70,35,0.3)'; g.lineWidth = 1; const kx = x + rnd() * len, ky = r * rh + rh / 2; g.beginPath(); g.ellipse(kx, ky, 4, 2, 0, 0, 7); g.stroke(); }
           const sh = g.createLinearGradient(0, r * rh, 0, r * rh + rh); sh.addColorStop(0, 'rgba(255,255,255,0.06)'); sh.addColorStop(1, 'rgba(0,0,0,0.05)'); g.fillStyle = sh; g.fillRect(x, r * rh, len, rh);
           g.restore();
-          g.fillStyle = 'rgba(95,60,30,0.55)'; g.fillRect(x, r * rh, 1.5, rh); x += len;
+          g.fillStyle = 'rgba(95,60,30,0.35)'; g.fillRect(x, r * rh, 1.2, rh); x += len;
         }
-        g.fillStyle = 'rgba(95,60,30,0.5)'; g.fillRect(0, r * rh, W, 1.2);
+        g.fillStyle = 'rgba(95,60,30,0.32)'; g.fillRect(0, r * rh, W, 1);
       }
       soft(g, 0, 0, W, H, 10, rnd, 0.04);
     });
     S(1, (W, H) => {   // 板張り（ばんの はば 0.25 m・あたたかい 色・木目 つよめ）
-      const pal = [[206, 156, 104], [212, 162, 110], [200, 148, 98], [216, 168, 116], [204, 152, 100]];
+      const pal = [[150, 110, 76], [160, 118, 82], [140, 102, 70], [166, 124, 88], [146, 106, 74], [132, 96, 66]];
       for (let r = 0; r < 4; r += 1) {
         const c = pal[Math.floor(rnd() * pal.length)]; g.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`; g.fillRect(0, r * 64, W, 64);
-        g.save(); g.beginPath(); g.rect(0, r * 64, W, 64); g.clip(); woodLines(0, r * 64, W, 64, 12, 0.11, 5);
+        g.save(); g.beginPath(); g.rect(0, r * 64, W, 64); g.clip(); woodLines(0, r * 64, W, 64, 14, 0.14, 5);
         for (let k = 0; k < 3; k += 1) { const cx = rnd() * W, cy = r * 64 + 10 + rnd() * 44; for (let a = 0; a < 6; a += 1) { g.strokeStyle = `rgba(100,55,20,${0.06 + a * 0.012})`; g.lineWidth = 1; g.beginPath(); g.ellipse(cx, cy, 30 + a * 14, 4 + a * 2.2, 0, 0, 7); g.stroke(); } }
         g.restore();
         g.fillStyle = 'rgba(70,38,15,0.7)'; g.fillRect(0, r * 64, W, 2); g.fillStyle = 'rgba(255,225,180,0.25)'; g.fillRect(0, r * 64 + 2, W, 1.5);
       }
       soft(g, 0, 0, W, H, 8, rnd, 0.05);
     });
-    S(2, (W, H) => { g.fillStyle = '#f4f2ed'; g.fillRect(0, 0, W, H); soft(g, 0, 0, W, H, 12, rnd, 0.03); grain(g, 0, 0, W, H, 3000, rnd, 0.035); g.fillStyle = 'rgba(120,115,105,0.25)'; g.fillRect(0, 0, W, 1.5); g.fillRect(0, 0, 1.5, H); });
+    S(2, (W, H) => { g.fillStyle = '#eeebe5'; g.fillRect(0, 0, W, H); soft(g, 0, 0, W, H, 12, rnd, 0.03); grain(g, 0, 0, W, H, 3000, rnd, 0.035); g.fillStyle = 'rgba(120,115,105,0.25)'; g.fillRect(0, 0, W, 1.5); g.fillRect(0, 0, 1.5, H); });
     S(3, (W, H) => {
       g.fillStyle = '#e7e3db'; g.fillRect(0, 0, W, H); soft(g, 0, 0, W, H, 10, rnd, 0.04);
       for (let i = 0; i < 1300; i += 1) { const c = [[150, 146, 140], [110, 106, 100], [200, 182, 152], [176, 166, 154], [250, 250, 248]][Math.floor(rnd() * 5)]; g.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${0.3 + rnd() * 0.4})`; g.beginPath(); g.ellipse(rnd() * W, rnd() * H, 0.8 + rnd() * 2.6, 0.8 + rnd() * 2, rnd() * 3, 0, 7); g.fill(); }
@@ -954,21 +979,31 @@ function interiorTextures() {
   });
   const leaves = tex(512, 256, (g, W, H) => {
     g.clearRect(0, 0, W, H);
-    const leaf = (x, y, s, ang, light) => {
-      g.save(); g.translate(x, y); g.rotate(ang); const c = [40 + light * 40 + rnd() * 20, 95 + light * 60 + rnd() * 30, 30 + light * 30 + rnd() * 15];
+    const leaf = (x, y, s, ang, light, yel = 0) => {
+      g.save(); g.translate(x, y); g.rotate(ang); const hy = rnd() * yel + (rnd() - 0.5) * 0.15;
+      const c = [36 + light * 40 + rnd() * 18 + hy * 90, 84 + light * 62 + rnd() * 30 + hy * 30, 28 + light * 26 + rnd() * 14 - hy * 10];
       g.fillStyle = `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`; g.beginPath(); g.moveTo(0, 0); g.bezierCurveTo(-s * 0.75, s * 0.15, -s * 0.55, s * 0.95, 0, s * 1.25); g.bezierCurveTo(s * 0.55, s * 0.95, s * 0.75, s * 0.15, 0, 0); g.fill();
       g.strokeStyle = `rgba(210,230,150,${0.25 + light * 0.2})`; g.lineWidth = Math.max(0.8, s * 0.06); g.beginPath(); g.moveTo(0, s * 0.05); g.lineTo(0, s * 1.15); g.stroke();
       if (rnd() < 0.3) { g.fillStyle = 'rgba(230,225,130,0.25)'; g.beginPath(); g.ellipse(s * 0.18, s * 0.6, s * 0.12, s * 0.35, 0.2, 0, 7); g.fill(); }
       g.restore();
     };
-    // 左：たれる つる 2 本（はば 128）。上が ね もと（v＝1）。
+    // 左：たれる つる 2 本（はば 128）。上が ね もと（v＝1）。0＝こまかい アイビー（小さな 葉が こみあう）／1＝ポトス（大きな 葉が まばら・黄みどりの まだら）。
     for (let k = 0; k < 2; k += 1) {
-      const cx = 64 + k * 128; g.strokeStyle = '#4a6a2a'; g.lineWidth = 2; g.beginPath(); g.moveTo(cx, 0);
-      const pts = []; for (let y = 0; y <= H; y += 4) { const x = cx + Math.sin(y * 0.03 + k * 2) * 14 + Math.sin(y * 0.11) * 4; pts.push([x, y]); g.lineTo(x, y); } g.stroke();
-      for (let i = 0; i < 120; i += 1) { const t = Math.pow(rnd(), 0.8), [px, py] = pts[Math.min(pts.length - 1, Math.floor(t * pts.length))], s = (30 - t * 14) * (0.7 + rnd() * 0.5), side = rnd() < 0.5 ? -1 : 1; leaf(px + side * 4, py - s * 0.3, s, side * (0.7 + rnd() * 0.9) + (rnd() - 0.5) * 0.4, rnd()); }
+      const cx = 64 + k * 128;
+      for (let st = 0; st < (k ? 2 : 3); st += 1) {
+        const off = (st - 1) * (k ? 22 : 18), len = H * (k ? (st ? 0.75 : 1) : [1, 0.62, 0.85][st]);
+        g.strokeStyle = k ? '#5a6a30' : '#3e5a26'; g.lineWidth = k ? 2.2 : 1.4; g.beginPath(); g.moveTo(cx + off, 0);
+        const pts = []; for (let y = 0; y <= len; y += 4) { const x = cx + off + Math.sin(y * 0.03 + k * 2 + st) * 12 + Math.sin(y * 0.11 + st) * 4; pts.push([x, y]); g.lineTo(x, y); } g.stroke();
+        const N = k ? 34 : 90;
+        for (let i = 0; i < N; i += 1) {
+          const t = Math.pow(rnd(), 0.85), [px, py] = pts[Math.min(pts.length - 1, Math.floor(t * pts.length))], side = rnd() < 0.5 ? -1 : 1;
+          const sz = (k ? 26 - t * 8 : 13 - t * 5) * (0.7 + rnd() * 0.6);
+          leaf(px + side * 3, py - sz * 0.25, sz, side * (0.6 + rnd() * 1.0) + (rnd() - 0.5) * 0.5, rnd(), k ? 0.35 : 0);
+        }
+      }
     }
-    // 右：しげみ（まるい かたまり）。
-    for (let i = 0; i < 150; i += 1) { const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * 100, x = 384 + Math.cos(a) * r, y = 128 + Math.sin(a) * r * 0.9; leaf(x, y, 16 + rnd() * 14, a + Math.PI / 2 + (rnd() - 0.5) * 1.2, (1 - r / 100) * 0.6 + rnd() * 0.4); }
+    // 右：しげみ（まるい かたまり・葉の 大きさと 色を まぜる）。
+    for (let i = 0; i < 170; i += 1) { const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * 100, x = 384 + Math.cos(a) * r, y = 128 + Math.sin(a) * r * 0.9; leaf(x, y, (10 + rnd() * 18) * (rnd() < 0.15 ? 1.5 : 1), a + Math.PI / 2 + (rnd() - 0.5) * 1.2, (1 - r / 100) * 0.6 + rnd() * 0.4, rnd() < 0.2 ? 0.3 : 0); }
   }, { repeat: false });
   intTex = { surf: track('intSurf', surf), weave: track('weave', weave), leaves: track('leaves', leaves) };
   return intTex;
@@ -997,15 +1032,18 @@ export function buildMallInterior(opts = {}) {
     else if (n.y < -0.5) { ao *= 0.86; }
     else { ao *= mix(0.68, 1.0, smoothstep(0.0, 0.7, p.y - lv)); }`;
   const M = {
-    surf: surfMaterial(T.surf, { rough: [0.32, 0.55, 0.85, 0.45], bump: [0.7, 0.5, 0.25, 0.3], ao: AO_INT, env: SHT.envInt, envI: 0.35, key: 'int' }),
+    surf: surfMaterial(T.surf, { rough: [0.17, 0.55, 0.85, 0.28], bump: [0.6, 0.5, 0.25, 0.3], ao: AO_INT, env: SHT.envInt, envI: 0.5, key: 'int', bounce: 0.12 }),
     metal: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.28, metalness: 0.75, envMap: SHT.envInt, envMapIntensity: 1.0 }),
-    rail: new THREE.MeshStandardMaterial({ color: 0xd8ece6, transparent: true, opacity: 0.16, roughness: 0.04, metalness: 0.0, envMap: SHT.envInt, envMapIntensity: 1.6, depthWrite: false, side: THREE.DoubleSide }),
+    rail: new THREE.MeshStandardMaterial({ color: 0xcfe6df, transparent: true, opacity: 0.2, roughness: 0.03, metalness: 0.0, envMap: SHT.envInt, envMapIntensity: 1.9, depthWrite: false, side: THREE.DoubleSide }),
     glass: glassMaterial(SHT.envInt, SHT.envExt, SHT.rooms),
     sign: new THREE.MeshStandardMaterial({ map: SHT.signs, emissive: SHT.signs ? 0xffffff : 0x000000, emissiveMap: SHT.signs, emissiveIntensity: 0.4, roughness: 0.35, envMap: SHT.envInt, envMapIntensity: 0.3 }),
     leaf: new THREE.MeshStandardMaterial({ map: T.leaves, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.72, color: T.leaves ? 0xffffff : 0x4f8a38 }),
   };
   M.leaf.onBeforeCompile = (sh) => { const chunk = THREE.ShaderChunk?.normal_fragment_begin; if (chunk) sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_begin>', chunk.replace(/normal \*= faceDirection;/g, '')); };
   M.leaf.customProgramCacheKey = () => 'uspeak-mall-leaf';
+  const HAZE = { c: { value: new THREE.Color(0.93, 0.9, 0.85) }, k: { value: new THREE.Vector2(0.016, 0.5) } };
+  for (const k of ['surf', 'metal', 'rail', 'sign', 'leaf']) hazeify(M[k], HAZE);
+  M.glass.uniforms.uHazeC = HAZE.c; M.glass.uniforms.uHaze = HAZE.k;
   if (!SHT.signs) M.sign.color.setHex(0xdedad2);
   const shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, map: SHT.decal, transparent: true, opacity: 0.45, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   const glowMat = new THREE.MeshBasicMaterial({ color: 0xfff0d8, map: SHT.decal, transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3, side: THREE.DoubleSide });
@@ -1020,7 +1058,10 @@ export function buildMallInterior(opts = {}) {
   const GL = (g, style, f0 = 0.06) => B.add('glass', g, { color: code(style, f0, 0), uv: 'keep' });
   const LF = (g, color) => B.add('leaf', g, { color, uv: 'keep' });
   const SHD = [], GLW = [];
-  const WHITE = 0xf6f4ef, DARK = 0x2a2c30, SILVER = 0x868b91;
+  const WHITE = 0xe9e6df, DARK = 0x2a2c30, SILVER = 0x868b91;
+  // 白は 1 まいずつ ほんの 少し あたたかく／つめたく。木は 柱・はりごとに 色と こさが ちがう。
+  const wj = (base = WHITE, a = 0.045) => { const c = new THREE.Color(base), k = 1 - rnd() * a, w = (rnd() - 0.5) * a * 0.8; c.r *= k * (1 + w); c.g *= k; c.b *= k * (1 - w); return c; };
+  const woodJ = () => { const k = 0.8 + rnd() * 0.2, w = rnd(); return new THREE.Color(k, k * (0.95 + w * 0.05), k * (0.86 + w * 0.12)); };
   const obstacles = [], ob = (x, z, w, d) => obstacles.push(roundOb({ x, z, w, d }));
 
   /* ゆか・バルコニー・天井 */
@@ -1028,7 +1069,7 @@ export function buildMallInterior(opts = {}) {
   const lamps = (y, x, z) => { const g = panel(C.lamp, 0.24, 0.24); g.rotateX(Math.PI / 2); g.translate(x, y, z); B.add('sign', g, K); };
   for (const y of LV.slice(1)) {
     for (const [x, z, w, d] of [[0, (VZ + HZ) / 2, HX * 2, HZ - VZ], [0, -(VZ + HZ) / 2, HX * 2, HZ - VZ], [(VX + HX) / 2, 0, HX - VX, VZ * 2], [-(VX + HX) / 2, 0, HX - VX, VZ * 2]]) {
-      PL(box(x, y - SLAB, z, w, SLAB - 0.03, d), WHITE); FL(box(x, y - 0.03, z, w, 0.03, d));
+      PL(box(x, y - SLAB, z, w, SLAB - 0.03, d), wj()); FL(box(x, y - 0.03, z, w, 0.03, d));
     }
     for (let x = -HX + 2.5; x < HX; x += 3.5) for (const z of [-(VZ + HZ) / 2, (VZ + HZ) / 2]) { lamps(y - SLAB - 0.01, x, z); GLW.push(floorQuad(x, y - LH + 0.012, z, 2.6, 2.6, BLOB)); }
     for (let z = -VZ + 1.5; z < VZ; z += 3.5) for (const x of [-(VX + HX) / 2, (VX + HX) / 2]) { lamps(y - SLAB - 0.01, x, z); GLW.push(floorQuad(x, y - LH + 0.012, z, 2.6, 2.6, BLOB)); }
@@ -1038,10 +1079,10 @@ export function buildMallInterior(opts = {}) {
   const SKY = { x: 12, z: 2.4, y: 18.3 };
   for (const [x, z, w, d] of [[0, (SKY.z + HZ) / 2, HX * 2, HZ - SKY.z], [0, -(SKY.z + HZ) / 2, HX * 2, HZ - SKY.z], [(SKY.x + HX) / 2, 0, HX - SKY.x, SKY.z * 2], [-(SKY.x + HX) / 2, 0, HX - SKY.x, SKY.z * 2]]) PL(box(x, TOP + 0.35, z, w, 0.1, d), 0x6d665c);
   for (let z = -HZ + 0.25; z < HZ; z += 0.42) {
-    if (Math.abs(z) < SKY.z) { for (const s of [-1, 1]) PL(box(s * (SKY.x + HX) / 2, TOP, z, HX - SKY.x, 0.24, 0.1), WHITE); continue; }
-    PL(box(0, TOP, z, HX * 2, 0.24, 0.1), WHITE);
+    if (Math.abs(z) < SKY.z) { for (const s of [-1, 1]) PL(box(s * (SKY.x + HX) / 2, TOP, z, HX - SKY.x, 0.24, 0.1), wj()); continue; }
+    PL(box(0, TOP, z, HX * 2, 0.24, 0.1), wj());
   }
-  for (const s of [-1, 1]) { PL(box(0, TOP, s * SKY.z, SKY.x * 2, SKY.y - TOP, 0.1), WHITE); PL(box(s * SKY.x, TOP, 0, 0.1, SKY.y - TOP, SKY.z * 2), WHITE); }
+  for (const s of [-1, 1]) { PL(box(0, TOP, s * SKY.z, SKY.x * 2, SKY.y - TOP, 0.1), wj()); PL(box(s * SKY.x, TOP, 0, 0.1, SKY.y - TOP, SKY.z * 2), wj()); }
   { const g = new THREE.PlaneGeometry(SKY.x * 2, SKY.z * 2).toNonIndexed(); g.rotateX(Math.PI / 2); g.translate(0, SKY.y, 0); GL(wuv(g, 1, 1), 7, 0.04); }
   for (let x = -SKY.x; x <= SKY.x + 0.01; x += 1.5) MT(box(x, SKY.y - 0.16, 0, 0.07, 0.14, SKY.z * 2), 0x9aa0a6);
   MT(box(0, SKY.y - 0.16, 0, SKY.x * 2, 0.14, 0.07), 0x9aa0a6);
@@ -1053,12 +1094,13 @@ export function buildMallInterior(opts = {}) {
 
   /* 木の はり（天井を わたる）と 木の 柱 */
   const PX = [-13, -4.5, 4.5, 13], BY = 15.0;
-  for (const x of PX) WD(box(x, BY, 0, 1.3, TOP - BY + 0.05, HZ * 2), 'z');
-  for (const z of [-VZ, VZ]) WD(box(0, BY + 0.15, z, HX * 2, TOP - BY - 0.1, 1.2), 'x');
+  for (const x of PX) WD(box(x, BY, 0, 1.3, TOP - BY + 0.05, HZ * 2), 'z', woodJ());
+  for (const z of [-VZ, VZ]) WD(box(0, BY + 0.15, z, HX * 2, TOP - BY - 0.1, 1.2), 'x', woodJ());
   for (const x of PX) for (const z of [-VZ, VZ]) {
-    WD(box(x, 0, z, 1.8, BY, 1.8), 'y');
+    WD(box(x, 0, z, 1.8, BY, 1.8), 'y', woodJ());
     MT(box(x, 0, z, 1.86, 0.1, 1.86), 0x3a3633);
-    SHD.push(floorQuad(x, 0.01, z, 3.6, 3.6, BLOB));
+    SHD.push(floorQuad(x, 0.01, z, 3.6, 3.6, BLOB), floorQuad(x, 0.011, z, 2.4, 2.4, BLOB));
+    for (const y of LV.slice(1)) SHD.push(floorQuad(x, y + 0.01, z, 3.2, 3.2, BLOB));
     ob(x, z, 1.05, 1.05);
   }
 
@@ -1077,9 +1119,10 @@ export function buildMallInterior(opts = {}) {
       MT(box(um, y + 4.02, 0.06, sp === 'exit' ? 3.2 : 2.3, sp === 'exit' ? 0.76 : 1.12, 0.12).applyMatrix4(place), 0x4a4d52);
       B.add('sign', (sp === 'exit' ? panel(C.entr, 3.1, 0.7) : panel(C[key], 2.2, 1.1)).translate(um, y + 4.02 + (sp === 'exit' ? 0.38 : 0.56), 0.125).applyMatrix4(place), K);
       SHD.push(floorQuad(um, y + 0.012, 0.75, u1 - u0, 1.5, STREAK).applyMatrix4(place));
+      GLW.push(floorQuad(um, y + 0.014, 1.7, (u1 - u0) * 0.95, 3.0, BLOB).applyMatrix4(place));   // お店の 光が つやの ある 床に うつる
     }
-    for (let i = 0; i <= n; i += 1) PL(box(-len / 2 + i * w, y, 0.0, 0.5, top - y, 0.3).applyMatrix4(place), WHITE);
-    PL(box(0, y + 3.8, -0.05, len, top - y - 3.8 + 0.01, 0.1).applyMatrix4(place), WHITE);
+    for (let i = 0; i <= n; i += 1) PL(box(-len / 2 + i * w, y, 0.0, 0.5, top - y, 0.3).applyMatrix4(place), wj());
+    PL(box(0, y + 3.8, -0.05, len, top - y - 3.8 + 0.01, 0.1).applyMatrix4(place), wj());
   };
   const food = ['t18', 't19', 't20', 't21', 't8', 't12'];
   LV.forEach((y, li) => {
@@ -1104,7 +1147,9 @@ export function buildMallInterior(opts = {}) {
   for (const s of [-1, 1]) for (const [a, b] of spans(-VX - 0.9, VX + 0.9)) edges.push({ ax: a, bx: b, z: s * VZ, nz: -s });
   for (const s of [-1, 1]) edges.push({ x: s * VX, az: -VZ + 0.9, bz: VZ - 0.9, nx: -s });
   const vine = (px, py, pz, nx, nz, L) => {
-    const w = 0.5 + rnd() * 0.2, cell = VINE[Math.floor(rnd() * 2)], c = new THREE.Color().setHSL(0.27 + rnd() * 0.06, 0.45 + rnd() * 0.2, 0.32 + rnd() * 0.12);
+    // 葉の 大きさが のびない ように、絵の 1 px ＝ 1.2 cm で 切りとる（みじかい つるは 絵の 上だけ）。
+    const kind = Math.floor(rnd() * 2), w = L > 3 ? 0.55 : 0.7 + rnd() * 0.25, cu = kind ? 0.375 : 0.125, hw = (w / 2) / (3.0 / 256) / 512;
+    const cell = [cu - hw, Math.max(0, 1 - L / 3.0), cu + hw, 1.0], c = new THREE.Color().setHSL(0.2 + rnd() * 0.12, 0.32 + rnd() * 0.3, 0.24 + rnd() * 0.17);
     for (const tw of [-0.45, 0.45]) {
       const g = new THREE.PlaneGeometry(w, L).toNonIndexed(); uvCell(g, cell); g.translate(0, -L / 2, 0);
       g.rotateY(Math.atan2(nx, nz) + tw); g.translate(px + nx * (0.08 + rnd() * 0.06), py, pz + nz * (0.08 + rnd() * 0.06)); LF(g, c);
@@ -1121,16 +1166,17 @@ export function buildMallInterior(opts = {}) {
       for (const [a, b] of segs) {
         const len = b - a, mid = (a + b) / 2;
         const at = (off, h, y0, t, l = len) => along ? box(mid, y0, e.z + e.nz * off, l, h, t) : box(e.x + e.nx * off, y0, mid, t, h, l);
-        PL(at(0.02, 0.92, y - 0.82, 0.08), WHITE);                                               // 白い 腰（バルコニーの 小口）
+        PL(at(0.02, 0.92, y - 0.82, 0.08), wj());                                               // 白い 腰（バルコニーの 小口）
         B.add('rail', at(-0.32, 1.0, y + 0.04, 0.025));                                         // フレームレスの ガラス
         MT(at(-0.32, 0.05, y, 0.07), 0x9aa0a6);                                                  // ガラスの 下の みぞ
         const hr = along ? cyl(0, 0, 0, 0.028, 0.028, len, 10).rotateZ(Math.PI / 2).translate(mid, y + 1.09, e.z - e.nz * 0.32) : cyl(0, 0, 0, 0.028, 0.028, len, 10).rotateX(Math.PI / 2).translate(e.x - e.nx * 0.32, y + 1.09, mid);
         MT(hr, 0xe2e5e8);                                                                         // ステンレスの 手すり
+        B.add('sign', uvCell(along ? box(mid, y + 1.112, e.z - e.nz * 0.326, len, 0.006, 0.01) : box(e.x - e.nx * 0.326, y + 1.112, mid, 0.01, 0.006, len), C.white), K);   // 手すりの ひかり
         TZ(at(0.33, 0.42, y - 0.02, 0.5), 0xf2efe8);                                             // 植えこみの はこ
         for (let u = 0.25; u < len; u += 0.34) {
           const px = along ? a + u : e.x + e.nx * 0.33, pz = along ? e.z + e.nz * 0.33 : a + u;
           if (rnd() < 0.55) bush(px, y + 0.36, pz, 0.5 + rnd() * 0.3, new THREE.Color().setHSL(0.26 + rnd() * 0.06, 0.4 + rnd() * 0.2, 0.3 + rnd() * 0.12));
-          if (rnd() < 0.82) { const L = 0.9 + Math.pow(rnd(), 1.5) * 2.6; vine(along ? px + (rnd() - 0.5) * 0.2 : e.x + e.nx * 0.56, y + 0.38, along ? e.z + e.nz * 0.56 : pz + (rnd() - 0.5) * 0.2, along ? 0 : e.nx, along ? e.nz : 0, L); }
+          const vr = rnd(); if (vr < 0.58) { const L = vr < 0.05 ? 3.2 + rnd() * 1.6 : vr < 0.2 ? 1.6 + rnd() * 1.4 : 0.45 + rnd() * 1.1; vine(along ? px + (rnd() - 0.5) * 0.2 : e.x + e.nx * 0.56, y + 0.38, along ? e.z + e.nz * 0.56 : pz + (rnd() - 0.5) * 0.2, along ? 0 : e.nx, along ? e.nz : 0, L); }
         }
       }
     }
@@ -1138,26 +1184,48 @@ export function buildMallInterior(opts = {}) {
 
   /* エスカレーター 2 本（1→2 階・2→3 階）：ステップ・銀の 側板・ガラスの 欄干・黒い 手すり */
   const EZ = -4.8;
+  // 2026-11 その 2：灰色の 板 → ステンレスの 外板（細く）・ガラスの 欄干と 下の 金具・黒い 手すり（はしは まるく 回る）・黄色い ふちの ステップ・くしの 板。
   function escalator(x0, y0, x1, y1, z) {
     const a = [x0, y0 + 0.45, z], b = [x1, y1 + 0.45, z];
-    MT(beam(a, b, 1.5, 0.95), SILVER);
-    MT(beam([x0 - 1.0, y0 + 0.45, z], [x0 + 0.2, y0 + 0.45, z], 1.5, 0.95).translate(0, -0.42, 0), SILVER);
-    MT(beam([x1 - 0.2, y1 + 0.45, z], [x1 + 1.0, y1 + 0.45, z], 1.5, 0.95).translate(0, -0.42, 0), SILVER);
+    const slope = Math.atan2(y1 - y0, x1 - x0), dn = [Math.sin(slope) * 0.32, -Math.cos(slope) * 0.32];   // 斜めの 下むき
+    MT(beam([a[0] + dn[0], a[1] + dn[1], z], [b[0] + dn[0], b[1] + dn[1], z], 1.42, 0.62), 0x777c82);                          // 外板（ヘアライン）
+    MT(beam([a[0] + dn[0] * 2.05, a[1] + dn[1] * 2.05, z], [b[0] + dn[0] * 2.05, b[1] + dn[1] * 2.05, z], 1.3, 0.04), 0x8c9196);  // 下の 目地
+    MT(beam([x0 - 1.0, y0 + 0.45, z], [x0 + 0.2, y0 + 0.45, z], 1.42, 0.62).translate(0, -0.42, 0), 0x777c82);
+    MT(beam([x1 - 0.2, y1 + 0.45, z], [x1 + 1.0, y1 + 0.45, z], 1.42, 0.62).translate(0, -0.42, 0), 0x777c82);
     const n = Math.round((y1 - y0) / 0.21), dx = (x1 - x0) / n, dy = (y1 - y0) / n;
-    for (let i = 0; i < n; i += 1) MT(box(x0 + dx * (i + 0.5), y0 + 0.45 + dy * i + 0.48 - 0.05, z, dx + 0.01, dy + 0.02, 1.0), i % 2 ? 0x34363a : 0x3c3e42);
-    MT(box(x0 - 0.45, y0 + 0.02, z, 1.1, 0.04, 1.0), 0x8a8e92); MT(box(x1 + 0.45, y1 + 0.02, z, 1.1, 0.04, 1.0), 0x8a8e92);
+    for (let i = 0; i < n; i += 1) {
+      const sx = x0 + dx * (i + 0.5), sy = y0 + 0.45 + dy * i + 0.43;
+      MT(box(sx, sy, z, dx + 0.01, dy + 0.02, 1.0), i % 2 ? 0x3a3c40 : 0x45474b);
+      MT(box(sx - dx / 2 + 0.03, sy + dy + 0.005, z, 0.05, 0.012, 1.0), 0xd9b21e);                                              // 黄色い ふち
+      for (const sz of [-1, 1]) MT(box(sx, sy + dy + 0.006, z + sz * 0.47, dx, 0.01, 0.04), 0xd9b21e);
+    }
+    for (const [xx, yy, dir] of [[x0, y0, -1], [x1, y1, 1]]) {
+      MT(box(xx + dir * 0.45, yy + 0.02, z, 1.1, 0.04, 1.0), 0x9aa0a6);
+      MT(box(xx + dir * 0.02, yy + 0.045, z, 0.1, 0.02, 1.0), 0xd9b21e);                                                         // くしの 板
+      for (let k = -4; k <= 4; k += 1) MT(box(xx + dir * 0.45, yy + 0.043, z + k * 0.11, 1.0, 0.006, 0.025), 0x6d7378);
+    }
     for (const s of [-1, 1]) {
-      B.add('rail', beam(a, b, 0.03, 0.9).translate(0, 0.95, s * 0.6));
-      MT(beam([x0 - 0.9, y0 + 1.42, z + s * 0.6], [x0, y0 + 1.42, z + s * 0.6], 0.1, 0.08), 0x141518);
-      MT(beam(a, b, 0.1, 0.08).translate(0, 0.97, s * 0.6), 0x141518);
-      MT(beam([x1, y1 + 1.42, z + s * 0.6], [x1 + 0.9, y1 + 1.42, z + s * 0.6], 0.1, 0.08), 0x141518);
-      MT(beam(a, b, 0.06, 0.12).translate(0, 0.47, s * 0.52), 0xe8eaec);
+      const zs = z + s * 0.6;
+      B.add('rail', beam([x0 - 0.75, y0 + 0.95, zs], [x0, y0 + 0.95, zs], 0.025, 0.9));
+      B.add('rail', beam(a, b, 0.025, 0.9).translate(0, 0.5, s * 0.6));
+      B.add('rail', beam([x1, y1 + 0.95, zs], [x1 + 0.75, y1 + 0.95, zs], 0.025, 0.9));
+      MT(beam([x0 - 0.75, y0 + 0.52, zs], [x0, y0 + 0.52, zs], 0.09, 0.1), 0xc9cdd1);
+      MT(beam(a, b, 0.09, 0.1).translate(0, 0.06, s * 0.6), 0xc9cdd1);                                                            // ガラスの 下の 金具
+      MT(beam([x1, y1 + 0.52, zs], [x1 + 0.75, y1 + 0.52, zs], 0.09, 0.1), 0xc9cdd1);
+      MT(beam(a, b, 0.05, 0.22).translate(0, 0.47, s * 0.52), 0xdfe2e5);                                                          // スカート
+      MT(beam([x0 - 0.75, y0 + 1.42, zs], [x0, y0 + 1.42, zs], 0.1, 0.07), 0x141518);
+      MT(beam(a, b, 0.1, 0.07).translate(0, 0.97, s * 0.6), 0x141518);
+      MT(beam([x1, y1 + 1.42, zs], [x1 + 0.75, y1 + 1.42, zs], 0.1, 0.07), 0x141518);
+      for (const [xx, yy, dir] of [[x0 - 0.75, y0, -1], [x1 + 0.75, y1, 1]]) {                                                   // まるく 回る 手すりの はし
+        const t = new THREE.TorusGeometry(0.47, 0.045, 5, 10, Math.PI); t.rotateZ(dir > 0 ? -Math.PI / 2 : Math.PI / 2); t.translate(xx, yy + 0.95, zs); MT(t, 0x141518);
+        const gl = new THREE.CircleGeometry(0.45, 10, dir > 0 ? -Math.PI / 2 : Math.PI / 2, Math.PI).toNonIndexed(); gl.translate(xx, yy + 0.95, zs); B.add('rail', gl);
+      }
     }
   }
   escalator(-9.2, LV[0], 0.3, LV[1], EZ);
   escalator(3.3, LV[1], 12.3, LV[2], EZ);
-  PL(box(1.8, LV[1] - SLAB, -5.25, 3.0, SLAB - 0.03, 3.5), WHITE); FL(box(1.8, LV[1] - 0.03, -5.25, 3.0, 0.03, 3.5));
-  PL(box(12.65, LV[2] - SLAB, -4.8, 0.9, SLAB - 0.03, 1.8), WHITE); FL(box(12.65, LV[2] - 0.03, -4.8, 0.9, 0.03, 1.8));
+  PL(box(1.8, LV[1] - SLAB, -5.25, 3.0, SLAB - 0.03, 3.5), wj()); FL(box(1.8, LV[1] - 0.03, -5.25, 3.0, 0.03, 3.5));
+  PL(box(12.65, LV[2] - SLAB, -4.8, 0.9, SLAB - 0.03, 1.8), wj()); FL(box(12.65, LV[2] - 0.03, -4.8, 0.9, 0.03, 1.8));
   SHD.push(floorQuad(-5.2, 0.012, EZ, 11.5, 2.6, BLOB));
   ob(-5.2, EZ, 5.6, 0.85);
 
@@ -1207,7 +1275,7 @@ export function buildMallInterior(opts = {}) {
     const base = new THREE.CylinderGeometry(0.3, 0.27, 0.3, 12, 1, true); base.translate(0, 0.21, 0); { const uv = base.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 0.6); } CB.add('c', base, { color: 0xffffff, uv: 'keep' });
     const cush = new THREE.CylinderGeometry(0.3, 0.31, 0.12, 12); cush.translate(0, 0.42, 0.01); { const uv = cush.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, 0.01, 0.01); } CB.add('c', cush, { color: 0x6b6f66, uv: 'keep' });
   }
-  const chairMat = new THREE.MeshStandardMaterial({ map: T.weave, bumpMap: T.weave, bumpScale: 2.5, vertexColors: true, roughness: 0.85, color: T.weave ? 0xffffff : 0xc99a5e, side: THREE.DoubleSide });
+  const chairMat = hazeify(new THREE.MeshStandardMaterial({ map: T.weave, bumpMap: T.weave, bumpScale: 2.5, vertexColors: true, roughness: 0.85, color: T.weave ? 0xeadccc : 0xc99a5e, side: THREE.DoubleSide }), HAZE);
   const TB = createBatch({});
   TB.add('t', cyl(0, 0.72, 0, 0.45, 0.45, 0.035, 32), { color: 0x221c18 });
   TB.add('t', cyl(0, 0.7, 0, 0.42, 0.42, 0.02, 32), { color: 0x2a2b2e });
@@ -1219,6 +1287,35 @@ export function buildMallInterior(opts = {}) {
     m.name = name; m.castShadow = false; m.receiveShadow = true; group.add(m); return m;
   };
 
+
+  /* こまかい もの：ベンチ・ごみばこ・案内の 柱・天井の スプリンクラーと 吹きだし口・床の つや */
+  const bench = (x, y, z, ry, len = 1.8) => {
+    const m = mat4(x, y, z, ry);
+    WD(box(0, 0.4, 0, len, 0.07, 0.46).applyMatrix4(m), 'x', woodJ());
+    for (const s of [-1, 1]) { MT(box(s * (len / 2 - 0.2), 0, 0, 0.06, 0.4, 0.42).applyMatrix4(m), 0x2c2e31); MT(box(s * (len / 2 - 0.2), 0, 0, 0.12, 0.02, 0.46).applyMatrix4(m), 0x2c2e31); }
+    SHD.push(floorQuad(x, y + 0.012, z, len + 0.6, 1.1, BLOB, ry));
+    if (y < 1) ob(x, z, Math.abs(Math.cos(ry)) * len / 2 + 0.25, Math.abs(Math.sin(ry)) * len / 2 + 0.25);
+  };
+  for (const x of [-16.6, -8.8, 8.8, 16.6]) for (const s of [-1, 1]) bench(x, 0, s * 8.25, 0);
+  for (const y of LV.slice(1)) for (const x of [-16.6, 8.8]) bench(x, y, (x > 0 ? 1 : -1) * 9.0, 0);
+  const bin = (x, y, z) => {
+    MT(cyl(x, y, z, 0.24, 0.22, 0.82, 16), 0xb7bcc1); MT(cyl(x, y + 0.82, z, 0.25, 0.25, 0.05, 16), 0x2a2c30); MT(cyl(x, y + 0.6, z, 0.245, 0.245, 0.02, 16), 0x8a8f94);
+    SHD.push(floorQuad(x, y + 0.012, z, 0.9, 0.9, BLOB)); if (y < 1) ob(x, z, 0.26, 0.26);
+  };
+  for (const [x, z] of [[-12.2, 8.4], [12.2, 8.4], [-12.2, -8.4], [12.2, -8.4], [-3.4, 12.6], [3.4, 12.6]]) bin(x, 0, z);
+  for (const y of LV.slice(1)) for (const x of [-12.2, 12.2]) bin(x, y, 9.4);
+  for (const x of [-2.4, 2.4]) {                                                              // 案内の 柱（入口の 両わき）
+    MT(box(x, 0, 11.4, 0.66, 2.1, 0.2), 0x34373b);
+    for (const ry of [0, Math.PI]) B.add('sign', panel(C.tower, 0.5, 1.82).applyMatrix4(mat4(x, 1.13, 11.4 + (ry ? -0.102 : 0.102), ry)), K);
+    SHD.push(floorQuad(x, 0.012, 11.4, 1.3, 0.9, BLOB)); ob(x, 11.4, 0.36, 0.14);
+  }
+  for (const y of LV.slice(1)) {                                                              // バルコニーの うら：スプリンクラーと 吹きだし口
+    const yc = y - SLAB - 0.01;
+    for (let x = -HX + 1.6; x < HX; x += 3.1) for (const z of [-11.6, -9.0, 9.0, 11.6]) { MT(cyl(x, yc - 0.06, z, 0.012, 0.012, 0.06, 5), 0xd0d3d6); MT(cyl(x, yc - 0.075, z, 0.04, 0.04, 0.015, 8), 0xc4c8cc); }
+    for (let x = -HX + 3.2; x < HX; x += 6.2) for (const z of [-13.9, 13.9]) MT(box(x, yc - 0.012, z, 1.6, 0.012, 0.09), 0x505357);
+    for (let z = -VZ + 1.2; z < VZ; z += 3.5) for (const x of [-16.2, 16.2]) MT(box(x, yc - 0.012, z, 0.09, 0.012, 1.4), 0x505357);
+  }
+  for (const x of [-7, 0, 7]) GLW.push(floorQuad(x, 0.013, 0, 7.5, 3.6, BLOB));             // 天窓の 光が 床に うつる
   B.flush(group, M, { noShadow: shadows ? ['glass', 'sign', 'leaf', 'rail'] : Object.keys(M) });
   if (!shadows) group.traverse((o) => { o.castShadow = false; });
   const decals = (list, mat, name, order) => { if (!list.length) return null; const B2 = createBatch({}); for (const g of list) B2.add('d', g, { uv: 'keep' }); const m = new THREE.Mesh(B2.geometry('d'), mat); m.name = name; m.renderOrder = order; group.add(m); return m; };
@@ -1226,8 +1323,8 @@ export function buildMallInterior(opts = {}) {
   decals(GLW, glowMat, 'mall-light', 3);
 
   inst(CB.geometry('c'), chairMat, chairs, 'mall-chairs');
-  inst(TB.geometry('t'), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.3, metalness: 0.2, envMap: SHT.envInt, envMapIntensity: 0.8 }), tables, 'mall-tables');
-  const pm = peopleMaterial(time);
+  inst(TB.geometry('t'), hazeify(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.3, metalness: 0.2, envMap: SHT.envInt, envMapIntensity: 0.8 }), HAZE), tables, 'mall-tables');
+  const pm = hazeify(peopleMaterial(time), HAZE);
   const seated = crowdOf(sitters, true, rnd, pm, 'mall-sitters'); group.add(seated);
   // 歩く 人：1 階の お店の 前・2 階と 3 階の バルコニー。行ったり 来たり（update）。
   const walk = [];
@@ -1235,8 +1332,14 @@ export function buildMallInterior(opts = {}) {
   for (let i = 0; i < 10; i += 1) walk.push({ y: LV[1], z: (rnd() < 0.5 ? 1 : -1) * (9 + rnd() * 4), x0: -18, x1: 18 });
   for (let i = 0; i < 8; i += 1) walk.push({ y: LV[2], z: (rnd() < 0.5 ? 1 : -1) * (9 + rnd() * 4), x0: -18, x1: 18 });
   for (let i = 0; i < 6; i += 1) walk.push({ y: LV[i % 3], x: (i % 2 ? 1 : -1) * (15.5 + rnd() * 3), z0: -12, z1: 12 });
-  walk.forEach((w) => { w.p = rnd() * 2; w.v = 0.018 + rnd() * 0.018; w.s = 0.92 + rnd() * 0.15; });
-  const walkers = crowdOf(walk.map((w) => ({ x: w.x ?? 0, y: w.y, z: w.z ?? 0, s: w.s, walk: [rnd() * 6.28, 0.42, 0] })), false, rnd, pm, 'mall-walkers'); group.add(walkers);
+  // 足が すべらない ように：歩はばの 角度は 速さと 足の 長さから（足ふみは 1 秒に 5.5 rad＝0.875 往復・1 往復で 2 歩）。こどもは おとなの となり。
+  walk.forEach((w, i) => {
+    w.kid = i % 5 === 3; w.s = w.kid ? 0.62 + rnd() * 0.1 : 0.9 + rnd() * 0.2; w.p = rnd() * 2;
+    const len = (w.x1 ?? w.z1) - (w.x0 ?? w.z0), speed = (w.kid ? 0.7 : 0.85) + rnd() * 0.5; w.v = speed / len;
+    w.amp = Math.asin(Math.min(0.6, speed / (4 * 0.9 * w.s * 0.875)));
+    if (w.kid && i > 0) { const pw = walk[i - 1]; w.y = pw.y; w.p = pw.p; w.v = pw.v; w.amp = Math.asin(Math.min(0.6, (pw.v * len) / (4 * 0.9 * w.s * 0.875))); if (pw.z !== undefined) w.z = pw.z + 0.75; if (pw.x !== undefined) w.x = pw.x + 0.75; }
+  });
+  const walkers = crowdOf(walk.map((w) => ({ x: w.x ?? 0, y: w.y, z: w.z ?? 0, s: w.s, kid: w.kid, walk: [rnd() * 6.28, w.amp, 0] })), false, rnd, pm, 'mall-walkers'); group.add(walkers);
   const blobGeo = floorQuad(0, 0.014, 0, 0.85, 0.85, BLOB);
   const blobs = new THREE.InstancedMesh(blobGeo, shadowMat, walk.length); blobs.name = 'mall-walker-shadows'; blobs.renderOrder = 2; blobs.frustumCulled = false; group.add(blobs);
   const o3 = new THREE.Object3D();
@@ -1246,7 +1349,7 @@ export function buildMallInterior(opts = {}) {
       const ph = (w.p + t * w.v) % 2, f = ph < 1 ? ph : 2 - ph, dir = ph < 1 ? 1 : -1;
       if (w.x0 !== undefined) { o3.position.set(w.x0 + (w.x1 - w.x0) * f, w.y, w.z); o3.rotation.set(0, dir > 0 ? Math.PI / 2 : -Math.PI / 2, 0); }
       else { o3.position.set(w.x, w.y, w.z0 + (w.z1 - w.z0) * f); o3.rotation.set(0, dir > 0 ? 0 : Math.PI, 0); }
-      o3.scale.setScalar(w.s); o3.updateMatrix(); walkers.setMatrixAt(i, o3.matrix);
+      o3.scale.set(w.s * 0.97, w.s, w.s); o3.updateMatrix(); walkers.setMatrixAt(i, o3.matrix);
       o3.rotation.set(0, 0, 0); o3.scale.setScalar(1); o3.updateMatrix(); blobs.setMatrixAt(i, o3.matrix);
     });
     walkers.instanceMatrix.needsUpdate = true; blobs.instanceMatrix.needsUpdate = true;
@@ -1262,6 +1365,7 @@ export function buildMallInterior(opts = {}) {
     M.sign.emissiveIntensity = 0.4 + 0.6 * k;
     M.surf.envMapIntensity = 0.35 * (1 - 0.5 * k); M.metal.envMapIntensity = 1.0 * (1 - 0.5 * k);
     glowMat.opacity = 0.16 + 0.16 * k;
+    HAZE.c.value.setRGB(0.93 - 0.55 * k, 0.9 - 0.56 * k, 0.85 - 0.56 * k); HAZE.k.value.set(0.016, 0.5 - 0.15 * k);
   }
   setNight(0);
   let tris = 0; group.traverse((o) => { if (o.isMesh) tris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3 * (o.isInstancedMesh ? o.count : 1); });
