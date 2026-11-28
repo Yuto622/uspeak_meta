@@ -318,3 +318,5 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wm-svg .wm-here-ring { vector-effect: non-scaling-stroke; stroke-width: 4px; stroke-dasharray: 10 7; }
 .wmap-tile.soft { z-index: 1; -webkit-mask-image: radial-gradient(ellipse closest-side, #000 72%, transparent 100%); mask-image: radial-gradient(ellipse closest-side, #000 72%, transparent 100%); }
 .wmap-tile.main { z-index: 2; }
+/* ＋－⌂⤢📖 は 右下に 横 1 れつ（右の いちらんと かさならない）。 */
+.wmap-tools { flex-direction: row; }

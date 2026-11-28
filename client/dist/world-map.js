@@ -346,10 +346,10 @@ function labelSvg(r) {
   const yomi = r.yomi && r.yomi !== r.name ? r.yomi : shortName(r);
   const one = (main, sub, cls, jaMain) => {
     const fs = big ? 19 : 14.5, sfs = big ? 13.5 : 12;
-    const w = main.length * fs * (jaMain ? 1.02 : 0.58);
+    const w = main.length * fs * (jaMain ? 1.02 : 0.66);
     return `<g class="${cls}"><text class="wm-ltext" y="0" font-size="${fs}" text-anchor="middle" dominant-baseline="central">${esc(main)}</text>`
       + `<text class="wm-jtext wm-sub" y="${f(fs * 0.62 + sfs * 0.75)}" font-size="${sfs}" text-anchor="middle" dominant-baseline="central">${esc(sub)}</text>`
-      + `<g transform="translate(${f(-w / 2 - 12)} 0)"><circle r="${big ? 10 : 8.6}" fill="#e04a2f" stroke="#fff4d6" stroke-width="2"/><circle r="${big ? 10 : 8.6}" fill="none" stroke="${INK}" stroke-width=".8"/><text class="wm-ntext" font-size="${big ? 13 : 12}" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`;
+      + `<g transform="translate(${f(-w / 2 - 13)} 0)"><circle r="${big ? 10 : 8.6}" fill="#e04a2f" stroke="#fff4d6" stroke-width="2"/><circle r="${big ? 10 : 8.6}" fill="none" stroke="${INK}" stroke-width=".8"/><text class="wm-ntext" font-size="${big ? 13 : 12}" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`;
   };
   return `<g class="wm-cs wm-label" data-island="${esc(r.id)}" data-x="${f(x)}" data-y="${f(y)}" data-k="${big ? 1.1 : 1}" translate="no">`
     + one(shortName(r), r.yomi || r.name, 'en', false) + one(r.name, yomi, 'ja', true) + '</g>';

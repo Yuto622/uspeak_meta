@@ -66,9 +66,12 @@ function mainL(x, z) {
 
 const now = () => globalThis.performance?.now?.() ?? Date.now();
 // ひと休み（ほかの 仕事を 先に させる）。MessageChannel は setTimeout の 4ms の 待ちが ない。
-const chan = globalThis.MessageChannel ? new MessageChannel() : null, waiting = [];
-if (chan) chan.port1.onmessage = () => waiting.shift()?.();
-const slice = () => new Promise((r) => { if (chan) { waiting.push(r); chan.port2.postMessage(0); } else setTimeout(r, 0); });
+// （かく ときに はじめて 作る：読みこんだ だけで ポートを 開くと Node の 検査が おわらなく なる）
+let chan = null; const waiting = [];
+const slice = () => new Promise((r) => {
+  if (!chan && globalThis.MessageChannel && globalThis.document) { chan = new MessageChannel(); chan.port1.onmessage = () => waiting.shift()?.(); }
+  if (chan) { waiting.push(r); chan.port2.postMessage(0); } else setTimeout(r, 0);
+});
 
 // ひとつの 四角（tile）を かく。かえすのは canvas。
 async function paintTile(T) {
@@ -179,6 +182,7 @@ async function paintTile(T) {
           lit += cn * 0.25;
         }
         if (k === 12) { const fx = Math.floor((x + 300) / 9), fz = Math.floor((z + 300) / 7), hv = hash(fx, fz); base = hv < 0.33 ? RGB('#d8c26a') : hv < 0.66 ? RGB('#7cb04a') : RGB('#a8834e'); if (((x + 300) % 9) < 0.5 || ((z + 300) % 7) < 0.4) base = RGB('#4f7a35'); base = mixc(base, RGB('#000000'), ((Math.floor((x + z) * 1.2) & 1) ? 0.04 : 0)); }
+        if (k === 1) base = mixc(base, RGB('#5e9440'), Math.max(0, fbm(x / 7, z / 7, 3)) * 0.9);
         if (k === 5) base = mixc(P[0], P[3], noise(x / 4, z / 4) * 0.5 + 0.5);
         if (k === 10 && noise(x / 1.6, z / 1.6) > 0.55) base = P[3];
         if (k === 8 && noise(x / 1.2 + 5, z / 1.2) > 0.62) base = hash(px >> 1, py >> 1) > 0.5 ? RGB('#f2e27a') : RGB('#f5f5f5');
@@ -226,18 +230,23 @@ function roof(g, x, z, w, d, col, hgt = 1.2, ang = 0) {   // 上から 見た �
   g.strokeStyle = 'rgba(40,25,15,.55)'; g.lineWidth = 0.18; g.strokeRect(-w / 2, -d / 2, w, d);
   g.restore();
 }
-function tower(g, x, z, w, d, hgt, col) {   // ビル：ななめに 見える 側面と ながい かげ
-  const ox = hgt * 0.22, oz = -hgt * 0.32;
-  g.fillStyle = 'rgba(15,25,30,.38)'; g.beginPath(); g.moveTo(x - w / 2, z + d / 2); g.lineTo(x + w / 2, z + d / 2); g.lineTo(x + w / 2 + hgt * 0.55, z + d / 2 + hgt * 0.7); g.lineTo(x - w / 2 + hgt * 0.55, z + d / 2 + hgt * 0.7); g.closePath(); g.fill();
-  g.fillRect(x + w / 2, z - d / 2, hgt * 0.55, d + hgt * 0.7);
-  const gr = g.createLinearGradient(x - w / 2, 0, x + w / 2, 0); gr.addColorStop(0, col); gr.addColorStop(1, '#3d5a70');
-  g.fillStyle = gr;   // 南の かべ（下）
-  g.beginPath(); g.moveTo(x - w / 2, z + d / 2); g.lineTo(x + w / 2, z + d / 2); g.lineTo(x + w / 2 + ox, z + d / 2 + oz); g.lineTo(x - w / 2 + ox, z + d / 2 + oz); g.closePath(); g.fill();
-  g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 0.12;
-  for (let k = 1; k < hgt; k += 1.3) { const t = k / hgt; g.beginPath(); g.moveTo(x - w / 2 + ox * t, z + d / 2 + oz * t); g.lineTo(x + w / 2 + ox * t, z + d / 2 + oz * t); g.stroke(); }
-  g.fillStyle = '#c9d6df'; g.fillRect(x - w / 2 + ox, z - d / 2 + oz, w, d);   // やね
-  g.fillStyle = '#9fb2bf'; g.fillRect(x - w / 2 + ox + w * 0.3, z - d / 2 + oz + d * 0.3, w * 0.3, d * 0.3);
-  g.strokeStyle = 'rgba(30,40,50,.6)'; g.lineWidth = 0.15; g.strokeRect(x - w / 2 + ox, z - d / 2 + oz, w, d);
+function tower(g, x, z, w, d, hgt, col) {   // ビル：ななめ上から 見た 南の ガラスの かべ・やね・右下へ のびる かげ
+  const oz = -hgt * 0.85, ox = hgt * 0.12;
+  g.fillStyle = 'rgba(10,25,35,.3)';   // かげ（右下）
+  g.beginPath(); g.moveTo(x + w / 2, z - d / 2); g.lineTo(x + w / 2 + hgt * 0.6, z - d / 2 + hgt * 0.5); g.lineTo(x + w / 2 + hgt * 0.6, z + d / 2 + hgt * 0.5); g.lineTo(x - w / 2 + hgt * 0.6, z + d / 2 + hgt * 0.5); g.lineTo(x - w / 2, z + d / 2); g.closePath(); g.fill();
+  // 東の かべ（くらい）
+  g.fillStyle = '#2f4a5e'; g.beginPath(); g.moveTo(x + w / 2, z + d / 2); g.lineTo(x + w / 2 + ox, z + d / 2 + oz); g.lineTo(x + w / 2 + ox, z - d / 2 + oz); g.lineTo(x + w / 2, z - d / 2); g.closePath(); g.fill();
+  // 南の ガラスの かべ（空が うつる）
+  const gr = g.createLinearGradient(0, z + d / 2 + oz, 0, z + d / 2); gr.addColorStop(0, '#cfe6f2'); gr.addColorStop(0.35, col); gr.addColorStop(1, '#27485e');
+  g.fillStyle = gr; g.beginPath(); g.moveTo(x - w / 2, z + d / 2); g.lineTo(x + w / 2, z + d / 2); g.lineTo(x + w / 2 + ox, z + d / 2 + oz); g.lineTo(x - w / 2 + ox, z + d / 2 + oz); g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 0.08;
+  for (let k = 0.7; k < hgt; k += 0.7) { const t = k / hgt; g.beginPath(); g.moveTo(x - w / 2 + ox * t, z + d / 2 + oz * t); g.lineTo(x + w / 2 + ox * t, z + d / 2 + oz * t); g.stroke(); }
+  g.strokeStyle = 'rgba(20,40,55,.35)'; for (let c = 1; c < 5; c++) { const xx = x - w / 2 + (w * c) / 5; g.beginPath(); g.moveTo(xx, z + d / 2); g.lineTo(xx + ox, z + d / 2 + oz); g.stroke(); }
+  // やね（灰色・へりと 室外機）
+  const rx = x - w / 2 + ox, rz = z - d / 2 + oz;
+  g.fillStyle = '#8b97a1'; g.fillRect(rx, rz, w, d); g.fillStyle = '#a9b4bd'; g.fillRect(rx + 0.5, rz + 0.5, w - 1, d - 1);
+  g.fillStyle = '#6f7b85'; g.fillRect(rx + w * 0.2, rz + d * 0.25, w * 0.25, d * 0.22); g.fillRect(rx + w * 0.55, rz + d * 0.55, w * 0.2, d * 0.2);
+  g.strokeStyle = 'rgba(30,40,50,.7)'; g.lineWidth = 0.12; g.strokeRect(rx, rz, w, d);
 }
 const ROOFS = ['#b4553a', '#c96a3c', '#8f4a3a', '#d98b4a', '#5f7fa8', '#7a5a46', '#e2a24a'];
 function road(g, pts, w, col = '#e6d5ae', edge = 'rgba(90,70,40,.45)') {
@@ -306,7 +315,7 @@ function drawMain(g) {
   for (const [[x0, z0], [x1, z1]] of MAIN_ROADS.slice(6)) road(g, [MW(x0, z0), MW(x1, z1)], 3, '#8f8f8a', 'rgba(40,40,40,.5)');
   const towers = [[-71, -62, 14], [-55, -62, 20], [-38, -58, 12], [-22, -60, 16], [-71, -42, 18], [-55, -41, 24], [-71, -22, 12], [-55, -22, 16], [-55, -5, 10], [-71, -5, 8], [-38, -42, 10], [-38, -22, 9], [-22, -45, 11]];
   const glass = ['#6a9ec0', '#86b4d0', '#5a8db2', '#9cc2d8'];
-  towers.sort((a, b) => a[1] - b[1]).forEach(([x, z, h], i) => { const [wx, wz] = MW(x, z); tower(g, wx, wz, 9, 8, h * 0.55, glass[i % 4]); });
+  towers.sort((a, b) => a[1] - b[1]).forEach(([x, z, h], i) => { const [wx, wz] = MW(x, z); tower(g, wx, wz + 3, 8, 6.5, h * 0.42, glass[i % 4]); });
   // プラネタリウム（まるい やね）
   { const [x, z] = MW(-28, -24.6); g.fillStyle = 'rgba(0,0,0,.3)'; g.beginPath(); g.arc(x + 1.5, z + 2, 8, 0, 6.283); g.fill(); const gr = g.createRadialGradient(x - 3, z - 3, 1, x, z, 8); gr.addColorStop(0, '#ffffff'); gr.addColorStop(1, '#8e9cb0'); g.fillStyle = gr; g.beginPath(); g.arc(x, z, 7.5, 0, 6.283); g.fill(); g.strokeStyle = 'rgba(80,90,110,.5)'; g.lineWidth = 0.2; for (let i = 1; i < 4; i++) { g.beginPath(); g.arc(x, z, i * 2.2, 0, 6.283); g.stroke(); } }
   // ひろば・ふんすい・時計台・フリーマーケット・としょかん
@@ -329,7 +338,7 @@ function drawMain(g) {
   { const [x, z] = MW(-6, -38.8); plank(x - 1.4, z - 7, 2.8, 7); boat(g, x + 4, z - 10); }
   // 木（まちの 外の くさに すこし）
   const R = rnd(42);
-  for (let i = 0; i < 160; i++) { const lx = -78 + R() * 166, lz = -74 + R() * 117; if (mainL(MX + lx, MZ + lz) < 0.25) continue; if (BUSY.some(([a, b, c, d]) => lx > a && lx < b && lz > c && lz < d)) continue; treeTop(g, MX + lx, MZ + lz, 1.3 + R() * 0.8); }
+  for (let i = 0; i < 420; i++) { const lx = -78 + R() * 166, lz = -74 + R() * 117; if (mainL(MX + lx, MZ + lz) < 0.25) continue; if (BUSY.some(([a, b, c, d]) => lx > a && lx < b && lz > c && lz < d)) continue; treeTop(g, MX + lx, MZ + lz, 1.3 + R() * 0.8); }
 }
 const BUSY = [[-80, -12, -76, 0], [-66, 62, 4, 26], [-34, -20, -30, -18], [-16, 0, -38, 8], [-8, 60, -42, -26], [-70, -14, 4, 40], [52, 90, -30, 34], [40, 50, 24, 36], [-22, -16, 6, 16], [-18, 24, 22, 50]];
 function treeTop(g, x, z, r) {

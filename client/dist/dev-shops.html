@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U-Speak 高級な お店（見本）</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0c241c;color:#fff4d6;font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+  canvas{display:block;width:100vw;height:100vh;touch-action:none;cursor:grab}
+  canvas:active{cursor:grabbing}
+  .bar{position:fixed;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:8px;max-width:calc(100vw - 24px)}
+  .bar button{font:inherit;font-size:14px;font-weight:700;min-height:38px;padding:0 14px;border-radius:999px;border:2px solid #2f5a48;background:#1b3a2fd9;color:#fff4d6;cursor:pointer}
+  .bar button[aria-pressed="true"]{background:#e27a2d;border-color:#ffb066;color:#fff}
+  .bar .sep{width:6px}
+  #info{position:fixed;left:12px;bottom:12px;font-size:13px;background:#0c241cd9;border:1px solid #2f5a48;border-radius:12px;padding:8px 12px;line-height:1.5}
+  #info b{color:#8ff0c8}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="bar">
+  <button data-view="bout-ext">ふくや そと Boutique outside</button>
+  <button data-view="bout-int">ふくや なか Boutique inside</button>
+  <button data-view="bout-street">ストリート Streetwear</button>
+  <span class="sep"></span>
+  <button data-view="furn-ext">かぐや そと Furniture outside</button>
+  <button data-view="furn-int">かぐや なか Furniture inside</button>
+  <button data-view="furn-bed">しんしつ Bedroom</button>
+  <span class="sep"></span>
+  <button data-night="0">☀ ひる Day</button>
+  <button data-night="1">🌙 よる Night</button>
+</div>
+<div id="info">…</div>
+<script type="module">
+import * as THREE from './three.module.js';
+import { buildBoutique, buildFurnitureShowroom, shopTextureMB } from './boutique-real.js';
+
+const Q = new URLSearchParams(location.search);
+const canvas = document.querySelector('#c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerHeight, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.05, 400);
+
+// 光は ページの もの（島と 同じ：半球＋太陽）。モデルは 光を 持たない。
+function makeScene(kind) {
+  const scene = new THREE.Scene();
+  const hemi = new THREE.HemisphereLight(0xe5f0ff, 0x8f8a80, 2.0);
+  const sun = new THREE.DirectionalLight(0xffe8c0, 3.0);
+  sun.position.set(-14, 26, 22); sun.castShadow = true;
+  Object.assign(sun.shadow.camera, { left: -20, right: 20, top: 20, bottom: -20, near: 1, far: 90 }); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+  scene.add(hemi, sun);
+  const t0 = performance.now();
+  const built = kind === 'bout' ? buildBoutique() : buildFurnitureShowroom();
+  const ms = Math.round(performance.now() - t0);
+  scene.add(built.group);
+  // まわりの 地面と となりの 建物（見本の ページだけ）。
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshStandardMaterial({ color: 0x4a4744, roughness: 0.95 }));
+  ground.rotation.x = -Math.PI / 2; ground.position.y = -0.3; ground.receiveShadow = true; scene.add(ground);
+  const nb = new THREE.MeshStandardMaterial({ color: kind === 'bout' ? 0x8a7e6e : 0x2a2a2e, roughness: 0.9 });
+  const W = kind === 'bout' ? 8 : 9;
+  for (const s of [-1, 1]) { const b = new THREE.Mesh(new THREE.BoxGeometry(10, 11, 14), nb); b.position.set(s * (W + 5.05), 5.5, 0); b.castShadow = b.receiveShadow = true; scene.add(b); }
+  scene.fog = new THREE.Fog(0xb8c4cc, 40, 160);
+  return { scene, hemi, sun, built, kind, ms };
+}
+const S = { bout: makeScene('bout'), furn: makeScene('furn') };
+
+const VIEWS = {
+  'bout-ext': { m: 'bout', pos: [6.2, 1.65, 16.5], look: [0.6, 3.6, 6.8], fov: 52 },
+  'bout-int': { m: 'bout', pos: [-1.0, 1.7, 5.7], look: [4.4, 2.6, -2.2], fov: 64 },
+  'bout-street': { m: 'bout', pos: [-1.0, 3.3, 5.6], look: [-6.4, 1.0, -1.8], fov: 64 },
+  'furn-ext': { m: 'furn', pos: [7.0, 1.9, 17.5], look: [0, 3.4, 6.8], fov: 52 },
+  'furn-int': { m: 'furn', pos: [2.4, 1.7, 6.0], look: [-7.2, 1.2, 1.8], fov: 62 },
+  'furn-bed': { m: 'furn', pos: [-1.2, 1.9, -1.0], look: [-5.6, 0.9, -5.8], fov: 62 },
+};
+let view = VIEWS[Q.get('view')] ? Q.get('view') : 'bout-ext', night = +(Q.get('night') ?? 1);
+const orb = { target: new THREE.Vector3(), r: 10, th: 0, ph: 1.2 };
+function setView(name) {
+  view = name; const v = VIEWS[name];
+  camera.fov = v.fov; camera.updateProjectionMatrix();
+  orb.target.set(...v.look);
+  const d = new THREE.Vector3(...v.pos).sub(orb.target);
+  orb.r = d.length(); orb.th = Math.atan2(d.x, d.z); orb.ph = Math.acos(d.y / orb.r);
+  place(); document.body.dataset.view = name;
+  document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+}
+function place() {
+  orb.ph = Math.max(0.15, Math.min(Math.PI - 0.15, orb.ph));
+  camera.position.set(orb.target.x + orb.r * Math.sin(orb.ph) * Math.sin(orb.th), orb.target.y + orb.r * Math.cos(orb.ph), orb.target.z + orb.r * Math.sin(orb.ph) * Math.cos(orb.th));
+  camera.lookAt(orb.target);
+}
+let drag = null;
+canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', (e) => { if (!drag) return; orb.th -= (e.clientX - drag.x) * 0.005; orb.ph -= (e.clientY - drag.y) * 0.005; drag = { x: e.clientX, y: e.clientY }; place(); });
+canvas.addEventListener('pointerup', () => { drag = null; });
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); orb.r = Math.max(0.5, Math.min(120, orb.r * (1 + Math.sign(e.deltaY) * 0.1))); place(); }, { passive: false });
+
+function applyNight() {
+  for (const s of Object.values(S)) {
+    s.built.setNight(night);
+    s.hemi.intensity = 2.0 * (1 - 0.8 * night); s.sun.intensity = 3.0 * (1 - 0.92 * night);
+    s.sun.color.setHex(night ? 0x8fa4ff : 0xffe8c0); s.hemi.color.setHex(night ? 0x5a6a9a : 0xe5f0ff);
+    s.scene.background = new THREE.Color(night ? 0x0b1222 : 0xa9cde8); s.scene.fog.color.setHex(night ? 0x0b1222 : 0xb8c4cc);
+  }
+  document.querySelectorAll('[data-night]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.night === night)));
+}
+document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => setView(b.dataset.view));
+document.querySelectorAll('[data-night]').forEach((b) => b.onclick = () => { night = +b.dataset.night; applyNight(); });
+applyNight(); setView(view);
+
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
+const clock = new THREE.Clock(); let frames = 0;
+function count(s) { let calls = 0; s.built.group.traverse((o) => { if ((o.isMesh || o.isPoints) && o.visible) calls += 1; }); return calls; }
+function frame() {
+  const s = S[VIEWS[view].m]; s.built.update?.(clock.getElapsedTime());
+  renderer.render(s.scene, camera); frames += 1;
+  if (frames % 10 === 1) {
+    const info = renderer.info.render;
+    document.querySelector('#info').innerHTML = `<b>${s.kind === 'bout' ? 'MAISON U' : 'ROYAL HOME'}</b> ・ モデルの 描画 <b>${count(s)}</b> 回 ・ 三角形 <b>${s.built.triangles.toLocaleString()}</b> ・ 画面ぜんぶ ${info.calls} 回 / ${info.triangles.toLocaleString()} ・ もよう（2 つの お店で 共有）${shopTextureMB()} MB ・ 作る ${s.ms} ms`;
+    Object.assign(document.body.dataset, { calls: count(s), tris: s.built.triangles, texmb: shopTextureMB(), buildms: s.ms, boutms: S.bout.ms, furnms: S.furn.ms });
+  }
+  if (frames >= 3) document.body.dataset.ready = '1';
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>
