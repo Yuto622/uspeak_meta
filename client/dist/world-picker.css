@@ -350,3 +350,65 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wm-svg[data-style="guide"][data-far="1"] .n-guide { display: none; }
 .wm-svg[data-style="guide"][data-far="1"] .n-paint { display: inline; }
 .wm-svg[data-far="1"] .wm-compass { display: none; }
+
+/* ── 異次元の ちず（2026-11：「地図もっと異次元デザインで」）。cosmic-panels.css と 同じ ブランド色（深緑・オレンジ・ミント・クリーム）。
+   動くのは 小さな 光（transform / opacity）だけ・filter / backdrop-filter は 使わない・prefers-reduced-motion で 止まる。 ── */
+#rpg-dialog[data-page="map"]:has(.wm.is-map) { background: #06120d; border: 2px solid #ffb06699; box-shadow: 0 0 0 3px #8ff0c81f, 0 30px 80px #06120dcc; }
+.wmap, .wmap[data-style="guide"] { background: #06120d; }
+.wt-in { background:
+    radial-gradient(1px 1px at 14% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 82% 24%, #ffd9a8 50%, transparent 51%),
+    radial-gradient(1px 1px at 64% 78%, #8ff0c8 50%, transparent 51%), radial-gradient(1px 1px at 30% 70%, #fff 50%, transparent 51%),
+    radial-gradient(70% 90% at 50% 0%, #2a5a48, #0c241c 70%);
+  border: 2px solid #ffb066; box-shadow: 0 0 0 1px #8ff0c855 inset, 0 0 18px #ffb06655, 0 8px 18px #06120daa; }
+.wt-in b { background: linear-gradient(90deg, #fff4d6, #ffb066 50%, #8ff0c8); -webkit-background-clip: text; background-clip: text; }
+.wt-in::before, .wt-in::after { color: #8ff0c8; animation: wm-twinkle 2.6s ease-in-out infinite; }
+.wt-in::after { animation-delay: 1.3s; color: #ffb066; }
+@keyframes wm-twinkle { 50% { opacity: .35; transform: translateY(-50%) scale(.7); } }
+.wm-views { background: #0c241cf2; box-shadow: 0 0 0 1.5px #8ff0c866, 0 0 14px #8ff0c822; }
+.wm-views button[aria-pressed="true"] { box-shadow: 0 0 12px #ffb06688; }
+.wmap-panel { color: #fff4d6; border: 1.5px solid #ffb06699; box-shadow: 0 0 0 1px #8ff0c833 inset, 0 0 16px #ffb06622, 0 10px 22px #06120d99;
+  background: radial-gradient(1px 1px at 18% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 82% 40%, #8ff0c8 50%, transparent 51%), radial-gradient(1.5px 1.5px at 40% 88%, #ffd9a8 50%, transparent 51%), linear-gradient(165deg, #0c241cf5, #1b3a2ff5); }
+.wmap-panel summary { background: #ffffff0a; border-bottom: 1px solid #8ff0c844; color: #fff4d6; }
+.wmap-panel:not([open]) summary { border-bottom: 0; }
+.wmap-list li button { color: #fff4d6; }
+.wmap-list li button:hover, .wmap-list li button:focus-visible { background: #8ff0c822; }
+.wmap-list li button.here { background: #ffb06633; box-shadow: inset 0 0 0 1px #ffb06699; }
+.wmap-list li button.locked { color: #9fb8ae; }
+.wl-n { background: radial-gradient(circle at 38% 34%, #fff4d6, #ffb066 40%, #e27a2d 80%); color: #2a1300; box-shadow: 0 0 0 1.5px #fff4d6, 0 0 8px #ffb06688; }
+.wmap-list li button.locked .wl-n { background: radial-gradient(circle at 38% 34%, #cfe8dc, #6f8a80 55%, #2c4a3e); color: #fff; box-shadow: 0 0 0 1.5px #9fb8ae; }
+.wmap-key li { color: #fff4d6; }
+.wmap-tools button { background: #0c241c; color: #fff4d6; border: 2px solid #8ff0c8aa; box-shadow: 0 0 10px #8ff0c833, 0 3px 0 #06120d; }
+.wmap-tools button:hover { background: #1b3a2f; }
+.wmap-tools .wmap-book { background: #e27a2d; border-color: #ffb066; }
+.wmap-compass { position: absolute; z-index: 2; right: 284px; bottom: 10px; width: 40px; height: 48px; pointer-events: none; }
+.wmap-compass svg { width: 100%; height: 100%; overflow: visible; }
+@media (max-height: 560px), (max-width: 640px) { .wmap-compass { bottom: 8px; right: 240px; width: 32px; height: 38px; } }
+.wmap-loading { background: #0c241cee; border: 1px solid #8ff0c866; }
+/* 札：くらい ガラスの 板・クリームの 字・うすい ネオンの ふち */
+.wm-svg .wm-pill { fill: #0c241c; fill-opacity: .92; stroke: #8ff0c8; stroke-width: 1.2px; }
+.wm-svg .wm-label .wm-ltext { fill: #fff4d6; }
+.wm-svg .wm-label .wm-sub { fill: #8ff0c8; }
+.wm-svg .wm-label.here .wm-pill { fill: #1b3a2f; stroke: #ffb066; stroke-width: 2px; }
+.wm-svg .wm-label.here .wm-ltext { fill: #ffd9a8; }
+.wm-svg .wm-label.dim .wm-pill { fill: #0c241c; stroke: #5f7d73; }
+.wm-svg .wm-label.dim .wm-ltext { fill: #b9cbc3; }
+.wm-svg .wm-place .wm-pill { fill: #0c241c; stroke: #ffb066; }
+.wm-svg .wm-place .wm-ltext { fill: #fff4d6; }
+/* 番号：ひかる 玉 */
+.wm-svg .n-fill { fill: url(#wm-orb); }
+.wm-svg .wm-num.here .n-fill { fill: url(#wm-orb-here); }
+.wm-svg .wm-num.locked .n-fill { fill: url(#wm-orb-off); }
+.wm-svg .wm-num .wm-ntext { fill: #2a1300; }
+.wm-svg .wm-num.locked .wm-ntext { fill: #ffffff; }
+.wm-svg .wm-num:hover .n-fill { fill: url(#wm-orb-here); }
+.wm-svg .wm-sea { fill: #8ff0c8; fill-opacity: .75; stroke: #06120d; stroke-opacity: .8; }
+.wm-svg[data-style="guide"] .wm-sea { fill: #8ff0c8; stroke: #06120d; }
+.wm-svg .wm-here-ring { stroke: #ffb066; }
+.wm-svg .wm-cloud { opacity: .9; }
+/* 「きみは ここ」：ひかりの ビーコン（わが ひろがる） */
+.wmap-here .wh-ring { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #ffb066; opacity: 0; animation: wm-beacon 2s ease-out infinite; will-change: transform, opacity; }
+.wmap-here .wh-ring.b { animation-delay: 1s; border-color: #8ff0c8; }
+@keyframes wm-beacon { 0% { transform: scale(.5); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+.wmap-here .wh-tag { background: #0c241c; color: #ffd9a8; border-color: #ffb066; box-shadow: 0 0 12px #ffb06666; }
+@media (prefers-reduced-motion: reduce) { .wmap-here .wh-ring, .wt-in::before, .wt-in::after { animation: none; } .wmap-here .wh-ring { opacity: .6; } }
+.wmap-tile:not(.soft):not(.main) { -webkit-mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); }

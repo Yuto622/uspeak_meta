@@ -126,6 +126,7 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
         <summary><b class="en">KEY</b><i class="ja">せつめい</i></summary>
         <ul>${keyRow('here', 'You are here', 'きみは ここ')}${keyRow('num', 'Island number', 'しまの ばんごう')}${keyRow('bridge', 'Bridge (walk)', 'はし（あるいて 行ける）')}${keyRow('premium', 'Premium', 'プレミアム')}${keyRow('cloud', 'Not open yet', 'まだ ひらいて いない')}${keyRow('ferry', 'Boat', 'ふね')}${keyRow('plane', 'Airport', 'ひこうきの のりば')}</ul>
       </details>
+      <div class="wmap-compass" aria-hidden="true"><svg viewBox="-22 -30 44 52"><circle r="17" fill="#0c241c" stroke="#8ff0c8" stroke-width="1.6"/><path d="M0-13 4 0 0 13-4 0Z" fill="#fff4d6"/><path d="M0-13 4 0H-4Z" fill="#ffb066"/><text y="-21" font-size="11" font-weight="900" text-anchor="middle" fill="#ffb066">N</text></svg></div>
       <div class="wmap-tools">
         <button type="button" data-wm-zoom="in" aria-label="ちかづける" data-t-label="ちかづける">＋</button>
         <button type="button" data-wm-zoom="out" aria-label="とおざける" data-t-label="とおざける">－</button>

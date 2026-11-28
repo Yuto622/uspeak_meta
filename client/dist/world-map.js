@@ -323,16 +323,21 @@ export function baseSvg() {
   let s = `<defs>${TREE_DEFS}${shapes}
     <pattern id="wm-waves" width="40" height="26" patternUnits="userSpaceOnUse"><path d="M3 7q3-2.4 6 0t6 0M23 20q3-2.4 6 0t6 0" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-opacity=".5"/></pattern>
     <radialGradient id="wm-cloudgrad"><stop offset="0" stop-color="#ffffff" stop-opacity=".96"/><stop offset=".6" stop-color="#f3f8fb" stop-opacity=".88"/><stop offset="1" stop-color="#e6eff5" stop-opacity="0"/></radialGradient>
-    <clipPath id="wm-mclip"><circle r="13"/></clipPath>
+    <clipPath id="wm-mclip"><circle r="15.5"/></clipPath>
+    <radialGradient id="wm-orb" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#fff4d6"/><stop offset=".35" stop-color="#ffb066"/><stop offset=".8" stop-color="#e27a2d"/><stop offset="1" stop-color="#9a4a14"/></radialGradient>
+    <radialGradient id="wm-orb-here" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#ffd246"/><stop offset="1" stop-color="#e27a2d"/></radialGradient>
+    <radialGradient id="wm-orb-off" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#cfe8dc"/><stop offset=".5" stop-color="#6f8a80"/><stop offset="1" stop-color="#2c4a3e"/></radialGradient>
+    <radialGradient id="wm-glow"><stop offset=".45" stop-color="#ffb066" stop-opacity=".55"/><stop offset="1" stop-color="#ffb066" stop-opacity="0"/></radialGradient>
+    <pattern id="wm-stars" width="90" height="70" patternUnits="userSpaceOnUse"><circle cx="12" cy="9" r=".9" fill="#fff4d6"/><circle cx="57" cy="31" r=".6" fill="#8ff0c8"/><circle cx="33" cy="52" r=".7" fill="#fff4d6"/><circle cx="78" cy="61" r="1" fill="#ffd9a8"/><circle cx="70" cy="12" r=".5" fill="#fff"/></pattern>
   </defs>`;
   // あんない（たいらな 地図）
-  let gd = `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#9fd3e6"/><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#wm-waves)"/>`;
-  gd += `<g stroke-linejoin="round" fill="#c4e9f3" stroke="#c4e9f3" stroke-width="26">${uses()}</g>`;
+  let gd = `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#08160f"/><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#wm-stars)"/>`;
+  gd += `<g stroke-linejoin="round" fill="#123f34" stroke="#123f34" stroke-width="30">${uses()}</g>`;   // 異次元の 海（うすい ミント）
   gd += `<g class="wm-gbridges">${DLINKS.map(bridgeSvg).join('')}</g>`;   // 橋は 島の 下に（島の 中の ぶんは かくれる）
-  gd += `<g stroke-linejoin="round" fill="#ffffff" stroke="#ffffff" stroke-width="5">${uses()}</g>`;
-  gd += MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}" fill="${guideOf(r)}"/>`).join('');
-  gd += MAP_ISLANDS.filter((r) => r.id !== 'main').map((r) => `<path d="${blob(r.x - r.rx * 0.08, r.z - r.rz * 0.1, r.rx * 0.56, r.rz * 0.5, seedOf(r.id) + 3, { wob: 0.12 })}" fill="#ffffff" fill-opacity=".22"/>`).join('');
-  { const x0 = MX + MAIN_BAY.x0, x1 = MX + MAIN_BAY.x1, z0 = MZ + MAIN_BAY.z0; gd += `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="40" rx="6" fill="#ffffff"/><rect x="${x0 + 2.5}" y="${z0 + 2.5}" width="${x1 - x0 - 5}" height="40" rx="5" fill="#c4e9f3"/>`; }
+  gd += `<g stroke-linejoin="round" fill="#8ff0c8" stroke="#8ff0c8" stroke-width="4">${uses()}</g>`;   // ネオンの ふち
+  gd += MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}" fill="${mix(guideOf(r), r.hub ? '#1b3a2f' : '#5a3412', r.hub ? 0.6 : 0.55)}"/>`).join('');
+  gd += MAP_ISLANDS.filter((r) => r.id !== 'main').map((r) => `<path d="${blob(r.x - r.rx * 0.08, r.z - r.rz * 0.1, r.rx * 0.56, r.rz * 0.5, seedOf(r.id) + 3, { wob: 0.12 })}" fill="#8ff0c8" fill-opacity=".1"/>`).join('');
+  { const x0 = MX + MAIN_BAY.x0, x1 = MX + MAIN_BAY.x1, z0 = MZ + MAIN_BAY.z0; gd += `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="40" rx="6" fill="#8ff0c8"/><rect x="${x0 + 2.5}" y="${z0 + 2.5}" width="${x1 - x0 - 5}" height="40" rx="5" fill="#123f34"/>`; }
   gd += `<g class="wm-gtown">${guideTown()}</g>`;
   for (const [x, z] of [[BY_ID.willow.x + 30, BY_ID.willow.z + 20], [MX + 64, MZ - 40]]) gd += planeMark(x, z);
   gd += boat(MX + 40, MZ + 41, '#e27a2d', 1.3) + boat(MX - 2, MZ - 48, '#3f9a62', 1.3);
@@ -344,22 +349,21 @@ export function baseSvg() {
   s += `<g class="wm-nums">${MAP_ISLANDS.map((r) => `<g class="wm-num" data-island="${esc(r.id)}"><circle r="19" fill="transparent"/>`
     + `<g class="n-guide"><circle r="19" fill="#ffffff" stroke="${bannerOf(r)}" stroke-width="3"/><g clip-path="url(#wm-mclip)"><circle r="15.5" fill="${light(bannerOf(r), 0.78)}"/><g transform="translate(0 3.5) scale(.62)">${r.id === 'main' ? mainIcon() : (LANDMARK[r.id] || defaultMark(r))()}</g></g>`
     + `<g transform="translate(-15 -15)"><circle r="10" class="n-fill" stroke="#fff4d6" stroke-width="2"/><text class="wm-ntext" font-size="11" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`
-    + `<g class="n-paint"><circle r="14" class="n-fill" stroke="#fff4d6" stroke-width="2.5"/><circle r="14" fill="none" stroke="${INK}" stroke-width="1"/><text class="wm-ntext" font-size="13" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g>`
+    + `<g class="n-paint"><circle r="22" fill="url(#wm-glow)"/><circle r="14" class="n-fill" stroke="#fff4d6" stroke-width="2"/><circle r="14" fill="none" stroke="${INK}" stroke-width="1"/><text class="wm-ntext" font-size="13" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g>`
     + `<g class="n-lock" transform="translate(12 -12)">${lockSvg(0.62)}</g><g class="n-star" transform="translate(13 -12)"><circle r="7" fill="#ffd84a" stroke="#7a5200" stroke-width="1.2"/><path d="M0-4 1.2-1.3 4-1.2 1.8.7 2.5 3.4 0 1.9-2.5 3.4-1.8.7-4-1.2-1.2-1.3Z" fill="#fff"/></g>`
     + '</g>').join('')}</g>`;
   // 名前の 札（まるい クリームの 板に こい 字・ばしょは mount の layout が かさならない ように えらぶ）。メインの島の 中の 場所の 名前も 同じ 札。
   s += `<g class="wm-labels">${MAP_ISLANDS.map(labelSvg).join('')}${MAIN_PLACES.map((p, i) => `<g class="wm-label wm-place" data-place="${i}" translate="no"><rect class="wm-pill"/><text class="wm-ltext" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(p.en)}</tspan><tspan class="ja">${esc(p.ja)}</tspan></text></g>`).join('')}</g>`;
   s += '<g class="wm-live-over"></g><g class="wm-hits"></g>';
-  s += `<g transform="translate(${FIT.x1 - 18} ${FIT.z1 - 30})" class="wm-compass"><circle r="20" fill="#fff4d6" fill-opacity=".92" stroke="#1b3a2f" stroke-width="2"/><path d="M0-16 4.6 0 0 16-4.6 0Z" fill="#1b3a2f"/><path d="M0-16 4.6 0H-4.6Z" fill="#e27a2d"/><text y="-27" font-size="13" font-weight="900" text-anchor="middle" fill="#fff" class="wm-ink">N</text></g>`;
   cachedSvg = `<svg class="wm-svg" xmlns="http://www.w3.org/2000/svg" viewBox="${VIEW.x0} ${VIEW.z0} ${VIEW.x1 - VIEW.x0} ${VIEW.z1 - VIEW.z0}" font-family="'Hiragino Maru Gothic ProN','Arial Rounded MT Bold','M PLUS Rounded 1c','Noto Sans JP',sans-serif">${s}</svg>`;
   return cachedSvg;
 }
 // あんないの メインの島：白い 道・ビルの まちの 灰色・ひろばの まる
 function guideTown() {
-  let s = MAIN_RECTS.slice(2, 4).map((a) => `<rect x="${MX + a.x0 + 4}" y="${MZ + a.z0 + 4}" width="${a.x1 - a.x0 - 8}" height="${a.z1 - a.z0 - 8}" rx="5" fill="#d9dbe2"/>`).join('');
-  { const [x, z] = MW(71, 16); s += `<ellipse cx="${x}" cy="${z}" rx="13" ry="11" fill="#f3e6c8"/>`; }
-  { const [x, z] = MW(-28, -24.6); s += `<circle cx="${x}" cy="${z}" r="7" fill="#e6e8f2"/>`; }
-  s += `<g fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round">${MAIN_ROADS.map(([[x0, z0], [x1, z1]]) => { const [a, b] = MW(x0, z0), [c, d] = MW(x1, z1); return `<path d="M${a} ${b}L${c} ${d}"/>`; }).join('')}</g>`;
+  let s = MAIN_RECTS.slice(2, 4).map((a) => `<rect x="${MX + a.x0 + 4}" y="${MZ + a.z0 + 4}" width="${a.x1 - a.x0 - 8}" height="${a.z1 - a.z0 - 8}" rx="5" fill="#2c4f45"/>`).join('');
+  { const [x, z] = MW(71, 16); s += `<ellipse cx="${x}" cy="${z}" rx="13" ry="11" fill="#6a4a24"/>`; }
+  { const [x, z] = MW(-28, -24.6); s += `<circle cx="${x}" cy="${z}" r="7" fill="#3c6f60"/>`; }
+  s += `<g fill="none" stroke="#fff4d6" stroke-opacity=".55" stroke-width="2.2" stroke-linecap="round">${MAIN_ROADS.map(([[x0, z0], [x1, z1]]) => { const [a, b] = MW(x0, z0), [c, d] = MW(x1, z1); return `<path d="M${a} ${b}L${c} ${d}"/>`; }).join('')}</g>`;
   return s;
 }
 const mainIcon = () => box(-6, 8, 8, 18, 5, '#7fb8d8') + box(5, 8, 7, 12, 5, '#9cc8e0') + `<path d="M-14 8a6 5 0 0 1 12 0Z" fill="#e6e8f2" ${S(0.5)}/>`;
@@ -369,14 +373,9 @@ function planeMark(x, z) {
   return `<g transform="translate(${f(x)} ${f(z)})"><rect x="-9" y="-2" width="18" height="4" rx="2" fill="#7a8a96" ${S(0.35)}/><path d="M-6 0h12" stroke="#fff" stroke-width=".5" stroke-dasharray="1.4 1"/>`
     + `<g transform="translate(0 -6) rotate(-20)"><path d="M-5 0h10l1.6-.8-1.6-.8H-5Z M-1 0-3 4H-1.4L2 0ZM-1-1.6-3-5H-1.4L2-1.6ZM-4.6-.8-6-3H-5L-3.6-.8Z" fill="#fff" ${S(0.35)}/></g></g>`;
 }
-function bridgeSvg(l) {
-  const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, len = Math.hypot(dx, dz), ang = Math.atan2(dz, dx) * 180 / Math.PI, w = 6.2;
-  let g = `<rect x="-1" y="${f(-w / 2 + 3)}" width="${f(len + 2)}" height="${w}" fill="#0e5d6a" opacity=".3"/>`;   // 海の 上の かげ
-  g += `<rect x="-1" y="${f(-w / 2)}" width="${f(len + 2)}" height="${w}" rx="1" fill="#c98a4b" stroke="#6b3f1c" stroke-width=".6"/>`;
-  g += `<path d="M0 0H${f(len)}" stroke="#9a6233" stroke-width="${w - 1.2}" stroke-dasharray=".45 1.75"/>`;
-  g += `<path d="M0 ${f(-w / 2 + 0.5)}H${f(len)}M0 ${f(w / 2 - 0.5)}H${f(len)}" stroke="#5a3418" stroke-width=".9"/>`;
-  g += `<path d="M0 ${f(-w / 2 + 0.5)}H${f(len)}M0 ${f(w / 2 - 0.5)}H${f(len)}" stroke="#7a4a22" stroke-width="1.8" stroke-dasharray=".1 5.4" stroke-linecap="round"/>`;
-  if (l.rest) g += `<rect x="${f(len / 2 - 6)}" y="${f(-w / 2 - 2.6)}" width="12" height="${f(w + 5.2)}" rx="1.6" fill="#c98a4b" stroke="#6b3f1c" stroke-width=".6"/><path d="M${f(len / 2 - 4.6)} ${f(-w / 2 - 1.4)}h9.2" stroke="#7a4a22" stroke-width="1.2"/>` + `<circle cx="${f(len / 2 + 5)}" cy="${f(w / 2 + 1.6)}" r="1" fill="#ffd84a" stroke="#6b3f1c" stroke-width=".3"/>`;
+function bridgeSvg(l) {   // ひかりの 橋（あんない）：ミントの 光の おびに オレンジの しん
+  const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, len = Math.hypot(dx, dz), ang = Math.atan2(dz, dx) * 180 / Math.PI;
+  const g = `<rect x="-1" y="-4.5" width="${f(len + 2)}" height="9" rx="4.5" fill="#8ff0c8" fill-opacity=".16"/><rect x="-1" y="-2.4" width="${f(len + 2)}" height="4.8" rx="2.4" fill="#0c241c" stroke="#8ff0c8" stroke-width=".9"/><path d="M1 0H${f(len - 1)}" stroke="#ffb066" stroke-width="1.2" stroke-dasharray="3 2.2" stroke-linecap="round"/>`;
   return `<g class="wm-bridge" data-bridge="${esc(l.id)}" transform="translate(${f(l.from.x)} ${f(l.from.z)}) rotate(${f(ang)})">${g}</g>`;
 }
 // 名前の 札：英語の とき 英語（ちかづくと 下に よみ）、日本語の とき 日本語の 名前（ちかづくと 下に よみ／英語）。
@@ -462,7 +461,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   let here = null;
   if (pin) {
     here = document.createElement('div'); here.className = 'wmap-here'; here.setAttribute('aria-hidden', 'true');
-    here.innerHTML = `<span class="wh-tag"><b class="en">You are here</b><i class="ja">きみは ここ</i></span><svg class="wh-pin" viewBox="-11 -24 22 30"><ellipse cy="3" rx="6" ry="2.2" fill="#000" fill-opacity=".25"/><path d="M0 2C-3-4-9-7-9-13a9 9 0 0 1 18 0c0 6-6 9-9 15Z" fill="#ffd246" stroke="${INK}" stroke-width="1.4"/><path d="M0-18.4l1.9 3.9 4.3.6-3.1 3 .7 4.3L0-8.6l-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#e27a2d"/></svg>`;
+    here.innerHTML = `<i class="wh-ring"></i><i class="wh-ring b"></i><span class="wh-tag"><b class="en">You are here</b><i class="ja">きみは ここ</i></span><svg class="wh-pin" viewBox="-11 -24 22 30"><ellipse cy="3" rx="6" ry="2.2" fill="#000" fill-opacity=".25"/><path d="M0 2C-3-4-9-7-9-13a9 9 0 0 1 18 0c0 6-6 9-9 15Z" fill="#ffd246" stroke="${INK}" stroke-width="1.4"/><path d="M0-18.4l1.9 3.9 4.3.6-3.1 3 .7 4.3L0-8.6l-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#e27a2d"/></svg>`;
     host.appendChild(here);
   }
   const pinR = pin ? BY_ID[pin] : null;
@@ -476,7 +475,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
     const hit = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
     const blocks = [];
     const addEl = (el) => { const b = el.getBoundingClientRect(); if (b.width) blocks.push([b.left - vb.left - 4, b.top - vb.top - 4, b.right - vb.left + 4, b.bottom - vb.top + 4]); };
-    host.querySelectorAll('.wmap-panel, .wmap-title, .wmap-tools').forEach(addEl);
+    host.querySelectorAll('.wmap-panel, .wmap-title, .wmap-tools, .wmap-compass').forEach(addEl);
     host.closest('.wm')?.querySelectorAll('.wm-views, .wm-close').forEach(addEl);
     const isl = MAP_ISLANDS.map((r) => {
       if (r.id === 'main') return [r.id, [toS(MX - 78, 0)[0], toS(0, MZ - 74)[1], toS(MX + 88, 0)[0], toS(0, MZ + 43)[1]]];
@@ -488,8 +487,20 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
       n.g.setAttribute('transform', `translate(${f(x)} ${f(z)}) scale(${f(ms / k * 1000) / 1000})`);
       if (!n.g.classList.contains('off')) blocks.push([sx - nr, sy - nr, sx + nr, sy + nr]);
     }
-    if (pinR) { const [x, z] = numAt(pinR), [sx, sy] = toS(x, z); blocks.push([sx - 62, sy - 96, sx + 62, sy - 12]); }
     const placed = [];
+    if (pinR && here) {   // 「きみは ここ」：ピンは 番号の 上。ことばの 札は、ほかの 番号・札・パネルに かさならない ところへ
+      const [x, z] = numAt(pinR), [sx, sy] = toS(x, z), tag = here.querySelector('.wh-tag'), tw = tag.offsetWidth || 110, th = tag.offsetHeight || 28;
+      blocks.push([sx - 18, sy - 64, sx + 18, sy - 12]);
+      const own = blocks.length - 1;
+      let best = null;
+      for (const [dx, dy] of [[0, -82], [24 + tw / 2, -40], [-24 - tw / 2, -40], [0, nr + th / 2 + 6], [24 + tw / 2, 0], [-24 - tw / 2, 0], [0, -112], [44 + tw / 2, -72], [-44 - tw / 2, -72], [44 + tw / 2, 30], [-44 - tw / 2, 30], [0, nr + th / 2 + 40], [70 + tw / 2, -10], [-70 - tw / 2, -10], [0, -140], [100 + tw / 2, -40], [-100 - tw / 2, -40], [100 + tw / 2, 40], [-100 - tw / 2, 40], [0, nr + th / 2 + 70]]) {
+        const R = [sx + dx - tw / 2, sy + dy - th / 2, sx + dx + tw / 2, sy + dy + th / 2];
+        if (R[0] < 4 || R[1] < 4 || R[2] > W - 4 || R[3] > H - 4) continue;
+        if (blocks.some((b, bi) => bi !== own && hit(R, b) && !(b[0] <= sx && b[2] >= sx && b[1] <= sy && b[3] >= sy))) continue;
+        best = [dx, dy, R]; break;
+      }
+      if (best) { placed.push(best[2]); tag.style.display = ''; tag.style.left = `${f(best[0] - tw / 2)}px`; tag.style.top = `${f(best[1] - th / 2)}px`; tag.style.transform = 'none'; } else tag.style.display = 'none';
+    }
     const put = (L, cands, w, h, x, z, own) => {
       const [sx, sy] = toS(x, z);
       for (const [dx, dy] of cands) {

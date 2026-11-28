@@ -49,7 +49,23 @@ const PAL = [
   ['#8cbb52', '#6e9e40', '#8d7a62', '#d8c26a'], ['#6fae4c', '#4f8d3a', '#8d7a62', '#9cc45a'], ['#78b04e', '#5e9840', '#a57d5c', '#a9cf6a'],
 ].map((p) => p.map(RGB));
 const SAND = RGB('#ecd9a2'), SAND_WET = RGB('#d6bd84'), FOAM = RGB('#ffffff');
-const DEEP = RGB('#1d6fb0'), MID = RGB('#2596cc'), SHAL = RGB('#38c6d4'), LAGOON = RGB('#66e0d2'), NEAR = RGB('#a8f4e4'), REEF = RGB('#34aaa4');
+// 異次元の 海と 宇宙（2026-11：「地図もっと異次元デザインで」）。色は ブランド（深緑・ミント・オレンジ・クリーム）だけ。
+const DEEP = RGB('#0f4a43'), MID = RGB('#167c6b'), SHAL = RGB('#33bd9e'), LAGOON = RGB('#7ee9c8'), NEAR = RGB('#a6f6d8'), RIM = RGB('#ffb066');
+const ROCK0 = RGB('#6b4a33'), ROCK1 = RGB('#241812');
+const OCEAN = 0.62, HANG = 9;   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
+const VOID = RGB('#06120d'), NEB1 = RGB('#1d6b58'), NEB2 = RGB('#8a4716');
+let SC = null;   // 宇宙の まんなか（わの 中心）
+function spaceAt(x, z, px, py) {
+  SC ||= [(BOUNDS.x0 + BOUNDS.x1) / 2, (BOUNDS.z0 + BOUNDS.z1) / 2];
+  const n1 = fbm(x / 260, z / 260, 3), n2 = fbm(x / 190 + 30, z / 190 - 11, 3);   // ふわっと した 星雲（ミント・オレンジ）
+  let c = mixc(VOID, NEB1, sstep(0.0, 0.6, n1) * 0.5);
+  c = mixc(c, NEB2, sstep(0.18, 0.62, n2) * 0.32);
+  const r = Math.hypot(x - SC[0], z - SC[1]);
+  for (const R of [560, 700, 860]) { const dr = Math.abs(r - R); if (dr < 1.2) { const a = Math.atan2(z - SC[1], x - SC[0]); if (((a * R / 9) % 2 + 2) % 2 < 1.2) c = mixc(c, NEAR, 0.22 * (1 - dr / 1.2)); } }
+  const hs = hash(px, py);
+  if (hs > 0.9972) { const b = (hs - 0.9972) / 0.0028; c = mixc(c, b > 0.7 ? [255, 214, 160] : [255, 248, 230], 0.55 + b * 0.45); }
+  return c;
+}
 
 // メインの島の 陸らしさ：角まるの 四角（54×43）と つき出した 土地（四角の 角まる）。
 function mainL(x, z) {
@@ -62,7 +78,7 @@ function mainL(x, z) {
     const sd = Math.hypot(dx, dz) - a.r + Math.min(Math.max(Math.abs(lx - cx) - hx, Math.abs(lz - cz) - hz), 0);
     l = Math.max(l, -sd / 18);
   }
-  if (lx > MAIN_BAY.x0 && lx < MAIN_BAY.x1 && lz > MAIN_BAY.z0) l = Math.min(l, -Math.min(lx - MAIN_BAY.x0, MAIN_BAY.x1 - lx, lz - MAIN_BAY.z0) / 18 - 0.02);
+  if (lx > MAIN_BAY.x0 && lx < MAIN_BAY.x1 && lz > MAIN_BAY.z0) l = Math.min(l, Math.max(-0.3, -Math.min(lx - MAIN_BAY.x0, MAIN_BAY.x1 - lx, lz - MAIN_BAY.z0) / 18 - 0.02));   // 入り江は あさい 海（宇宙に しない）
   return l;
 }
 
@@ -136,7 +152,6 @@ async function paintTile(T) {
   }
   tm.push(now());
   // 3. 光・かげ・色
-  const cgrid = T.clouds ? cloudField(T) : null;
   const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
   const g = cv.getContext('2d'); const img = g.createImageData(W, H), D = img.data;
   const ex = 1.6;   // 高さを 強めに 見せる
@@ -145,41 +160,38 @@ async function paintTile(T) {
     const z = T.z0 + (py + 0.5) * u;
     for (let px = 0; px < W; px++) {
       const i = py * W + px, l = L[i], x = T.x0 + (px + 0.5) * u;
-      let c, cd = 0, cloud = null;
-      let cshadow = 0;
-      if (cgrid) {   // まわりの 雲（もこもこの 積雲：光の 側は 白く、右下の かげは 青灰色。海に 雲の かげ）。こい ところは 下を かかない。
-        const base = cgrid(x, z);
-        if (base > 1.6) { const q = 246 + noise(x / 20, z / 20) * 6; const o = i * 4; D[o] = q; D[o + 1] = q + 3; D[o + 2] = Math.min(255, q + 8); D[o + 3] = 255; continue; }   // ずっと 外の こい 雲（はやい 道）
-        if (base > 0.15) {
-          const F = (bx, bz) => cgrid(bx, bz) + (1 - Math.abs(noise(bx / 15, bz / 15))) * 0.32 + (1 - Math.abs(noise(bx / 6.5 + 7, bz / 6.5))) * 0.16 - 0.36;
-          const dn = F(x, z);
-          cd = sstep(0.42, 0.56, dn);
-          if (cd > 0) {   // 雲を「高さ」と みて 光を あてる（もこもこが まるく 見える）
-            const hc = (v) => sstep(0.4, 0.95, v) * 9;
-            const e = 1.6, gx = hc(F(x + e, z)) - hc(F(x - e, z)), gz = hc(F(x, z + e)) - hc(F(x, z - e));
-            const n = 1 / Math.hypot(gx, 2 * e, gz), lit = Math.max(0, (gx * 0.5 + 2 * e * 0.72 + gz * 0.48) * n);
-            const t = Math.max(0, Math.min(1, 0.25 + lit * 0.85));
-            cloud = mixc([122, 145, 176], [255, 255, 255], t ** 0.9);
-          }
-          if (cd > 0.995) { const o = i * 4; D[o] = cloud[0]; D[o + 1] = cloud[1]; D[o + 2] = cloud[2]; D[o + 3] = 255; continue; }
-          if (F(x - 12, z - 14) > 0.5) cshadow = 0.28;   // 海や 島に おちる 雲の かげ
+      let c = null;
+      const h = Hh[i];
+      if (l < -0.02 || h < 0) {
+        const inner = h < 0 && l >= -0.02, d = inner ? 0 : -l;
+        const edge = OCEAN + fbm(x / 40 + 9, z / 40, 3) * 0.1;   // 「異次元の 海」の ふち
+        if (inner) c = mixc(NEAR, LAGOON, sstep(0, 0.6, -h));
+        else if (d < edge) {
+          // 異次元の 海：ひかる ミントの 水・しましまの 等深線・岸の あわ・ふちに オレンジの 光
+          c = d < 0.2 ? mixc(NEAR, SHAL, sstep(0.02, 0.2, d)) : d < 0.42 ? mixc(SHAL, MID, sstep(0.2, 0.42, d)) : mixc(MID, DEEP, sstep(0.42, edge, d));
+          const cl = (d * 15 + noise(x / 11, z / 11) * 0.45) % 1;
+          if (cl < 0.07) c = mixc(c, NEAR, 0.28 * (1 - d / edge));
+          const w = noise(x / 3 + z / 9, z / 2.2) * 0.5 + noise(x / 13, z / 6) * 0.5, k = (w * 0.05 + (hash(px, py) - 0.5) * 0.015) * 255;
+          c = [c[0] + k, c[1] + k, c[2] + k];
+          if (d < 0.07) { const f = (1 - d / 0.07) * (0.55 + 0.45 * noise(x / 2, z / 2)); c = mixc(c, FOAM, Math.max(0, Math.min(0.8, f))); }
+          else if (Math.abs(d - 0.12 - noise(x / 9, z / 9) * 0.03) < 0.012) c = mixc(c, FOAM, 0.4 * (0.5 + 0.5 * noise(x / 1.5, z / 1.5)));
+          const rim = sstep(edge - 0.06, edge, d); if (rim > 0) c = mixc(c, RIM, rim * 0.75);
+        } else {
+          // 海の 下に ぶらさがる 岩と 根（上の ほうに 海が あれば）
+          let hang = 0;
+          if (d < edge + 0.5) { const maxS = Math.round(HANG * T.ppu); for (let s2 = 1; s2 <= maxS; s2 += 1) { const q = py - s2; if (q < 0) break; const lq = L[q * W + px]; if (lq > -(OCEAN + 0.02)) { hang = s2 / T.ppu; break; } } }
+          const lim = HANG * (0.45 + 0.55 * (noise(x / 6, 3) * 0.5 + 0.5));
+          if (hang > 0 && hang < lim) {
+            const t = hang / lim, strata = Math.sin(hang * 2.2 + noise(x / 4, z / 4) * 2) * 0.5 + 0.5;
+            c = mixc(mixc(ROCK0, ROCK1, t), RGB('#7a5a3a'), strata * 0.22 * (1 - t));
+            if (hash(Math.floor(x * 1.5), 7) > 0.86 && t > 0.3) c = mixc(c, RGB('#2c4a22'), 0.6);   // ねっこ
+            if (t < 0.12) c = mixc(c, RIM, (1 - t / 0.12) * 0.5);
+            c = mixc(c, [0, 0, 0], t * 0.35);
+          } else c = spaceAt(x, z, px, py);
         }
       }
-      const h = Hh[i];
-      if (l <= -2.3) { const k = noise(x / 13, z / 6) * 9; c = [DEEP[0] + k, DEEP[1] + k, DEEP[2] + k]; }   // とおい ふかい 海（はやい 道）
-      else if (l < -0.02 || h < 0) {
-        // 海（ふかさで 色）と 波・あわ
-        const d = l < -0.02 ? -l : 0.05 + Math.min(0.2, -h * 0.1);
-        const inner = h < 0 && l >= -0.02;
-        c = inner ? mixc(NEAR, LAGOON, sstep(0, 0.6, -h)) : d < 0.22 ? mixc(NEAR, SHAL, sstep(0.02, 0.22, d)) : d < 0.6 ? mixc(SHAL, MID, sstep(0.22, 0.6, d)) : mixc(MID, DEEP, sstep(0.6, 1.1, d));
-        if (!inner && d > 0.05 && d < 0.4) { const rf = noise(x / 5 + 3, z / 5) + noise(x / 2.1, z / 2.1) * 0.4; if (rf > 0.35) c = mixc(c, REEF, Math.min(0.55, (rf - 0.35) * 1.6) * (1 - d / 0.4)); }   // さんごの あさせ
-        const w = noise(x / 3 + z / 9, z / 2.2) * 0.5 + noise(x / 13, z / 6) * 0.5;
-        const k = (w * (d > 0.9 ? 0.035 : 0.06) + (hash(px, py) - 0.5) * 0.015) * 255;
-        c = [c[0] + k, c[1] + k, c[2] + k];
-        if (!inner && d < 0.07) { const f = (1 - d / 0.07) * (0.55 + 0.45 * noise(x / 2, z / 2)); c = mixc(c, FOAM, Math.max(0, Math.min(0.85, f))); }
-        else if (!inner && Math.abs(d - 0.12 - noise(x / 9, z / 9) * 0.03) < 0.012) c = mixc(c, FOAM, 0.45 * (0.5 + 0.5 * noise(x / 1.5, z / 1.5)));   // 2 本目の あわの 線
-        else if (!inner && d < 0.3 && noise(x / 2.4 + 9, z / 2.4) > 0.6) c = mixc(c, FOAM, 0.25);
-      } else {
+      if (c) { const o = i * 4; D[o] = c[0]; D[o + 1] = c[1]; D[o + 2] = c[2]; D[o + 3] = 255; continue; }
+      {
         const ia = py > 0 ? i - W : i, ib = py < H - 1 ? i + W : i, il = px > 0 ? i - 1 : i, ir = px < W - 1 ? i + 1 : i;
         const gx = (Hh[ir] - Hh[il]) * ex * T.ppu / 2, gz = (Hh[ib] - Hh[ia]) * ex * T.ppu / 2;
         const nl = 1 / Math.hypot(gx, 1, gz);
@@ -213,8 +225,6 @@ async function paintTile(T) {
         const f = Math.max(0.35, Math.min(1.35, 0.42 + lit * 0.78)) * shade;
         c = [base[0] * f + tex, base[1] * f + tex, base[2] * f + tex];
       }
-      if (cshadow) c = [c[0] * (1 - cshadow), c[1] * (1 - cshadow * 0.9), c[2] * (1 - cshadow * 0.7)];
-      if (cd > 0) c = mixc(c, cloud, cd);
       const o = i * 4; D[o] = c[0]; D[o + 1] = c[1]; D[o + 2] = c[2]; D[o + 3] = 255;
     }
     if ((py & 7) === 0) await yieldIf();
@@ -235,36 +245,6 @@ async function paintTile(T) {
 }
 
 const CF = { x0: BOUNDS.x0 - 30, x1: BOUNDS.x1 + 30, z0: BOUNDS.z0 - 30, z1: BOUNDS.z1 + 30 };   // 雲の 内がわ（ぜんぶの 島の わく）
-// 雲の こさ：わくの まわりに まるい かたまり（大・小）を ならべ、4 単位の あらい 格子に 足しこむ（1 回だけ）。かえすのは (x, z) → こさ。
-function cloudField(T) {
-  const R = rnd(91), blobs = [];
-  const edge = (t, side) => side === 0 ? [lerp(CF.x0, CF.x1, t), CF.z0] : side === 1 ? [CF.x1, lerp(CF.z0, CF.z1, t)] : side === 2 ? [lerp(CF.x0, CF.x1, t), CF.z1] : [CF.x0, lerp(CF.z0, CF.z1, t)];
-  const out = [[0, -1], [1, 0], [0, 1], [-1, 0]];
-  for (let side = 0; side < 4; side++) for (let t = -0.1; t < 1.1; t += 0.035 + R() * 0.03) {
-    const [ex, ez] = edge(t, side), o = -20 + R() * 120, big = 26 + R() * 34;
-    const cx = ex + out[side][0] * o, cz = ez + out[side][1] * o;
-    blobs.push([cx, cz, big]);
-    for (let k = 0; k < 3; k++) blobs.push([cx + (R() - 0.5) * big * 1.6, cz + (R() - 0.5) * big * 1.6, big * (0.4 + R() * 0.35)]);
-  }
-  for (let k = 0; k < 520; k++) blobs.push([lerp(T.x0, T.x1, R()), lerp(T.z0, T.z1, R()), 40 + R() * 45]);   // わくの ずっと 外は うめる
-  const C = 2.5, GW = Math.ceil((T.x1 - T.x0) / C) + 2, GH = Math.ceil((T.z1 - T.z0) / C) + 2, G = new Float32Array(GW * GH);
-  for (const [bx, bz, br] of blobs) {
-    const inside = Math.max(CF.x0 - bx, bx - CF.x1, CF.z0 - bz, bz - CF.z1) < -br * 0.6 && false;
-    if (inside) continue;
-    const gx0 = Math.max(0, Math.floor((bx - br * 1.6 - T.x0) / C)), gx1 = Math.min(GW - 1, Math.ceil((bx + br * 1.6 - T.x0) / C));
-    const gz0 = Math.max(0, Math.floor((bz - br * 1.6 - T.z0) / C)), gz1 = Math.min(GH - 1, Math.ceil((bz + br * 1.6 - T.z0) / C));
-    for (let gz = gz0; gz <= gz1; gz++) for (let gx = gx0; gx <= gx1; gx++) {
-      const dx = T.x0 + gx * C - bx, dz = T.z0 + gz * C - bz, q = (dx * dx + dz * dz) / (br * br);
-      if (q < 2.6) G[gz * GW + gx] += Math.exp(-q * 1.6);
-    }
-  }
-  // 島の 上には かからない ように（わくの 中は うすく）
-  for (let gz = 0; gz < GH; gz++) for (let gx = 0; gx < GW; gx++) { const x = T.x0 + gx * C, z = T.z0 + gz * C, od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1); G[gz * GW + gx] = G[gz * GW + gx] * sstep(-60, 30, od + fbm(x / 70 + 5, z / 70, 4) * 110) + sstep(170, 300, od) * 1.5; }   // ずっと 外は かならず 雲（絵の はしが 見えない）
-  return (x, z) => {
-    const fx = (x - T.x0) / C, fz = (z - T.z0) / C, ix = Math.max(0, Math.min(GW - 2, Math.floor(fx))), iz = Math.max(0, Math.min(GH - 2, Math.floor(fz))), tx = fx - ix, tz = fz - iz, o = iz * GW + ix;
-    return lerp(lerp(G[o], G[o + 1], tx), lerp(G[o + GW], G[o + GW + 1], tx), tz);
-  };
-}
 
 // ── 2D の 絵 ──────────────────────────────────────────────────
 const SUN = [0.7, 0.9];   // かげの 向き（右下へ）
@@ -354,11 +334,14 @@ function drawBridges(g, spans) {
     const sp = spans.get(l); if (!sp) continue;
     const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, L0 = Math.hypot(dx, dz), w = 3.6, len = sp[1] - sp[0];
     g.save(); g.translate(l.from.x + dx * sp[0] / L0, l.from.z + dz * sp[0] / L0); g.rotate(Math.atan2(dz, dx));
-    g.fillStyle = 'rgba(5,30,50,.35)'; g.fillRect(0, -w / 2 + 1.6, len, w);   // 海の 上の かげ
+    g.fillStyle = 'rgba(143,240,200,.16)'; g.fillRect(-0.5, -w / 2 - 1.6, len + 1, w + 3.2);   // ひかりの 橋：ミントの 光の おび
+    g.fillStyle = 'rgba(143,240,200,.22)'; g.fillRect(-0.5, -w / 2 - 0.8, len + 1, w + 1.6);
     g.fillStyle = '#9a6233'; g.fillRect(-0.5, -w / 2, len + 1, w);
     for (let s = 0; s < len; s += 0.9) { g.fillStyle = (Math.floor(s / 0.9) % 3) ? '#b97c46' : '#a86d3b'; g.fillRect(s, -w / 2 + 0.25, 0.75, w - 0.5); }
     g.fillStyle = '#5a3418'; g.fillRect(-0.5, -w / 2, len + 1, 0.35); g.fillRect(-0.5, w / 2 - 0.35, len + 1, 0.35);
     for (let s = 0; s < len; s += 4) { g.fillRect(s, -w / 2 - 0.2, 0.6, 0.6); g.fillRect(s, w / 2 - 0.4, 0.6, 0.6); }
+    g.fillStyle = '#8ff0c8'; g.fillRect(-0.5, -w / 2 - 0.15, len + 1, 0.22); g.fillRect(-0.5, w / 2 - 0.07, len + 1, 0.22);   // ネオンの ふち
+    for (let s = 2; s < len; s += 8) { g.fillStyle = 'rgba(255,176,102,.35)'; g.beginPath(); g.arc(s, -w / 2, 1.1, 0, 6.283); g.arc(s, w / 2, 1.1, 0, 6.283); g.fill(); g.fillStyle = '#ffd9a8'; g.fillRect(s - 0.25, -w / 2 - 0.25, 0.5, 0.5); g.fillRect(s - 0.25, w / 2 - 0.25, 0.5, 0.5); }
     if (l.rest) { g.fillStyle = '#a86d3b'; g.fillRect(len / 2 - 4.5, -3.4, 9, 6.8); g.strokeStyle = '#5a3418'; g.lineWidth = 0.3; g.strokeRect(len / 2 - 4.5, -3.4, 9, 6.8); }
     g.restore();
   }
