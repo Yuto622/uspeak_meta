@@ -417,3 +417,21 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wm-svg .n-q { display: none; }
 .wm-svg .wm-num.locked:not(.prem) .n-q { display: inline; }
 .wmap:has(.wm-svg[data-mid="1"]) .wmap-compass { display: none; }
+/* 3 つの 海（2026-11）：海の 名前の 札・海の わく・「きみは ここ」の 線 */
+.wm-svg .wm-seabanner { cursor: pointer; outline: none; }
+.wm-svg .wm-sbpill { fill: #0c241c; fill-opacity: .92; stroke: #ffb066; stroke-width: 2px; }
+.wm-svg .wm-seabanner[data-sea="main"] .wm-sbpill { stroke: #8ff0c8; }
+.wm-svg .wm-seabanner[data-sea="eiken"] .wm-sbpill { stroke: #f2b04a; }
+.wm-svg .wm-sbtext { fill: #fff4d6; font-weight: 900; letter-spacing: .06em; }
+.wm-svg .wm-seabanner:hover .wm-sbpill, .wm-svg .wm-seabanner:focus-visible .wm-sbpill { fill: #1b3a2f; stroke-width: 3px; }
+.wm-svg .wm-seazone { pointer-events: none; }
+.wm-svg[data-overview="1"] .wm-seazone { pointer-events: visiblePainted; cursor: zoom-in; }
+.wm-svg .n-mark .en, .wm-svg .n-mark .ja { font-size: inherit; }
+.wmap-here .wh-lead { position: absolute; left: 0; top: 0; height: 2.5px; margin-top: -1.25px; background: #ffb066; transform-origin: 0 50%; box-shadow: 0 0 6px #ffb06688; border-radius: 2px; }
+.wmap-list .wl-sea { margin: 8px 4px 2px; padding: 3px 8px; border-radius: 99px; font-size: 12px; font-weight: 900; letter-spacing: .06em; color: #0c241c; background: #8ff0c8; }
+.wmap-list .wl-sea[data-sea="eiken"] { background: #f2b04a; }
+.wmap-list .wl-sea[data-sea="adv"] { background: #ffb066; }
+.wmap-list .wl-sea .en, .wmap-list .wl-sea .ja { font-style: normal; font-size: inherit; }
+.wl-m { flex: none; display: grid; place-items: center; width: 30px; height: 30px; font-style: normal; }
+.wl-m svg { width: 30px; height: 30px; overflow: visible; }
+.wmap-list li button.locked .wl-m { opacity: .55; }

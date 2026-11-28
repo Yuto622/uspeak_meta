@@ -8,10 +8,10 @@
 // ・島の 位置・形は world-map.js（rpg-data.js の x, z）、橋は bridges-data.js。地理は ほんものの 座標の まま。
 // ・とちゅうで 何度も 手を はなす（`slice`）ので、iPad でも 画面が かたまらない。WebGL は つかわない。
 // ・2 まい かく：せかい ぜんぶ（1 単位 1.6 px）と、ちかづいた とき 用の メインの島（1 単位 6 px）。
-import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ, DLINKS as LINKS, BOUNDS } from './world-map.js';
+import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ, DLINKS as LINKS, BOUNDS, SEAS } from './world-map.js';
 import { shapeQ, AURA, MAT, drawIslandArt } from './world-art.js';   // 島ごとの 異次元の かたちと 絵
 
-export const WORLD_TILE = { x0: Math.floor(BOUNDS.x0 - 420), x1: Math.ceil(BOUNDS.x1 + 420), z0: Math.floor(BOUNDS.z0 - 200), z1: Math.ceil(BOUNDS.z1 + 200), ppu: 1.2, clouds: true };
+export const WORLD_TILE = { x0: Math.floor(BOUNDS.x0 - 300), x1: Math.ceil(BOUNDS.x1 + 300), z0: Math.floor(BOUNDS.z0 - 160), z1: Math.ceil(BOUNDS.z1 + 160), ppu: 1.1, clouds: true };
 export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
 
 // ぬった えの 島は ほんとうの 大きさより 大きく かく（位置と 橋は ほんものの まま。海が ひろすぎて 地形が 見えない ため）。
@@ -55,7 +55,8 @@ const DEEP = RGB('#0f4a43'), MID = RGB('#167c6b'), SHAL = RGB('#33bd9e'), LAGOON
 const ROCK0 = RGB('#6b4a33'), ROCK1 = RGB('#241812');
 const OCEAN = 0.22, HANG = 15;   // 島の まわりに うすい 光る 水だけ（島ごとに うかぶ）   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
 const VOID = RGB('#06120d'), NEB1 = RGB('#1f6e5a'), NEB2 = RGB('#93501c'), NEB3 = RGB('#4fc7a0');
-const RINGS = [520, 640, 780];
+const RINGS = [640, 780, 930];
+const SEA_LIST = Object.values(SEAS).map((q) => ({ ...q, col: RGB({ main: '#1d6b58', eiken: '#6e5a24', adv: '#7a3f16' }[q.id]) }));
 const MAT_RGB = Object.fromEntries(Object.entries(MAT).map(([k, m]) => [k, { a: RGB(m[0]), b: RGB(m[1]), v: RGB(m[2]), pat: m[3] }]));
 const QUILT = ['#e27a2d', '#8ff0c8', '#f2b04a', '#fff4d6', '#3fc7a8', '#ffb066'].map(RGB);
 const AURA_RGB = Object.fromEntries(Object.entries(AURA).map(([k, v]) => [k, RGB(v)]));
@@ -69,6 +70,11 @@ function spaceAt(x, z, px, py) {
   let c = mixc(VOID, NEB1, Math.min(1, sstep(-0.05, 0.5, n1) * 0.7 + streak ** 6 * 0.35));
   c = mixc(c, NEB2, sstep(0.12, 0.55, n2) * 0.55);
   c = mixc(c, NEB3, sstep(0.3, 0.6, n1 + n2 * 0.3) * 0.4);
+  // 3 つの 海：それぞれの 色の 光（まんなか＝ミント・えいけん＝金・ぼうけん＝オレンジ）
+  for (const q of SEA_LIST) {
+    const dx = Math.max(q.x0 - x, 0, x - q.x1), dz = Math.max(q.z0 - z, 0, z - q.z1), d = Math.hypot(dx, dz);
+    if (d < 150) c = mixc(c, q.col, (1 - d / 150) ** 2 * (d === 0 ? 0.42 : 0.4));
+  }
   // 星の わ（うすく 点線）
   const r = Math.hypot(x - SC[0], z - SC[1]);
   for (const R of RINGS) { const dr = Math.abs(r - R); if (dr < 2.2) { const a = Math.atan2(z - SC[1], x - SC[0]); if (((a * R / 12) % 2 + 2) % 2 < 1.3) c = mixc(c, NEAR, 0.32 * (1 - dr / 2.2)); } }
@@ -326,7 +332,7 @@ function drawRoadsAndVillages(g, spans) {
     const k = kindOf(r), R = rnd([...r.id].reduce((a, c) => a * 31 + c.charCodeAt(0), 7));
     // 橋の たもとから まんなかへ 土の 道
     for (const l of LINKS) for (const [id, p0] of [[l.a, l.from], [l.b, l.to]]) {
-      if (id !== r.id) continue;
+      if (id !== r.id || l.hidden || l.lane) continue;
       const sp = spans.get(l), len = Math.hypot(l.to.x - l.from.x, l.to.z - l.from.z), t0 = !sp ? 0.5 : id === l.a ? sp[0] / len : sp[1] / len;
       const p = { x: lerp(l.from.x, l.to.x, t0), z: lerp(l.from.z, l.to.z, t0) };   // 岸（橋の はし）から
       const mx = (p.x + r.x) / 2 + (p.z - r.z) * 0.15, mz = (p.z + r.z) / 2 - (p.x - r.x) * 0.15;
@@ -358,6 +364,19 @@ function feature0(g, r) {   // 島の しるし（上から 見た 形）
 }
 function drawBridges(g, spans) {
   for (const l of LINKS) {
+    if (l.hidden) continue;
+    if (l.lane) {   // ちがう 海を つなぐ「うみの みち」：光の 点線
+      g.save(); g.strokeStyle = 'rgba(255,176,102,.55)'; g.lineWidth = 1.4; g.setLineDash([4, 5]); g.lineCap = 'round'; g.beginPath(); g.moveTo(l.from.x, l.from.z); g.lineTo(l.to.x, l.to.z); g.stroke();
+      g.strokeStyle = 'rgba(255,176,102,.14)'; g.lineWidth = 5; g.setLineDash([]); g.stroke(); g.restore(); continue;
+    }
+    if (l.road) {   // 英検の みち：5級 → 1級を つなぐ 金の 光の みち（1本）
+      const sp = spans.get(l) || [0, 1e9], dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, L0 = Math.hypot(dx, dz) || 1, t0 = Math.max(0, sp[0] - 6) / L0, t1 = Math.min(L0, sp[1] + 6) / L0;
+      g.save(); g.lineCap = 'round'; g.beginPath(); g.moveTo(l.from.x + dx * t0, l.from.z + dz * t0); g.lineTo(l.from.x + dx * t1, l.from.z + dz * t1);
+      g.strokeStyle = 'rgba(242,176,74,.18)'; g.lineWidth = 16; g.stroke();
+      g.strokeStyle = 'rgba(242,176,74,.45)'; g.lineWidth = 8; g.stroke();
+      g.strokeStyle = '#f2d38a'; g.lineWidth = 4; g.stroke();
+      g.strokeStyle = '#fff4d6'; g.lineWidth = 1; g.setLineDash([6, 6]); g.stroke(); g.restore(); continue;
+    }
     const sp = spans.get(l); if (!sp) continue;
     const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, L0 = Math.hypot(dx, dz), w = 3.6, len = sp[1] - sp[0];
     g.save(); g.translate(l.from.x + dx * sp[0] / L0, l.from.z + dz * sp[0] / L0); g.rotate(Math.atan2(dz, dx));

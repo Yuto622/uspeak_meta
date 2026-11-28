@@ -677,8 +677,25 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
   for(const r of L){const cx=Math.max(MX-84,Math.min(MX+94,r.x)),cz=Math.max(MZ-80,Math.min(MZ+49,r.z));if(Math.hypot(r.x-cx,r.z-cz)<Math.max(r.rx,r.rz)*1.12)bad.push(r.id+' が メインの島に かさなる');}}
  for(const r of MAP_ISLANDS)if(r.x<WORLD_TILE.x0+60||r.x>WORLD_TILE.x1-60||r.z<WORLD_TILE.z0+60||r.z>WORLD_TILE.z1-60)bad.push(r.id+': ぬった えの 外');
  if(!(MAIN_TILE.x0<-104&&MAIN_TILE.x1>62))bad.push('メインの島の こまかい え が 島を つつんで いない');
+ // 3つの 海：まんなか・えいけん・ぼうけん。島は どれか 1つの 海に いて、海の わくの 中。
+ {const {SEAS,seaOf,EIKEN_ROAD,DLINKS,ROUTE}=await import('../dist/world-map.js');
+  for(const k of ['main','eiken','adv'])if(!SEAS[k])bad.push('海 '+k+' が ない');else if(!svg.includes(`data-sea="${k}"`))bad.push('海 '+k+' の 旗が ない');
+  for(const r of MAP_ISLANDS){const k=seaOf(r.id),S=SEAS[k];if(!S){bad.push(r.id+': 海が ない');continue;}
+   if(k==='eiken'!==r.id.startsWith('eiken'))bad.push(r.id+': 英検の 島が えいけんの 海に いない');
+   if(REGIONS.some(g=>g.id===r.id)&&!r.id.startsWith('eiken')&&k!=='adv')bad.push(r.id+': ぼうけんの 島が ぼうけんの 海に いない');
+   if(r.x<S.x0||r.x>S.x1||r.z<S.z0||r.z>S.z1)bad.push(r.id+': 海の わくの 外');
+   if(!r.yomi)bad.push(r.id+': よみがな が ない');}
+  // 英検の みち：5級 → 4級 → 3級 → 準2級 → 2級 → 準1級 → 1級 が 左から 右へ、1本の みちで つながる
+  const byId=Object.fromEntries(MAP_ISLANDS.map(r=>[r.id,r]));
+  for(let i=1;i<EIKEN_ROAD.length;i++){const a=byId[EIKEN_ROAD[i-1]],b=byId[EIKEN_ROAD[i]];
+   if(!(a.x<b.x))bad.push('英検の みちが 左から 右の 順で ない: '+a.id+' → '+b.id);
+   if(!DLINKS.some(l=>l.road&&((l.a===a.id&&l.b===b.id)||(l.a===b.id&&l.b===a.id))))bad.push('英検の みちが つながって いない: '+a.id+' → '+b.id);}
+  if(ROUTE.eiken.join()!==EIKEN_ROAD.join())bad.push('いちらんの 英検の 順が 級の 順で ない');
+  if(ROUTE.main.length+ROUTE.eiken.length+ROUTE.adv.length!==MAP_ISLANDS.length)bad.push('いちらんに ない 島が ある');
+  // ばんごうの 玉は もう かかない（しるし だけ）
+  if(/class="n-paint"|class="wl-n"|wm-numtxt/.test(svg))bad.push('ちずに ばんごうの 玉が のこって いる');}
  if(bad.length){console.error('FAIL: せかいの ちず\n  '+bad.join('\n  '));process.exit(1);}
- console.log('PASS: せかいの ちず — '+MAP_ISLANDS.length+' islands and '+LINKS.length+' bridges drawn ('+Math.round(svg.length/1024)+' KB, built once).');
+ console.log('PASS: せかいの ちず — '+MAP_ISLANDS.length+' islands, '+LINKS.length+' bridges + the eiken road drawn, 3 seas, no number orbs ('+Math.round(svg.length/1024)+' KB, built once).');
 }
 
 

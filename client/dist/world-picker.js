@@ -9,7 +9,7 @@
 import { isJa } from './i18n.js';
 import { KIDS_ISLANDS, kidsOn } from './kids.js';
 import { neighboursOf } from './bridges-data.js';
-import { MAP_ISLANDS, mountWorldMap, shortName } from './world-map.js';
+import { MAP_ISLANDS, mountWorldMap, shortName, markSvg, ROUTE, SEA_NAMES } from './world-map.js';
 
 // 「🗺 ちず」（ぬった 地形の ちず＝world-paint.js・はじめは こちら）・「📍 あんない」（たいらな あんないの ちず＝world-map.js の SVG）・
 // 「🃏 カード」（いままでの カード）。えらんだ ものを この 端末に 覚える。
@@ -95,13 +95,18 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   const fresh = !host.querySelector('.wmap');
   let view = readView();
   // えの ちずに 出す 島（幼児モードは メイン・よみもの・つり・きせかえ・じぶんの 島 だけ 押せる）。番号は world-map.js の MAP_ISLANDS。
-  const mapList = MAP_ISLANDS.filter((r) => !kid || KIDS_ISLANDS.includes(r.id));
+  // いちらんは 海ごと・みちの 順（まんなかの うみ＝メインの島から 橋の 順・英検＝5級 → 1級・ぼうけん＝ひらく 順）
   const listRow = (r) => {
     const open = state.unlocked(r.id), prem = state.premium?.(r.id), here = r.id === state.current;
     const mark = here ? '<em class="wl-st here" aria-hidden="true">★</em>' : !open ? `<em class="wl-st" aria-hidden="true">${prem ? '🔒' : '☁'}</em>` : '';
     return `<li><button type="button" class="${open ? '' : 'locked'}${here ? ' here' : ''}" data-wm-pick="${esc(r.id)}" translate="no">
-      <i class="wl-n">${r.num}</i><span class="wl-name"><b class="en">${esc(shortName(r))}</b><i class="ja">${esc(r.yomi || r.name)}</i></span>${mark}</button></li>`;
+      <i class="wl-m">${markSvg(r.id)}</i><span class="wl-name"><b class="en">${esc(shortName(r))}</b><i class="ja">${esc(r.yomi || r.name)}</i></span>${mark}</button></li>`;
   };
+  const byId = Object.fromEntries(MAP_ISLANDS.map((r) => [r.id, r]));
+  const listHtml = ['main', 'eiken', 'adv'].map((sea) => {
+    const rows = ROUTE[sea].map((id) => byId[id]).filter((r) => r && (!kid || KIDS_ISLANDS.includes(r.id)));
+    return rows.length ? `<li class="wl-sea" data-sea="${sea}"><b class="en">${SEA_NAMES[sea].en}</b><i class="ja">${SEA_NAMES[sea].ja}</i></li>${rows.map(listRow).join('')}` : '';
+  }).join('');
   const small = globalThis.matchMedia?.('(max-height: 500px), (max-width: 900px)').matches;   // スマホ・小さい 画面は パネルを たたんで はじめる
   const keyRow = (icon, en, ja) => `<li><span class="wk-i" aria-hidden="true">${KEY_ICONS[icon]}</span><span><b class="en">${en}</b><i class="ja">${ja}</i></span></li>`;
   host.innerHTML = `<section class="wm ${view === 'cards' ? 'is-cards' : 'is-map'}">
@@ -120,11 +125,11 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
       <div class="wmap-title" aria-hidden="true"><span class="wt-in"><b>U-SPEAK WORLD</b><small translate="no">ユースピーク ワールド</small></span></div>
       <details class="wmap-panel wmap-list"${small ? '' : ' open'}>
         <summary><b class="en">Islands</b><i class="ja">しまの いちらん</i></summary>
-        <ol>${mapList.map(listRow).join('')}</ol>
+        <ol>${listHtml}</ol>
       </details>
       <details class="wmap-panel wmap-key"${small ? '' : ' open'}>
         <summary><b class="en">KEY</b><i class="ja">せつめい</i></summary>
-        <ul>${keyRow('here', 'You are here', 'きみは ここ')}${keyRow('num', 'Island number', 'しまの ばんごう')}${keyRow('bridge', 'Bridge (walk)', 'はし（あるいて 行ける）')}${keyRow('premium', 'Premium', 'プレミアム')}${keyRow('cloud', 'Not open yet', 'まだ ひらいて いない')}${keyRow('ferry', 'Boat', 'ふね')}${keyRow('plane', 'Airport', 'ひこうきの のりば')}</ul>
+        <ul>${keyRow('here', 'You are here', 'きみは ここ')}${keyRow('bridge', 'Bridge (walk)', 'はし（あるいて 行ける）')}${keyRow('premium', 'Premium', 'プレミアム')}${keyRow('cloud', 'Not open yet', 'まだ ひらいて いない')}${keyRow('ferry', 'Boat', 'ふね')}${keyRow('plane', 'Airport', 'ひこうきの のりば')}</ul>
       </details>
       <div class="wmap-compass" aria-hidden="true"><svg viewBox="-22 -30 44 52"><circle r="17" fill="#0c241c" stroke="#8ff0c8" stroke-width="1.6"/><path d="M0-13 4 0 0 13-4 0Z" fill="#fff4d6"/><path d="M0-13 4 0H-4Z" fill="#ffb066"/><text y="-21" font-size="11" font-weight="900" text-anchor="middle" fill="#ffb066">N</text></svg></div>
       <div class="wmap-tools">
