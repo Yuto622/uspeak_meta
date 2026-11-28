@@ -117,12 +117,14 @@ const ATLAS_RECT = {
   screenA: [0, 512, 512, 320], screenB: [512, 512, 512, 320],
   label0: [0, 832, 256, 128], label1: [256, 832, 256, 128], label2: [512, 832, 256, 128], label3: [768, 832, 256, 128],
   way: [0, 960, 512, 64], exit: [512, 960, 256, 64], day: [768, 960, 192, 64], white: [976, 976, 32, 32],
+  tickets: [0, 1024, 512, 128], info: [512, 1024, 512, 256], hours: [0, 1152, 512, 128],
 };
+const ATLAS_H = 1280;
 let ATLAS = undefined;
 function atlasTexture() {
   if (ATLAS !== undefined) return ATLAS;
-  ATLAS = tex(1024, 1024, (g) => {
-    g.fillStyle = '#000'; g.fillRect(0, 0, 1024, 1024);
+  ATLAS = tex(1024, ATLAS_H, (g) => {
+    g.fillStyle = '#000'; g.fillRect(0, 0, 1024, ATLAS_H);
     const R = ATLAS_RECT;
     const text = (s, x, y, size, color, glow, weight = 800, align = 'center') => { g.save(); g.font = `${weight} ${size}px ${FONT}`; g.textAlign = align; g.textBaseline = 'middle'; g.shadowColor = glow; g.shadowBlur = size * 0.35; g.fillStyle = color; g.fillText(s, x, y); g.shadowBlur = 0; g.fillText(s, x, y); g.restore(); };
     // 1 大看板：波の マーク＋名前
@@ -156,11 +158,22 @@ function atlasTexture() {
     { const [x, y, w, h] = R.exit; g.fillStyle = '#0a7a46'; g.fillRect(x, y, w, h); text('EXIT でぐち', x + w / 2, y + h / 2, 32, '#ffffff', '#5fffb0', 800); }
     { const [x, y, w, h] = R.day; const gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, '#dff2ff'); gr.addColorStop(0.55, '#f6f3ea'); gr.addColorStop(0.6, '#b8c4a0'); gr.addColorStop(1, '#8c9478'); g.fillStyle = gr; g.fillRect(x, y, w, h); }
     { const [x, y, w, h] = R.white; g.fillStyle = '#fff'; g.fillRect(x - 8, y - 8, w + 16, h + 16); }
+    // きっぷ うりば
+    { const [x, y, w, h] = R.tickets; g.fillStyle = '#0a1418'; g.fillRect(x, y, w, h); g.strokeStyle = '#3fd0d0'; g.lineWidth = 4; g.strokeRect(x + 6, y + 6, w - 12, h - 12);
+      g.save(); g.translate(x + 70, y + 64); g.rotate(-0.25); g.fillStyle = '#ffb066'; g.fillRect(-36, -22, 72, 44); g.fillStyle = '#0a1418'; g.beginPath(); g.arc(-36, 0, 9, 0, TAU); g.arc(36, 0, 9, 0, TAU); g.fill(); g.restore();
+      text('TICKETS', x + 140, y + 46, 50, '#f2fbff', '#3fd0ff', 800, 'left'); text('きっぷ うりば', x + 142, y + 96, 32, '#cfeff0', '#3fd0ff', 700, 'left'); }
+    // フロアの あんない
+    { const [x, y, w, h] = R.info; g.fillStyle = '#0b1a20'; g.fillRect(x, y, w, h); text('FLOOR GUIDE  あんない', x + 24, y + 30, 30, '#ffffff', '#3fd0ff', 800, 'left');
+      const zone = (zx, zy, zw, zh, c, en, ja) => { g.fillStyle = c; g.fillRect(x + zx, y + zy, zw, zh); g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(x + zx, y + zy + zh - 46, zw, 46); text(en, x + zx + 10, y + zy + zh - 32, 20, '#fff', c, 800, 'left'); text(ja, x + zx + 10, y + zy + zh - 12, 16, '#e8fbff', c, 700, 'left'); };
+      zone(24, 58, 250, 120, '#1d6f9a', 'OCEAN WINDOW', 'うみの まど'); zone(290, 58, 190, 120, '#b8661e', 'PENGUIN COVE', 'ペンギン'); zone(24, 190, 456, 52, '#2e6a52', 'ENTRANCE', 'いりぐち');
+      g.fillStyle = '#ff5a5a'; g.beginPath(); g.arc(x + 250, y + 216, 10, 0, TAU); g.fill(); text('YOU ARE HERE', x + 300, y + 216, 18, '#ffd0d0', '#ff5a5a', 800, 'left'); }
+    // あいている じかん
+    { const [x, y, w, h] = R.hours; g.fillStyle = '#0a1418'; g.fillRect(x, y, w, h); text('OPEN  9:30 – 17:00', x + 30, y + 46, 44, '#f2fbff', '#ffb066', 800, 'left'); text('あいている じかん', x + 32, y + 96, 30, '#ffe6c6', '#ffb066', 700, 'left'); }
   }, { repeat: false, aniso: 8 });
   if (ATLAS) track('atlas', ATLAS);
   return ATLAS;
 }
-const atlasUV = (k) => { const [x, y, w, h] = ATLAS_RECT[k]; return [x / 1024, 1 - (y + h) / 1024, (x + w) / 1024, 1 - y / 1024]; };
+const atlasUV = (k) => { const [x, y, w, h] = ATLAS_RECT[k]; return [x / 1024, 1 - (y + h) / ATLAS_H, (x + w) / 1024, 1 - y / ATLAS_H]; };
 
 /* ───────── 形の 道具 ───────── */
 const col = new THREE.Color();
@@ -205,6 +218,8 @@ function limb(a, b, r0, r1, seg = 6) {
   g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yAxis, B.clone().sub(A).normalize())); g.translate(A.x, A.y, A.z); return g;
 }
 function ell(x, y, z, rx, ry, rz, ws = 10, hs = 7, th0 = 0, th = Math.PI) { const g = new THREE.SphereGeometry(1, ws, hs, 0, TAU, th0, th); g.scale(rx, ry, rz); g.translate(x, y, z); return g; }
+// 2 点を むすぶ 細い 角材。
+function beamBox(a, b, w, h) { const A = new THREE.Vector3(...a), Bv = new THREE.Vector3(...b), len = A.distanceTo(Bv), g = new THREE.BoxGeometry(w, h, len).toNonIndexed(); const m = new THREE.Matrix4().lookAt(A, Bv, new THREE.Vector3(0, 1, 0)); m.setPosition(A.clone().add(Bv).multiplyScalar(0.5)); g.applyMatrix4(m); return g; }
 // 4 点の 板（a→b→c→d が 反時計回り＝表）。uv は [u0,v0,u1,v1]（a＝左下）。
 function quad4(a, b, c, d, uv = [0, 0, 1, 1]) {
   const g = new THREE.BufferGeometry(), [u0, v0, u1, v1] = uv;
@@ -244,7 +259,7 @@ function rock(x, y, z, sx, sy, sz, seed, { detail = 2, rough = 0.38, flat = -0.3
 // なめらかな 法線：同じ 位置の 頂点（ポリヘドロンは ばらばら）の 面の 法線を たして わける。
 function smoothNormals(g) {
   g.computeVertexNormals(); const p = g.attributes.position, nr = g.attributes.normal, acc = new Map();
-  const key = (i) => `${Math.round(p.getX(i) * 500)},${Math.round(p.getY(i) * 500)},${Math.round(p.getZ(i) * 500)}`;
+  const key = (i) => (Math.round(p.getX(i) * 500) * 73856093) ^ (Math.round(p.getY(i) * 500) * 19349663) ^ (Math.round(p.getZ(i) * 500) * 83492791);
   for (let i = 0; i < p.count; i += 1) { const k = key(i); let a = acc.get(k); if (!a) acc.set(k, a = [0, 0, 0]); a[0] += nr.getX(i); a[1] += nr.getY(i); a[2] += nr.getZ(i); }
   for (let i = 0; i < p.count; i += 1) { const a = acc.get(key(i)), l = Math.hypot(a[0], a[1], a[2]) || 1; nr.setXYZ(i, a[0] / l, a[1] / l, a[2] / l); }
   return g;
@@ -496,10 +511,12 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 a=abs(n);
   else if(kind<4.5){ // 雪を かぶった 岩・氷
     float nn=texture2D(uNoise,vP.xz*.35+vP.y*.2).g, fine=texture2D(uNoise,uv*1.7).r;
     float snow=smoothstep(.38,.72,n.y+(nn-.5)*.55+(fine-.5)*.2)*smoothstep(WLV-.05,WLV+.25,vP.y);
-    vec3 rk=mix(vec3(.20,.23,.27),vec3(.42,.47,.52),fine)*(.75+.5*nn);
-    vec3 ice=mix(vec3(.45,.62,.72),vec3(.70,.84,.90),fine);
-    alb=mix(mix(rk,ice,smoothstep(.55,.8,nn)*.6),vec3(.93,.96,.99),snow);
-    n=normalize(n+(vec3(fine,nn,g)-.5)*.25);
+    float crev=smoothstep(.25,.6,texture2D(uNoise,uv*.8+.2).a);
+    vec3 rk=mix(vec3(.16,.18,.21),vec3(.40,.44,.48),fine)*(.7+.5*nn)*(1.-.45*crev);
+    vec3 ice=mix(vec3(.45,.62,.72),vec3(.72,.86,.92),fine);
+    float above=smoothstep(WLV-.1,WLV+.1,vP.y);
+    alb=mix(mix(rk,ice,smoothstep(.6,.85,nn)*(.15+.5*above)),vec3(.93,.96,.99),snow);
+    n=normalize(n+(vec3(fine,nn,g)-.5)*.6+vec3(0.,0.,crev-.5)*.3);
   }
   vec3 c=waterShade(alb,vP,n,tank,extra);
   gl_FragColor=vec4(c,1.);
@@ -672,21 +689,32 @@ void main(){ float lag=aT.x; float ph=aPar.y; float th=(uTime-lag)*aPar.x+ph;
 
 // クラゲ（加算・ふわふわ）。
 const JELLY_VERT = `${COMMON} attribute vec4 aJ; attribute vec4 iJ;
-varying vec3 vP; varying vec3 vN; varying float vT; varying float vK;
+varying vec3 vP; varying vec3 vN; varying float vT; varying float vK; varying vec3 vL;
 void main(){
   vec3 q=position; float ph=iJ.w;
-  float pulse=sin(uTime*2.1+ph);
-  if(aJ.x<.5){ float rim=1.-clamp(q.y/.2,0.,1.); float s=1.+.16*pulse*rim; q.xz*=s; q.y*=1.-.1*pulse; }
-  else { float a=aJ.y; q.x+=sin(uTime*1.4+a*5.+ph)*.07*a; q.z+=cos(uTime*1.2+a*4.+ph*2.)*.07*a; q.y+=a*.05*pulse; }
-  q*=iJ.z;
+  float pulse=sin(uTime*2.1+ph); float k=aJ.x, a=aJ.y;
+  if(k<.5){ float rim=1.-clamp(q.y/.18,0.,1.); float sq=.17*pulse*rim; q.xz*=1.+sq; q.y*=1.-.12*pulse; }
+  else { float wave=sin(uTime*2.1+ph-a*4.2); float amp=(k<1.5?.10:.05)*a;
+    q.xz*=1.+.17*pulse*(1.-a)*.8;
+    q.x+=wave*amp+sin(uTime*.6+ph+a*2.)*.08*a*a; q.z+=cos(uTime*1.7+ph*1.3-a*3.3)*amp+cos(uTime*.5+ph)*.06*a*a;
+    q.y+=a*.08*(pulse+1.)*.5;
+    if(k>1.5){ float tw=a*5.+aJ.z; q.x+=sin(tw+uTime)*.025; } }
+  vL=position; q*=iJ.z;
   vec3 c=vec3(${J.x.toFixed(2)},0.,${J.z.toFixed(2)})+vec3(iJ.x,0.,iJ.y);
-  c.y=1.15+mod(ph*.9+uTime*.05,2.2)+sin(uTime*.4+ph)*.08;
-  vec3 p=c+q; vP=p; vN=normal; vT=aJ.y; vK=aJ.x;
+  c.y=1.3+mod(ph*.9+uTime*.05,2.1)+sin(uTime*2.1+ph-.9)*.025+sin(uTime*.4+ph)*.08;
+  vec3 p=c+q; vP=p; vN=normal; vT=a; vK=k;
   gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
 }`;
-const JELLY_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying float vT; varying float vK;
-void main(){ vec3 n=normalize(vN); vec3 v=normalize(uCam-vP); float f=pow(1.-abs(dot(n,v)),2.);
-  vec3 c=vK<.5?vec3(.72,.80,1.)*(.07+.95*f):vec3(.7,.6,.9)*.32*(1.-vT*.7);
+const JELLY_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying float vT; varying float vK; varying vec3 vL;
+void main(){ vec3 n=normalize(vN); vec3 v=normalize(uCam-vP); float f=pow(1.-abs(dot(n,v)),2.2);
+  vec3 c;
+  if(vK<.5){ float r=length(vL.xz); float an=atan(vL.z,vL.x); float a4=mod(an+.785,1.571)-.785; vec2 pq=vec2(cos(a4),sin(a4))*r;
+    float gon=smoothstep(.014,.0,abs(length(pq-vec2(.085,0.))-.032))*step(.1,vL.y+.12);
+    float rimL=smoothstep(.02,.0,vL.y-.005)*smoothstep(-.01,.01,vL.y+.0);
+    float body=.06+.05*texture2D(uNoise,vL.xz*6.).r;
+    c=vec3(.55,.70,1.)*(body+.85*f)+vec3(.95,.55,.85)*gon*.55+vec3(.6,.85,1.)*rimL*.6;
+  } else if(vK<1.5) c=vec3(.6,.75,1.)*.22*(1.-vT*.8);
+  else c=vec3(.95,.8,1.)*(.16+.3*f)*(1.-vT*.6);
   float top=smoothstep(${J.y1.toFixed(2)},${(J.y1 - 0.25).toFixed(2)},vP.y)*smoothstep(${J.y0.toFixed(2)},${(J.y0 + 0.2).toFixed(2)},vP.y);
   gl_FragColor=vec4(c*top,1.);
   ${OUT} }`;
@@ -910,10 +938,10 @@ function humanGeometry() {
 }
 function jellyGeometry() {
   const parts = [];
-  const add = (g0, k) => { const g = g0.index ? g0.toNonIndexed() : g0; if (!g.attributes.normal) g.computeVertexNormals(); const c = g.attributes.position.count, a = new Float32Array(c * 4), p = g.attributes.position; for (let i = 0; i < c; i += 1) { a[i * 4] = k; a[i * 4 + 1] = k ? Math.min(1, Math.max(0, -p.getY(i) / 0.9)) : 0; } g.setAttribute('aJ', new THREE.BufferAttribute(a, 4)); parts.push(g); };
-  const bell = new THREE.SphereGeometry(0.22, 14, 6, 0, TAU, 0, Math.PI * 0.55); bell.scale(1, 0.85, 1); add(bell, 0);
-  for (let i = 0; i < 8; i += 1) { const a = (i / 8) * TAU; const t = new THREE.PlaneGeometry(0.012, 0.85, 1, 6); t.translate(0, -0.42, 0); t.rotateY(a); t.translate(Math.cos(a) * 0.19, 0.0, Math.sin(a) * 0.19); add(t, 1); }
-  for (let i = 0; i < 4; i += 1) { const a = (i / 4) * TAU + 0.4; const t = new THREE.PlaneGeometry(0.06, 0.5, 1, 5); t.translate(0, -0.25, 0); t.rotateY(a); t.translate(Math.cos(a) * 0.04, 0.0, Math.sin(a) * 0.04); add(t, 1); }
+  const add = (g0, k, tw = 0) => { const g = g0.index ? g0.toNonIndexed() : g0; if (!g.attributes.normal) g.computeVertexNormals(); const c = g.attributes.position.count, a = new Float32Array(c * 4), p = g.attributes.position; for (let i = 0; i < c; i += 1) { a[i * 4] = k; a[i * 4 + 1] = k ? Math.min(1, Math.max(0, -p.getY(i) / (k === 1 ? 1.05 : 0.55))) : 0; a[i * 4 + 2] = tw; } g.setAttribute('aJ', new THREE.BufferAttribute(a, 4)); parts.push(g); };
+  const bell = new THREE.SphereGeometry(0.22, 18, 7, 0, TAU, 0, Math.PI * 0.55); bell.scale(1, 0.8, 1); add(bell, 0);
+  for (let i = 0; i < 18; i += 1) { const a = (i / 18) * TAU; const t = new THREE.PlaneGeometry(0.008, 1.05, 1, 10); t.translate(0, -0.525, 0); t.rotateY(-a); t.translate(Math.cos(a) * 0.215, -0.03, Math.sin(a) * 0.215); add(t, 1); }
+  for (let i = 0; i < 4; i += 1) { const a = (i / 4) * TAU + 0.4; const t = new THREE.PlaneGeometry(0.075, 0.55, 2, 8); const p = t.attributes.position; for (let j = 0; j < p.count; j += 1) { const y = p.getY(j); p.setX(j, p.getX(j) * (1 + 0.6 * Math.sin(y * 18))); p.setZ(j, Math.sin(y * 14 + p.getX(j) * 40) * 0.015); } t.translate(0, -0.29, 0); t.rotateY(a); t.translate(Math.cos(a) * 0.035, 0.0, Math.sin(a) * 0.035); add(t, 2, i * 1.7); }
   return mergeAttrs(parts, ['position', 'normal', 'aJ']);
 }
 function mergeAttrs(parts, names) {
@@ -1029,7 +1057,6 @@ export function buildAquarium(opts = {}) {
     // 六角の ボルト（2 れつ）＋ 座金
     for (const [rr, n, sz] of [[W.r + 0.22, 60, 0.05], [W.R - 0.2, 72, 0.055]]) for (let i = 0; i < n; i += 1) {
       const a = (i / n) * TAU, cx = Math.cos(a) * rr, cy = W.y + Math.sin(a) * rr;
-      const w = new THREE.CylinderGeometry(sz * 1.35, sz * 1.35, 0.012, 10, 1); w.rotateX(Math.PI / 2); w.translate(cx, cy, -24.354); metal(w, 1, 0x5a4838);
       const h = new THREE.CylinderGeometry(sz, sz, 0.04, 6, 1); h.rotateX(Math.PI / 2); h.rotateZ(a); h.translate(cx, cy, -24.33); metal(h, 1, 0xa08262);
     }
     // 内の ふちの 光（青みどり）
@@ -1076,7 +1103,7 @@ export function buildAquarium(opts = {}) {
     const WHIP = [0xff6a2a, 0xe8c040, 0xd0403a, 0xff9a5a], FAN = [0xa03a8a, 0xd0402a, 0xff8a2a, 0xe8c040, 0x8a4ab0, 0xc85070], ANEM = [0xd890c0, 0x80d0b0, 0xf0b070, 0xb0a0f0];
     const pickc = (a) => a[Math.floor(rnd() * a.length)];
     const branchy = (x, y, z, s, c) => { // えだサンゴ（3 だん）
-      const grow = (p0, dir, len, r, depth) => { const e = [p0[0] + dir[0] * len, p0[1] + dir[1] * len, p0[2] + dir[2] * len]; prop(limb(p0, e, r, r * 0.72, depth > 1 ? 5 : 4), 0, c, depth / 3, 2);
+      const grow = (p0, dir, len, r, depth) => { const e = [p0[0] + dir[0] * len, p0[1] + dir[1] * len, p0[2] + dir[2] * len]; prop(limb(p0, e, r, r * 0.72, depth > 2 ? 3 : depth > 1 ? 4 : 5), 0, c, depth / 3, 2);
         if (depth >= 3) return; const nb = 2; for (let m = 0; m < nb; m += 1) { const b = rnd() * TAU, sp = 0.45 + rnd() * 0.35; const d = [dir[0] * 0.6 + Math.cos(b) * sp, dir[1] * 0.75 + 0.25, dir[2] * 0.6 + Math.sin(b) * sp], l = Math.hypot(...d); grow(e, d.map((v) => v / l), len * (0.62 + rnd() * 0.2), r * 0.7, depth + 1); } };
       for (let k = 0; k < 3; k += 1) { const a = rnd() * TAU; const d = [Math.cos(a) * 0.45, 1, Math.sin(a) * 0.45], l = Math.hypot(...d); grow([x, y, z], d.map((v) => v / l), 0.42 * s, 0.055 * s, 1); } };
     const brain = (x, y, z, s, c) => prop(rock(x, y, z, 0.6 * s, 0.42 * s, 0.6 * s, x * 7 + z, { detail: 2, rough: 0.1, flat: -0.2 }), 0, c, 0, 1);
@@ -1153,10 +1180,10 @@ export function buildAquarium(opts = {}) {
     const surf = new THREE.PlaneGeometry(x1 - x0, L, 4, 8); surf.rotateX(Math.PI / 2); surf.translate((x0 + x1) / 2, wl, zc); tank(surf, 1, 2, 0xffffff);
     tank(flatPanel((x0 + x1) / 2, 3.9, zc, x1 - x0, L, false), 1, 5, 0x8fb4c8);
     // 雪を かぶった 岩：おくの かべ（天井まで）・水の 上の たな（ペンギンが 立つ）・水の 中の 岩
-    for (let z = z0 + 0.6, i = 0; z < z1; z += 1.9 + rnd() * 0.8, i += 1) prop(rock(28.4 + rnd() * 0.6, 1.2, z, 1.5 + rnd() * 0.5, 2.5 + rnd() * 0.4, 1.3 + rnd() * 0.4, 60 + i * 1.7, { detail: 2, rough: 0.3, flat: -0.6 }), 1, 0x8a96a0, 0, 4);
+    for (let z = z0 + 0.6, i = 0; z < z1; z += 1.9 + rnd() * 0.8, i += 1) prop(rock(28.4 + rnd() * 0.6, 1.2, z, 1.5 + rnd() * 0.5, 2.5 + rnd() * 0.4, 1.3 + rnd() * 0.4, 60 + i * 1.7, { detail: 2, rough: 0.42, flat: -0.6 }), 1, 0x8a96a0, 0, 4);
     for (let z = z0 + 1.2, i = 0; z < z1 - 0.8; z += 2.3 + rnd() * 1.1, i += 1) {
       const T = 2.38 + rnd() * 0.35, sy = 1.3 + rnd() * 0.3, cap = 0.62, x = 24.6 + (i % 2 ? 0.9 : 0) + rnd() * 0.6;
-      prop(rock(x, T - cap * sy, z, 1.3 + rnd() * 0.6, sy, 1.0 + rnd() * 0.5, 80 + i * 2.3, { detail: 2, rough: 0.26, flat: -0.7, cap }), 1, 0x8a96a0, 0, 4);
+      prop(rock(x, T - cap * sy, z, 1.3 + rnd() * 0.6, sy, 1.0 + rnd() * 0.5, 80 + i * 2.3, { detail: 2, rough: 0.42, flat: -0.7, cap }), 1, 0x8a96a0, 0, 4);
       LEDGES.push([x, T, z]);
     }
     for (let i = 0; i < 12; i += 1) prop(rock(21.4 + rnd() * 4.5, -0.42, z0 + 1 + rnd() * (L - 2), 0.3 + rnd() * 0.5, 0.25 + rnd() * 0.3, 0.3 + rnd() * 0.5, i * 2.3, { detail: 1, rough: 0.3 }), 1, 0x6f8088);
@@ -1176,12 +1203,27 @@ export function buildAquarium(opts = {}) {
   glow(solid(flatPanel(0, 0.014, 22.6, 6.5, 5)), [0.16, 0.16, 0.15], 2);
   emis(panel(0, 3.55, 24.98, 1.1, 0.28, Math.PI, atlasUV('exit')), [1.1, 1.1, 1.1]);
   // 大看板（西の かべ）・ホールへの 看板
-  emis(panel(-7.98, 3.4, 19.9, 5.4, 1.35, Math.PI / 2, atlasUV('main')), [1.25, 1.25, 1.25]);
-  glow(solid(panel(-7.96, 3.4, 19.9, 8, 3.6, Math.PI / 2)), [0.04, 0.14, 0.2], 0);
+  room(box(-7.86, 2.62, 19.9, 0.06, 1.56, 5.7), 0x05090b); emis(panel(-7.82, 3.4, 19.9, 5.4, 1.35, Math.PI / 2, atlasUV('main')), [1.3, 1.3, 1.3]);
+  glow(solid(panel(-7.8, 3.4, 19.9, 8, 3.6, Math.PI / 2)), [0.04, 0.14, 0.2], 0);
   emis(panel(0, 4.22, 15.17, 4.6, 0.58, 0, atlasUV('ocean')), [1.15, 1.15, 1.15]);
   // うけつけの 台（まがった）
   for (let i = 0; i < 7; i += 1) { const a = -0.7 + (i / 6) * 1.4, x = -5.6 + Math.sin(a) * 2.2, z = 19.6 + Math.cos(a) * 1.0 - 1; const g = box(0, 0, 0, 0.72, 1.05, 0.5); g.rotateY(a); g.translate(x, 0, z); room(g, 0x30383c); const t = box(0, 0, 0, 0.74, 0.05, 0.62); t.rotateY(a); t.translate(x, 1.05, z); metal(t, 2, 0x8a9296); }
   ob(-5.6, 18.6, 2.3, 0.8);
+  // うけつけの 前の あかり・きっぷの かんばん・ならぶ 柱と ベルト
+  for (let i = 0; i < 6; i += 1) { const a0 = -0.7 + (i / 6) * 1.4, a1 = -0.7 + ((i + 1) / 6) * 1.4; const P = (a, yy) => [-5.6 + Math.sin(a) * 2.47, yy, 18.6 + Math.cos(a) * 1.25]; emis(solid(quad4(P(a0, 0.12), P(a1, 0.12), P(a1, 0.16), P(a0, 0.16))), [0.3, 1.2, 1.2]); emis(solid(quad4(P(a0, 0.96), P(a1, 0.96), P(a1, 1.0), P(a0, 1.0))), [1.0, 0.75, 0.45]); }
+  emis(panel(-5.6, 3.55, 19.4, 2.4, 0.6, 0, atlasUV('tickets')), [1.15, 1.15, 1.15]); room(box(-5.6, 3.88, 19.36, 2.5, 0.04, 0.06), 0x14181a);
+  for (const dx of [-1.0, 1.0]) metal(limb([-5.6 + dx, 3.9, 19.4], [-5.6 + dx, 4.98, 19.4], 0.006, 0.006, 4), 2);
+  glow(solid(panel(-5.6, 3.55, 19.42, 4.2, 1.6, 0)), [0.03, 0.10, 0.12], 0);
+  { const posts = [[-3.2, 21.2], [-3.2, 22.6], [-1.6, 21.2], [-1.6, 22.6]]; posts.forEach(([x, z]) => { metal(cyl(x, 0, z, 0.025, 0.025, 0.95, 8), 2); metal(cyl(x, 0, z, 0.16, 0.18, 0.03, 12), 2); });
+    for (const [a, b] of [[0, 2], [1, 3], [0, 1]]) { const [x0, z0] = posts[a], [x1, z1] = posts[b]; room(beamBox([x0, 0.9, z0], [x1, 0.9, z1], 0.012, 0.05), 0x1e3a6a); } }
+  // 木の たての ルーバー（西の かべ）・天井の まわりの 光の みぞ・ゆかの マット・あんないの 台・じかんの かんばん
+  for (let z = 15.5; z < 24.8; z += 0.16) room(box(-7.96, 0, z, 0.07, F.top - 0.05, 0.06), 0x8a6040);
+  for (const [x, z, w, d] of [[0, 15.45, 15.6, 0.05], [0, 24.85, 15.6, 0.05], [-7.85, 20, 0.05, 9.4], [7.85, 20, 0.05, 9.4]]) emis(solid(flatPanel(x, F.top - 0.012, z, w, d, false)), [1.6, 1.3, 0.95]);
+  room(flatPanel(0, 0.006, 23.6, 4.6, 2.0), 0x1a1e22);
+  { room(box(2.6, 0, 16.4, 1.3, 1.05, 0.25), 0x171c1f); const g = panel(2.6, 1.45, 16.55, 1.25, 0.62, 0, atlasUV('info')); emis(g, [1.0, 1.0, 1.0]); room(box(2.6, 1.05, 16.4, 1.36, 0.8, 0.22), 0x0e1214); ob(2.6, 16.4, 0.7, 0.2); }
+  emis(panel(5.4, 2.4, 24.98, 2.2, 0.55, Math.PI, atlasUV('hours')), [1.0, 1.0, 1.0]);
+  // ベンチ（クラゲの 柱の まえ）
+  room(box(2.4, 0, 19.6, 0.5, 0.42, 2.0), 0x2a2f33); room(box(2.4, 0.42, 19.6, 0.56, 0.06, 2.1), 0x8a6040); ob(2.4, 19.6, 0.3, 1.0);
   // クラゲの 柱
   {
     room(cyl(J.x, 0, J.z, 1.05, 1.1, J.y0, 28), 0x1c2226); room(cyl(J.x, J.y1, J.z, 1.05, 1.0, F.top - J.y1, 28), 0x1c2226);
