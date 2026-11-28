@@ -44,7 +44,7 @@ const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 60
 // 外：島と 同じ 光（半球 2.1・太陽 3.2）。中：やわらかい 半球と 天窓からの 光。光は ページの もの（モデルは 光を 持たない）。
 function makeScene(kind) {
   const scene = new THREE.Scene();
-  const hemi = new THREE.HemisphereLight(kind === 'ext' ? 0xe5f6ff : 0xfff6ea, kind === 'ext' ? 0x818954 : 0xd9cbb4, kind === 'ext' ? 2.1 : 2.3);
+  const hemi = new THREE.HemisphereLight(kind === 'ext' ? 0xe5f6ff : 0xfff6ea, kind === 'ext' ? 0x8f8b80 : 0xd9cbb4, kind === 'ext' ? 2.1 : 2.3);
   const sun = new THREE.DirectionalLight(0xffe8b5, kind === 'ext' ? 3.2 : 1.6);
   sun.position.set(kind === 'ext' ? -35 : 6, kind === 'ext' ? 55 : 40, kind === 'ext' ? 30 : 8); sun.castShadow = true;
   Object.assign(sun.shadow.camera, { left: -50, right: 50, top: 40, bottom: -40, near: 1, far: 160 }); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.04;

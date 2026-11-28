@@ -231,15 +231,23 @@ function noise3(x, y, z, seed = 0) {
   const L = (a, b, t) => a + (b - a) * t;
   return L(L(L(h(xi, yi, zi), h(xi + 1, yi, zi), u), L(h(xi, yi + 1, zi), h(xi + 1, yi + 1, zi), u), v), L(L(h(xi, yi, zi + 1), h(xi + 1, yi, zi + 1), u), L(h(xi, yi + 1, zi + 1), h(xi + 1, yi + 1, zi + 1), u), v), w);
 }
-function rock(x, y, z, sx, sy, sz, seed, { detail = 2, rough = 0.38, flat = -0.35 } = {}) {
+function rock(x, y, z, sx, sy, sz, seed, { detail = 2, rough = 0.38, flat = -0.35, cap = 9 } = {}) {
   const g = new THREE.IcosahedronGeometry(1, detail), p = g.attributes.position;
   for (let i = 0; i < p.count; i += 1) {
     let px = p.getX(i), py = p.getY(i), pz = p.getZ(i);
-    const n = (noise3(px * 1.7 + seed, py * 1.7, pz * 1.7, seed) - 0.5) * rough * 2 + (noise3(px * 4.1, py * 4.1 + seed, pz * 4.1, seed + 3) - 0.5) * rough * 0.6;
-    px *= 1 + n; py *= 1 + n; pz *= 1 + n; if (py < flat) py = flat + (py - flat) * 0.2;
+    const n = (noise3(px * 1.7 + seed, py * 1.7, pz * 1.7, seed) - 0.5) * rough * 2 + (noise3(px * 4.1, py * 4.1 + seed, pz * 4.1, seed + 3) - 0.5) * rough * 0.6 + (noise3(px * 9.3, py * 9.3, pz * 9.3 + seed, seed + 7) - 0.5) * rough * 0.18;
+    px *= 1 + n; py *= 1 + n; pz *= 1 + n; if (py < flat) py = flat + (py - flat) * 0.2; if (py > cap) py = cap + (py - cap) * 0.22;
     p.setXYZ(i, px * sx + x, py * sy + y, pz * sz + z);
   }
-  g.computeVertexNormals(); return g;
+  return smoothNormals(g);
+}
+// なめらかな 法線：同じ 位置の 頂点（ポリヘドロンは ばらばら）の 面の 法線を たして わける。
+function smoothNormals(g) {
+  g.computeVertexNormals(); const p = g.attributes.position, nr = g.attributes.normal, acc = new Map();
+  const key = (i) => `${Math.round(p.getX(i) * 500)},${Math.round(p.getY(i) * 500)},${Math.round(p.getZ(i) * 500)}`;
+  for (let i = 0; i < p.count; i += 1) { const k = key(i); let a = acc.get(k); if (!a) acc.set(k, a = [0, 0, 0]); a[0] += nr.getX(i); a[1] += nr.getY(i); a[2] += nr.getZ(i); }
+  for (let i = 0; i < p.count; i += 1) { const a = acc.get(key(i)), l = Math.hypot(a[0], a[1], a[2]) || 1; nr.setXYZ(i, a[0] / l, a[1] / l, a[2] / l); }
+  return g;
 }
 
 /* ───────── シェーダー ───────── */
@@ -264,7 +272,13 @@ vec3 roomLight(vec3 p,vec3 n){
   float k=max(dot(n,l),0.)*clamp(-l.z*1.15+.08,0.,1.)*(WR*WR)/(d2*.38+WR*WR);
   float near=exp(-max(p.z+25.,0.)*.085);
   float cz=caus(vec2(p.x+p.z*.55,p.y+p.z*.45)*1.25);
-  c+=vec3(.045,.30,.58)*k*(.55+2.2*cz*near)*inHall(p)*(1.-inFoyer(p)*.6)*3.2;
+  float hl=inHall(p)*(1.-inFoyer(p)*.6);
+  c+=vec3(.045,.30,.58)*k*(.55+2.2*cz*near)*hl*4.6;
+  // まどから はねかえる 青みどりの 光（部屋 ぜんたい・向きに あまり よらない）
+  float fall=1./(1.+max(p.z+25.,0.)*.055+abs(p.x)*.03);
+  c+=vec3(.010,.085,.125)*(.55+.45*dot(n,l))*fall*hl*1.6;
+  // ゆかの 光が 天井・バルコニーの うらを てらす
+  c+=vec3(.012,.075,.11)*max(-n.y,0.)*exp(-max(p.z+25.,0.)*.045)*(1.-exp(-p.y*.25))*hl*2.2;
   vec3 q=vec3(PGX,clamp(p.y,.3,3.2),clamp(p.z,-20.,11.)); vec3 Lp=q-p; float dp=length(Lp)+1e-3;
   vec3 lp=normalize(Lp/dp+vec3(.45,0.,0.));
   float kp=max(dot(n,lp),0.)*1.5/(1.+dp*dp*.16)*(1.-inHall(p));
@@ -275,7 +289,10 @@ vec3 roomLight(vec3 p,vec3 n){
   c+=vec3(1.,.82,.62)*max(dot(n,ls),0.)*smoothstep(.72,.96,ls.y)*.55/(1.+ds*ds*.35)*(1.-inHall(p));
   // 入口の ダウンライト（4 × 3.33 m）
   vec3 Lf=vec3((floor(p.x/4.)+.5)*4.,4.95,(floor((p.z-15.)/3.34)+.5)*3.34+15.)-p; float df=length(Lf)+1e-3; vec3 lf=Lf/df;
-  c+=vec3(1.,.84,.66)*max(dot(n,lf),0.)*smoothstep(.6,.95,lf.y)*.7/(1.+df*df*.22)*inFoyer(p)*inHall(p);
+  c+=vec3(1.,.84,.66)*(max(dot(n,lf),0.)*smoothstep(.55,.95,lf.y)*1.5/(1.+df*df*.2)+.035)*inFoyer(p)*inHall(p);
+  // かべを なでる 光（かべの 上の ほうが 明るい ほたての 形）
+  float wall=1.-abs(n.y); float sc=smoothstep(4.9,3.2,p.y)*smoothstep(.2,2.6,p.y)*(.55+.45*cos((p.x+p.z)*1.57));
+  c+=vec3(1.,.8,.6)*wall*sc*.12*inFoyer(p)*inHall(p);
   // クラゲの 柱の あおい 光
   vec3 Lj=vec3(${J.x.toFixed(2)},2.3,${J.z.toFixed(2)})-p; float dj=dot(Lj,Lj);
   c+=vec3(.12,.30,.70)*max(dot(n,normalize(Lj)),0.)*1.2/(1.+dj*.35)*inFoyer(p);
@@ -289,7 +306,7 @@ vec3 haze(vec3 p){
   float t=clamp(dot(WC-uCam,vd),0.,len); vec3 c=uCam+vd*t-WC;
   float h=exp(-dot(c,c)*.016)*(1.-exp(-len*.05))*inHall(uCam)*(1.-inFoyer(uCam)*.5);
   float hc=(1.-inHall(uCam))*(1.-exp(-len*.035))*.35;
-  return vec3(.03,.16,.28)*h*.45+vec3(.03,.10,.15)*hc;
+  return vec3(.03,.17,.28)*h*.7+vec3(.03,.10,.15)*hc;
 }
 float waterLen(vec3 p,float tank){
   vec3 v=uCam-p; float L=length(v);
@@ -346,28 +363,49 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 a=abs(n);
 const FLOOR_FRAG = `${COMMON} uniform sampler2D uFloor; uniform float uHasFloor; varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB;
 void main(){ vec3 p=vP; vec3 n=vec3(0.,1.,0.);
   vec2 nz=texture2D(uNoise,p.xz*.11).gg-.5;
-  vec3 alb;
-  if(vA>.5&&uHasFloor>.5){ alb=texture2D(uFloor,vec2((p.x+13.)/26.,1.-(p.z+25.)/40.)).rgb; }
+  vec3 alb; float gl=1.;
+  if(vA>.5&&vA<1.5&&uHasFloor>.5){ alb=texture2D(uFloor,vec2((p.x+13.)/26.,1.-(p.z+25.)/40.)).rgb; }
+  else if(vA>1.5){ // 入口：テラゾー（石の つぶ）＋ 1.2 m の 目地 ＋ クラゲの 柱を かこむ 青い 帯
+    vec2 tq=p.xz/1.2; vec2 tf=abs(fract(tq)-.5); float joint=smoothstep(.492,.499,max(tf.x,tf.y));
+    float tone=step(.5,fract((floor(tq.x)+floor(tq.y))*.5));
+    float ch=texture2D(uNoise,p.xz*2.7).r, ch2=texture2D(uNoise,p.xz*5.3+.3).r;
+    alb=mix(vec3(.50,.49,.46),vec3(.40,.40,.39),tone)*(.92+.16*texture2D(uNoise,p.xz*.3).g);
+    alb=mix(alb,vec3(.14,.15,.16),smoothstep(.70,.74,ch)*.8); alb=mix(alb,vec3(.78,.76,.70),smoothstep(.72,.76,ch2)*.6);
+    float rj=length(p.xz-vec2(${J.x.toFixed(2)},${J.z.toFixed(2)})); float band=smoothstep(.06,.0,abs(rj-1.75)-.07)+smoothstep(.03,.0,abs(rj-2.05)-.02)*.7;
+    alb=mix(alb,vec3(.10,.42,.44),band*.85);
+    alb*=1.-joint*.45; gl=1.-joint*.8;
+  }
   else alb=vC*(.8+.4*texture2D(uNoise,p.xz*.45).r)*(.85+.3*texture2D(uNoise,p.xz*.05).g);
   vec3 c=alb*roomLight(p,n);
-  vec3 v=normalize(p-uCam); vec3 r=vec3(v.x,-v.y,v.z); r.xz+=nz*.035; r=normalize(r);
-  float fr=.035+.6*pow(1.-abs(v.y),5.);
-  float gloss=vB;
+  vec3 v=normalize(p-uCam); vec3 r=vec3(v.x,-v.y,v.z); r.xz+=nz*.006; r=normalize(r);
+  float fr=.06+.94*pow(1.-abs(v.y),5.);
+  float gloss=vB*gl;
   vec3 refl=vec3(0.);
-  if(r.z<-.01&&p.x<13.2&&p.z<15.){ float t=(-25.-p.z)/r.z; vec3 h=p+r*t; float d=length(h.xy-WC.xy); float bl=.12+t*.045;
-    float disk=smoothstep(WR+bl,WR-bl,d); float ring=exp(-pow((d-4.56)/(.05+bl*.5),2.));
-    vec3 tc=mix(vec3(.004,.04,.11),vec3(.05,.34,.58),clamp((h.y-1.)/9.,0.,1.));
-    tc*=.85+.35*caus(h.xy*.7);
-    refl+=tc*disk*1.5+vec3(.2,.8,1.)*ring*.55+vec3(.02,.11,.2)*exp(-max(d-WR,0.)*.45)*.5; }
-  if(r.x>.01&&p.x>13.2){ float t=(PGX-p.x)/r.x; vec3 h=p+r*t; float bl=.06+t*.05;
+  if(r.z<-.01&&p.x<13.2&&p.z<15.){ float t=(-25.-p.z)/r.z; vec3 h=p+r*t; vec2 q=h.xy-WC.xy; float d=length(q);
+    float bl=.02+t*.008;
+    float disk=smoothstep(WR+bl,WR-bl,d);
+    float rim=exp(-pow((d-WR-.04)/(.05+bl),2.));
+    float ringM=smoothstep(WR+.1,WR+.2,d)*smoothstep(${W.R.toFixed(2)}+.25,${W.R.toFixed(2)}-.05,d);
+    vec3 tc=mix(vec3(.004,.05,.13),vec3(.07,.46,.74),pow(clamp((h.y-1.)/9.,0.,1.),1.3));
+    tc*=.75+.6*caus(h.xy*.7);
+    tc+=vec3(.10,.35,.45)*pow(max(1.-abs(q.x+q.y*.18-1.2)*.9,0.),3.)*smoothstep(-2.,4.,q.y)*.6;
+    float st=exp(-abs(q.x)*.5)*exp(-max(d-WR,0.)*.22)*(1.-disk); // みがいた 床の たての にじみ
+    float pol=.7+.6*texture2D(uNoise,vec2(p.x*.9,p.z*.04)).b;
+    refl+=(tc*disk*2.+vec3(.35,1.,1.15)*rim*1.6)*pol+vec3(.015,.05,.06)*ringM+vec3(.03,.18,.28)*st*.8+vec3(.02,.11,.2)*exp(-max(d-WR,0.)*.5)*.5; }
+  if(r.x>.01&&p.x>13.2){ float t=(PGX-p.x)/r.x; vec3 h=p+r*t; float bl=.03+t*.02;
     float m=smoothstep(-bl,bl,h.y-.15)*smoothstep(-bl,bl,3.3-h.y)*smoothstep(-bl,bl,h.z+20.)*smoothstep(-bl,bl,11.-h.z);
     vec3 tc=mix(vec3(.03,.2,.34),vec3(.25,.58,.72),smoothstep(1.2,2.8,h.y));
+    tc=mix(tc,vec3(.75,.85,.92),smoothstep(WLV+.02,WLV+.1,h.y));
     refl+=tc*m*1.3*(.8+.5*caus(h.zy*1.5)); }
   if(r.y>.02&&(p.x>13.2||p.z>15.)){ float top=p.x>13.2?3.4:5.; float tt=(top-p.y)/r.y; vec3 h=p+r*tt;
     vec2 gq=p.x>13.2?vec2(h.x-16.,mod(h.z,3.5)-1.75):vec2(mod(h.x,4.)-2.,mod(h.z-15.,3.34)-1.67);
     float inside=p.x>13.2?step(-21.,h.z)*step(h.z,12.):step(abs(h.x),8.)*step(15.,h.z)*step(h.z,25.);
-    refl+=vec3(1.,.88,.72)*smoothstep(.3+tt*.04,.0,length(gq))*.8*inside; }
-  c+=refl*(fr*.7+.06)*gloss;
+    refl+=vec3(1.,.88,.72)*smoothstep(.16+tt*.02,.0,length(gq))*2.2*inside;
+    if(p.z>15.){ // 入口：ドアの 外の 光・クラゲの 柱
+      float tz=(25.-p.z)/max(r.z,1e-3); vec3 hd=p+r*tz; refl+=vec3(.9,.92,.95)*step(0.,r.z)*step(abs(hd.x),2.4)*step(hd.y,3.)*.9;
+      vec2 jq=p.xz-vec2(${J.x.toFixed(2)},${J.z.toFixed(2)}); float jb=dot(jq,r.xz/length(r.xz)); float jd=length(jq-r.xz/length(r.xz)*jb);
+      float jt=-jb/max(length(r.xz),1e-3); float jy=p.y+r.y*jt; refl+=vec3(.08,.25,.65)*step(jd,${J.r.toFixed(2)})*step(jb,0.)*step(${J.y0.toFixed(2)},jy)*step(jy,${J.y1.toFixed(2)})*1.2; } }
+  c+=refl*(fr*.85+.14)*gloss;
   c+=haze(p);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
@@ -389,6 +427,12 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 v=normalize(vP-u
   float wd=length(vP.xy-WC.xy)-WR;
   if(vA>.5&&vA<1.5){ float ang=atan(vP.y-WC.y,vP.x); vec3 tg=vec3(-sin(ang),cos(ang),0.); vec2 vv=normalize(v.xy+1e-4);
     float an=pow(abs(dot(tg.xy,vv)),14.); env+=vec3(.10,.42,.62)*an*.55*exp(-max(wd,0.)*.6)+vec3(.04,.22,.38)*exp(-max(wd,0.)*2.2)*.9; }
+  if(vA>.5&&vA<1.5){ // まどの 輪：くらい みがいた 青銅。ホールの 上の スポット・まどの ふちの 光が するどく うつる
+    vec3 s1=normalize(vec3(-4.,12.,-19.)-vP), s2=normalize(vec3(4.,12.,-19.)-vP), s3=normalize(vec3(0.,12.,-14.)-vP);
+    env+=vec3(1.,.86,.66)*(pow(max(dot(r,s1),0.),90.)+pow(max(dot(r,s2),0.),90.)+pow(max(dot(r,s3),0.),60.)*.7)*6.;
+    env+=vec3(.25,.85,1.)*exp(-max(wd,0.)*5.)*smoothstep(.2,.9,dot(n,normalize(vec3(WC.xy-vP.xy,.6))))*1.4;
+    env+=vec3(.6,.45,.3)*pow(max(r.y,0.),3.)*.06;
+  }
   float fr=.55+.45*pow(1.-abs(dot(n,v)),3.);
   vec3 c=vC*(roomLight(vP,n)*.35+env*fr*(.55+.9*br));
   c+=haze(vP);
@@ -399,9 +443,11 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 v=normalize(vP-u
 const TANK_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB;
 void main(){ if(vB>3.5&&vB<4.5&&gl_FrontFacing) discard; vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 p=vP; vec3 c;
   if(vB<.5){ // 砂
-    float rp=texture2D(uNoise,vec2(p.x*.06+p.z*.02,p.z*.35)).b; float g=texture2D(uNoise,p.xz*.5).r;
-    vec3 alb=vC*(.65+.45*g)*(.8+.4*rp);
-    c=waterShade(alb,p,normalize(n+vec3(0.,0.,(rp-.5)*.6)),vA,vec3(0.));
+    float wv=texture2D(uNoise,p.xz*.045).g; float ph=dot(p.xz,vec2(.55,2.6))+wv*9.+texture2D(uNoise,p.xz*.2).r*2.;
+    float rp=.5+.5*sin(ph); float rs=cos(ph); float g=texture2D(uNoise,p.xz*.5).r, gg=texture2D(uNoise,p.xz*2.3).r;
+    vec3 alb=vC*(.62+.4*g)*(.82+.3*rp)*(.9+.2*gg);
+    alb=mix(alb,vec3(.35,.33,.28),smoothstep(.72,.8,texture2D(uNoise,p.xz*.9+.3).r)*.5);
+    c=waterShade(alb,p,normalize(n+vec3(.04,0.,.2)*rs*(.6+wv)),vA,vec3(0.));
   } else if(vB<1.5){ // 水そうの かべ（岩はだ）
     float g=texture2D(uNoise,p.xy*.21+p.z*.1).g;
     c=waterShade(vC*(.6+.8*g),p,n,vA,vec3(0.));
@@ -431,31 +477,90 @@ void main(){ if(vB>3.5&&vB<4.5&&gl_FrontFacing) discard; vec3 n=normalize(vN)*(g
 
 // 岩・さんご・いせき・海そう（vA＝水そう、vB＝ゆれ）。
 const PROP_VERT = `${COMMON} attribute float aA; attribute float aB; varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB;
-void main(){ vec3 p=position; float s=aB*aB; p.x+=sin(uTime*.9+p.y*.7+p.z*.5)*.22*s; p.z+=cos(uTime*.7+p.y*.6+p.x*.4)*.14*s;
+void main(){ vec3 p=position; float kd=floor((aA-floor(aA+.05))*10.+.5); float s=aB*aB*(kd>1.5&&kd<2.5?.06:kd>.5?0.:1.); p.x+=sin(uTime*.9+p.y*.7+p.z*.5)*.22*s; p.z+=cos(uTime*.7+p.y*.6+p.x*.4)*.14*s;
   vP=p; vN=normal; vC=color; vA=aA; vB=aB; gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.); }`;
+// vA＝水そう＋しゅるい/10（0 岩 1 のうさんご 2 えだ 3 テーブル 4 雪の 岩 5 いそぎんちゃくの 台）
 const PROP_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB;
 void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 a=abs(n);
+  float tank=floor(vA+.05); float kind=floor((vA-tank)*10.+.5);
   vec2 uv=a.y>.6?vP.xz:(a.x>a.z?vP.zy:vP.xy);
   float g=texture2D(uNoise,uv*.6).r, b=texture2D(uNoise,uv*.12).g;
   vec3 alb=vC*(.6+.7*g)*(.75+.5*b);
-  float moss=smoothstep(.55,.95,n.y)*smoothstep(.45,.7,b)*(vA<.5?1.:0.)*(1.-step(.01,vB));
-  alb=mix(alb,vec3(.16,.24,.12),moss*.55);
-  vec3 c=waterShade(alb,vP,n,vA,vec3(0.));
+  vec3 extra=vec3(0.);
+  if(kind<.5){ float moss=smoothstep(.55,.95,n.y)*smoothstep(.45,.7,b)*(tank<.5?1.:0.)*(1.-step(.01,vB)); alb=mix(alb,vec3(.16,.24,.12),moss*.55);
+    alb=mix(alb,vec3(.55,.30,.40),smoothstep(.62,.7,texture2D(uNoise,uv*.9+.5).r)*.35*(tank<.5?1.:0.)); }
+  else if(kind<1.5){ float gr=texture2D(uNoise,uv*1.6).a; alb=vC*(.55+.75*smoothstep(.15,.6,gr)); n=normalize(n+vec3(gr-.5)*.35); }
+  else if(kind<2.5){ float tip=smoothstep(.2,1.,vB); float pol=texture2D(uNoise,uv*7.).r; alb=mix(vC*(.8+.4*pol),vec3(.85,.80,.70),tip*.55); extra=vC*.10*tip; }
+  else if(kind<3.5){ float rg=fract(length(vP.xz)*6.); alb=vC*(.75+.35*smoothstep(.3,.6,rg)*smoothstep(.95,.6,rg)); alb=mix(alb,vC*1.3+.08,smoothstep(.55,.9,n.y)*.25); }
+  else if(kind<4.5){ // 雪を かぶった 岩・氷
+    float nn=texture2D(uNoise,vP.xz*.35+vP.y*.2).g, fine=texture2D(uNoise,uv*1.7).r;
+    float snow=smoothstep(.38,.72,n.y+(nn-.5)*.55+(fine-.5)*.2)*smoothstep(WLV-.05,WLV+.25,vP.y);
+    vec3 rk=mix(vec3(.20,.23,.27),vec3(.42,.47,.52),fine)*(.75+.5*nn);
+    vec3 ice=mix(vec3(.45,.62,.72),vec3(.70,.84,.90),fine);
+    alb=mix(mix(rk,ice,smoothstep(.55,.8,nn)*.6),vec3(.93,.96,.99),snow);
+    n=normalize(n+(vec3(fine,nn,g)-.5)*.25);
+  }
+  vec3 c=waterShade(alb,vP,n,tank,extra);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
 
-// 魚・エイ・カメ・サメ：道は 円＋sin（aPath＝中心・よこの 半径、aPar＝はやさ・位相・上下・しゅるい、aShape＝おくの 半径・長さ・高さ・はば）。
-const FISH_VERT = `${COMMON} attribute vec4 aPath; attribute vec4 aPar; attribute vec4 aShape; attribute vec3 aBody;
+// うすい 板の 海の 生きもの（ゆれる・すける）：ウミウチワ・海そう・ウミエラ・いそぎんちゃく。uv.y＝根もと 0 → 先 1、vB＝しゅるい。
+const CARD_VERT = `${COMMON} attribute float aA; attribute float aB; varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB; varying vec2 vUv;
+void main(){ vec3 p=position; float w=uv.y; float k=aB<.5?.05:aB<1.5?.42:aB<2.5?.10:.06;
+  float ph=p.x*.7+p.z*.5;
+  p.x+=sin(uTime*.9+p.y*.6+ph)*k*w*w; p.z+=cos(uTime*.7+p.y*.5+ph*1.3)*k*.7*w*w;
+  if(aB>2.5){ vec2 d=p.xz-position.xz; p.xz+=normalize(normal.xz+1e-4)*sin(uTime*1.3+ph*4.)*.03*w; }
+  vP=p; vN=normal; vC=color; vA=aA; vB=aB; vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.); }`;
+const CARD_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vC; varying float vA; varying float vB; varying vec2 vUv;
+void main(){ vec2 u=vUv; float m; vec3 alb=vC; float tr=.25;
+  if(vB<.5){ vec2 q=(u-vec2(.5,0.))*vec2(2.,1.05); float d=length(q); float ins=smoothstep(1.,.96,d+texture2D(uNoise,u*1.3).g*.12);
+    float ang=atan(q.x,q.y); float vein=smoothstep(.07,.0,abs(fract(ang*2.6+d*.4)-.5))*smoothstep(.15,.4,d);
+    float net=smoothstep(.30,.55,texture2D(uNoise,u*vec2(2.3,2.)).a); float stem=smoothstep(.04,.0,abs(q.x))*step(d,.45);
+    m=ins*max(max(net,vein),stem); alb=vC*(.8+.4*net);
+  } else if(vB<1.5){ float wd=(.32+.12*sin(u.y*11.+vC.r*9.))*(1.-u.y*.55); float x=abs(u.x-.5);
+    m=smoothstep(wd,wd-.04,x)*smoothstep(.0,.03,u.y)*smoothstep(1.,.96,u.y);
+    alb=mix(vC,vC*.55,smoothstep(.04,.0,x))*(.85+.3*texture2D(uNoise,u*vec2(2.,6.)).r); tr=.6;
+  } else if(vB<2.5){ float x=abs(u.x-.5); float sideB=smoothstep(.09,.0,abs(fract(u.y*16.-x*2.2)-.5)-.18)*step(x,.42*(1.-u.y*.7))*step(.12,u.y);
+    m=max(sideB,smoothstep(.035,.0,x)); alb=mix(vC,vec3(1.,.95,.85),smoothstep(.25,.42,x)*.5); tr=.45;
+  } else { float st=abs(fract(u.x*26.)-.5); float wd=.36*(1.-u.y*.55);
+    m=smoothstep(wd,wd-.08,st)*step(u.y,.985-texture2D(uNoise,vec2(u.x*3.,0.)).r*.12);
+    alb=mix(vC,vC*1.6+vec3(.15,.12,.1),smoothstep(.75,1.,u.y)); tr=.55;
+  }
+  if(m<.5) discard;
+  vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.);
+  float tank=floor(vA+.05);
+  vec3 c=waterShade(alb,vP,n,tank,alb*vec3(.3,.6,.8)*tr*.35);
+  gl_FragColor=vec4(c,1.);
+  ${OUT} }`;
+
+// 魚・エイ・カメ・サメ：道は 円＋sin（aPath＝中心・よこの 半径、aPar＝はやさ・位相・上下・しゅるい、aShape＝おくの 半径・長さ・高さ・はば、
+// aX＝むれの 位相・むれの ふくらみ・ゆらぎ）。むれの 魚は 同じ はやさ・近い 位相で うごくので いっしょに まがる。
+// しゅるい：0 イワシ 1 キイロハギ 2 ナンヨウハギ 3 ツノダシ 4 アジ 5 チョウチョウウオ 6 クマノミ 7 ハタ 8 タテジマキンチャクダイ 9 タカサゴ（10 エイ 11 カメ 13 サメ）
+const FISH_VERT = `${COMMON} attribute vec4 aPath; attribute vec4 aPar; attribute vec4 aShape; attribute vec3 aBody; attribute vec4 aX;
 varying vec3 vP; varying vec3 vN; varying vec3 vB; varying float vSp; varying float vPart;
+vec4 spec(float s){ // 円ばん・せびれ・しりびれ・尾の まるさ
+  if(s<.5) return vec4(0.,0.,0.,0.); if(s<1.5) return vec4(.95,.5,.5,.6); if(s<2.5) return vec4(.45,.2,.2,.2); if(s<3.5) return vec4(1.1,2.4,.9,.3);
+  if(s<4.5) return vec4(.15,.1,0.,0.); if(s<5.5) return vec4(.9,.35,.35,.7); if(s<6.5) return vec4(.3,.15,.1,1.); if(s<7.5) return vec4(.25,.12,.1,1.);
+  if(s<8.5) return vec4(.8,.7,.6,.6); return vec4(.1,0.,0.,0.); }
 void main(){
-  float th=uTime*aPar.x+aPar.y; float sp=aPar.w;
-  vec3 P=aPath.xyz+vec3(aPath.w*cos(th),aPar.z*sin(th*2.+aPar.y*3.),aShape.x*sin(th));
-  vec3 T=normalize(vec3(-aPath.w*sin(th),aPar.z*2.*cos(th*2.+aPar.y*3.),aShape.x*cos(th))*sign(aPar.x));
+  float G=aX.x; float sp=aPar.w;
+  float th=uTime*aPar.x+aPar.y;
+  vec3 C=aPath.xyz+vec3(sin(uTime*.05+G)*aX.z,sin(uTime*.083+G*1.7)*aX.z*.4,cos(uTime*.061+G)*aX.z*.5);
+  float Rr=aPath.w*(1.+aX.y*sin(uTime*.21+G)); float Rz=aShape.x*(1.+aX.y*sin(uTime*.21+G));
+  vec3 P=C+vec3(Rr*cos(th),aPar.z*sin(th*2.+G),Rz*sin(th));
+  vec3 T=normalize(vec3(-Rr*sin(th),aPar.z*2.*cos(th*2.+G),Rz*cos(th))*sign(aPar.x));
   vec3 X=normalize(cross(vec3(0.,1.,0.),T)); vec3 Y=cross(T,X);
   vec3 q=position; vec3 nn=normal;
   float w=aBody.x;
+  if(sp<9.5){ vec4 S=spec(sp); float ft=aBody.z;
+    float hs=1.+S.x*max(0.,1.-pow((q.z-.02)/.44,2.)); q.y*=hs; nn.y/=hs;
+    if(ft>1.5&&ft<2.5){ float e=max(q.y-.12*hs,0.); q.y+=e*S.y*1.6; q.z-=e*S.y*1.1; }
+    if(ft>2.5&&ft<3.5){ float e=max(-.1*hs-q.y,0.); q.y-=e*S.z*1.5; q.z-=e*S.z*1.0; }
+    if(ft>.5&&ft<1.5){ q.z+=S.w*(abs(q.y)>.12?.09:-.03*smoothstep(.07,0.,abs(q.y))); }
+    if(ft>3.5){ float sd=ft<4.5?1.:-1.; vec3 piv=vec3(sd*.05,-.03,.15); vec3 d=q-piv; float a=(.5+.4*sin(uTime*7.+aPar.y*5.))*sd; float c=cos(a),s=sin(a); q=piv+vec3(d.x*c-d.z*s,d.y,d.x*s+d.z*c); }
+  }
   if(sp<9.5||sp>12.5){ // 魚・サメ：尾を ふる
-    float f=sp>12.5?2.6:7.+abs(aPar.x)*6.;
+    float f=sp>12.5?2.6:(sp<.5||sp>8.5?9.:6.)+abs(aPar.x)*6.;
     float sw=sin(uTime*f+aPar.y*7.-q.z*5.)*(sp>12.5?.16:.22)*w*w;
     q.x+=sw; nn.x-=sw*2.;
   } else if(sp<10.5){ // エイ：つばさで はばたく
@@ -469,30 +574,34 @@ void main(){
   }
   vec3 sc=vec3(aShape.w,aShape.z,1.)*aShape.y;
   vec3 lq=q*sc;
-  float bank=clamp(aPar.x*aPath.w*.15,-.5,.5);
+  float bank=clamp(aPar.x*Rr*.15,-.5,.5);
   vec3 Xb=X*cos(bank)+Y*sin(bank), Yb=Y*cos(bank)-X*sin(bank);
   vec3 p=P+Xb*lq.x+Yb*lq.y+T*lq.z;
   vec3 ln=normalize(nn/sc); vN=normalize(Xb*ln.x+Yb*ln.y+T*ln.z);
-  vP=p; vB=position; vSp=sp; vPart=aBody.y;
+  vP=p; vB=vec3(position.xy,position.z); vB.y=position.y; vSp=sp; vPart=aBody.y+aBody.z*.01;
   gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
 }`;
 const FISH_FRAG = `${COMMON} varying vec3 vP; varying vec3 vN; varying vec3 vB; varying float vSp; varying float vPart;
-void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 b=vB; float sp=vSp;
+void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 b=vB; float sp=vSp; float fin=step(.5,vPart)*step(vPart,9.5)*step(sp,9.5);
   float top=smoothstep(-.02,.06,b.y); vec3 alb; float silver=0.;
   float nz=texture2D(uNoise,b.zy*2.+sp).r;
-  if(sp<.5){ alb=mix(vec3(.62,.66,.70),vec3(.07,.13,.20),top); silver=1.; alb=mix(alb,vec3(.03,.05,.07),smoothstep(.012,.0,abs(b.y-.02))*.4); }
-  else if(sp<1.5){ alb=vec3(.95,.66,.02)*(.85+.2*nz); alb=mix(alb,vec3(.95,.95,.9),smoothstep(-.4,-.45,b.z)); }
-  else if(sp<2.5){ alb=vec3(.03,.16,.75); float st=smoothstep(.03,.0,abs(b.y-.05+b.z*.15)-.03)*step(-.3,b.z)*step(b.z,.3); alb=mix(alb,vec3(.01,.01,.03),st); alb=mix(alb,vec3(.95,.75,.05),smoothstep(-.38,-.45,b.z)); }
-  else if(sp<3.5){ alb=mix(vec3(.85,.86,.82),vec3(.82,.72,.25),top*.6); float bar=step(.5,fract(b.z*7.+.2))*step(-.35,b.z)*step(b.z,.3); alb=mix(alb,vec3(.02,.03,.04),bar*.85); silver=.5; }
-  else if(sp<4.5){ alb=mix(vec3(.70,.73,.74),vec3(.22,.28,.32),top); silver=1.; }
-  else if(sp<5.5){ alb=mix(vec3(.96,.95,.9),vec3(.98,.82,.1),smoothstep(.0,-.3,b.z)); float eb=smoothstep(.03,.0,abs(b.z-.3)-.025); alb=mix(alb,vec3(.03,.03,.03),eb); }
+  if(sp<.5){ alb=mix(vec3(.70,.74,.78),vec3(.06,.20,.28),top); silver=1.; alb=mix(alb,vec3(.03,.05,.07),smoothstep(.012,.0,abs(b.y-.03))*.5); alb=mix(alb,vec3(.02),smoothstep(.02,.0,length(vec2(b.z-.12,b.y-.04)))); }
+  else if(sp<1.5){ alb=vec3(1.,.80,.04)*(.85+.2*nz); alb=mix(alb,vec3(.98,.98,.95),smoothstep(.02,.0,abs(b.z+.36)-.015)*step(abs(b.y),.05)); }
+  else if(sp<2.5){ alb=vec3(.05,.25,.85); float st=smoothstep(.03,.0,abs(b.y-.03+b.z*.18)-.03)*step(-.3,b.z)*step(b.z,.32); alb=mix(alb,vec3(.01,.01,.03),st); alb=mix(alb,vec3(1.,.82,.05),smoothstep(-.38,-.45,b.z)); }
+  else if(sp<3.5){ alb=mix(vec3(.96,.95,.9),vec3(1.,.88,.25),smoothstep(-.05,-.35,b.z)); float bar=smoothstep(.015,.0,abs(b.z-.20)-.07)+smoothstep(.015,.0,abs(b.z+.13)-.08); alb=mix(alb,vec3(.02,.02,.03),clamp(bar,0.,1.)); alb=mix(alb,vec3(1.,.55,.1),smoothstep(.03,.0,length(vec2(b.z-.44,b.y-.01)))); }
+  else if(sp<4.5){ alb=mix(vec3(.80,.82,.82),vec3(.20,.27,.32),top); silver=1.; alb=mix(alb,vec3(.75,.65,.25),fin*.6); }
+  else if(sp<5.5){ alb=mix(vec3(.97,.96,.92),vec3(1.,.85,.12),smoothstep(.05,-.3,b.z)); float eb=smoothstep(.025,.0,abs(b.z-.33)-.02); alb=mix(alb,vec3(.03),eb); alb=mix(alb,vec3(.05),smoothstep(.02,.0,length(vec2(b.z+.2,b.y-.06))-.03)); }
+  else if(sp<6.5){ alb=vec3(1.,.42,.04); float bz=min(min(abs(b.z-.26),abs(b.z-.0)),abs(b.z+.3)); float wb=smoothstep(.045,.035,bz); float bk=smoothstep(.06,.045,bz)-wb; alb=mix(alb,vec3(.98),wb); alb=mix(alb,vec3(.02),bk*.9); alb=mix(alb,vec3(.02),fin*smoothstep(.0,-.04,-abs(b.y)+.17)*.0); }
+  else if(sp<7.5){ alb=mix(vec3(.55,.22,.14),vec3(.35,.17,.12),nz); float sp2=smoothstep(.7,.75,texture2D(uNoise,b.zy*6.).r); alb=mix(alb,vec3(.3,.6,.95),sp2*.8); alb=mix(vec3(.75,.6,.5),alb,top*.7+.3); }
+  else if(sp<8.5){ float st=smoothstep(.3,.5,abs(fract((b.y+b.z*.5)*28.)-.5)*2.); alb=mix(vec3(.05,.15,.65),vec3(1.,.85,.15),st); alb=mix(alb,vec3(1.,.8,.1),smoothstep(-.38,-.45,b.z)); alb=mix(alb,vec3(.02,.04,.12),smoothstep(.03,.0,abs(b.z-.33)-.025)); }
+  else if(sp<9.5){ alb=mix(vec3(.85,.88,.9),vec3(.10,.30,.70),top); alb=mix(alb,vec3(1.,.85,.1),smoothstep(.015,.0,abs(b.y-.04)-.012)+smoothstep(-.38,-.45,b.z)); silver=.6; }
   else if(sp<10.5){ alb=mix(vec3(.85,.85,.82),vec3(.10,.10,.11)*(.8+.4*nz),smoothstep(-.01,.03,n.y*.5+b.y*8.)); float spot=smoothstep(.72,.8,texture2D(uNoise,b.xz*1.3).r); alb=mix(alb,vec3(.8,.8,.78),spot*top*.7); }
   else if(sp<11.5){ if(vPart>.5) alb=vec3(.36,.34,.22)*(.8+.4*nz); else { float sc=texture2D(uNoise,b.xz*2.2).a; alb=mix(vec3(.30,.24,.12),vec3(.45,.38,.18),nz)*(.7+.6*sc); alb=mix(vec3(.75,.68,.45),alb,top); } }
   else { alb=mix(vec3(.86,.86,.84),vec3(.30,.34,.38)*(.9+.2*nz),top); }
-  if(sp<9.5){ float e=length(vec2(b.z-.36,b.y-.035)); alb=mix(alb,vec3(.01),smoothstep(.028,.02,e)); }
+  if(sp<9.5){ alb=mix(alb,alb*.75+vec3(.05,.08,.1),fin*.35); float e=length(vec2(b.z-.36,b.y-.035)); alb=mix(alb,vec3(.85,.8,.6),smoothstep(.036,.03,e)); alb=mix(alb,vec3(.01),smoothstep(.026,.02,e)); }
   vec3 v=normalize(uCam-vP); vec3 r=reflect(-v,n);
   float depth=max(14.-vP.y,0.);
-  vec3 spec=vec3(.5,.8,1.)*(pow(max(r.y,0.),6.)*.55+pow(max(dot(n,v),0.),3.)*.12)*silver*exp(-depth*.05);
+  vec3 spec=vec3(.5,.8,1.)*(pow(max(r.y,0.),6.)*.55+pow(max(dot(n,v),0.),3.)*.12)*(silver+.18)*exp(-depth*.05);
   vec3 c=waterShade(alb,vP,n,0.,spec);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
@@ -596,7 +705,7 @@ void main(){ float x=vUv.x; float edge=pow(sin(x*3.14159),2.);
   float fl=.55+.45*sin(uTime*(.35+fract(vB*.37)*.4)+vB*2.1);
   float fade=pow(vUv.y,1.4)*smoothstep(0.,.12,vUv.y);
   float dw=waterLen(vP,vA);
-  vec3 c=(vA<.5?vec3(.16,.42,.58):vec3(.22,.5,.62))*edge*fade*fl*(.5+n)*exp(-dw*.04)*(vA<.5?.42:.3);
+  vec3 c=(vA<.5?vec3(.18,.48,.62):vec3(.22,.5,.62))*edge*fade*fl*(.35+1.2*n*n)*exp(-dw*.035)*(vA<.5?.62:.3);
   gl_FragColor=vec4(c,1.);
   ${OUT} }`;
 
@@ -650,20 +759,18 @@ const GLOW_VERT = `attribute float aA; attribute float aB; varying vec3 vP; vary
 void main(){ vP=position; vN=normal; vC=color; vA=aA; vB=aB; vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`;
 
 /* ───────── いきもの の 形（1 回だけ） ───────── */
-// 魚：頭が +z（z -0.5…0.5＋尾びれ -0.64 まで）、たかさ 約 0.3、はば 約 0.11。aBody＝(尾の 重み, 部位, 0)。
+// 魚：頭が +z（z -0.5…0.5＋尾びれ -0.67 まで）、たかさ 約 0.3、はば 約 0.11。aBody＝(尾の 重み, 部位 0 からだ 1 ひれ, ひれの しゅるい 1 尾 2 せ 3 しり 4/5 むな)。
 function fishGeometry() {
-  const pr = [[0.001, -0.43], [0.028, -0.40], [0.05, -0.31], [0.098, -0.16], [0.138, 0.0], [0.15, 0.12], [0.135, 0.27], [0.10, 0.38], [0.05, 0.46], [0.001, 0.5]];
+  const pr = [[0.001, -0.43], [0.026, -0.41], [0.045, -0.34], [0.075, -0.24], [0.11, -0.12], [0.138, 0.0], [0.15, 0.1], [0.143, 0.2], [0.122, 0.3], [0.092, 0.38], [0.055, 0.45], [0.02, 0.49], [0.001, 0.5]];
   const lat = new THREE.LatheGeometry(pr.map(([r, y]) => new THREE.Vector2(r, y)), 8); lat.rotateX(Math.PI / 2); lat.scale(0.36, 1, 1);
-  lat.computeVertexNormals(); const g = lat.toNonIndexed(); lat.dispose();
-  const fins = [
-    [0, 0.02, -0.40, 0, 0.25, -0.64, 0, 0.0, -0.53], [0, -0.02, -0.40, 0, 0.0, -0.53, 0, -0.25, -0.64],
-    [0, 0.14, 0.18, 0, 0.23, -0.02, 0, 0.11, -0.22], [0, -0.12, -0.02, 0, -0.18, -0.14, 0, -0.08, -0.25],
-  ];
-  const fp = new Float32Array(fins.flat()), fg = new THREE.BufferGeometry(); fg.setAttribute('position', new THREE.BufferAttribute(fp, 3)); fg.computeVertexNormals();
-  const out = mergeSimple([g, fg]);
-  const p = out.attributes.position, body = new Float32Array(p.count * 3);
-  for (let i = 0; i < p.count; i += 1) { const z = p.getZ(i); body[i * 3] = Math.min(1, Math.max(0, (0.25 - z) / 0.89)); body[i * 3 + 1] = i >= g.attributes.position.count ? 1 : 0; }
-  out.setAttribute('aBody', new THREE.BufferAttribute(body, 3)); return out;
+  lat.computeVertexNormals(); const body = lat.toNonIndexed(); lat.dispose();
+  const fan = (c, pts) => { const a = []; for (let i = 0; i < pts.length - 1; i += 1) a.push(...c, ...pts[i], ...pts[i + 1]); const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(a), 3)); g.computeVertexNormals(); return g; };
+  const tail = fan([0, 0, -0.42], [[0, 0.03, -0.40], [0, 0.27, -0.68], [0, 0.06, -0.58], [0, 0, -0.56], [0, -0.06, -0.58], [0, -0.27, -0.68], [0, -0.03, -0.40]]);
+  const dors = fan([0, 0.1, -0.02], [[0, 0.135, 0.2], [0, 0.22, 0.08], [0, 0.23, -0.06], [0, 0.19, -0.2], [0, 0.12, -0.31], [0, 0.09, -0.26]]);
+  const anal = fan([0, -0.08, -0.12], [[0, -0.1, -0.02], [0, -0.18, -0.12], [0, -0.16, -0.25], [0, -0.07, -0.32]]);
+  const pect = (s) => fan([s * 0.05, -0.03, 0.15], [[s * 0.05, -0.0, 0.17], [s * 0.15, -0.04, 0.03], [s * 0.12, -0.08, -0.0], [s * 0.05, -0.06, 0.1]]);
+  const w = (x, y, z) => Math.min(1, Math.max(0, (0.25 - z) / 0.93));
+  return mergeWithBody([withBody(body, 0, 0, 0, w), withBody(tail, 0, 1, 1, w), withBody(dors, 0, 1, 2, w), withBody(anal, 0, 1, 3, w), withBody(pect(1), 0, 1, 4, () => 0), withBody(pect(-1), 0, 1, 5, () => 0)]);
 }
 function mergeSimple(list) {
   let n = 0; for (const g of list) n += g.attributes.position.count;
@@ -775,7 +882,7 @@ export function buildAquarium(opts = {}) {
   const t0 = now(); const rnd = rng(opts.seed || 2026);
   const group = new THREE.Group(); group.name = 'aquarium';
   U.uNoise.value = noiseTexture();
-  const B = batch(), obstacles = [];
+  const B = batch(), obstacles = [], ANEMS = [];
   const ob = (x, z, w, d) => obstacles.push({ x, z, w, d });
   const WALL = 0x5a646a, WALL2 = 0x4a545a, CEIL = 0x3a4248, DARK = 0x22282c, SLAB = 0x58626a;
   const room = (g, c = WALL) => B.add('room', g, c, { aA: 0, aB: 0 });
@@ -784,14 +891,15 @@ export function buildAquarium(opts = {}) {
   const emis = (g, c) => B.add('emis', g, c);
   const glow = (g, c, shape, a = 0) => B.add('glow', g, c, { aA: a, aB: shape });
   const tank = (g, t, region, c) => B.add('tank', g, c, { aA: t, aB: region });
-  const prop = (g, t, c, sway = 0) => B.add('prop', g, c, { aA: t, aB: sway });
+  const prop = (g, t, c, sway = 0, kind = 0) => B.add('prop', g, c, { aA: t + kind / 10, aB: sway });
+  const card = (g, t, c, kind) => B.add('card', g, c, { aA: t, aB: kind });
   const whiteUV = atlasUV('white'), wu = [(whiteUV[0] + whiteUV[2]) / 2, (whiteUV[1] + whiteUV[3]) / 2];
   const solid = (g) => { const a = g.attributes.uv || new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2); for (let i = 0; i < a.count; i += 1) a.setXY(i, wu[0], wu[1]); g.setAttribute('uv', a); return g; };
 
   /* ── ゆか ── */
   const floorG = [];
   const fl = (x, z, w, d, c, hall, gloss) => B.add('floor', flatPanel(x, 0, z, w, d), c, { aA: hall, aB: gloss });
-  fl(0, -5, 26, 40, 0x1f272b, 1, 1); fl(0, 20, 16, 10, 0x5a5e5e, 0, 0.6); fl(16.65, -4.5, 6.7, 33, 0x40484c, 0, 0.9);
+  fl(0, -5, 26, 40, 0x1f272b, 1, 1); fl(0, 20, 16, 10, 0x5a5e5e, 2, 0.75); fl(16.65, -4.5, 6.7, 33, 0x40484c, 0, 0.9);
   fl(13.15, 8.5, 0.3, 5, 0x40484c, 0, 0.9);
 
   /* ── ホール ── */
@@ -868,23 +976,25 @@ export function buildAquarium(opts = {}) {
     const prof = [[W.r, -25.75], [W.r, -24.62], [W.r + 0.08, -24.42], [W.r + 0.35, -24.36], [W.R - 0.35, -24.36], [W.R - 0.08, -24.42], [W.R + 0.05, -24.7], [W.R + 0.18, -25.0]];
     const lat = new THREE.LatheGeometry(prof.map(([r, z]) => new THREE.Vector2(r, z)), 128);
     lat.rotateX(Math.PI / 2); lat.translate(0, W.y, 0); // lathe の 軸（y＝ここでは z の 値）→ z、まどの 中心へ
-    lat.computeVertexNormals(); metal(lat, 1, 0xb8c0c6);
+    lat.computeVertexNormals(); metal(lat, 1, 0x8a6a4c);
     // 内がわに 2 本目の 細い 段
     const lat2 = new THREE.LatheGeometry([[W.r + 0.42, -24.36], [W.r + 0.46, -24.30], [W.R - 0.46, -24.30], [W.R - 0.42, -24.36]].map(([r, z]) => new THREE.Vector2(r, z)), 128);
-    lat2.rotateX(Math.PI / 2); lat2.translate(0, W.y, 0); lat2.computeVertexNormals(); metal(lat2, 1, 0x9aa3a9);
-    // リベット（2 れつ）
-    for (const [rr, n] of [[W.r + 0.22, 72], [W.R - 0.2, 84]]) for (let i = 0; i < n; i += 1) {
-      const a = (i / n) * TAU, g = ell(0, 0, 0, 0.045, 0.045, 0.03, 8, 4, 0, Math.PI / 2); g.rotateX(Math.PI / 2); g.translate(Math.cos(a) * rr, W.y + Math.sin(a) * rr, rr < W.r + 0.5 ? -24.36 : -24.36); metal(g, 1, 0xd0d6da);
+    lat2.rotateX(Math.PI / 2); lat2.translate(0, W.y, 0); lat2.computeVertexNormals(); metal(lat2, 1, 0x6c5844);
+    // 六角の ボルト（2 れつ）＋ 座金
+    for (const [rr, n, sz] of [[W.r + 0.22, 60, 0.05], [W.R - 0.2, 72, 0.055]]) for (let i = 0; i < n; i += 1) {
+      const a = (i / n) * TAU, cx = Math.cos(a) * rr, cy = W.y + Math.sin(a) * rr;
+      const w = new THREE.CylinderGeometry(sz * 1.35, sz * 1.35, 0.012, 10, 1); w.rotateX(Math.PI / 2); w.translate(cx, cy, -24.354); metal(w, 1, 0x5a4838);
+      const h = new THREE.CylinderGeometry(sz, sz, 0.04, 6, 1); h.rotateX(Math.PI / 2); h.rotateZ(a); h.translate(cx, cy, -24.33); metal(h, 1, 0xa08262);
     }
     // 内の ふちの 光（青みどり）
-    const rim = new THREE.RingGeometry(W.r - 0.0, W.r + 0.075, 128, 1); rim.translate(0, W.y, -24.41); emis(solid(rim), [0.35, 1.5, 1.7]);
+    const rim = new THREE.RingGeometry(W.r - 0.0, W.r + 0.09, 128, 1); rim.translate(0, W.y, -24.41); emis(solid(rim), [0.75, 2.4, 2.6]);
     const rim2 = new THREE.CylinderGeometry(W.r - 0.005, W.r - 0.005, 1.0, 128, 1, true); rim2.rotateX(Math.PI / 2); rim2.translate(0, W.y, -25.15); emis(solid(rim2), [0.04, 0.32, 0.42]);
     // アクリル（まど）
     const disk = new THREE.CircleGeometry(W.r, 96); disk.translate(0, W.y, -25.3); glass(disk, 0);
     // まわりの にじみ
-    glow(solid(panel(0, W.y, -24.3, 16, 16, 0)), [0.05, 0.3, 0.42], 1, (W.R + 0.05) / 8);
+    glow(solid(panel(0, W.y, -24.3, 17, 17, 0)), [0.07, 0.40, 0.55], 1, (W.R + 0.05) / 8.5);
     // 床の 光だまり（まどの 下）
-    const pool = flatPanel(0, 0.012, -22.5, 14, 6); glow(solid(pool), [0.02, 0.10, 0.14], 0);
+    const pool = flatPanel(0, 0.012, -22.8, 12, 4.4); glow(solid(pool), [0.012, 0.06, 0.08], 0);
   }
 
   /* ── 水そう 0（まどの おく） ── */
@@ -912,22 +1022,40 @@ export function buildAquarium(opts = {}) {
     prop(box(0, 9.4, -38.5, 6.4, 0.8, 1.3), 0, 0xb5a78a); // まぐさ石
     { const g = new THREE.CylinderGeometry(0.55, 0.55, 5.2, 20, 1); g.rotateZ(Math.PI / 2); g.rotateY(0.5); g.translate(1.8, 0.35, -31.5); prop(g, 0, 0xb2a487); }
     for (let i = 0; i < 9; i += 1) { const g = box(0, 0, 0, 0.6 + rnd() * 0.9, 0.4 + rnd() * 0.5, 0.5 + rnd() * 0.8); g.rotateY(rnd() * 3); g.rotateZ((rnd() - 0.5) * 0.4); g.translate(-7 + rnd() * 14, -0.15, -30 - rnd() * 10); prop(g, 0, 0xa9997b); }
-    // さんご
-    const CORAL = [0xff7a3a, 0xa45fc8, 0xff6f9a, 0xe8c040, 0xd0403a, 0x48b8a8, 0xff9a5a];
-    const branchy = (x, y, z, s, c) => { for (let k = 0; k < 9; k += 1) { const a = rnd() * TAU, tl = 0.25 + rnd() * 0.5; const e = [x + Math.cos(a) * 0.35 * s * tl, y + (0.5 + rnd() * 0.5) * s, z + Math.sin(a) * 0.35 * s * tl]; prop(limb([x, y, z], e, 0.06 * s, 0.035 * s, 5), 0, c, 0); for (let m = 0; m < 2; m += 1) { const b = rnd() * TAU; prop(limb(e, [e[0] + Math.cos(b) * 0.18 * s, e[1] + (0.2 + rnd() * 0.2) * s, e[2] + Math.sin(b) * 0.18 * s], 0.035 * s, 0.02 * s, 4), 0, c, 0); } } };
-    const brain = (x, y, z, s, c) => { const g = rock(x, y, z, 0.6 * s, 0.42 * s, 0.6 * s, x * 7 + z, { detail: 2, rough: 0.12, flat: -0.2 }); prop(g, 0, c); };
-    const table = (x, y, z, s, c) => { prop(cyl(x, y, z, 0.07 * s, 0.1 * s, 0.5 * s, 6), 0, c); const g = new THREE.CylinderGeometry(0.85 * s, 0.25 * s, 0.12 * s, 12, 1); g.translate(x, y + 0.55 * s, z); prop(g, 0, c); };
+    // 手前の 岩の 尾根（ガラスの すぐ おく・左右）＝ さんごの 台
+    const ridge = [[-8.6, -26.9, 1.9, 1.2, 1.1], [-6.2, -27.2, 1.6, 0.9, 1.0], [-10.6, -27.4, 1.5, 1.6, 1.2], [6.4, -26.9, 1.7, 1.0, 1.0], [8.7, -27.3, 1.9, 1.4, 1.2], [10.8, -27.8, 1.4, 1.9, 1.3], [-3.2, -26.6, 0.9, 0.45, 0.7], [3.4, -26.7, 1.0, 0.5, 0.75]];
+    ridge.forEach(([x, z, sx, sy, sz], i) => prop(rock(x, -0.2, z, sx, sy, sz, 40 + i * 2.7, { detail: 2, rough: 0.33 }), 0, [0x5c544a, 0x6a5e50, 0x4e4a44][i % 3]));
+    // さんご（色と 形の しゅるい）
+    const STAG = [0xb070d0, 0xe8d6b8, 0x6fa0d8, 0xd8a050, 0xf09ab0, 0x9ad0a0], BRAIN = [0x8aa040, 0xc8a050, 0x7a9a7a, 0xd07a50, 0xb0b060], TABLE = [0x9a8a6a, 0x80a090, 0xc0a070, 0x8a7ab0];
+    const WHIP = [0xff6a2a, 0xe8c040, 0xd0403a, 0xff9a5a], FAN = [0xa03a8a, 0xd0402a, 0xff8a2a, 0xe8c040, 0x8a4ab0, 0xc85070], ANEM = [0xd890c0, 0x80d0b0, 0xf0b070, 0xb0a0f0];
+    const pickc = (a) => a[Math.floor(rnd() * a.length)];
+    const branchy = (x, y, z, s, c) => { // えだサンゴ（3 だん）
+      const grow = (p0, dir, len, r, depth) => { const e = [p0[0] + dir[0] * len, p0[1] + dir[1] * len, p0[2] + dir[2] * len]; prop(limb(p0, e, r, r * 0.72, depth > 1 ? 5 : 4), 0, c, depth / 3, 2);
+        if (depth >= 3) return; const nb = 2; for (let m = 0; m < nb; m += 1) { const b = rnd() * TAU, sp = 0.45 + rnd() * 0.35; const d = [dir[0] * 0.6 + Math.cos(b) * sp, dir[1] * 0.75 + 0.25, dir[2] * 0.6 + Math.sin(b) * sp], l = Math.hypot(...d); grow(e, d.map((v) => v / l), len * (0.62 + rnd() * 0.2), r * 0.7, depth + 1); } };
+      for (let k = 0; k < 3; k += 1) { const a = rnd() * TAU; const d = [Math.cos(a) * 0.45, 1, Math.sin(a) * 0.45], l = Math.hypot(...d); grow([x, y, z], d.map((v) => v / l), 0.42 * s, 0.055 * s, 1); } };
+    const brain = (x, y, z, s, c) => prop(rock(x, y, z, 0.6 * s, 0.42 * s, 0.6 * s, x * 7 + z, { detail: 2, rough: 0.1, flat: -0.2 }), 0, c, 0, 1);
+    const table = (x, y, z, s, c) => { prop(cyl(x, y, z, 0.07 * s, 0.1 * s, 0.5 * s, 6), 0, c, 0, 3); const g = new THREE.CylinderGeometry(0.85 * s, 0.25 * s, 0.12 * s, 16, 1); g.translate(x, y + 0.55 * s, z); prop(g, 0, c, 0, 3); };
     const whip = (x, y, z, h, c) => { const n = 5; let px = x, py = y, pz = z; for (let k = 0; k < n; k += 1) { const nx = px + (rnd() - 0.5) * 0.15, ny = py + h / n, nz = pz + (rnd() - 0.5) * 0.15; const g = limb([px, py, pz], [nx, ny, nz], 0.03 * (1 - k / n) + 0.008, 0.03 * (1 - (k + 1) / n) + 0.006, 4); prop(g, 0, c, (k + 0.5) / n * 0.7); px = nx; py = ny; pz = nz; } };
-    const kelp = (x, z, h) => { const seg = 10; for (let k = 0; k < seg; k += 1) { const y0 = (k / seg) * h - 0.2, y1 = ((k + 1) / seg) * h - 0.2, w = 0.28; const g = quad4([x - w / 2, y0, z], [x + w / 2, y0, z], [x + w / 2, y1, z + 0.05], [x - w / 2, y1, z + 0.05]); g.rotateY(rnd() * 3); prop(g, 0, 0x6a7a2a, Math.min(1, (y0 + 0.2) / h + 0.1)); } };
-    const reef = [[-10, -29, 2.2], [-8.3, -31.5, 3.0], [9.6, -29.5, 1.9], [10.8, -32.4, 4.9], [-11.2, -33.8, 4.2], [8, -35, 1.5], [0.5, -28.6, 0.6], [-5.5, -27.6, 0.5], [5.5, -27.4, 0.45]];
+    const fan = (x, y, z, w, h, c) => { const g = new THREE.PlaneGeometry(w, h, 3, 4); g.translate(0, h / 2, 0); g.rotateY(rnd() * 0.9 - 0.45); g.rotateX((rnd() - 0.5) * 0.25); g.translate(x, y, z); card(g, 0, c, 0); };
+    const kelp = (x, z, h) => { for (let k = 0; k < 3; k += 1) { const g = new THREE.PlaneGeometry(0.42, h, 1, 12); g.translate(0, h / 2 - 0.2, 0); g.rotateY(rnd() * 3); g.translate(x + (rnd() - 0.5) * 0.4, 0, z + (rnd() - 0.5) * 0.4); card(g, 0, [0x7a8a2a, 0x8a7a30, 0x6a7a2a][k], 1); } };
+    const pen = (x, y, z, h, c) => { for (let k = 0; k < 2; k += 1) { const g = new THREE.PlaneGeometry(h * 0.45, h, 1, 4); g.translate(0, h / 2, 0); g.rotateY(k * Math.PI / 2 + rnd()); g.translate(x, y, z); card(g, 0, c, 2); } };
+    const anemone = (x, y, z, s, c) => { ANEMS.push([x, y + 0.22 * s, z]); prop(cyl(x, y - 0.05, z, 0.13 * s, 0.16 * s, 0.14 * s, 10), 0, 0x8a5a50); const g = new THREE.CylinderGeometry(0.32 * s, 0.12 * s, 0.3 * s, 16, 3, true); g.translate(x, y + 0.22 * s, z); card(g, 0, c, 3); };
+    const reef = [[-10, -29, 2.2], [-8.3, -31.5, 3.0], [9.6, -29.5, 1.9], [10.8, -32.4, 4.9], [-11.2, -33.8, 4.2], [8, -35, 1.5], [0.5, -28.6, 0.6], [-5.5, -27.6, 0.5], [5.5, -27.4, 0.45],
+      [-8.6, -26.9, 1.2], [-6.2, -27.2, 0.85], [-10.6, -27.4, 1.6], [6.4, -26.9, 1.0], [8.7, -27.3, 1.4], [10.8, -27.8, 1.9]];
     reef.forEach(([x, z, h], i) => {
-      for (let k = 0; k < 5; k += 1) {
-        const a = rnd() * TAU, rr = 0.3 + rnd() * 1.2, cx = x + Math.cos(a) * rr, cz = z + Math.sin(a) * rr, c = CORAL[Math.floor(rnd() * CORAL.length)], y = h * (0.55 + rnd() * 0.3);
-        const kind = (i + k) % 4; if (kind === 0) branchy(cx, y, cz, 0.8 + rnd() * 0.5, c); else if (kind === 1) brain(cx, y, cz, 0.7 + rnd() * 0.6, c); else if (kind === 2) table(cx, y, cz, 0.8 + rnd() * 0.5, c); else whip(cx, y, cz, 1.0 + rnd() * 1.2, c);
+      const n = i >= 9 ? 7 : 5;
+      for (let k = 0; k < n; k += 1) {
+        const a = rnd() * TAU, rr = 0.2 + rnd() * (i >= 9 ? 0.9 : 1.2), cx = x + Math.cos(a) * rr, cz = z + Math.sin(a) * rr, y = h * (0.55 + rnd() * 0.3);
+        const kind = (i + k) % 7;
+        if (kind === 0 || kind === 4) branchy(cx, y, cz, 0.8 + rnd() * 0.5, pickc(STAG)); else if (kind === 1) brain(cx, y, cz, 0.6 + rnd() * 0.5, pickc(BRAIN)); else if (kind === 2) table(cx, y, cz, 0.7 + rnd() * 0.5, pickc(TABLE));
+        else if (kind === 3) fan(cx, y - 0.1, cz, 1.0 + rnd() * 0.9, 0.9 + rnd() * 0.8, pickc(FAN)); else if (kind === 5) anemone(cx, y, cz, 1 + rnd() * 0.6, pickc(ANEM)); else whip(cx, y, cz, 1.0 + rnd() * 1.2, pickc(WHIP));
       }
     });
-    for (let i = 0; i < 9; i += 1) kelp(-12.5 + rnd() * 3 + (i > 4 ? 22 : 0), -27.5 - rnd() * 12, 5 + rnd() * 6);
-    for (let i = 0; i < 26; i += 1) { const x = -9 + rnd() * 18, z = -27 - rnd() * 15; if (Math.abs(x) < 3 && z > -33) continue; const c = CORAL[Math.floor(rnd() * CORAL.length)]; if (i % 3 === 0) brain(x, 0.05, z, 0.5 + rnd() * 0.4, c); else if (i % 3 === 1) whip(x, 0, z, 0.6 + rnd(), c); else branchy(x, 0, z, 0.6 + rnd() * 0.4, c); }
+    for (let i = 0; i < 12; i += 1) kelp(i < 6 ? -12.6 + rnd() * 3.2 : 9.6 + rnd() * 3.2, -28 - rnd() * 13, 5 + rnd() * 7);
+    for (let i = 0; i < 34; i += 1) { const x = -9.5 + rnd() * 19, z = -27.3 - rnd() * 15; if (Math.abs(x) < 3 && z > -33) continue; const k = i % 6;
+      if (k === 0) brain(x, 0.05, z, 0.5 + rnd() * 0.4, pickc(BRAIN)); else if (k === 1) whip(x, 0, z, 0.6 + rnd(), pickc(WHIP)); else if (k === 2) branchy(x, 0, z, 0.6 + rnd() * 0.4, pickc(STAG)); else if (k === 3) fan(x, 0, z, 0.8 + rnd() * 0.8, 0.8 + rnd() * 0.9, pickc(FAN)); else if (k === 4) pen(x, 0, z, 0.5 + rnd() * 0.5, 0xf0c070); else anemone(x, 0.1, z, 0.9 + rnd() * 0.5, pickc(ANEM)); }
+    // とおくの 岩の 影（奥行きの 層）
+    for (let i = 0; i < 7; i += 1) prop(rock(-12 + i * 4 + (rnd() - 0.5) * 2, -0.2, -42.5 + rnd() * 1.5, 1.6 + rnd(), 2 + rnd() * 3.5, 1.2, 90 + i, { detail: 1, rough: 0.3 }), 0, 0x4a5050);
   }
 
   /* ── ペンギンの ろうか ── */
@@ -1023,8 +1151,8 @@ export function buildAquarium(opts = {}) {
 
   /* ── 光の すじ ── */
   const R = batch();
-  for (let i = 0; i < 11; i += 1) {
-    const x = -10 + i * 2 + (rnd() - 0.5) * 1.2, z = -28.5 - rnd() * 11, w = 0.7 + rnd() * 1.8, tilt = 0.18;
+  for (let i = 0; i < 17; i += 1) {
+    const x = -11 + i * 1.35 + (rnd() - 0.5) * 1.0, z = -27 - rnd() * 13, w = i % 3 === 0 ? 1.6 + rnd() * 1.6 : 0.35 + rnd() * 0.7, tilt = 0.18;
     const top = [x, 14, z], bot = [x - tilt * 14, 0, z + 0.5];
     const g = quad4([bot[0] - w / 2, bot[1], bot[2]], [bot[0] + w / 2, bot[1], bot[2]], [top[0] + w * 0.35, top[1], top[2]], [top[0] - w * 0.35, top[1], top[2]], [0, 0, 1, 1]);
     R.add('rays', g, 0xffffff, { aA: 0, aB: i });
@@ -1044,6 +1172,7 @@ export function buildAquarium(opts = {}) {
   const floorTex = floorTexture(), atlas = atlasTexture();
   put('tank', B.build('tank'), shader('tank', VBASIC, TANK_FRAG));
   put('prop', B.build('prop'), shader('prop', PROP_VERT, PROP_FRAG));
+  put('card', B.build('card'), shader('card', CARD_VERT, CARD_FRAG));
   put('room', B.build('room'), shader('room', VBASIC, ROOM_FRAG));
   put('floor', B.build('floor'), shader('floor', VBASIC, FLOOR_FRAG, { uniforms: { uFloor: { value: floorTex }, uHasFloor: { value: floorTex ? 1 : 0 } } }));
   put('metal', B.build('metal'), shader('metal', VBASIC, METAL_FRAG));
@@ -1056,19 +1185,30 @@ export function buildAquarium(opts = {}) {
   /* ── 魚 ── */
   const fishBase = fishGeometry();
   const fishList = [];
-  // ① イワシの むれ（まわる たま）
-  for (let i = 0; i < 280; i += 1) { const R0 = 1.6 + Math.pow(rnd(), 0.7) * 2.4; fishList.push({ c: [0.8, 7.2 + (rnd() - 0.5) * 2.6, -32.2], R: R0, Rz: R0 * 0.82, sp: 0.46 + rnd() * 0.05, ph: rnd() * TAU, A: 0.15 + rnd() * 0.35, k: 0, L: 0.26 + rnd() * 0.07, D: 0.8, Wd: 0.9 }); }
-  // ② さんごの 魚
-  const reefSp = [1, 1, 2, 2, 3, 3, 3, 5];
-  for (let i = 0; i < 64; i += 1) { const k = reefSp[i % reefSp.length], R0 = 0.6 + rnd() * 2.4, c = [-9 + rnd() * 18, 1.1 + rnd() * 3.6, -28.5 - rnd() * 9.5]; fishList.push({ c, R: R0, Rz: R0 * (0.5 + rnd() * 0.6), sp: (rnd() > 0.5 ? 1 : -1) * (0.25 + rnd() * 0.25) * 1.4 / (0.6 + R0 * 0.5), ph: rnd() * TAU, A: 0.2 + rnd() * 0.4, k, L: k === 3 ? 0.2 + rnd() * 0.05 : 0.24 + rnd() * 0.08, D: k === 3 ? 1.5 : k === 5 ? 1.9 : 1.8, Wd: 0.55 }); }
-  // ③ アジの なかま（大きな 銀色）
-  for (let i = 0; i < 12; i += 1) { const R0 = 6.2 + rnd() * 1.5; fishList.push({ c: [0.5, 4.2 + rnd() * 2.5, -33.5], R: R0, Rz: R0 * 0.62, sp: -0.17 - rnd() * 0.02, ph: 1.0 + rnd() * 0.9, A: 0.5, k: 4, L: 0.75 + rnd() * 0.2, D: 1.25, Wd: 0.8 }); }
+  const F0 = (o) => fishList.push({ G: o.ph * 3, br: 0, dr: 0, ...o });
+  // ① イワシの 大きな むれ：みんな 同じ はやさ・位相は 1.3 rad の 中＝ひとかたまりで まわり、ふくらんだり ちぢんだり する
+  for (let i = 0; i < 200; i += 1) { const u = rnd(), v = rnd(), w = rnd(); const off = [(u - 0.5) * 1.3, (v - 0.5) * 1.1, (w - 0.5) * 1.3];
+    fishList.push({ c: [1.0 + off[0], 7.6 + off[1], -33.2 + off[2]], R: 4.4, Rz: 3.3, sp: 0.36, ph: rnd() * 1.3 + Math.pow(rnd(), 3) * 0.6, A: 0.7, k: 0, L: 0.25 + rnd() * 0.05, D: 0.85, Wd: 0.9, G: 0.8, br: 0.14, dr: 1.4 }); }
+  // ② タカサゴの むれ（ぎゃくまわり・ひくい ところ）
+  for (let i = 0; i < 110; i += 1) { const off = [(rnd() - 0.5) * 1.2, (rnd() - 0.5) * 0.8, (rnd() - 0.5) * 1.2];
+    fishList.push({ c: [-1.5 + off[0], 3.6 + off[1], -31.5 + off[2]], R: 3.6, Rz: 2.4, sp: -0.48, ph: rnd() * 1.1, A: 0.45, k: 9, L: 0.3 + rnd() * 0.05, D: 1.0, Wd: 0.8, G: 2.2, br: 0.12, dr: 1.0 }); }
+  // ③ さんごの 魚（ひとりずつ）
+  const reefSp = [1, 1, 2, 2, 3, 5, 5, 8, 7, 1, 2, 3];
+  for (let i = 0; i < 52; i += 1) { const k = reefSp[i % reefSp.length], R0 = 0.6 + rnd() * 2.4, c = [-9 + rnd() * 18, 1.1 + rnd() * 3.6, -28.5 - rnd() * 9.5];
+    F0({ c, R: R0, Rz: R0 * (0.5 + rnd() * 0.6), sp: (rnd() > 0.5 ? 1 : -1) * (0.25 + rnd() * 0.25) * 1.4 / (0.6 + R0 * 0.5), ph: rnd() * TAU, A: 0.2 + rnd() * 0.4, k, L: k === 3 ? 0.26 + rnd() * 0.05 : k === 7 ? 0.45 : 0.24 + rnd() * 0.08, D: 1.0, Wd: k === 7 ? 0.85 : 0.6 }); }
+  // ④ クマノミ（いそぎんちゃくの まわりを 小さく）
+  ANEMS.forEach(([x, y, z], i) => { for (let m = 0; m < (i % 2 ? 1 : 2); m += 1) F0({ c: [x, y + 0.35, z], R: 0.22 + rnd() * 0.12, Rz: 0.18, sp: (m ? -1 : 1) * (0.9 + rnd() * 0.4), ph: rnd() * TAU, A: 0.06, k: 6, L: 0.13, D: 1, Wd: 0.75 }); });
+  // ⑤ ガラスの すぐ おくを よこぎる 大きな 魚（くっきり 見える）
+  const near = [[7, 2.2], [8, 3.6], [3, 1.6], [1, 4.4], [7, 2.8], [8, 1.4], [5, 3.2], [3, 2.6], [1, 5.0], [7, 4.2]];
+  near.forEach(([k, y], i) => F0({ c: [(rnd() - 0.5) * 2, y, -27.0 - rnd() * 0.6], R: 5 + rnd() * 3, Rz: 0.6 + rnd() * 0.6, sp: (i % 2 ? 1 : -1) * (0.09 + rnd() * 0.05), ph: rnd() * TAU, A: 0.25, k, L: k === 7 ? 0.95 : k === 8 ? 0.6 : 0.5, D: 1, Wd: k === 7 ? 0.9 : 0.6 }));
+  // ⑥ アジの なかま（大きな 銀色・ゆるい むれ）
+  for (let i = 0; i < 12; i += 1) { const R0 = 6.2 + rnd() * 1.0; fishList.push({ c: [0.5, 4.6 + rnd() * 1.6, -33.5], R: R0, Rz: R0 * 0.62, sp: -0.17, ph: 1.0 + rnd() * 0.7, A: 0.5, k: 4, L: 0.75 + rnd() * 0.2, D: 1.0, Wd: 0.8, G: 3.1, br: 0.05, dr: 0.8 }); }
   const NF = fishList.length;
   const fishGeo = new THREE.InstancedBufferGeometry();
   for (const k of ['position', 'normal', 'aBody']) fishGeo.setAttribute(k, fishBase.attributes[k]);
-  const iPath = new Float32Array(NF * 4), iPar = new Float32Array(NF * 4), iShape = new Float32Array(NF * 4);
-  fishList.forEach((f, i) => { iPath.set([...f.c, f.R], i * 4); iPar.set([f.sp, f.ph, f.A, f.k], i * 4); iShape.set([f.Rz, f.L, f.D, f.Wd], i * 4); });
-  fishGeo.setAttribute('aPath', new THREE.InstancedBufferAttribute(iPath, 4)); fishGeo.setAttribute('aPar', new THREE.InstancedBufferAttribute(iPar, 4)); fishGeo.setAttribute('aShape', new THREE.InstancedBufferAttribute(iShape, 4));
+  const iPath = new Float32Array(NF * 4), iPar = new Float32Array(NF * 4), iShape = new Float32Array(NF * 4), iX = new Float32Array(NF * 4);
+  fishList.forEach((f, i) => { iPath.set([...f.c, f.R], i * 4); iPar.set([f.sp, f.ph, f.A, f.k], i * 4); iShape.set([f.Rz, f.L, f.D, f.Wd], i * 4); iX.set([f.G, f.br, f.dr, 0], i * 4); });
+  fishGeo.setAttribute('aPath', new THREE.InstancedBufferAttribute(iPath, 4)); fishGeo.setAttribute('aPar', new THREE.InstancedBufferAttribute(iPar, 4)); fishGeo.setAttribute('aShape', new THREE.InstancedBufferAttribute(iShape, 4)); fishGeo.setAttribute('aX', new THREE.InstancedBufferAttribute(iX, 4));
   fishGeo.instanceCount = NF;
   const fishMat = shader('fish', FISH_VERT, FISH_FRAG, { vertexColors: false });
   const fish = put('fish', fishGeo, fishMat);
@@ -1076,13 +1216,13 @@ export function buildAquarium(opts = {}) {
   // 大きな いきもの（エイ 2・カメ 1・サメ 2）：1 つの 形に まとめて、頂点に 道を もたせる。
   {
     const list = [];
-    const one = (g, path, par, shape) => { const n = g.attributes.position.count; const a = new Float32Array(n * 4), b = new Float32Array(n * 4), c = new Float32Array(n * 4); for (let i = 0; i < n; i += 1) { a.set(path, i * 4); b.set(par, i * 4); c.set(shape, i * 4); } g.setAttribute('aPath', new THREE.BufferAttribute(a, 4)); g.setAttribute('aPar', new THREE.BufferAttribute(b, 4)); g.setAttribute('aShape', new THREE.BufferAttribute(c, 4)); list.push(g); };
+    const one = (g, path, par, shape) => { const n = g.attributes.position.count; const a = new Float32Array(n * 4), b = new Float32Array(n * 4), c = new Float32Array(n * 4), x = new Float32Array(n * 4); for (let i = 0; i < n; i += 1) { a.set(path, i * 4); b.set(par, i * 4); c.set(shape, i * 4); x.set([par[1] * 3, 0, 0, 0], i * 4); } g.setAttribute('aPath', new THREE.BufferAttribute(a, 4)); g.setAttribute('aPar', new THREE.BufferAttribute(b, 4)); g.setAttribute('aShape', new THREE.BufferAttribute(c, 4)); g.setAttribute('aX', new THREE.BufferAttribute(x, 4)); list.push(g); };
     one(rayGeometry(), [0, 4.6, -34, 7.2], [0.085, 0.3, 1.1, 10], [5.2, 2.6, 1, 1]);
     one(rayGeometry(), [-1, 2.4, -33, 5.5], [-0.11, 2.4, 0.6, 10], [4.0, 1.7, 1, 1]);
     one(turtleGeometry(), [-3.5, 6.4, -31.5, 4.2], [0.12, 1.1, 0.9, 11], [3.0, 1.25, 1, 1]);
     one(sharkGeometry(), [0.5, 3.4, -35, 8.8], [0.095, 4.0, 0.6, 13], [5.6, 2.3, 1, 1]);
     one(sharkGeometry(), [0, 5.8, -34, 8.0], [-0.08, 1.7, 0.8, 13], [5.0, 1.9, 1, 1]);
-    put('big', mergeAttrs(list, ['position', 'normal', 'aBody', 'aPath', 'aPar', 'aShape']), fishMat);
+    put('big', mergeAttrs(list, ['position', 'normal', 'aBody', 'aPath', 'aPar', 'aShape', 'aX']), fishMat);
   }
 
   /* ── ペンギン ── */

@@ -138,22 +138,44 @@ function equirect(t) { if (t) { t.mapping = THREE.EquirectangularReflectionMappi
 // 外の 空（512×256・正距円筒）。上＝天頂・まんなか＝地平線（遠くの 木と 建物）・下＝地面。太陽は (-0.47, 0.74, 0.40) の むき。
 function envExterior() {
   const rnd = rng(5);
-  const t = tex(512, 256, (g, W, H) => {
-    const sky = g.createLinearGradient(0, 0, 0, H / 2); sky.addColorStop(0, '#2f6db6'); sky.addColorStop(0.45, '#5f98d4'); sky.addColorStop(0.85, '#a9c9e6'); sky.addColorStop(1, '#dbe7ee');
+  const t = tex(1024, 512, (g, W2, H2) => {
+    g.scale(W2 / 512, H2 / 256); const W = 512, H = 256;
+    // 2026-11 その 2：天頂は こい 青・地平線は 白っぽく（ガラスに うつる 空が いちばん 写真らしく 見える 所）。
+    const sky = g.createLinearGradient(0, 0, 0, H / 2); sky.addColorStop(0, '#1d58a8'); sky.addColorStop(0.35, '#3f80c8'); sky.addColorStop(0.72, '#78aadc'); sky.addColorStop(0.9, '#a3c6e6'); sky.addColorStop(0.985, '#d6e4ef'); sky.addColorStop(1, '#e2ebf0');
     g.fillStyle = sky; g.fillRect(0, 0, W, H / 2);
-    const sx = 0.888 * W, sy = 0.235 * H, sg = g.createRadialGradient(sx, sy, 0, sx, sy, 90); sg.addColorStop(0, 'rgba(255,250,235,0.95)'); sg.addColorStop(0.12, 'rgba(255,245,220,0.5)'); sg.addColorStop(1, 'rgba(255,240,210,0)');
+    const sx = 0.888 * W, sy = 0.235 * H, sg = g.createRadialGradient(sx, sy, 0, sx, sy, 90); sg.addColorStop(0, 'rgba(255,250,235,1)'); sg.addColorStop(0.08, 'rgba(255,245,220,0.6)'); sg.addColorStop(1, 'rgba(255,240,210,0)');
     g.fillStyle = sg; g.fillRect(0, 0, W, H / 2);
-    // 雲：地平線に ちかいほど ひらたく 小さく。
-    for (let i = 0; i < 70; i += 1) {
-      const y = 18 + Math.pow(rnd(), 0.7) * 100, x = rnd() * W, k = 1 - y / 128, rx = 14 + rnd() * 40 * (0.5 + k), ry = rx * (0.22 + k * 0.3);
-      for (const ox of [-W, 0, W]) { const cg = g.createRadialGradient(x + ox, y, 0, x + ox, y, rx); cg.addColorStop(0, `rgba(255,255,255,${0.35 + rnd() * 0.4})`); cg.addColorStop(1, 'rgba(255,255,255,0)'); g.save(); g.translate(x + ox, y); g.scale(1, ry / rx); g.translate(-(x + ox), -y); g.fillStyle = cg; g.fillRect(x + ox - rx, y - rx, rx * 2, rx * 2); g.restore(); }
+    // 雲：もくもく（上が 白く 下が 灰色の かげ）。地平線に ちかいほど ひらたく 小さく。
+    const puff = (x, y, rx, ry, a, shade) => {
+      for (const ox of [-W, 0, W]) {
+        const cx = x + ox; g.save(); g.translate(cx, y); g.scale(1, ry / rx); g.translate(-cx, -y);
+        const cg = g.createRadialGradient(cx, y - rx * 0.25, 0, cx, y, rx); const l = shade ? 196 : 255, l2 = shade ? 205 : 252;
+        cg.addColorStop(0, `rgba(${l},${l2},${shade ? 214 : 250},${a})`); cg.addColorStop(0.55, `rgba(${l},${l2},${shade ? 216 : 250},${a * 0.6})`); cg.addColorStop(1, `rgba(${l},${l2},255,0)`);
+        g.fillStyle = cg; g.fillRect(cx - rx, y - rx, rx * 2, rx * 2); g.restore();
+      }
+    };
+    for (let i = 0; i < 26; i += 1) {
+      const y = 30 + Math.pow(rnd(), 0.6) * 88, x = rnd() * W, k = 1 - y / 128, R = 10 + rnd() * 26 * (0.5 + k), n = 4 + Math.floor(rnd() * 5);
+      for (let j = 0; j < n; j += 1) puff(x + (rnd() - 0.5) * R * 2.4, y + R * 0.28, R * (0.6 + rnd() * 0.5), R * (0.25 + k * 0.2), 0.5, true);
+      for (let j = 0; j < n; j += 1) puff(x + (rnd() - 0.5) * R * 2.2, y - rnd() * R * 0.35, R * (0.45 + rnd() * 0.5), R * (0.3 + k * 0.25), 0.55 + rnd() * 0.35, false);
     }
-    // 地面
-    const gr = g.createLinearGradient(0, H / 2, 0, H); gr.addColorStop(0, '#8c8d84'); gr.addColorStop(0.25, '#6d6c63'); gr.addColorStop(1, '#4a4943'); g.fillStyle = gr; g.fillRect(0, H / 2, W, H / 2);
-    // 遠くの 建物と 木（かすんで いる）。
-    for (let i = 0; i < 26; i += 1) { const x = rnd() * W, w = 10 + rnd() * 30, h = 4 + rnd() * 14; g.fillStyle = `rgba(${150 + rnd() * 30},${158 + rnd() * 25},${165 + rnd() * 20},0.9)`; g.fillRect(x, H / 2 - h, w, h + 2); }
-    for (let x = -4; x < W + 4; x += 2) { const h = 6 + Math.sin(x * 0.05) * 3 + Math.sin(x * 0.17 + 1) * 2 + rnd() * 3; g.fillStyle = `rgba(${74 + rnd() * 20},${96 + rnd() * 20},${78 + rnd() * 16},0.95)`; g.beginPath(); g.arc(x, H / 2 - h + 4, 3 + rnd() * 4, 0, Math.PI * 2); g.fill(); g.fillRect(x - 2, H / 2 - h + 4, 5, h); }
-    const hz = g.createLinearGradient(0, H / 2 - 16, 0, H / 2 + 6); hz.addColorStop(0, 'rgba(220,232,238,0)'); hz.addColorStop(0.7, 'rgba(220,232,238,0.35)'); hz.addColorStop(1, 'rgba(200,210,214,0)'); g.fillStyle = hz; g.fillRect(0, H / 2 - 16, W, 22);
+    for (let i = 0; i < 18; i += 1) { const y = 8 + rnd() * 40, x = rnd() * W; puff(x, y, 30 + rnd() * 50, 3 + rnd() * 4, 0.25, false); }   // すじ雲
+    // 地面：とおくは 歩道の 明るい 灰色、ちかくは アスファルト。
+    const gr = g.createLinearGradient(0, H / 2, 0, H); gr.addColorStop(0, '#9a988f'); gr.addColorStop(0.12, '#7c7a72'); gr.addColorStop(0.3, '#55565a'); gr.addColorStop(1, '#3a3b3e'); g.fillStyle = gr; g.fillRect(0, H / 2, W, H / 2);
+    // 遠くの 建物（かすむ）。
+    for (let i = 0; i < 30; i += 1) { const x = rnd() * W, w = 10 + rnd() * 30, h = 5 + rnd() * 16; g.fillStyle = `rgba(${150 + rnd() * 30},${160 + rnd() * 25},${170 + rnd() * 20},0.85)`; g.fillRect(x, H / 2 - h, w, h + 2); }
+    // 道の むこうの 低い 建物（まどの ならび・看板）＝ガラスに うつる「まわり」。
+    for (let x = -10; x < W + 10;) {
+      const w = 18 + rnd() * 34, h = 8 + rnd() * 16, c = [[214, 206, 192], [188, 190, 192], [150, 140, 128], [226, 222, 214], [120, 126, 136]][Math.floor(rnd() * 5)];
+      g.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`; g.fillRect(x, H / 2 - h, w, h + 3);
+      g.fillStyle = 'rgba(40,52,66,0.55)'; for (let yy = H / 2 - h + 2; yy < H / 2 - 2; yy += 3.4) for (let xx = x + 1.5; xx < x + w - 2; xx += 3.2) g.fillRect(xx, yy, 2, 1.8);
+      if (rnd() < 0.5) { g.fillStyle = ['#c9406e', '#2a69ad', '#e08a22', '#178a74', '#f2c230'][Math.floor(rnd() * 5)]; g.fillRect(x + 2, H / 2 - h - 1, Math.min(14, w - 4), 2.5); }
+      x += w + rnd() * 4;
+    }
+    // 街路樹（こい みどり・ところどころ 光る）。
+    for (let x = -4; x < W + 4; x += 3) { const h = 8 + Math.sin(x * 0.05) * 3 + Math.sin(x * 0.17 + 1) * 2 + rnd() * 4; const l = rnd(); g.fillStyle = `rgba(${54 + l * 40},${80 + l * 50},${50 + l * 24},0.96)`; g.beginPath(); g.arc(x, H / 2 - h + 4, 3 + rnd() * 5, 0, Math.PI * 2); g.fill(); g.fillStyle = 'rgba(60,48,38,0.9)'; g.fillRect(x - 0.5, H / 2 - h + 6, 1.2, h - 2); }
+    for (let x = 0; x < W; x += 8 + rnd() * 18) { g.fillStyle = 'rgba(40,40,44,0.9)'; g.fillRect(x, H / 2 - 9, 0.8, 9); }   // 街灯の 柱
+    const hz = g.createLinearGradient(0, H / 2 - 18, 0, H / 2 + 6); hz.addColorStop(0, 'rgba(220,232,238,0)'); hz.addColorStop(0.7, 'rgba(220,232,238,0.3)'); hz.addColorStop(1, 'rgba(200,210,214,0)'); g.fillStyle = hz; g.fillRect(0, H / 2 - 18, W, 24);
   }, { repeat: false });
   return track('envExt', equirect(t), false);
 }
@@ -314,12 +336,15 @@ function floorQuad(x, y, z, w, d, cell, rot = 0) { const g = new THREE.PlaneGeom
 /* ───────── 材質 ───────── */
 
 // もようの 帯（4 本）＋ でこぼこ ＋ つや ＋ 位置の AO。rough・bump は 帯ごと。ao は GLSL（vLP＝物体の 位置・vON＝物体の 法線・ao に かける）。
-function surfMaterial(map, { rough = [0.8, 0.8, 0.8, 0.8], bump = [0.6, 0.6, 0.6, 0.6], ao = '', env = null, envI = 0.35, key = 'a' } = {}) {
+// bounce：下むきの 面（ひさしの うら・天井）に 地面からの はねかえりの 光を 足す（半球光の 地面の 色に そまらない ように）。
+function surfMaterial(map, { rough = [0.8, 0.8, 0.8, 0.8], bump = [0.6, 0.6, 0.6, 0.6], ao = '', env = null, envI = 0.35, key = 'a', bounce = 0 } = {}) {
   const m = new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 1, metalness: 0, envMap: env, envMapIntensity: envI, color: map ? 0xffffff : 0xdedad2 });
   const f = (v) => v.toFixed(3), pick = (a) => `(sSel < 0.5 ? ${f(a[0])} : sSel < 1.5 ? ${f(a[1])} : sSel < 2.5 ? ${f(a[2])} : ${f(a[3])})`;
+  m.userData.bounce = { value: bounce };
   m.onBeforeCompile = (sh) => {
+    sh.uniforms.uBounce = m.userData.bounce;
     sh.vertexShader = `varying vec3 vLP;\nvarying vec3 vON;\n${sh.vertexShader}`.replace('#include <begin_vertex>', '#include <begin_vertex>\n vLP = transformed; vON = normal;');
-    sh.fragmentShader = `varying vec3 vLP;\nvarying vec3 vON;\n${sh.fragmentShader}`
+    sh.fragmentShader = `uniform float uBounce;\nvarying vec3 vLP;\nvarying vec3 vON;\n${sh.fragmentShader}`
       .replace('#include <map_fragment>', `float sSel = 0.0; float sH = 0.5;
         #ifdef USE_MAP
           sSel = floor(vMapUv.y / 100.0 + 0.5); float sLv = vMapUv.y - sSel * 100.0;
@@ -333,6 +358,8 @@ function surfMaterial(map, { rough = [0.8, 0.8, 0.8, 0.8], bump = [0.6, 0.6, 0.6
         #endif`)
       .replace('#include <color_fragment>', `#include <color_fragment>
         { float ao = 1.0; vec3 p = vLP; vec3 n = normalize(vON); ${ao} diffuseColor.rgb *= ao; }`)
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        totalEmissiveRadiance += diffuseColor.rgb * uBounce * max(-normalize(vON).y, 0.0);`)
       .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
         roughnessFactor = clamp(${pick(rough)} * mix(1.2, 0.85, sH), 0.05, 1.0);`)
       .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
@@ -359,7 +386,7 @@ void main() {
   vec4 mvPosition = viewMatrix * w; gl_Position = projectionMatrix * mvPosition;
   #include <fog_vertex>
 }`;
-const GLASS_FS = `uniform sampler2D uEnv; uniform sampler2D uSky; uniform sampler2D uRooms; uniform float uNight; uniform vec3 uSun;
+const GLASS_FS = `uniform sampler2D uEnv; uniform sampler2D uSky; uniform sampler2D uRooms; uniform float uNight; uniform vec3 uSun; uniform float uRefl;
 varying vec3 vW; varying vec3 vN; varying vec2 vUv; varying vec3 vP;
 #include <common>
 #include <fog_pars_fragment>
@@ -382,12 +409,12 @@ void main() {
   } else if (s > 7.5) {
     inner = vec3(0.12, 0.15, 0.14) * mix(1.0, 2.2, uNight);
   } else {
-    vec3 sz = vec3(4.0, 4.8, 6.0); vec3 cells = vec3(0.0, 1.0, 7.0); float open = 0.0, imgW = 4.0, blinds = 0.0, dayK = 0.4, nightK = 0.5;
+    vec3 sz = vec3(4.0, 4.8, 6.0); vec3 cells = vec3(0.0, 1.0, 7.0); float open = 0.0, imgW = 4.0, blinds = 0.0, dayK = 0.3, nightK = 0.8;
     vec3 litD = vec3(1.0, 0.98, 0.93), litN = vec3(1.5, 1.4, 1.2), flo = vec3(0.5, 0.48, 0.45), wal = vec3(0.66, 0.64, 0.6);
-    if (s > 0.5 && s < 1.5) { sz = vec3(3.1, 4.58, 7.0); litD = vec3(0.8, 0.78, 0.74); dayK = 0.3; }
-    else if (s > 1.5 && s < 2.5) { sz = vec3(6.2, 4.58, 8.0); cells = vec3(2.0, 2.0, 6.0); litD = vec3(1.05, 0.76, 0.5); dayK = 0.55; litN = vec3(1.8, 1.25, 0.75); flo = vec3(0.36, 0.22, 0.13); wal = vec3(0.7, 0.46, 0.3); }
-    else if (s > 2.5 && s < 3.5) { sz = vec3(3.2, 3.6, 5.0); cells = vec3(3.0); litD = vec3(0.55, 0.57, 0.6); litN = vec3(1.2, 1.2, 1.1); flo = vec3(0.4, 0.42, 0.44); blinds = 1.0; dayK = 0.3; }
-    else if (s > 3.5 && s < 4.5) { sz = vec3(2.5, 6.2, 16.0); cells = vec3(4.0); open = 1.0; imgW = 9.0; litD = vec3(0.85, 0.86, 0.82); dayK = 0.35; flo = vec3(0.7, 0.6, 0.48); }
+    if (s > 0.5 && s < 1.5) { sz = vec3(3.1, 4.58, 7.0); litD = vec3(0.8, 0.78, 0.74); dayK = 0.16; nightK = 0.85; }
+    else if (s > 1.5 && s < 2.5) { sz = vec3(6.2, 4.58, 8.0); cells = vec3(2.0, 2.0, 6.0); litD = vec3(1.05, 0.76, 0.5); dayK = 0.3; nightK = 0.6; litN = vec3(1.9, 1.25, 0.7); flo = vec3(0.36, 0.22, 0.13); wal = vec3(0.7, 0.46, 0.3); }
+    else if (s > 2.5 && s < 3.5) { sz = vec3(3.2, 3.6, 5.0); cells = vec3(3.0); litD = vec3(0.55, 0.57, 0.6); litN = vec3(1.2, 1.2, 1.1); flo = vec3(0.4, 0.42, 0.44); blinds = 1.0; dayK = 0.2; nightK = 0.6; }
+    else if (s > 3.5 && s < 4.5) { sz = vec3(2.5, 6.2, 16.0); cells = vec3(4.0); open = 1.0; imgW = 9.0; litD = vec3(0.85, 0.86, 0.82); dayK = 0.26; nightK = 0.6; flo = vec3(0.7, 0.6, 0.48); }
     else if (s > 4.5 && s < 5.5) { sz = vec3(6.0, 3.7, 5.0); cells = vec3(0.0, 1.0, 7.0); open = 1.0; imgW = 3.4; litD = vec3(1.15, 1.1, 1.02); litN = vec3(1.35, 1.25, 1.1); flo = vec3(0.75, 0.72, 0.68); dayK = 0.85; nightK = 0.75; wal = vec3(0.86, 0.84, 0.8); }
     else if (s > 5.5) { sz = vec3(6.6, 3.7, 4.0); cells = vec3(5.0, 5.0, 6.0); open = 1.0; imgW = 3.3; litD = vec3(1.1, 1.05, 0.95); litN = vec3(1.35, 1.25, 1.1); dayK = 0.85; nightK = 0.75; }
     vec3 d = vec3(dot(V, T), dot(V, U), max(-dot(V, N), 0.02));
@@ -412,9 +439,10 @@ void main() {
     } else if (d.y < 0.0) {
       c = flo * (0.85 + 0.15 * rh) * (1.15 - 0.4 * depth);
     } else {
-      vec2 lp = fract(hp.xz / vec2(1.5, 1.8));
-      float lamp = step(0.35, lp.x) * step(lp.x, 0.65) * step(0.4, lp.y) * step(lp.y, 0.6);
-      c = mix(vec3(0.42, 0.42, 0.41), vec3(2.4, 2.25, 2.0), lamp);
+      // 天井：まるい ダウンライト（小さく・まばら）。昼は ほとんど 見えない。
+      vec2 lp = fract(hp.xz / vec2(2.4, 2.6)) - 0.5;
+      float lamp = smoothstep(0.075, 0.04, length(lp));
+      c = mix(vec3(0.46, 0.45, 0.43) * (0.9 - 0.3 * depth), mix(vec3(1.4, 1.35, 1.25), vec3(3.2, 2.9, 2.4), uNight), lamp);
     }
     c *= mix(1.0, 0.55, depth);
     float on = (s > 2.5 && s < 3.5) ? step(0.35, rh) * (0.6 + 0.6 * rh) : 1.0;
@@ -424,16 +452,18 @@ void main() {
   }
   vec3 tint = mix(vec3(0.84, 0.93, 0.91), vec3(0.3, 0.5, 0.78), blue);
   float F = F0 + (1.0 - F0) * pow(1.0 - cosT, 5.0);
-  vec3 refl = envAt(uEnv, R) * mix(vec3(1.0), vec3(0.07, 0.09, 0.15), uNight) * mix(vec3(1.0), tint, 0.85 * blue);
+  vec3 refl = envAt(uEnv, R) * mix(vec3(uRefl), vec3(0.07, 0.09, 0.15), uNight) * mix(vec3(1.0), tint, 0.6 * blue);
   float sp = pow(max(dot(R, normalize(uSun)), 0.0), 900.0) * 8.0 * (1.0 - uNight);
-  gl_FragColor = vec4(inner * tint * (1.0 - F) + refl * F + sp, 1.0);
+  // ガラスの うすい 色（つよい ほど 中が くらい）。
+  vec3 trans = tint * mix(1.0, 0.62, blue);
+  gl_FragColor = vec4(inner * trans * (1.0 - F) + refl * F + sp, 1.0);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
   #include <fog_fragment>
 }`;
 function glassMaterial(env, sky, rooms) {
   const m = new THREE.ShaderMaterial({
-    uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uNight: { value: 0 }, uSun: { value: new THREE.Vector3(-0.47, 0.74, 0.4) } }]),
+    uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uNight: { value: 0 }, uRefl: { value: 1 }, uSun: { value: new THREE.Vector3(-0.47, 0.74, 0.4) } }]),
     vertexShader: GLASS_VS, fragmentShader: GLASS_FS, vertexColors: true, fog: true,
   });
   // テクスチャは merge の あとで（merge は テクスチャを 複製して しまう）。
@@ -441,85 +471,132 @@ function glassMaterial(env, sky, rooms) {
   return m;
 }
 
-// 人：はだ・上の 服・下の 服・かみ・くつを 頂点の part で 分け、色は 1 体ずつ（instanced attribute）。歩く 足と うでは 頂点シェーダー。
+// 人（2026-11 その 2）：はだ・上の 服・下の 服・かみ・くつ・かばん・目・くちを 頂点の part で 分け、色は 1 体ずつ（instanced attribute）。
+// かみがた（みじかい・ながい・おだんご）・かばん（かた かけ・手さげの 紙ぶくろ）・スカート・白い くつ・こども（頭が 大きい）は
+// 1 つの 形に ぜんぶ 入れて おき、iVar で えらぶ（えらばれない 部品は 頂点を 0 に つぶす＝描かれない）。歩く 足と うでは 頂点シェーダー。
+// 頂点の pv＝(part, variant, 頭の 回る 高さ)。iVar＝(かみがた 0/1/2, かばん 0/1/2, こども 0/1, くつ白 1 ＋ スカート 2)。
 function peopleMaterial(time) {
-  const m = new THREE.MeshStandardMaterial({ roughness: 0.78, metalness: 0 });
+  const m = new THREE.MeshStandardMaterial({ roughness: 0.8, metalness: 0 });
   m.onBeforeCompile = (sh) => {
     sh.uniforms.uTime = time;
-    sh.vertexShader = `uniform float uTime; attribute float part; attribute vec2 swing; attribute vec3 iSkin; attribute vec3 iTop; attribute vec3 iBot; attribute vec3 iHair; attribute vec3 iWalk; varying vec3 vTint;\n${sh.vertexShader}`
+    sh.vertexShader = `uniform float uTime; attribute vec3 pv; attribute vec2 swing; attribute vec3 iSkin; attribute vec3 iTop; attribute vec3 iBot; attribute vec3 iHair; attribute vec3 iWalk; attribute vec4 iVar; attribute vec3 iBag; varying vec3 vTint;\n${sh.vertexShader}`
       .replace('#include <beginnormal_vertex>', `float pAng = (sin(uTime * 5.5 + iWalk.x) * iWalk.y + iWalk.z) * swing.x; float pc = cos(pAng), ps = sin(pAng);
+        float keep = 1.0; float vr = pv.y;
+        if (vr > 0.5) { float hs = iVar.x, bg = iVar.y;
+          keep = vr < 1.5 ? step(hs, 0.5) : vr < 2.5 ? step(0.5, hs) * step(hs, 1.5) : vr < 3.5 ? step(1.5, hs) : vr < 4.5 ? step(0.5, bg) * step(bg, 1.5) : vr < 5.5 ? step(1.5, bg) : vr < 6.5 ? step(1.5, iVar.w) : 1.0 - step(0.5, hs) * step(hs, 1.5); }
         vec3 objectNormal = vec3(normal); objectNormal.yz = vec2(objectNormal.y * pc - objectNormal.z * ps, objectNormal.y * ps + objectNormal.z * pc);`)
-      .replace('#include <begin_vertex>', `vec3 transformed = vec3(position); { float yy = transformed.y - swing.y; transformed.yz = vec2(swing.y + yy * pc - transformed.z * ps, yy * ps + transformed.z * pc); }
-        vTint = part < 0.5 ? iSkin : part < 1.5 ? iTop : part < 2.5 ? iBot : part < 3.5 ? iHair : iBot * 0.3 + 0.015;`);
+      .replace('#include <begin_vertex>', `vec3 transformed = vec3(position);
+        if (pv.z > 0.0) transformed = vec3(0.0, pv.z, 0.0) + (transformed - vec3(0.0, pv.z, 0.0)) * (1.0 + 0.24 * iVar.z);
+        { float yy = transformed.y - swing.y; transformed.yz = vec2(swing.y + yy * pc - transformed.z * ps, yy * ps + transformed.z * pc); }
+        transformed *= keep;
+        float part = pv.x; float white = mod(iVar.w, 2.0);
+        vTint = part < 0.5 ? iSkin : part < 1.5 ? iTop : part < 2.5 ? iBot : part < 3.5 ? iHair : part < 4.5 ? mix(iBot * 0.3 + 0.015, vec3(0.78, 0.78, 0.76), white)
+          : part < 5.5 ? iBag : part < 6.5 ? vec3(0.025, 0.02, 0.018) : mix(iSkin, vec3(0.55, 0.22, 0.22), 0.35) * 0.85;`);
     sh.fragmentShader = `varying vec3 vTint;\n${sh.fragmentShader}`.replace('#include <color_fragment>', 'diffuseColor.rgb *= vTint;');
   };
-  m.customProgramCacheKey = () => 'uspeak-mall-people';
+  m.customProgramCacheKey = () => 'uspeak-mall-people-2';
   return m;
 }
-const SKIN = [0xf1c7a5, 0xe0ac85, 0xc68a62, 0x9c6644, 0x6e452d, 0xf5d3b8, 0xe8b894];
-const TOPC = [0xf2f0ea, 0x222326, 0x2b3550, 0x8a8d91, 0xc8b59a, 0x5f6440, 0x6e2a33, 0x9fb8d0, 0xc9a13b, 0xa5532f, 0xd9a3a8, 0x3f6b55, 0xe9e2d0, 0x4a4f58];
-const BOTC = [0x3b4e6e, 0x262f42, 0x1f2022, 0xb49f7a, 0x55585c, 0xd8cbb2, 0x2f3238, 0x5a4a3a];
-const HAIR = [0x1c1512, 0x2e2018, 0x4a3324, 0x6b4a2e, 0xb08850, 0x8a8580, 0x161210];
+const SKIN = [0xf1c7a5, 0xe0ac85, 0xc68a62, 0x9c6644, 0x6e452d, 0xf5d3b8, 0xe8b894, 0xd9a27c];
+const TOPC = [0xf2f0ea, 0x222326, 0x2b3550, 0x8a8d91, 0xc8b59a, 0x5f6440, 0x6e2a33, 0x9fb8d0, 0xc9a13b, 0xa5532f, 0xd9a3a8, 0x3f6b55, 0xe9e2d0, 0x4a4f58, 0xb7c4cf, 0x7a5a48];
+const KIDC = [0xe4572e, 0x2a7fd4, 0xf2c230, 0x3fae5a, 0xf28fb0, 0x7a5ad6, 0xffffff, 0x29b3b3];
+const BOTC = [0x3b4e6e, 0x262f42, 0x1f2022, 0xb49f7a, 0x55585c, 0xd8cbb2, 0x2f3238, 0x5a4a3a, 0x6b7a8c];
+const HAIR = [0x1c1512, 0x2e2018, 0x4a3324, 0x6b4a2e, 0xb08850, 0x8a8580, 0x161210, 0x1c1512, 0x2e2018, 0xc8c4be];
+const BAGC = [0xe8dcc4, 0x2b2420, 0x8a5a32, 0xc9406e, 0xf4f2ee, 0x1f3550, 0xd9b26a];
 let HUMAN = null;
 function humanGeometry(sit) {
   HUMAN ||= {};
   const key = sit ? 'sit' : 'stand'; if (HUMAN[key]) return HUMAN[key];
   const parts = [];
-  // part: 0 はだ・1 上・2 下・3 かみ・4 くつ。swing: (向き × 強さ, 回る 高さ)。
-  const add = (g, part, sw = 0, pv = 0) => { const n = g.index ? g.toNonIndexed() : g; const c = n.attributes.position.count; n.setAttribute('part', new THREE.BufferAttribute(new Float32Array(c).fill(part), 1)); const s = new Float32Array(c * 2); for (let i = 0; i < c; i += 1) { s[i * 2] = sw; s[i * 2 + 1] = pv; } n.setAttribute('swing', new THREE.BufferAttribute(s, 2)); n.deleteAttribute('uv'); parts.push(n); };
-  const limb = (a, b, r0, r1, seg = 7) => { const A = new THREE.Vector3(...a), Bv = new THREE.Vector3(...b), len = A.distanceTo(Bv); const g = new THREE.CylinderGeometry(r1, r0, len, seg, 1, false); g.translate(0, len / 2, 0); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), Bv.clone().sub(A).normalize())); g.translate(A.x, A.y, A.z); return g; };
-  const ell = (x, y, z, rx, ry, rz, ws = 9, hs = 7, th = Math.PI) => { const g = new THREE.SphereGeometry(1, ws, hs, 0, Math.PI * 2, 0, th); g.scale(rx, ry, rz); g.translate(x, y, z); return g; };
-  const HIP = sit ? 0.47 : 0.9;
+  // part: 0 はだ・1 上・2 下・3 かみ・4 くつ・5 かばん・6 目・7 くち。swing: (向き × 強さ, 回る 高さ)。vr＝かみがたなどの えらび。head＝頭の 回る 高さ（こどもは 大きく）。
+  const add = (g, part, sw = 0, pvt = 0, vr = 0, head = 0) => {
+    const n = g.index ? g.toNonIndexed() : g; if (!n.attributes.normal) n.computeVertexNormals(); const c = n.attributes.position.count;
+    const p = new Float32Array(c * 3), s = new Float32Array(c * 2); for (let i = 0; i < c; i += 1) { p[i * 3] = part; p[i * 3 + 1] = vr; p[i * 3 + 2] = head; s[i * 2] = sw; s[i * 2 + 1] = pvt; }
+    n.setAttribute('pv', new THREE.BufferAttribute(p, 3)); n.setAttribute('swing', new THREE.BufferAttribute(s, 2)); parts.push(n);
+  };
+  const limb = (a, b, r0, r1, seg = 6) => { const A = new THREE.Vector3(...a), Bv = new THREE.Vector3(...b), len = A.distanceTo(Bv); const g = new THREE.CylinderGeometry(r1, r0, len, seg, 1, false); g.translate(0, len / 2, 0); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), Bv.clone().sub(A).normalize())); g.translate(A.x, A.y, A.z); return g; };
+  const ell = (x, y, z, rx, ry, rz, ws = 8, hs = 5, th = Math.PI) => { const g = new THREE.SphereGeometry(1, ws, hs, 0, Math.PI * 2, 0, th); g.scale(rx, ry, rz); g.translate(x, y, z); return g; };
+  const bx = (x, y, z, w, h, d) => new THREE.BoxGeometry(w, h, d).translate(x, y, z);
+  const HIP = sit ? 0.47 : 0.9, y0 = HIP, NECK = y0 + 0.64;
   if (!sit) {
     for (const s of [-1, 1]) {
       add(limb([s * 0.09, 0.07, 0], [s * 0.095, 0.5, 0.01], 0.05, 0.065), 2, s * 1, HIP);
       add(limb([s * 0.095, 0.5, 0.01], [s * 0.1, 0.9, 0], 0.066, 0.085), 2, s * 1, HIP);
-      add(ell(s * 0.09, 0.05, 0.05, 0.055, 0.05, 0.13, 7, 5), 4, s * 1, HIP);
+      add(ell(s * 0.09, 0.05, 0.05, 0.056, 0.05, 0.135, 7, 4), 4, s * 1, HIP);
     }
+    { const g = new THREE.CylinderGeometry(0.19, 0.27, 0.46, 10, 1, true); g.translate(0, y0 - 0.2, 0.0); add(g, 2, 0, 0, 6); }   // スカート
   } else {
     for (const s of [-1, 1]) {
       add(limb([s * 0.1, HIP, -0.02], [s * 0.11, HIP + 0.02, 0.4], 0.085, 0.07), 2);
-      add(limb([s * 0.11, HIP - 0.02, 0.4], [s * 0.1, 0.07, 0.42], 0.065, 0.05), 2);
-      add(ell(s * 0.1, 0.05, 0.47, 0.055, 0.05, 0.13, 7, 5), 4);
+      add(limb([s * 0.11, HIP - 0.02, 0.4], [s * 0.1, 0.07, 0.42 + s * 0.03], 0.065, 0.05), 2);
+      add(ell(s * 0.1, 0.05, 0.47 + s * 0.03, 0.056, 0.05, 0.135, 7, 4), 4);
     }
   }
-  const y0 = HIP;
-  add(ell(0, y0 + 0.02, 0, 0.17, 0.12, 0.12, 9, 5), 2);                                             // こし
-  { const g = new THREE.CylinderGeometry(0.19, 0.155, 0.52, 10, 2); g.scale(1, 1, 0.62); g.translate(0, y0 + 0.3, 0); add(g, 1); }   // むね
-  add(ell(0, y0 + 0.56, 0, 0.19, 0.07, 0.12, 10, 4, Math.PI / 2), 1);                                // かた
-  add(limb([0, y0 + 0.58, 0], [0, y0 + 0.68, 0.005], 0.045, 0.042, 6), 0);                           // くび
-  add(ell(0, y0 + 0.77, 0.008, 0.088, 0.112, 0.1, 10, 8), 0);                                         // あたま
-  add(ell(0, y0 + 0.8, -0.006, 0.094, 0.1, 0.104, 10, 6, Math.PI * 0.6), 3);                         // かみ
+  add(ell(0, y0 + 0.02, 0, 0.17, 0.12, 0.12, 8, 4), 2);                                             // こし
+  { const g = new THREE.CylinderGeometry(0.19, 0.155, 0.52, 10, 1); g.scale(1, 1, 0.62); g.translate(0, y0 + 0.3, 0); add(g, 1); }   // むね
+  add(ell(0, y0 + 0.56, 0, 0.19, 0.07, 0.12, 8, 3, Math.PI / 2), 1);                                // かた
+  add(limb([0, y0 + 0.58, 0], [0, y0 + 0.68, 0.005], 0.045, 0.042, 6), 0, 0, 0, 0, NECK);           // くび
+  // 頭：かお・耳・目・まゆ・はな・くち。
+  const H = (g, part, vr = 0) => add(g, part, 0, 0, vr, NECK);
+  H(ell(0, y0 + 0.77, 0.008, 0.088, 0.112, 0.1, 10, 8), 0);
+  for (const s of [-1, 1]) {
+    H(ell(s * 0.089, y0 + 0.765, -0.002, 0.016, 0.028, 0.02, 5, 3), 0);                             // 耳
+    H(ell(s * 0.032, y0 + 0.784, 0.091, 0.012, 0.008, 0.006, 4, 3), 6);                              // 目
+    H(ell(s * 0.034, y0 + 0.808, 0.094, 0.019, 0.0045, 0.006, 4, 2), 3);                             // まゆ
+  }
+  H(ell(0, y0 + 0.758, 0.104, 0.012, 0.021, 0.016, 5, 3), 0);                                          // はな
+  H(ell(0, y0 + 0.722, 0.094, 0.021, 0.006, 0.007, 4, 2), 7);                                          // くち
+  // かみ：上の ぼうし形（みんな）＋ えりあし（みじかい）／ながい かみ／おだんご。
+  H(ell(0, y0 + 0.8, -0.008, 0.096, 0.104, 0.106, 10, 6, Math.PI * 0.56), 3);
+  H(ell(0, y0 + 0.758, -0.035, 0.09, 0.085, 0.078, 8, 5), 3, 7);
+  H(ell(0, y0 + 0.66, -0.05, 0.102, 0.18, 0.072, 8, 6), 3, 2);
+  for (const s of [-1, 1]) H(ell(s * 0.078, y0 + 0.705, 0.012, 0.03, 0.12, 0.06, 5, 4), 3, 2);
+  H(ell(0, y0 + 0.845, -0.098, 0.046, 0.044, 0.046, 6, 5), 3, 3);
   for (const s of [-1, 1]) {
     const sh = [s * 0.205, y0 + 0.54, 0];
     if (!sit) {
       add(limb(sh, [s * 0.235, y0 + 0.25, 0], 0.055, 0.047), 1, -s * 0.75, y0 + 0.54);
-      add(limb([s * 0.235, y0 + 0.25, 0], [s * 0.245, y0 - 0.02, 0.02], 0.045, 0.036), 0, -s * 0.75, y0 + 0.54);
-      add(ell(s * 0.247, y0 - 0.07, 0.025, 0.035, 0.06, 0.03, 6, 5), 0, -s * 0.75, y0 + 0.54);
+      add(limb([s * 0.235, y0 + 0.25, 0], [s * 0.245, y0 - 0.02, 0.025], 0.045, 0.036), 0, -s * 0.75, y0 + 0.54);
+      add(ell(s * 0.248, y0 - 0.075, 0.028, 0.032, 0.062, 0.03, 5, 4), 0, -s * 0.75, y0 + 0.54);
     } else {
       add(limb(sh, [s * 0.23, y0 + 0.27, 0.05], 0.055, 0.047), 1);
       add(limb([s * 0.23, y0 + 0.27, 0.05], [s * 0.17, y0 + 0.3, 0.32], 0.045, 0.036), 0);
-      add(ell(s * 0.16, y0 + 0.3, 0.37, 0.035, 0.03, 0.06, 6, 5), 0);
+      add(ell(s * 0.16, y0 + 0.3, 0.37, 0.035, 0.03, 0.062, 5, 4), 0);
     }
+  }
+  // かばん：かた かけ（ベルトと よこの かばん）・手さげの 紙ぶくろ（右手と いっしょに ゆれる）。
+  if (!sit) {
+    add(limb([-0.16, y0 + 0.56, 0.05], [0.2, y0 + 0.04, 0.075], 0.012, 0.012, 4), 5, 0, 0, 4);
+    add(bx(0.235, y0 - 0.02, 0.01, 0.07, 0.22, 0.27), 5, 0, 0, 4);
+    add(bx(0.27, y0 - 0.33, 0.03, 0.08, 0.32, 0.3), 5, -0.75, y0 + 0.54, 5);
+    add(limb([0.265, y0 - 0.17, -0.06], [0.255, y0 - 0.06, 0.03], 0.008, 0.008, 4), 6, -0.75, y0 + 0.54, 5);
+  } else {
+    add(bx(0.42, 0.14, 0.12, 0.09, 0.28, 0.3), 5, 0, 0, 4);
+    add(bx(-0.42, 0.16, 0.1, 0.1, 0.32, 0.32), 5, 0, 0, 5);
   }
   // まとめる（色は 1 体ずつ なので vertexColors は 使わない）。
   let nv = 0; for (const p of parts) nv += p.attributes.position.count;
-  const pos = new Float32Array(nv * 3), nor = new Float32Array(nv * 3), part = new Float32Array(nv), sw = new Float32Array(nv * 2); let v = 0;
-  for (const p of parts) { if (!p.attributes.normal) p.computeVertexNormals(); pos.set(p.attributes.position.array, v * 3); nor.set(p.attributes.normal.array, v * 3); part.set(p.attributes.part.array, v); sw.set(p.attributes.swing.array, v * 2); v += p.attributes.position.count; }
+  const pos = new Float32Array(nv * 3), nor = new Float32Array(nv * 3), pv = new Float32Array(nv * 3), sw = new Float32Array(nv * 2); let v = 0;
+  for (const p of parts) { pos.set(p.attributes.position.array, v * 3); nor.set(p.attributes.normal.array, v * 3); pv.set(p.attributes.pv.array, v * 3); sw.set(p.attributes.swing.array, v * 2); v += p.attributes.position.count; }
   const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(nor, 3)); g.setAttribute('part', new THREE.BufferAttribute(part, 1)); g.setAttribute('swing', new THREE.BufferAttribute(sw, 2));
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(nor, 3)); g.setAttribute('pv', new THREE.BufferAttribute(pv, 3)); g.setAttribute('swing', new THREE.BufferAttribute(sw, 2));
   g.computeBoundingSphere();
   HUMAN[key] = g; return g;
 }
-// list＝[{ x, y, z, ry, s, walk:[phase, amp, stride] }]
+// list＝[{ x, y, z, ry, s, kid, walk:[phase, amp, stride] }]
 function crowd(list, sit, rnd, mat, name) {
   const n = Math.max(1, list.length), m = new THREE.InstancedMesh(humanGeometry(sit).clone(), mat, n); m.count = list.length;
-  const at = (k) => new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
-  const A = { iSkin: at(), iTop: at(), iBot: at(), iHair: at(), iWalk: at() };
+  const at = (k = 3) => new THREE.InstancedBufferAttribute(new Float32Array(n * k), k);
+  const A = { iSkin: at(), iTop: at(), iBot: at(), iHair: at(), iWalk: at(), iVar: at(4), iBag: at() };
   const o = new THREE.Object3D(), c = new THREE.Color(), pickC = (arr) => c.setHex(arr[Math.floor(rnd() * arr.length)]);
   list.forEach((p, i) => {
-    o.position.set(p.x, p.y || 0, p.z); o.rotation.set(0, p.ry || 0, 0); const s = p.s || (0.93 + rnd() * 0.14); o.scale.set(s * (0.95 + rnd() * 0.1), s, s); o.updateMatrix(); m.setMatrixAt(i, o.matrix);
-    A.iSkin.setXYZ(i, ...pickC(SKIN).toArray()); A.iTop.setXYZ(i, ...pickC(TOPC).toArray()); A.iBot.setXYZ(i, ...pickC(BOTC).toArray()); A.iHair.setXYZ(i, ...pickC(HAIR).toArray());
+    const kid = !!p.kid, s = p.s || (kid ? 0.6 + rnd() * 0.12 : 0.9 + rnd() * 0.2);
+    o.position.set(p.x, p.y || 0, p.z); o.rotation.set(0, p.ry || 0, 0); o.scale.set(s * (0.94 + rnd() * 0.12), s, s * (0.95 + rnd() * 0.1)); o.updateMatrix(); m.setMatrixAt(i, o.matrix);
+    A.iSkin.setXYZ(i, ...pickC(SKIN).toArray()); A.iTop.setXYZ(i, ...pickC(kid ? KIDC : TOPC).toArray()); A.iBot.setXYZ(i, ...pickC(BOTC).toArray());
+    A.iHair.setXYZ(i, ...pickC(kid ? HAIR.slice(0, 5) : HAIR).toArray()); A.iBag.setXYZ(i, ...pickC(BAGC).toArray());
+    const hr = rnd(), hair = hr < 0.45 ? 0 : hr < 0.8 ? 1 : 2, br = rnd(), bag = kid ? 0 : br < 0.55 ? 0 : br < 0.78 ? 1 : 2;
+    const skirt = !sit && hair > 0 && rnd() < 0.4 ? 2 : 0, white = rnd() < (kid ? 0.6 : 0.3) ? 1 : 0;
+    A.iVar.setXYZW(i, p.hair ?? hair, p.bag ?? bag, kid ? 1 : 0, white + skirt);
     const w = p.walk || [0, 0, 0]; A.iWalk.setXYZ(i, w[0], w[1], w[2]);
   });
   for (const [k, a] of Object.entries(A)) m.geometry.setAttribute(k, a);
@@ -586,10 +663,10 @@ export function buildMallExterior(opts = {}) {
   const SHT = shared(), C = SHT.cells, rnd = rng(11), surfTex = exteriorSurfaces();
   const time = { value: 0 };
   const AO_EXT = `if (abs(n.y) < 0.5) { float b = smoothstep(0.0, 1.3, p.y); diffuseColor.rgb = mix(diffuseColor.rgb * vec3(0.8, 0.77, 0.72), diffuseColor.rgb, b); ao *= mix(0.82, 1.0, b); }
-    if (n.y < -0.5) ao *= 0.92;`;
+    if (n.y < -0.5) { ao *= 0.94; diffuseColor.rgb *= vec3(0.98, 0.97, 1.03); }`;
   const M = {
-    surf: surfMaterial(surfTex, { rough: [0.78, 0.88, 0.92, 0.6], bump: [0.5, 1.1, 0.9, 0.25], ao: AO_EXT, env: SHT.envExt, envI: 0.3, key: 'ext' }),
-    metal: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.32, metalness: 0.7, envMap: SHT.envExt, envMapIntensity: 1.0 }),
+    surf: surfMaterial(surfTex, { rough: [0.78, 0.88, 0.92, 0.6], bump: [0.5, 1.1, 0.9, 0.25], ao: AO_EXT, env: SHT.envExt, envI: 0.3, key: 'ext', bounce: 0.55 }),
+    metal: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.26, metalness: 0.75, envMap: SHT.envExt, envMapIntensity: 1.15 }),
     glass: glassMaterial(SHT.envExt, SHT.envExt, SHT.rooms),
     sign: new THREE.MeshStandardMaterial({ map: SHT.signs, emissive: SHT.signs ? 0xffffff : 0x000000, emissiveMap: SHT.signs, emissiveIntensity: 0.25, roughness: 0.35, envMap: SHT.envExt, envMapIntensity: 0.4, transparent: false, alphaTest: 0.5 }),
   };
@@ -616,7 +693,11 @@ export function buildMallExterior(opts = {}) {
     MT(box((x0 + x1) / 2, 0, z + 0.06, x1 - x0, 0.14, 0.14), 0x4a4e52); MT(box((x0 + x1) / 2, GF - 0.3, z + 0.06, x1 - x0, 0.1, 0.12), 0x4a4e52);
     MT(box((x0 + x1) / 2, 2.6, z + 0.04, x1 - x0, 0.05, 0.06), 0x4a4e52);
     SH.push(floorQuad((x0 + x1) / 2, 0.145, z + 0.6, x1 - x0, 1.2, STREAK));
+    for (let i = 0; i < n; i += 1) GLOW.push(floorQuad(x0 + ((x1 - x0) * (i + 0.5)) / n, 0.151, z + 1.5, ((x1 - x0) / n) * 1.25, 3.4, BLOB));   // 夜の まどの 光が 歩道に
   };
+  // 夜の 下からの 照明（かべを なめる 光）：下が 明るく 上へ きえる 板（加算・昼は 見えない）。
+  const UPW = [STREAK[0], STREAK[3], STREAK[2], STREAK[1]];
+  const wash = (x, y0, h, z, w, ry = 0) => { const g = new THREE.PlaneGeometry(w, h).toNonIndexed(); uvCell(g, UPW); g.translate(0, h / 2, 0); g.rotateY(ry); g.translate(x, y0, z); GLOW.push(g); };
 
   /* 歩道・自転車の みち・ボラード・木 */
   const ZP = 11;
@@ -683,6 +764,7 @@ export function buildMallExterior(opts = {}) {
     MT(box(-2.6, GF + 0.7, 0.3, 2.0, 8.6, 0.3), 0x34373b);
     for (let j = 0; j < 5; j += 1) { MT(box(-2.6, GF + 1.1 + j * 1.65, 0.5, 1.76, 0.84, 0.12), 0x5a5e63); S(`t${(j * 5 + 3) % 18}`, 1.7, 0.8, mat4(-2.6, GF + 1.1 + j * 1.65 + 0.42, 0.565)); }
     MT(box(-14.5, H - 1.6, 0.35, 10.2, 1.4, 0.3), 0x3a2418);
+    for (const x of [-24.2, -17.75, -11.25, -5.0, -0.8]) wash(x, GF + 0.36, 8.5, 0.2, 2.6);
     S('rest', 9.6, 1.25, mat4(-14.5, H - 0.9, 0.52));
     obstacles.push({ x: cx, z: -10, w: L / 2, d: 10 });
     for (let x = X0 + 0.25; x <= X1; x += 5) obstacles.push({ x, z: -0.2, w: 0.3, d: 0.3 });
@@ -700,14 +782,21 @@ export function buildMallExterior(opts = {}) {
     soffit(R + 1.69, GF - 0.005);
     for (let i = 0; i < 22; i += 1) { const a = (i / 22) * Math.PI * 2; if (Math.cos(a) < -0.3) continue; const x = RX + Math.sin(a) * (R + 0.6), z = RZ + Math.cos(a) * (R + 0.6); const g = panel(C.lamp, 0.2, 0.2); g.rotateX(Math.PI / 2); g.translate(x, GF - 0.012, z); B.add('sign', g, K); if (Math.cos(a) > 0) GLOW.push(floorQuad(x, 0.15, z, 2.4, 2.4, BLOB)); }
     TR(cyl(RX, GF + 0.32, RZ, R + 0.25, R + 0.25, 1.3, 64), WHITE);
+    for (let i = -5; i <= 5; i += 1) { const a = (i / 12) * Math.PI * 2; wash(RX + Math.sin(a) * (R + 0.05), 0.15, 4.3, RZ + Math.cos(a) * (R + 0.05), 0.9, a); }
     B.add('sign', drum(RX, RZ, R + 0.3, GF + 0.42, 1.1, { seg: 24, t0: -0.62, tl: 1.24, cell: C.name }), K);
     S('entr', 2.6, 0.6, mat4(RX, GF - 0.55, RZ + R - 0.95));
     const Y = [GF + 1.62, GF + 6.2, GF + 10.78, GF + 15.36];
-    GL(drum(RX, RZ, R, Y[0], Y[1] - Y[0], { seg: 64 }), 1, 0.2);
-    GL(drum(RX, RZ, R, Y[1], Y[2] - Y[1], { seg: 64 }), 1, 0.2);
-    GL(drum(RX, RZ, R, Y[2], Y[3] - Y[2], { seg: 64 }), 2, 0.08);
-    for (const y of Y) { TR(cyl(RX, y - 0.22, RZ, R + 0.16, R + 0.16, 0.44, 64), WHITE); MT(cyl(RX, y + 0.2, RZ, R + 0.03, R + 0.03, 0.05, 64), 0xc9ccd0); }
-    for (let i = 0; i < 48; i += 1) { const a = (i / 48) * Math.PI * 2; if (Math.cos(a) < -0.45) continue; TR(box(0, Y[0], R + 0.06, 0.12, Y[3] - Y[0], 0.18).applyMatrix4(rotY(a, RX, 0, RZ)), WHITE); }
+    // 2026-11 その 2：色の ついた ガラス（空が つよく うつる）・アルミの たて桟（ふかさと ひかり）・横の 桟。
+    GL(drum(RX, RZ, R, Y[0], Y[1] - Y[0], { seg: 96 }), 1, 0.16, 0.32);
+    GL(drum(RX, RZ, R, Y[1], Y[2] - Y[1], { seg: 96 }), 1, 0.16, 0.32);
+    GL(drum(RX, RZ, R, Y[2], Y[3] - Y[2], { seg: 96 }), 2, 0.14, 0.42);
+    for (const y of Y) { TR(cyl(RX, y - 0.22, RZ, R + 0.16, R + 0.16, 0.44, 64), WHITE); MT(drum(RX, RZ, R + 0.165, y + 0.17, 0.05, { seg: 64 }), 0xb9bdc2); MT(drum(RX, RZ, R + 0.03, y + 0.22, 0.06, { seg: 64 }), 0x8e9398); }
+    for (let k = 0; k < 3; k += 1) MT(drum(RX, RZ, R + 0.045, Y[k] + 1.15, 0.07, { seg: 96 }), 0xc6cacf);
+    for (let i = 0; i < 48; i += 1) {
+      const a = (i / 48) * Math.PI * 2; if (Math.cos(a) < -0.45) continue; const m = rotY(a, RX, 0, RZ);
+      MT(box(0, Y[0], R + 0.11, 0.11, Y[3] - Y[0], 0.2).applyMatrix4(m), 0xd3d7db);
+      MT(box(0, Y[0], R + 0.215, 0.05, Y[3] - Y[0], 0.03).applyMatrix4(m), 0xeef0f2);
+    }
     const TOP = Y[3] + 0.2, RR = R + 2.7;
     TR(cyl(RX, TOP, RZ, RR, RR, 0.34, 72), WHITE);
     TR(cyl(RX, TOP + 0.34, RZ, RR - 0.15, RR, 0.08, 72), 0xdad9d3);
@@ -733,6 +822,8 @@ export function buildMallExterior(opts = {}) {
     TR(box(cx, H, (ZF + ZB) / 2, X1 - X0 + 0.3, 0.5, ZF - ZB + 0.3), 0xf0f0ea);
     TR(box(cx, GF, ZF + 0.4, X1 - X0, 0.3, 1.6), WHITE);
     MT(box(cx, H - 8.6, ZF + 0.12, 1.75, 7.9, 0.2), 0xd0d3d6);
+    for (let i = 0; i < 6; i += 1) wash(X0 + 0.5 + i * 1.0, GF + 0.3, 12 + (i % 2) * 3, ZF - 0.04, 1.25);
+    wash(X1 + 0.02, GF + 0.3, 10, 0.5, 1.4, Math.PI / 2);
     S('tower', 1.6, 7.4, mat4(cx, H - 4.65, ZF + 0.24));
     obstacles.push({ x: cx, z: (ZF + ZB) / 2, w: 3, d: (ZF - ZB) / 2 });
   }
@@ -785,9 +876,11 @@ export function buildMallExterior(opts = {}) {
   function setNight(n) {
     const k = clamp01(n);
     M.glass.uniforms.uNight.value = k;
-    M.sign.emissiveIntensity = 0.25 + 0.95 * k;
-    M.surf.envMapIntensity = 0.3 * (1 - 0.85 * k); M.metal.envMapIntensity = 1.0 * (1 - 0.85 * k); M.sign.envMapIntensity = 0.4 * (1 - 0.85 * k);
-    glowMat.opacity = 0.42 * k; if (glow) glow.visible = k > 0.02;
+    M.glass.uniforms.uRefl.value = 1.65;
+    M.sign.emissiveIntensity = 0.25 + 1.15 * k;
+    M.surf.envMapIntensity = 0.3 * (1 - 0.85 * k); M.metal.envMapIntensity = 1.15 * (1 - 0.8 * k); M.sign.envMapIntensity = 0.4 * (1 - 0.85 * k);
+    M.surf.userData.bounce.value = 0.55 * (1 - k) + 0.1 * k;
+    glowMat.opacity = 0.8 * k; if (glow) glow.visible = k > 0.02;
   }
   setNight(0);
   function update(t = 0) { time.value = t; T.update(t); }
@@ -1105,14 +1198,14 @@ export function buildMallInterior(opts = {}) {
   const CB = createBatch({});
   {
     const outer = [[0.27, 0.06], [0.33, 0.12], [0.37, 0.3], [0.385, 0.5], [0.38, 0.66], [0.36, 0.74]].map(([r, y]) => new THREE.Vector2(r, y));
-    const shell = new THREE.LatheGeometry(outer, 16, Math.PI * 0.3, Math.PI * 1.4); { const uv = shell.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 1.6); }
+    const shell = new THREE.LatheGeometry(outer, 12, Math.PI * 0.3, Math.PI * 1.4); { const uv = shell.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 1.6); }
     CB.add('c', shell, { color: 0xffffff, uv: 'keep' });
     const inner = [[0.33, 0.74], [0.315, 0.66], [0.31, 0.5]].map(([r, y]) => new THREE.Vector2(r, y));
-    const ish = new THREE.LatheGeometry(inner, 16, Math.PI * 0.3, Math.PI * 1.4); { const uv = ish.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 0.5); }
+    const ish = new THREE.LatheGeometry(inner, 12, Math.PI * 0.3, Math.PI * 1.4); { const uv = ish.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 0.5); }
     CB.add('c', ish, { color: 0xe8d8c0, uv: 'keep' });
     const rim = new THREE.TorusGeometry(0.348, 0.03, 5, 18, Math.PI * 1.4); rim.rotateX(Math.PI / 2); rim.rotateY(-Math.PI * 0.2 - Math.PI / 2); rim.translate(0, 0.74, 0); { const uv = rim.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 6, uv.getY(i) * 0.2); } CB.add('c', rim, { color: 0xd8c0a0, uv: 'keep' });
-    const base = new THREE.CylinderGeometry(0.3, 0.27, 0.3, 16, 1, false); base.translate(0, 0.21, 0); { const uv = base.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 0.6); } CB.add('c', base, { color: 0xffffff, uv: 'keep' });
-    const cush = new THREE.CylinderGeometry(0.3, 0.31, 0.12, 16); cush.translate(0, 0.42, 0.01); { const uv = cush.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, 0.01, 0.01); } CB.add('c', cush, { color: 0x6b6f66, uv: 'keep' });
+    const base = new THREE.CylinderGeometry(0.3, 0.27, 0.3, 12, 1, true); base.translate(0, 0.21, 0); { const uv = base.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * 5, uv.getY(i) * 0.6); } CB.add('c', base, { color: 0xffffff, uv: 'keep' });
+    const cush = new THREE.CylinderGeometry(0.3, 0.31, 0.12, 12); cush.translate(0, 0.42, 0.01); { const uv = cush.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, 0.01, 0.01); } CB.add('c', cush, { color: 0x6b6f66, uv: 'keep' });
   }
   const chairMat = new THREE.MeshStandardMaterial({ map: T.weave, bumpMap: T.weave, bumpScale: 2.5, vertexColors: true, roughness: 0.85, color: T.weave ? 0xffffff : 0xc99a5e, side: THREE.DoubleSide });
   const TB = createBatch({});
