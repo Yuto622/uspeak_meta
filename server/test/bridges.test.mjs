@@ -33,11 +33,12 @@ const POS = new Map(ALL.map((r) => [r.id, r]));
 const EIKEN = new Set(['eiken5', 'eiken4', 'eiken3', 'eikenp2', 'eiken2', 'eikenp1', 'eiken1']);
 const box = (id) => {
   const r = POS.get(id);
-  if (id === 'main') return { x0: -106, x1: 64, z0: -155, z1: -30 };
+  // 2026-11：ビルの まちの 西の 通り（main-west.js の WEST.land＝島の 中の x -246〜-74, z -74〜-20）を 2 つめの 箱に。
+  if (id === 'main') return [{ x0: -106, x1: 64, z0: -155, z1: -30 }, { x0: -272, x1: -100, z0: -153, z1: -99 }];
   const [hx, hz] = id === 'willow' ? [28, 24] : id === 'park' ? [36, 34] : EIKEN.has(id) ? [43, 45] : r.hub ? [33, 36] : [32.5, 28];
   return { x0: r.x - hx, x1: r.x + hx, z0: r.z - hz, z1: r.z + (EIKEN.has(id) || (r.hub && id !== 'willow' && id !== 'park') ? hz : hz) };
 };
-const inBox = (b, p, m = 0) => p.x >= b.x0 - m && p.x <= b.x1 + m && p.z >= b.z0 - m && p.z <= b.z1 + m;
+const inBox = (b, p, m = 0) => [b].flat().some((q) => p.x >= q.x0 - m && p.x <= q.x1 + m && p.z >= q.z0 - m && p.z <= q.z1 + m);
 
 test('橋の 表：ぜんぶの 島が 歩いて つながる', () => {
   const seen = new Set(['main']); let grew = true;

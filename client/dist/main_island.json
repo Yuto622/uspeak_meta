@@ -581,6 +581,12 @@
     "x1": -6,
     "z": -13.5,
     "w": 3
+   },
+   {
+    "x0": -244,
+    "x1": -76,
+    "z": -31,
+    "w": 4
    }
   ],
   "hills": [
@@ -1569,6 +1575,70 @@
      "x": -6,
      "z": -36
     }
+   },
+   {
+    "_": "西の 通り（ビルの まちの 西・2026-11）：建物は main-west.js の WEST、戸口は WEST_DOORS と 同じ 数字（うごかす ときは 2 か所を いっしょに）。中は venue.js（別の シーン）。見る だけの 建物＝よるも 入れる。道は roads の さいご（z -31）から。 すいぞくかんの 外がわは aquarium-ext.js、中は aquarium-real.js。",
+    "id": "aquarium",
+    "kind": "aquarium",
+    "x": -227,
+    "z": -44.2,
+    "path": {
+     "x": -227,
+     "z": -31
+    },
+    "color": 2067126,
+    "icon": "🐋",
+    "character": "Captain Marin",
+    "en": "U-SPEAK Aquarium",
+    "ja": "ユースピーク すいぞくかん"
+   },
+   {
+    "_": "西の 通り（ビルの まちの 西・2026-11）：建物は main-west.js の WEST、戸口は WEST_DOORS と 同じ 数字（うごかす ときは 2 か所を いっしょに）。中は venue.js（別の シーン）。見る だけの 建物＝よるも 入れる。道は roads の さいご（z -31）から。 外も 中も mall-real.js。",
+    "id": "mall",
+    "kind": "mall",
+    "x": -169,
+    "z": -39.6,
+    "path": {
+     "x": -169,
+     "z": -31
+    },
+    "color": 14247565,
+    "icon": "🛍",
+    "character": "Ms. Mia",
+    "en": "U-SPEAK MALL",
+    "ja": "ユースピーク モール"
+   },
+   {
+    "_": "西の 通り（ビルの まちの 西・2026-11）：建物は main-west.js の WEST、戸口は WEST_DOORS と 同じ 数字（うごかす ときは 2 か所を いっしょに）。中は venue.js（別の シーン）。見る だけの 建物＝よるも 入れる。道は roads の さいご（z -31）から。 外も 中も boutique-real.js の buildBoutique（外の 1 つは 入れない・中は もう 1 つ）。",
+    "id": "boutique",
+    "kind": "boutique",
+    "x": -124.6,
+    "z": -41.6,
+    "path": {
+     "x": -124.6,
+     "z": -31
+    },
+    "color": 11044442,
+    "icon": "👗",
+    "character": "Madame Rose",
+    "en": "MAISON U",
+    "ja": "MAISON U ふくの おみせ"
+   },
+   {
+    "_": "西の 通り（ビルの まちの 西・2026-11）：建物は main-west.js の WEST、戸口は WEST_DOORS と 同じ 数字（うごかす ときは 2 か所を いっしょに）。中は venue.js（別の シーン）。見る だけの 建物＝よるも 入れる。道は roads の さいご（z -31）から。 外も 中も boutique-real.js の buildFurnitureShowroom。",
+    "id": "furniture",
+    "kind": "furniture",
+    "x": -93,
+    "z": -41.6,
+    "path": {
+     "x": -93,
+     "z": -31
+    },
+    "color": 3816004,
+    "icon": "🛋",
+    "character": "Mr. Royal",
+    "en": "ROYAL HOME",
+    "ja": "ROYAL HOME かぐの おみせ"
    }
   ],
   "deco": [

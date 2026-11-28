@@ -15,7 +15,8 @@ import { realFood } from './food-real.js';
 import { realModel } from './wardrobe-real.js';
 import { furnitureModel } from './furniture-real.js';
 import { blockModel } from './town-real.js';
-import { CITY } from './main-city.js';   // 北西の 高層ビルの まちの 土地（数字は むこうに 1 か所）
+import { CITY } from './main-city.js';
+import { WEST } from './main-west.js';   // ビルの まちの 西の 通りの 土地（数字は むこうに 1 か所）   // 北西の 高層ビルの まちの 土地（数字は むこうに 1 か所）
 
 // 島を 建てる 前（createIsland）に 要る 数字。annex は 土地（まわりに 草と すなはまの ふち）。
 const CLOCK_X = 79;   // 時計台の x（ミニマップの 絵も これを 使う）
@@ -28,7 +29,8 @@ export const PLAZA = {
     // まんなかの `...CITY.rects`：北西の 高層ビルの まち（main-city.js＝プラネタリウムの 西と 北・2026-11）。
     // じてんしゃやの 四角は いちばん 後ろの まま（server/test/bikes.test.mjs が この 行の 終わりを 読む）。
     // 3 つめ（`...CITY.rects` の あと）：ゆぴちゃんの おはなしルーム（-57, 33.1＝ほんやの 西・2026-11）と その 前の 道（z 35.6）の 土地。
-    also: [{ x0: 12, x1: 72, z0: -47, z1: -26, r: 7 }, ...CITY.rects, { x0: -64, x1: -44, z0: 20, z1: 40, r: 6 }, { x0: -70, x1: -48, z0: -2, z1: 31, r: 8 }] },
+    // 4 つめ（`WEST.land`）：ビルの まちの 西の 通り（すいぞくかん・モール・ふくや・かぐや。main-west.js・2026-11）。
+    also: [{ x0: 12, x1: 72, z0: -47, z1: -26, r: 7 }, ...CITY.rects, WEST.land, { x0: -64, x1: -44, z0: 20, z1: 40, r: 6 }, { x0: -70, x1: -48, z0: -2, z1: 31, r: 8 }] },
 };
 // としょかん（library-real.js）の 置き場所：建物の まんなか。南むき。前の しき石（z +8〜+17）が ひろばの 北の ふち（z 3）に つながる。
 // 戸口は main_island.json の spots の `library`（70, -8.5＝だんの 上）。うごかす ときは 2 か所を いっしょに。

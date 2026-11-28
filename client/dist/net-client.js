@@ -69,6 +69,7 @@ import { createHomework } from './homework.js';
 import { createReadingUI } from './reading.js';
 import { createLibrary } from './library.js';
 import { createPlanetarium } from './planetarium.js';
+import { createVenue } from './venue.js';   // 西の 通りの 建物の 中（モール・すいぞくかん・ふくや・かぐや）
 import { sfx } from './sfx.js';
 
 // いま 幼児モードの 画面か（部屋が オンに した 子＋ じぶんで 🧸 を おした 人）。
@@ -113,7 +114,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   };
   let client = null;
   let room = null;
-  let planetarium = null;  // planetarium.js（メインの島の プラネタリウムの 中。下で 作る）
+  let planetarium = null;
+  const venues = {};       // venue.js（メインの島の 西の 通り：mall / aquarium / boutique / furniture の 中。下で 作る）  // planetarium.js（メインの島の プラネタリウムの 中。下で 作る）
   let library = null;  // library.js（メインの島の としょかんの 中。下で 作る）
   let social = null;   // npc-social.js（下で 作る。currentSpace が 先に 呼ばれても よい ように ここで 名前だけ）
   let reconnectTimer = null;
@@ -498,6 +500,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   // プラネタリウムの 中（planetarium.js）：ドームの 星空と 星座。英語の 名前を 読みあげる。
   planetarium = createPlanetarium({ player, camera, toast, rpg, speak: (t) => speak?.(t, { japanese: false }) });
   try { rpg.attachPlanetarium?.(planetarium); } catch { /* 古い rpg.js */ }
+  // 西の 通りの 建物の 中（venue.js）：中は 見て 歩く だけ（お店の 時間なし）。中の 形は はじめて 入る ときに 作る。
+  for (const id of ['mall', 'aquarium', 'boutique', 'furniture']) { venues[id] = createVenue(id, { player, camera, toast, rpg }); try { rpg.attachVenue?.(venues[id]); } catch { /* 古い rpg.js */ } }
   const foodGive = createFoodGive({
     player, food, send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onChange: () => bag?.refresh(),
     onTalk: (at) => social.talkTo(at), onGaveTalk: (m, target) => social.onGave(m, target),
@@ -524,7 +528,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
   const wordhouse = createWordHouseUI({ send: plainSend, toast, speak, isOnline: () => state.mode === 'online', onCoins: (w) => applyWallet(w) });
   main = createMainIsland({
     send: plainSend, toast, isOnline: () => state.mode === 'online', rpg, fishworld, wordhouse, daily, dash, food,
-    shops: { library, planetarium, wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), bikes: bikeShop, get blockwild() { return blockwild; } },
+    shops: { library, planetarium, ...venues, wardrobe, town, land, conv, homework, weapons: createWeaponShop({ store: fishing.store, toast, renderer, speak: (t) => speak?.(t, { japanese: false }) }), bikes: bikeShop, get blockwild() { return blockwild; } },
     guide: guide || { open() {} },
     getCoins: () => state.wallet?.coins ?? fishing.store.state.coins,
     getLevel: () => state.progress?.level ?? Number(document.querySelector('#level')?.textContent || 1),
@@ -680,7 +684,8 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
     if (social?.home.active) return `in:home.${room?.sessionId || 'me'}`;
     // としょかんの 中：みんな 同じ 場所（中に いる ともだちが 見える。通話には ならない）。
     if (library?.active) return 'in:library';
-    if (planetarium?.active) return 'in:planetarium';   // プラネタリウムの 中も 同じ（みんな 同じ 部屋・通話なし）
+    if (planetarium?.active) return 'in:planetarium';
+    for (const v of Object.values(venues)) if (v.active) return `in:${v.id}`;   // in:mall / in:aquarium / in:boutique / in:furniture（みんな 同じ 部屋・通話なし）   // プラネタリウムの 中も 同じ（みんな 同じ 部屋・通話なし）
     if (myLand.active) return 'in:land';
     // Inside an island building. The name says which building on which island, and the
     // server checks it against the very place it is being asked about.
@@ -1304,6 +1309,7 @@ export function setupNet({ scene, camera, view, player, rpg, fishing, avatars, p
       social?.leaveHome(true);   // 住民の いえの 中から よばれた ときは 先に 出る
       library?.leave(true, false);   // としょかんの 中からも
       planetarium?.leave(true, false);   // プラネタリウムの 中からも
+      for (const v of Object.values(venues)) v.leave(true, false);   // 西の 通りの 建物の 中からも
       if (rpg.state.mode === 'flight') rpg.finishFlight();
       if (rpg.state.current !== t.space) rpg.activate(t.space, true, true);
       player.position.set(t.x, 0, t.z);

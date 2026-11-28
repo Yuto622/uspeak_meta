@@ -18,12 +18,15 @@ export const LINKS = [
   { a: 'willow', b: 'main', from: { x: 5, z: -18.5 }, to: { x: 5, z: -44 }, width: 3.4, legacy: true },
   { a: 'willow', b: 'park', from: { x: 25, z: 12 }, to: { x: 102, z: 4 }, width: 3.6 },
   { a: 'willow', b: 'errand', from: { x: -25, z: 4 }, to: { x: -124.8, z: 62.4 }, width: 3.6 },
-  // メインの島の 2 本は ダウンタウン（main-city.js）の 通りの 行き止まりから 出る：B どおりの 西の はし・East Ave の 北の はし。
-  { a: 'main', b: 'arena', from: { x: -103, z: -110 }, to: { x: -110.8, z: -107.3 }, width: 3.6 },
+  // メインの島の 3 本：East Ave の 北の はし（ことばの草原）と、西の 通り（main-west.js・2026-11）の 南の 岸（アリーナ）・北の 岸（ささやきの森）。
+  // 2026-11：西の 通りの 土地を つくるので、えいごアリーナ島を (-140, -110) から 南の (-136, -48) へ うつした（ダウンタウンの 西の 海は 土地に なった）。
+  // 前の arena–forest は 西の 通りを 横切るので、森は メインの島（西の 通りの 北の 岸・モールと ふくやの あいだ）から。
+  { a: 'main', b: 'arena', from: { x: -136, z: -100.8 }, to: { x: -136, z: -72.6 }, width: 3.6 },
   { a: 'main', b: 'meadow', from: { x: -56, z: -152 }, to: { x: -30.2, z: -158.1 }, width: 3.6 },
-  { a: 'arena', b: 'town', from: { x: -158.8, z: -91.2 }, to: { x: -191.2, z: -58.8 }, width: 3.6 },
-  { a: 'arena', b: 'forest', from: { x: -146, z: -133.9 }, to: { x: -150, z: -184 }, width: 3.6 },
-  { a: 'town', b: 'fishworld', from: { x: -230.7, z: -57.4 }, to: { x: -343.2, z: -170 }, width: 3.6 },
+  { a: 'main', b: 'forest', from: { x: -162, z: -151.6 }, to: { x: -150, z: -184 }, width: 3.6 },
+  { a: 'arena', b: 'town', from: { x: -164, z: -46 }, to: { x: -181, z: -41 }, width: 3.6 },
+  { a: 'town', b: 'fishworld', from: { x: -234, z: -53 },   // 2026-11：西の 通りの 土地の 西の かどを よける ため 少し 南へ
+  to: { x: -343.2, z: -170 }, width: 3.6 },
   { a: 'town', b: 'farm', from: { x: -229.7, z: -21.9 }, to: { x: -310.3, z: 51.9 }, width: 3.6 },
   { a: 'town', b: 'errand', from: { x: -196.2, z: -18.4 }, to: { x: -149, z: 50.6 }, width: 3.6 },
   { a: 'town', b: 'canyon', from: { x: -239.1, z: -43.2 }, to: { x: -269.8, z: -46.6 }, width: 3.6 },

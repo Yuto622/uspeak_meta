@@ -407,6 +407,8 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     if (spot.kind === 'library') { shops.library?.enter(); return true; }
     // プラネタリウム（北西）：中は 別の シーン（planetarium.js）。お店では ない＝よるも 入れる。
     if (spot.kind === 'planetarium') { shops.planetarium?.enter(); return true; }
+    // 西の 通り（ビルの まちの 西）：モール・すいぞくかん・ふくや・かぐや。中は 別の シーン（venue.js）。見る だけ＝よるも 入れる。
+    if (['mall', 'aquarium', 'boutique', 'furniture'].includes(spot.kind)) { shops[spot.kind]?.enter(); return true; }
     if (spot.kind === 'level_sign') {
       const next = toggleEasyLevel();
       toast(tr('レベルを {lv} に かえたよ', { lv: LEVEL_LABEL[next][0] }));
@@ -450,6 +452,10 @@ export function createMainIsland({ send, toast, isOnline, rpg, fishworld, wordho
     homework: () => `📚 ${tr('しゅくだいを する')}`,
     library: () => (isJa() ? '📚 としょかんに はいる' : '📚 Go into the Library'),
     planetarium: () => (isJa() ? '🔭 プラネタリウムに はいる' : '🔭 Go into the Planetarium'),
+    mall: () => (isJa() ? '🛍 モールに はいる' : '🛍 Go into the Mall'),
+    aquarium: () => (isJa() ? '🐋 すいぞくかんに はいる' : '🐋 Go into the Aquarium'),
+    boutique: () => (isJa() ? '👗 ふくの おみせに はいる' : '👗 Go into MAISON U'),
+    furniture: () => (isJa() ? '🛋 かぐの おみせに はいる' : '🛋 Go into ROYAL HOME'),
     talk_shop: (sp) => ((rpg.premiumLock || []).includes('talkshops') ? `🔒 ${tr('プレミアム')}` : rpg.insideBuilding ? `🗣 ${tr('英語で はなす')}` : `🚪 ${tr('はいる')}`),
     gate: (sp) => `🌀 ${isJa() ? String(sp.ja || '').replace(/への ゲート$/, '') : sp.character} →`,
   };

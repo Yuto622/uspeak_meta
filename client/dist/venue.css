@@ -1,0 +1,12 @@
+/* 西の 通りの 建物の 中（venue.js）：上の 帯「モール」と「そとへ」（planetarium.css の #plan-bar と 同じ 形）。
+   ブランドの 色：深緑 #0c241c〜#1b3a2f・オレンジ #ffb066 / #e27a2d・ミント #8ff0c8・クリーム #fff4d6。 */
+.venue-bar { position: fixed; left: 50%; top: 74px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 16px; border-radius: 999px;
+  background: #0c241ce0; color: #fff4d6; box-shadow: 0 6px 18px #0006, inset 0 0 0 2px #8ff0c855; font-weight: 800; font-size: 14px; white-space: nowrap; }
+.venue-bar[hidden] { display: none; }
+.venue-bar span, .venue-bar button { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+/* style.css の `.en,.ja{display:block;font-size:12px}` を ここでは 親の 字に もどす（かくす ほうの きまりは さわらない）。 */
+.venue-bar .en, .venue-bar .ja { font: inherit; letter-spacing: inherit; }
+html[data-lang=ja] .venue-bar .ja, html:not([data-lang=ja]) .venue-bar .en { display: inline; }
+.venue-bar button { min-height: 36px; padding: 4px 14px; border: 0; border-radius: 999px; background: linear-gradient(180deg, #ffb066, #e27a2d); color: #1b2a1f; font: 800 14px/1.2 inherit; cursor: pointer; touch-action: manipulation; }
+@media (max-height: 560px) { .venue-bar { top: 76px; font-size: 12px; padding: 4px 6px 4px 12px; } .venue-bar button { min-height: 34px; font-size: 12px; } }
+body[data-arcade] .venue-bar, body[data-race] .venue-bar, body[data-gp] .venue-bar, body[data-warp] .venue-bar { display: none; }
