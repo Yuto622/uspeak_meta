@@ -14,6 +14,7 @@ const seedOf = (id) => [...id].reduce((h, c) => Math.imul(h ^ c.charCodeAt(0), 1
 function rnd(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
 
 // ── かたち ─────────────────────────────────────────────────────
+const STAR = new Set(['snow', 'eiken1', 'talk']), SPLIT = new Set(['ruins', 'canyon', 'storm']);
 const RING = { park: [0.68, 0.3], arena: [0.66, 0.3], ride: [0.68, 0.28], sky: [0.66, 0.3] };   // [わの 半径, わの はば]（島の 大きさに たいして）
 const polys = new Map();
 function poly(r) {   // 6〜9 角の とがった かけら（島ごとに きまった かたち）
@@ -26,11 +27,32 @@ export function shapeQ(r, x, z) {
   const dx = (x - r.x) / r.rx, dz = (z - r.z) / r.rz;
   const ring = RING[r.id];
   if (ring) { const d = Math.hypot(dx, dz); return Math.abs(d - ring[0]) / ring[1] * 0.95 + (d < 0.15 ? 0 : 0); }
+  const round = Math.hypot(dx, dz);
+  if (STAR.has(r.id)) { const a = Math.atan2(dz, dx), k = 0.72 + 0.32 * Math.abs(Math.cos(a * 3.5)); return round / k; }   // とがった 結晶の 星形
+  if (r.id === 'moon') { const inner = Math.hypot(dx - 0.42, dz + 0.18); return Math.max(round, 1.32 - inner * 1.1); }   // 三日月
   let q = 0;
   for (const [nx, nz, d] of poly(r)) q = Math.max(q, (dx * nx + dz * nz) / d);   // 多角形（とがった かど）
-  const round = Math.hypot(dx, dz);
-  return q * 0.7 + round * 0.3;
+  q = q * 0.7 + round * 0.3;
+  if (SPLIT.has(r.id) && Math.abs(dx * 0.8 + dz * 0.6 + 0.05) < 0.07) q = Math.max(q, 1.25);   // まっぷたつに われた 島
+  return q;
 }
+
+// 島の 材質：[ひくい ところ, たかい ところ, もようの 色, もよう]。島の 色を まるごと かえる（みどりの 島ばかりに しない）。
+// もよう：veins（光る すじ）・runes・stripes・checker・quilt（いろいろな ます）・lines（ノートの 線）・dots（光る つぶ）・crystal
+export const MAT = {
+  willow: ['#e9b45a', '#c9822e', '#fff4d6', 'veins'], park: ['#fff0d6', '#ffd29a', '#8ff0c8', 'stripes'], errand: ['#d9b45a', '#b08a3a', '#fff4d6', 'checker'],
+  school: ['#5fcaa8', '#2f8a72', '#fff4d6', 'lines'], arena: ['#3a2a22', '#24180f', '#ff8a2a', 'veins'], pet: ['#f6dcae', '#e2b77a', '#ffb066', 'dots'],
+  ride: ['#22332e', '#15231e', '#8ff0c8', 'stripes'], town: ['#d0845a', '#a65e3a', '#fff4d6', 'checker'],
+  eiken5: ['#eef0e6', '#cfd6c4', '#8ff0c8', 'veins'], eiken4: ['#f3ece0', '#d9c9a8', '#ffb066', 'veins'], eiken3: ['#e6f0ee', '#bcd2cc', '#3fc7a8', 'veins'],
+  eikenp2: ['#f4e9d2', '#dcc79c', '#ffcf6b', 'veins'], eiken2: ['#f6efd6', '#e0cf98', '#f2b04a', 'veins'], eikenp1: ['#eef6e0', '#cfe0b0', '#c6f28a', 'veins'], eiken1: ['#fbf6e8', '#e8dcb8', '#ffd84a', 'crystal'],
+  talk: ['#a8f2d6', '#5fcaa8', '#fff4d6', 'crystal'], conv: ['#f6b48a', '#d9804e', '#fff4d6', 'dots'], wear: ['#f8d2b4', '#e2a47a', '#fff4d6', 'stripes'],
+  mini: ['#f2a050', '#d06a28', '#8ff0c8', 'checker'], farm: ['#8cc85e', '#5f9a3a', '#f2d06a', 'stripes'], land: ['#c9a25a', '#9a7a3a', '#8ff0c8', 'checker'],
+  reading: ['#2f6f62', '#1d4a40', '#fff4d6', 'lines'], abc: ['#f6e7c8', '#e0c08a', '#ffffff', 'quilt'], homework: ['#f6efda', '#e0d4b4', '#3fc7a8', 'lines'],
+  fishworld: ['#4fc4b4', '#2a8a86', '#d8fff0', 'crystal'],
+  meadow: ['#c4ea84', '#8cc85e', '#ffd84a', 'dots'], forest: ['#16402e', '#0b2a1e', '#8ff0c8', 'dots'], reef: ['#f6a88a', '#d9785e', '#8ff0c8', 'dots'],
+  canyon: ['#a8432a', '#6e2618', '#ffb066', 'veins'], snow: ['#eef8f6', '#bfe2dc', '#8ff0c8', 'crystal'], storm: ['#5a6a62', '#36443e', '#ffcf6b', 'veins'],
+  desert: ['#f0c86a', '#d09a3e', '#fff4d6', 'stripes'], ruins: ['#a8a596', '#7a786c', '#8ff0c8', 'runes'], moon: ['#1f4a44', '#123430', '#fff4d6', 'dots'], sky: ['#f6ead0', '#e2cc94', '#ffd84a', 'crystal'],
+};
 
 // 島の まわりの 光（宇宙に にじむ 色）
 export const AURA = {
@@ -121,12 +143,14 @@ function gear(g, x, z, rad, col) {
 
 // ── 島ごとの 絵 ───────────────────────────────────────────────
 export function drawIslandArt(g, r) {
-  const R = rnd(seedOf(r.id) + 21), s = r.rx / 31, x = r.x, z = r.z, au = AURA[r.id] || MINT;
+  const R = rnd(seedOf(r.id) + 21), s = r.rx / 24, x = r.x, z = r.z, au = AURA[r.id] || MINT;
   // まわりに うかぶ かけら（島の 外がわ）
   for (let i = 0; i < 4; i++) { const a = R() * 6.283, d = 1.12 + R() * 0.25; shard(g, x + Math.cos(a) * r.rx * d, z + Math.sin(a) * r.rz * d, (1.4 + R() * 1.6) * s, R, R() > 0.5 ? '#3f7a4a' : '#6b5a3a'); }
+  // まわりを まわる かけらの わ（うすい 軌道と 光る つぶ）
+  if (r.id !== 'main') { ringE(g, x, z, r.rx * 1.18, r.rz * 0.62, au, 0.18 * s, -0.25); add(g, () => { for (let i = 0; i < 6; i++) { const a = R() * 6.283, c = Math.cos(-0.25), sn = Math.sin(-0.25), px = Math.cos(a) * r.rx * 1.18, pz = Math.sin(a) * r.rz * 0.62; glow(g, x + px * c - pz * sn, z + px * sn + pz * c, 1.4 * s, au, 0.9); } }); }
   if (r.id !== 'main') {   // まんなかの 光る 台（絵が うかんで 見える）
-    if (!RING[r.id]) { g.fillStyle = 'rgba(6,30,22,.55)'; g.beginPath(); g.ellipse(x, z + 2 * s, r.rx * 0.52, r.rz * 0.44, 0, 0, 6.283); g.fill(); }
-    ringE(g, x, z + 2 * s, r.rx * (RING[r.id] ? 0.68 : 0.52), r.rz * (RING[r.id] ? 0.68 : 0.44), au, 0.35 * s);
+    if (!RING[r.id] && r.id !== 'moon') { g.fillStyle = 'rgba(6,30,22,.42)'; g.beginPath(); g.ellipse(x, z + 2 * s, r.rx * 0.58, r.rz * 0.48, 0, 0, 6.283); g.fill(); }
+    ringE(g, x, z + 2 * s, r.rx * (RING[r.id] ? 0.68 : 0.58), r.rz * (RING[r.id] ? 0.68 : 0.48), au, 0.3 * s);
     runes(g, r, au, R);
   }
   const at = (fx, fz) => [x + fx * r.rx, z + fz * r.rz];

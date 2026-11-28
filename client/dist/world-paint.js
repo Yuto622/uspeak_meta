@@ -9,7 +9,7 @@
 // ・とちゅうで 何度も 手を はなす（`slice`）ので、iPad でも 画面が かたまらない。WebGL は つかわない。
 // ・2 まい かく：せかい ぜんぶ（1 単位 1.6 px）と、ちかづいた とき 用の メインの島（1 単位 6 px）。
 import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ, DLINKS as LINKS, BOUNDS } from './world-map.js';
-import { shapeQ, AURA, drawIslandArt } from './world-art.js';   // 島ごとの 異次元の かたちと 絵
+import { shapeQ, AURA, MAT, drawIslandArt } from './world-art.js';   // 島ごとの 異次元の かたちと 絵
 
 export const WORLD_TILE = { x0: Math.floor(BOUNDS.x0 - 420), x1: Math.ceil(BOUNDS.x1 + 420), z0: Math.floor(BOUNDS.z0 - 200), z1: Math.ceil(BOUNDS.z1 + 200), ppu: 1.2, clouds: true };
 export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
@@ -56,6 +56,8 @@ const ROCK0 = RGB('#6b4a33'), ROCK1 = RGB('#241812');
 const OCEAN = 0.22, HANG = 15;   // 島の まわりに うすい 光る 水だけ（島ごとに うかぶ）   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
 const VOID = RGB('#06120d'), NEB1 = RGB('#1f6e5a'), NEB2 = RGB('#93501c'), NEB3 = RGB('#4fc7a0');
 const RINGS = [520, 640, 780];
+const MAT_RGB = Object.fromEntries(Object.entries(MAT).map(([k, m]) => [k, { a: RGB(m[0]), b: RGB(m[1]), v: RGB(m[2]), pat: m[3] }]));
+const QUILT = ['#e27a2d', '#8ff0c8', '#f2b04a', '#fff4d6', '#3fc7a8', '#ffb066'].map(RGB);
 const AURA_RGB = Object.fromEntries(Object.entries(AURA).map(([k, v]) => [k, RGB(v)]));
 let SC = null;   // 宇宙の まんなか（わの 中心）
 function spaceAt(x, z, px, py) {
@@ -229,6 +231,19 @@ async function paintTile(T) {
         if (k === 10 && noise(x / 1.6, z / 1.6) > 0.55) base = P[3];
         if (k === 8 && noise(x / 1.2 + 5, z / 1.2) > 0.62) base = hash(px >> 1, py >> 1) > 0.5 ? RGB('#f2e27a') : RGB('#f5f5f5');
         if (k === 3 && Hh[i] < 3 && Math.hypot(x - MAP_ISLANDS[I[i]].x, z - (MAP_ISLANDS[I[i]].z + 2)) < 17) base = P[3];   // クレーターの そこ
+        // 島ごとの 材質（異次元：島の 色と もようを まるごと かえる・world-art.js の MAT）
+        const mt = MAT_RGB[MAP_ISLANDS[I[i]].id];
+        if (mt) {
+          const t = Math.max(0, Math.min(1, hn * 0.8 + fbm(x / 11, z / 11, 3) * 0.5 + 0.25));
+          base = mixc(mt.a, mt.b, t);
+          const pat = mt.pat;
+          if (pat === 'veins' || pat === 'runes') { const v = Math.abs(noise(x / 7 + 3, z / 7) + noise(x / 3.1, z / 3.1) * 0.3); if (v < 0.05) { base = mixc(base, mt.v, 0.85 * (1 - v / 0.05)); lit += 0.3; } }
+          else if (pat === 'stripes') { if (((x + z * 0.6) / 5 % 2 + 2) % 2 < 1) base = mixc(base, mt.v, 0.35); }
+          else if (pat === 'checker' || pat === 'quilt') { const q = hash(Math.floor((x + 400) / (pat === 'quilt' ? 7 : 5)), Math.floor((z + 400) / (pat === 'quilt' ? 7 : 5))); base = pat === 'quilt' ? mixc(base, QUILT[Math.floor(q * QUILT.length)], 0.55) : q > 0.5 ? mixc(base, mt.v, 0.4) : base; }
+          else if (pat === 'lines') { if (((z + 400) % 3.2) < 0.25) base = mixc(base, mt.v, 0.6); }
+          else if (pat === 'dots') { if (hash(Math.floor(x * 0.9), Math.floor(z * 0.9)) > 0.93) { base = mixc(base, mt.v, 0.95); lit += 0.4; } }
+          else if (pat === 'crystal') { const c2 = noise(x / 3, z / 3); base = mixc(base, mt.v, Math.max(0, c2) * 0.6); lit += Math.abs(c2) * 0.3; }
+        }
         // がけ（急な ところ）：しましまの 地層
         const cliff = sstep(0.55, 1.2, slope / (ex * 1.2));
         if (cliff > 0) { const strata = (Math.sin(h * 2.6 + noise(x / 6, z / 6) * 2) * 0.5 + 0.5) * 0.25; base = mixc(base, mixc(P[2], RGB('#5a3a2a'), strata), cliff); }
