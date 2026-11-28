@@ -166,3 +166,133 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 #mini-pick .mp-card small { font-size: 14px; opacity: .95; }
 #mini-pick .mp-walk { margin-top: 18px; padding: 10px 22px; min-height: 44px; border-radius: 999px; border: 2px solid #1b3a2f55; background: #fff; color: #1b3a2f; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
 @media (max-height: 480px) { #mini-pick[data-count="5"] .mp-cards { grid-template-columns: repeat(5, 1fr); gap: 6px; } #mini-pick[data-count="5"] .mp-card, #mini-pick[data-count="5"] .mp-card:nth-child(4) { grid-column: auto; } #mini-pick[data-count="5"] .mp-card strong { font-size: 12px; } #mini-pick[data-count="4"] .mp-cards { grid-template-columns: repeat(4, 1fr); gap: 8px; } #mini-pick[data-count="4"] .mp-card strong { font-size: 13px; } #mini-pick { padding: 12px 18px; } #mini-pick h2 { font-size: 22px; margin-bottom: 8px; } #mini-pick .mp-card { padding: 8px; } #mini-pick .mp-card em { font-size: 44px; } #mini-pick .mp-card small { display: none; } #mini-pick .mp-walk { margin-top: 8px; min-height: 36px; } }
+
+/* ── 「🗺 ちず」と「🃏 カード」（2026-11）。えの ちずは world-map.js（SVG を JS で かく）。 ──
+   どちらも 同じ ダイアログの 中。.wm に is-map / is-cards が つく。カードは いつも DOM に ある（e2e は [data-world] を 押す）。 */
+.wm.is-cards .wmap { display: none; }
+.wm.is-map .wm-scroll { display: none; }
+.wm-views { display: inline-flex; gap: 4px; padding: 4px; border-radius: 99px; background: #0c241c; box-shadow: 0 3px 0 #06120d, 0 0 0 2px #ffb06688; }
+.wm-views button { min-height: 40px; padding: 6px 16px; border: 0; border-radius: 99px; background: transparent; color: #fff4d6; font-family: var(--wm-font); font-size: 15px; font-weight: 900; cursor: pointer; white-space: nowrap; }
+.wm-views button[aria-pressed="true"] { background: #e27a2d; color: #fff; box-shadow: 0 2px 0 #a8551c; }
+.wm-views button:focus-visible { outline: 3px solid #8ff0c8; outline-offset: 2px; }
+.wm-views .en, .wm-views .ja { font-style: normal; }
+.wm.is-cards .wm-head { flex-direction: column; gap: 10px; }
+.wm.is-cards .wm-views { order: 2; }
+
+#rpg-dialog[data-page="map"]:has(.wm.is-map) { width: min(1320px, 97vw); background: #17839e; }
+.wm.is-map { height: calc(94dvh - 12px); max-height: none; position: relative; }
+.wm.is-map .wm-head { position: absolute !important; inset: 0 0 auto 0 !important; z-index: 4; padding: 10px 12px; justify-content: space-between; align-items: flex-start; pointer-events: none; }
+.wm.is-map .wm-head > * { pointer-events: auto; }
+.wm.is-map .wm-head h2 { display: none; }
+.wm.is-map .wm-close { position: static; width: 50px; height: 50px; font-size: 20px; border-width: 4px; }
+.wmap { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: #17839e; border-radius: 28px; }
+.wmap-view { position: absolute; inset: 0; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; }
+.wmap-view.drag { cursor: grabbing; }
+.wmap-view:focus-visible { box-shadow: inset 0 0 0 4px #ffd246; }
+.wm-svg { display: block; width: 100%; height: 100%; }
+.wm-svg .en, .wm-svg .ja { font-size: inherit; font-weight: inherit; letter-spacing: inherit; font-style: normal; }
+html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: inline; }
+.wm-svg text { -webkit-user-select: none; user-select: none; }
+.wm-svg .wm-ink { paint-order: stroke; stroke: #2b2118; stroke-width: .7px; stroke-linejoin: round; }
+.wm-svg .wm-ltext { fill: #fff; font-weight: 900; letter-spacing: .02em; paint-order: stroke; stroke: #1b3a2f; stroke-width: 3.2px; stroke-linejoin: round; }
+.wm-svg .wm-jtext { fill: #1b3a2f; font-weight: 900; paint-order: stroke; stroke: #fff4d6; stroke-width: 3.6px; stroke-linejoin: round; }
+.wm-svg .wm-ntext { fill: #fff; font-weight: 900; }
+.wm-svg .wm-ptext { fill: #fff4d6; font-weight: 900; paint-order: stroke; stroke: #1b3a2f; stroke-width: 3.4px; stroke-linejoin: round; }
+.wm-svg .wm-heretext { fill: #ffd246; font-weight: 900; }
+.wm-svg .wm-places { display: none; pointer-events: none; }
+.wm-svg[data-near="1"] .wm-places { display: inline; }
+.wm-svg .wm-label { cursor: pointer; }
+.wm-svg .wm-label.dim { opacity: .7; }
+.wm-svg .wm-label.off, .wm-svg .wm-off { opacity: .35; pointer-events: none; }
+.wm-svg .wm-off { fill: #0c241c; }
+.wm-svg .wmi { cursor: pointer; outline: none; }
+.wm-svg .wmi use { fill: transparent; stroke: none; transition: fill .15s; }
+.wm-svg .wmi:hover use { fill: #ffffff22; }
+.wm-svg .wmi:focus-visible use { fill: #ffffff2a; stroke: #ffd246; stroke-width: 5px; }
+.wm-svg .wm-here-ring { fill: none; stroke: #ffd246; stroke-width: 6px; stroke-dasharray: 12 7; stroke-linejoin: round; }
+.wm-svg .wm-cloud { opacity: .95; pointer-events: none; }
+.wm-svg .wm-pin { animation: wm-bob 1.4s ease-in-out infinite; }
+.wm-svg .wm-live-under, .wm-svg .wm-live-over, .wm-svg .wm-trees, .wm-svg .wm-marks, .wm-svg .wm-town, .wm-svg .wm-bridges { pointer-events: none; }
+@keyframes wm-ring { to { stroke-dashoffset: -76; } }
+@keyframes wm-bob { 50% { transform: translateY(-4px); } }
+
+/* タイトル（上の まんなか）：ブランドの みどりの 板に オレンジと 金の ふち */
+.wmap-title { position: absolute; z-index: 3; top: 10px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+.wt-in { position: relative; display: flex; flex-direction: column; align-items: center; padding: 6px 36px 8px; border-radius: 16px;
+  background: radial-gradient(ellipse at 50% 0, #2a5a48, #1b3a2f 60%, #0c241c); border: 3px solid #f2b04a; box-shadow: 0 0 0 3px #1b3a2f, 0 0 0 6px #ffb066, 0 10px 22px #0c241c88; }
+.wt-in::before, .wt-in::after { content: '✦'; position: absolute; top: 50%; transform: translateY(-50%); color: #f2b04a; font-size: 16px; }
+.wt-in::before { left: 12px; } .wt-in::after { right: 12px; }
+.wt-in b { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 900; font-size: 30px; letter-spacing: .05em; line-height: 1.05;
+  background: linear-gradient(#fff4d6 20%, #ffb066 60%, #f2b04a); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 0 #06120d); }
+.wt-in small { margin-top: 2px; color: #8ff0c8; font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+
+/* パネル（右上の いちらん・左下の せつめい）：たためる */
+.wmap-panel { position: absolute; z-index: 2; max-width: calc(100% - 24px); background: #fff4d6; color: #1b3a2f; border: 3px solid #1b3a2f; border-radius: 16px; box-shadow: 0 0 0 2px #f2b04a, 0 8px 18px #0c241c66; overflow: hidden; display: flex; flex-direction: column; }
+.wmap-panel summary { flex: none; display: flex; align-items: center; gap: 8px; min-height: 38px; padding: 6px 14px; background: #1b3a2f; color: #fff4d6; font-size: 15px; font-weight: 900; cursor: pointer; list-style: none; letter-spacing: .04em; }
+.wmap-panel summary::-webkit-details-marker { display: none; }
+.wmap-panel summary::after { content: '▾'; margin-left: auto; color: #ffb066; transition: transform .15s; }
+.wmap-panel:not([open]) summary::after { transform: rotate(-90deg); }
+.wmap-panel summary .en, .wmap-panel summary .ja, .wmap-panel li .en, .wmap-panel li .ja { font-style: normal; }
+.wmap-panel summary:focus-visible { outline: 3px solid #8ff0c8; outline-offset: -3px; }
+.wmap-list { top: 70px; right: 12px; width: 236px; max-height: calc(100% - 150px); }
+.wmap-list ol { margin: 0; padding: 6px; list-style: none; overflow-y: auto; min-height: 0; }
+.wmap-list li button { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 32px; padding: 3px 6px; border: 0; border-radius: 10px; background: transparent; color: #1b3a2f; font-family: var(--wm-font); text-align: left; cursor: pointer; }
+.wmap-list li button:hover, .wmap-list li button:focus-visible { background: #ffe2b8; outline: none; }
+.wmap-list li button.here { background: #ffd24655; }
+.wmap-list li button.locked { color: #6b7d74; }
+.wl-n { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #e04a2f; color: #fff; font-style: normal; font-size: 12px; font-weight: 900; box-shadow: 0 0 0 2px #fff4d6, 0 0 0 3px #2b2118; }
+.wl-name { flex: 1; min-width: 0; font-size: 14px; font-weight: 900; line-height: 1.15; }
+.wl-name .en, .wl-name .ja { font-size: inherit; font-weight: inherit; }
+.wl-st { flex: none; font-style: normal; font-size: 13px; }
+.wl-st.here { color: #e27a2d; font-size: 16px; }
+.wmap-key { left: 12px; bottom: 12px; width: 230px; }
+.wmap-key ul { margin: 0; padding: 8px 12px 10px; list-style: none; display: grid; gap: 5px; }
+.wmap-key li { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; line-height: 1.2; }
+.wmap-key li .en, .wmap-key li .ja { font-size: inherit; font-weight: inherit; }
+.wk-i { flex: none; display: grid; place-items: center; width: 30px; height: 22px; }
+.wk-i svg { max-width: 30px; max-height: 22px; overflow: visible; }
+
+.wmap-tools { position: absolute; z-index: 2; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+.wmap-tools button { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #1b3a2f; background: #fff4d6; color: #1b3a2f; font-size: 22px; font-weight: 900; line-height: 1; cursor: pointer; box-shadow: 0 3px 0 #1b3a2f, 0 0 0 2px #f2b04a; }
+.wmap-tools button:hover { background: #ffe2b8; }
+.wmap-tools button:active { transform: translateY(2px); box-shadow: 0 1px 0 #1b3a2f, 0 0 0 2px #f2b04a; }
+.wmap-tools button:focus-visible { outline: 3px solid #8ff0c8; outline-offset: 2px; }
+.wmap-tools .wmap-book { background: #e27a2d; color: #fff; font-size: 20px; }
+
+@media (max-width: 900px) {
+  .wt-in b { font-size: 22px; } .wt-in { padding: 4px 28px 6px; } .wt-in small { font-size: 11px; }
+  .wmap-list { width: 200px; }
+}
+/* スマホの 横もち（844×390）・小さい 画面：ダイアログは 画面 いっぱい、パネルは たたんで 出す（small のとき <details> を とじて 作る） */
+@media (max-height: 560px), (max-width: 640px) {
+  #rpg-dialog[data-page="map"]:has(.wm.is-map) { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; border-width: 0; margin: 0; }
+  .wm.is-map { height: 100dvh; max-height: 100dvh; }
+  .wm.is-map .wmap { border-radius: 0; }
+  .wm.is-map .wm-head { padding: max(8px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left)); }
+  .wm.is-map .wm-close { width: 42px; height: 42px; font-size: 17px; border-width: 3px; }
+  .wm-views button { min-height: 34px; padding: 4px 12px; font-size: 13px; }
+  .wmap-title { top: 8px; } .wt-in { padding: 3px 22px 4px; border-width: 2px; box-shadow: 0 0 0 2px #1b3a2f, 0 0 0 4px #ffb066, 0 6px 14px #0c241c88; }
+  .wt-in b { font-size: 17px; } .wt-in small { font-size: 11px; letter-spacing: .06em; } .wt-in::before, .wt-in::after { font-size: 11px; } .wt-in::before { left: 7px; } .wt-in::after { right: 7px; }
+  .wmap-list { top: 58px; right: max(10px, env(safe-area-inset-right)); width: 196px; max-height: calc(100% - 120px); }
+  .wmap-key { left: max(10px, env(safe-area-inset-left)); bottom: 10px; width: 204px; max-height: calc(100% - 70px); }
+  .wmap-key ul { overflow-y: auto; gap: 3px; padding: 6px 10px; }
+  .wmap-panel summary { min-height: 34px; font-size: 13px; padding: 4px 12px; }
+  .wmap-tools { flex-direction: row; right: max(10px, env(safe-area-inset-right)); bottom: 10px; gap: 6px; }
+  .wmap-tools button { width: 40px; height: 40px; font-size: 18px; border-width: 2px; }
+  .wl-name { font-size: 13px; }
+  .wmap-list li button { min-height: 30px; }
+}
+@media (max-width: 640px) {
+  .wmap-title { top: 58px; }
+  .wmap-list { top: 108px; }
+}
+@media (prefers-reduced-motion: reduce) { .wm-svg .wm-pin, .wm-svg .wm-here-ring { animation: none; } }
+/* うごかす 間は transform だけ（world-map.js）。「きみは ここ」は HTML の 札。 */
+.wm-svg { transform-origin: 50% 50%; will-change: transform; }
+.wmap-here { position: absolute; left: 0; top: 0; z-index: 1; width: 0; height: 0; pointer-events: none; }
+.wmap-here .wh-pin { position: absolute; left: -17px; top: -46px; width: 34px; height: 46px; animation: wm-bob 1.4s ease-in-out infinite; will-change: transform; }
+.wmap-here .wh-tag { position: absolute; left: 0; top: -80px; transform: translateX(-50%); white-space: nowrap; padding: 4px 12px; border-radius: 99px; background: #1b3a2f; color: #ffd246; border: 2px solid #ffd246; font-size: 13px; font-weight: 900; box-shadow: 0 4px 10px #0c241c66; }
+.wmap-here .wh-tag .en, .wmap-here .wh-tag .ja { font-size: inherit; font-weight: inherit; font-style: normal; }
+@media (prefers-reduced-motion: reduce) { .wmap-here .wh-pin { animation: none; } }
+.wm-svg .wm-sub { display: none; }
+.wm-svg[data-mid="1"] .wm-sub { display: inline; }

@@ -655,6 +655,23 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  rpg.activate('willow');player.position.set(0,0,0);
  console.log('PASS: 橋 '+walked+' 本 — 板は 岸から 岸まで 歩ける（'+steps+' 点・ゲームと 同じ 当たり判定）、板の 下に 建物なし、ほかの 島の 上を 通らない、門は 錠で 止まる。');
 }
+{// せかいの えの ちず（world-map.js）：HUBS と REGIONS の 島 ぜんぶ・橋 ぜんぶが 下絵に かかれて いる。番号は 1 から とびなく。
+ const {baseSvg,MAP_ISLANDS}=await import('../dist/world-map.js');
+ const {HUBS,REGIONS}=await import('../dist/rpg-data.js');
+ const {LINKS}=await import('../dist/bridges-data.js');
+ const svg=baseSvg(),bad=[];
+ for(const r of [...HUBS,...REGIONS]){
+  if(!svg.includes(`id="wms-${r.id}"`))bad.push(r.id+': 島の かたちが ない');
+  if(!new RegExp(`class="wm-cs wm-label" data-island="${r.id}"`).test(svg))bad.push(r.id+': 名前の 札が ない');
+ }
+ for(const l of LINKS)if(!svg.includes(`data-bridge="${l.id}"`))bad.push(l.id+': 橋が かかれて いない');
+ MAP_ISLANDS.forEach((r,i)=>{if(r.num!==i+1)bad.push(r.id+': 番号が '+r.num);});
+ if(MAP_ISLANDS.length!==HUBS.length+REGIONS.length)bad.push('島の 数が ちがう');
+ if(/NaN|undefined/.test(svg))bad.push('SVG に NaN / undefined');
+ if(baseSvg()!==svg)bad.push('下絵が 1 回で とっておかれて いない');
+ if(bad.length){console.error('FAIL: せかいの ちず\n  '+bad.join('\n  '));process.exit(1);}
+ console.log('PASS: せかいの ちず — '+MAP_ISLANDS.length+' islands and '+LINKS.length+' bridges drawn ('+Math.round(svg.length/1024)+' KB, built once).');
+}
 
 
 // --- カート: how a kart drives, which is the whole difference between this island and ----

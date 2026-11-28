@@ -250,7 +250,7 @@ function rock(x, y, z, sx, sy, sz, seed, { detail = 2, rough = 0.38, flat = -0.3
   const g = new THREE.IcosahedronGeometry(1, detail), p = g.attributes.position;
   for (let i = 0; i < p.count; i += 1) {
     let px = p.getX(i), py = p.getY(i), pz = p.getZ(i);
-    const n = (noise3(px * 1.7 + seed, py * 1.7, pz * 1.7, seed) - 0.5) * rough * 2 + (noise3(px * 4.1, py * 4.1 + seed, pz * 4.1, seed + 3) - 0.5) * rough * 0.6 + (noise3(px * 9.3, py * 9.3, pz * 9.3 + seed, seed + 7) - 0.5) * rough * 0.18;
+    const n = (noise3(px * 1.7 + seed, py * 1.7, pz * 1.7, seed) - 0.5) * rough * 2 + (noise3(px * 4.1, py * 4.1 + seed, pz * 4.1, seed + 3) - 0.5) * rough * 0.6;
     px *= 1 + n; py *= 1 + n; pz *= 1 + n; if (py < flat) py = flat + (py - flat) * 0.2; if (py > cap) py = cap + (py - cap) * 0.22;
     p.setXYZ(i, px * sx + x, py * sy + y, pz * sz + z);
   }
@@ -291,7 +291,7 @@ vec3 roomLight(vec3 p,vec3 n){
   c+=vec3(.045,.30,.58)*k*(.55+2.2*cz*near)*hl*4.6;
   // まどから はねかえる 青みどりの 光（部屋 ぜんたい・向きに あまり よらない）
   float fall=1./(1.+max(p.z+25.,0.)*.055+abs(p.x)*.03);
-  c+=vec3(.010,.085,.125)*(.55+.45*dot(n,l))*fall*hl*1.6;
+  c+=vec3(.010,.085,.125)*(.55+.45*dot(n,l))*fall*hl*3.2;
   // ゆかの 光が 天井・バルコニーの うらを てらす
   c+=vec3(.012,.075,.11)*max(-n.y,0.)*exp(-max(p.z+25.,0.)*.045)*(1.-exp(-p.y*.25))*hl*2.2;
   vec3 q=vec3(PGX,clamp(p.y,.3,3.2),clamp(p.z,-20.,11.)); vec3 Lp=q-p; float dp=length(Lp)+1e-3;
@@ -308,6 +308,7 @@ vec3 roomLight(vec3 p,vec3 n){
   // かべを なでる 光（かべの 上の ほうが 明るい ほたての 形）
   float wall=1.-abs(n.y); float sc=smoothstep(4.9,3.2,p.y)*smoothstep(.2,2.6,p.y)*(.55+.45*cos((p.x+p.z)*1.57));
   c+=vec3(1.,.8,.6)*wall*sc*.12*inFoyer(p)*inHall(p);
+  c+=vec3(.16,.14,.12)*max(-n.y,0.)*inFoyer(p)*inHall(p)*(.6+.4*smoothstep(7.5,4.,abs(p.x)));
   // クラゲの 柱の あおい 光
   vec3 Lj=vec3(${J.x.toFixed(2)},2.3,${J.z.toFixed(2)})-p; float dj=dot(Lj,Lj);
   c+=vec3(.12,.30,.70)*max(dot(n,normalize(Lj)),0.)*1.2/(1.+dj*.35)*inFoyer(p);
@@ -321,7 +322,7 @@ vec3 haze(vec3 p){
   float t=clamp(dot(WC-uCam,vd),0.,len); vec3 c=uCam+vd*t-WC;
   float h=exp(-dot(c,c)*.016)*(1.-exp(-len*.05))*inHall(uCam)*(1.-inFoyer(uCam)*.5);
   float hc=(1.-inHall(uCam))*(1.-exp(-len*.035))*.35;
-  return vec3(.03,.17,.28)*h*.7+vec3(.03,.10,.15)*hc;
+  return vec3(.03,.17,.28)*h*.85+vec3(.03,.10,.15)*hc;
 }
 float waterLen(vec3 p,float tank){
   vec3 v=uCam-p; float L=length(v);
@@ -397,14 +398,16 @@ void main(){ vec3 p=vP; vec3 n=vec3(0.,1.,0.);
   float gloss=vB*gl;
   vec3 refl=vec3(0.);
   if(r.z<-.01&&p.x<13.2&&p.z<15.){ float t=(-25.-p.z)/r.z; vec3 h=p+r*t; vec2 q=h.xy-WC.xy; float d=length(q);
-    float bl=.02+t*.008;
-    float disk=smoothstep(WR+bl,WR-bl,d);
-    float rim=exp(-pow((d-WR-.04)/(.05+bl),2.));
+    // みがいた 床：よこは くっきり、たて（手前へ）は のびて ぼける
+    float bl=.02+t*.006; float da=length(vec2(q.x,q.y*.5)); float dm=mix(d,da,smoothstep(.0,3.,q.y));
+    float lo=max(q.y-WR*.8,0.); float fade=exp(-lo*.5);
+    float disk=smoothstep(WR+bl+max(q.y,0.)*.06,WR-bl,dm)*fade;
+    float rim=exp(-pow((dm-WR-.04)/(.05+bl+max(q.y,0.)*.04),2.))*exp(-lo*1.6);
     float ringM=smoothstep(WR+.1,WR+.2,d)*smoothstep(${W.R.toFixed(2)}+.25,${W.R.toFixed(2)}-.05,d);
     vec3 tc=mix(vec3(.004,.05,.13),vec3(.07,.46,.74),pow(clamp((h.y-1.)/9.,0.,1.),1.3));
     tc*=.75+.6*caus(h.xy*.7);
     tc+=vec3(.10,.35,.45)*pow(max(1.-abs(q.x+q.y*.18-1.2)*.9,0.),3.)*smoothstep(-2.,4.,q.y)*.6;
-    float st=exp(-abs(q.x)*.5)*exp(-max(d-WR,0.)*.22)*(1.-disk); // みがいた 床の たての にじみ
+    float st=exp(-abs(q.x)*.5)*exp(-max(q.y-WR,0.)*.2)*step(0.,q.y)*(1.-disk); // みがいた 床の たての にじみ
     float pol=.7+.6*texture2D(uNoise,vec2(p.x*.9,p.z*.04)).b;
     refl+=(tc*disk*2.+vec3(.35,1.,1.15)*rim*1.6)*pol+vec3(.015,.05,.06)*ringM+vec3(.03,.18,.28)*st*.8+vec3(.02,.11,.2)*exp(-max(d-WR,0.)*.5)*.5; }
   if(r.x>.01&&p.x>13.2){ float t=(PGX-p.x)/r.x; vec3 h=p+r*t; float bl=.03+t*.02;
@@ -511,12 +514,13 @@ void main(){ vec3 n=normalize(vN)*(gl_FrontFacing?1.:-1.); vec3 a=abs(n);
   else if(kind<4.5){ // 雪を かぶった 岩・氷
     float nn=texture2D(uNoise,vP.xz*.35+vP.y*.2).g, fine=texture2D(uNoise,uv*1.7).r;
     float snow=smoothstep(.38,.72,n.y+(nn-.5)*.55+(fine-.5)*.2)*smoothstep(WLV-.05,WLV+.25,vP.y);
-    float crev=smoothstep(.25,.6,texture2D(uNoise,uv*.8+.2).a);
-    vec3 rk=mix(vec3(.16,.18,.21),vec3(.40,.44,.48),fine)*(.7+.5*nn)*(1.-.45*crev);
+    float crev=smoothstep(.3,.75,texture2D(uNoise,uv*.33+.2).a)*.5*(.4+.6*nn);
+    vec3 rk=mix(vec3(.10,.115,.13),vec3(.30,.33,.36),fine)*(.7+.5*nn)*(1.-.45*crev);
     vec3 ice=mix(vec3(.45,.62,.72),vec3(.72,.86,.92),fine);
     float above=smoothstep(WLV-.1,WLV+.1,vP.y);
     alb=mix(mix(rk,ice,smoothstep(.6,.85,nn)*(.15+.5*above)),vec3(.93,.96,.99),snow);
-    n=normalize(n+(vec3(fine,nn,g)-.5)*.6+vec3(0.,0.,crev-.5)*.3);
+    alb*=.85+.3*texture2D(uNoise,vec2(uv.x*.15,vP.y*1.7)).r;
+    n=normalize(n+(vec3(fine,nn,g)-.5)*.5);
   }
   vec3 c=waterShade(alb,vP,n,tank,extra);
   gl_FragColor=vec4(c,1.);
@@ -711,10 +715,10 @@ void main(){ vec3 n=normalize(vN); vec3 v=normalize(uCam-vP); float f=pow(1.-abs
   if(vK<.5){ float r=length(vL.xz); float an=atan(vL.z,vL.x); float a4=mod(an+.785,1.571)-.785; vec2 pq=vec2(cos(a4),sin(a4))*r;
     float gon=smoothstep(.014,.0,abs(length(pq-vec2(.085,0.))-.032))*step(.1,vL.y+.12);
     float rimL=smoothstep(.02,.0,vL.y-.005)*smoothstep(-.01,.01,vL.y+.0);
-    float body=.06+.05*texture2D(uNoise,vL.xz*6.).r;
-    c=vec3(.55,.70,1.)*(body+.85*f)+vec3(.95,.55,.85)*gon*.55+vec3(.6,.85,1.)*rimL*.6;
-  } else if(vK<1.5) c=vec3(.6,.75,1.)*.22*(1.-vT*.8);
-  else c=vec3(.95,.8,1.)*(.16+.3*f)*(1.-vT*.6);
+    float body=.025+.03*texture2D(uNoise,vL.xz*6.).r;
+    c=vec3(.5,.68,1.)*(body+.5*f*f)+vec3(.95,.5,.85)*gon*.4+vec3(.6,.85,1.)*rimL*.45;
+  } else if(vK<1.5) c=vec3(.6,.75,1.)*.16*(1.-vT*.8);
+  else c=vec3(.95,.8,1.)*(.05+.14*f)*(1.-vT*.6);
   float top=smoothstep(${J.y1.toFixed(2)},${(J.y1 - 0.25).toFixed(2)},vP.y)*smoothstep(${J.y0.toFixed(2)},${(J.y0 + 0.2).toFixed(2)},vP.y);
   gl_FragColor=vec4(c*top,1.);
   ${OUT} }`;
@@ -764,7 +768,7 @@ void main(){ vec3 v=normalize(vP-uCam); vec3 n=normalize(vN); if(dot(n,v)>0.)n=-
   vec3 band=vec3(0.);
   if(vA>.5&&vA<1.5){ // 水面の ゆれる 帯（ガラスの 内がわ）
     float wy=WLV+.035*sin(vP.z*2.7+uTime*1.6)+.02*sin(vP.z*6.1-uTime*2.2)+.012*sin(vP.z*13.-uTime*3.1);
-    float dy=vP.y-wy; band=vec3(.55,.85,1.)*(smoothstep(.022,.0,abs(dy))*1.4+smoothstep(.0,-.12,dy)*smoothstep(-.22,-.05,dy)*.25)+vec3(.30,.45,.55)*smoothstep(.0,.03,dy)*smoothstep(.12,.02,dy)*.5; }
+    float dy=vP.y-wy; band=vec3(.55,.85,1.)*(smoothstep(.016,.0,abs(dy))*.6+smoothstep(.0,-.12,dy)*smoothstep(-.22,-.05,dy)*.25)+vec3(.30,.45,.55)*smoothstep(.0,.03,dy)*smoothstep(.12,.02,dy)*.5; }
   float sm=texture2D(uNoise,(vP.xy+vP.zz)*.17).g; float sc=texture2D(uNoise,(vP.zy+vP.xx)*.9).b;
   float a=clamp(fr*(.75+.6*sm)+(vA<2.5?.05:.035)+smoothstep(.62,.8,sc)*.025,0.,1.);
   vec3 c=refl*a+(vA<1.5?haze(vP):vec3(0.))+vC*a+band;
@@ -1182,8 +1186,9 @@ export function buildAquarium(opts = {}) {
     // 雪を かぶった 岩：おくの かべ（天井まで）・水の 上の たな（ペンギンが 立つ）・水の 中の 岩
     for (let z = z0 + 0.6, i = 0; z < z1; z += 1.9 + rnd() * 0.8, i += 1) prop(rock(28.4 + rnd() * 0.6, 1.2, z, 1.5 + rnd() * 0.5, 2.5 + rnd() * 0.4, 1.3 + rnd() * 0.4, 60 + i * 1.7, { detail: 2, rough: 0.42, flat: -0.6 }), 1, 0x8a96a0, 0, 4);
     for (let z = z0 + 1.2, i = 0; z < z1 - 0.8; z += 2.3 + rnd() * 1.1, i += 1) {
-      const T = 2.38 + rnd() * 0.35, sy = 1.3 + rnd() * 0.3, cap = 0.62, x = 24.6 + (i % 2 ? 0.9 : 0) + rnd() * 0.6;
-      prop(rock(x, T - cap * sy, z, 1.3 + rnd() * 0.6, sy, 1.0 + rnd() * 0.5, 80 + i * 2.3, { detail: 2, rough: 0.42, flat: -0.7, cap }), 1, 0x8a96a0, 0, 4);
+      const T = 2.38 + rnd() * 0.35, sy = 0.75 + rnd() * 0.2, cap = 0.55, x = 24.6 + (i % 2 ? 0.9 : 0) + rnd() * 0.6;
+      prop(rock(x, T - cap * sy, z, 1.3 + rnd() * 0.6, sy, 1.0 + rnd() * 0.5, 80 + i * 2.3, { detail: 2, rough: 0.42, flat: -0.75, cap }), 1, 0x8a96a0, 0, 4);
+      prop(rock(x + 0.5 + rnd() * 0.4, 0.4, z + (rnd() - 0.5) * 0.8, 0.9 + rnd() * 0.5, 1.4 + rnd() * 0.3, 0.8 + rnd() * 0.4, 120 + i * 1.9, { detail: 2, rough: 0.45 }), 1, 0x7a8690, 0, 4);
       LEDGES.push([x, T, z]);
     }
     for (let i = 0; i < 12; i += 1) prop(rock(21.4 + rnd() * 4.5, -0.42, z0 + 1 + rnd() * (L - 2), 0.3 + rnd() * 0.5, 0.25 + rnd() * 0.3, 0.3 + rnd() * 0.5, i * 2.3, { detail: 1, rough: 0.3 }), 1, 0x6f8088);
@@ -1193,7 +1198,7 @@ export function buildAquarium(opts = {}) {
   const F = AQUARIUM.foyer;
   room(box(-8.15, 0, 20, 0.3, F.top, 10.6), WALL); room(box(8.15, 0, 20, 0.3, F.top, 10.6), WALL);
   room(box(-5.4, 0, 25.15, 5.8, F.top, 0.3), WALL); room(box(5.4, 0, 25.15, 5.8, F.top, 0.3), WALL); room(box(0, 3.1, 25.15, 5, F.top - 3.1, 0.3), WALL);
-  room(flatPanel(0, F.top, 20, 16.4, 10.4, false), 0x2a2d2e);
+  room(flatPanel(0, F.top, 20, 16.4, 10.4, false), 0x9a958c);
   for (let x = -6; x <= 6; x += 4) for (let z = 16.67; z < 25; z += 3.34) { const d = new THREE.CircleGeometry(0.1, 14); d.rotateX(Math.PI / 2); d.translate(x, F.top - 0.01, z); emis(solid(d), [2.4, 2.1, 1.7]); }
   // ドア（ガラス）と 外の 光
   glass(panel(0, 1.5, 25.0, 4.8, 3.0, Math.PI), 3, 0x080c0e);
@@ -1203,17 +1208,17 @@ export function buildAquarium(opts = {}) {
   glow(solid(flatPanel(0, 0.014, 22.6, 6.5, 5)), [0.16, 0.16, 0.15], 2);
   emis(panel(0, 3.55, 24.98, 1.1, 0.28, Math.PI, atlasUV('exit')), [1.1, 1.1, 1.1]);
   // 大看板（西の かべ）・ホールへの 看板
-  room(box(-7.86, 2.62, 19.9, 0.06, 1.56, 5.7), 0x05090b); emis(panel(-7.82, 3.4, 19.9, 5.4, 1.35, Math.PI / 2, atlasUV('main')), [1.3, 1.3, 1.3]);
-  glow(solid(panel(-7.8, 3.4, 19.9, 8, 3.6, Math.PI / 2)), [0.04, 0.14, 0.2], 0);
+  room(box(-7.86, 3.27, 19.9, 0.06, 1.5, 5.7), 0x05090b); emis(panel(-7.82, 4.02, 19.9, 5.2, 1.3, Math.PI / 2, atlasUV('main')), [1.3, 1.3, 1.3]);
+  glow(solid(panel(-7.8, 4.0, 19.9, 8, 2.8, Math.PI / 2)), [0.04, 0.14, 0.2], 0);
   emis(panel(0, 4.22, 15.17, 4.6, 0.58, 0, atlasUV('ocean')), [1.15, 1.15, 1.15]);
   // うけつけの 台（まがった）
   for (let i = 0; i < 7; i += 1) { const a = -0.7 + (i / 6) * 1.4, x = -5.6 + Math.sin(a) * 2.2, z = 19.6 + Math.cos(a) * 1.0 - 1; const g = box(0, 0, 0, 0.72, 1.05, 0.5); g.rotateY(a); g.translate(x, 0, z); room(g, 0x30383c); const t = box(0, 0, 0, 0.74, 0.05, 0.62); t.rotateY(a); t.translate(x, 1.05, z); metal(t, 2, 0x8a9296); }
   ob(-5.6, 18.6, 2.3, 0.8);
   // うけつけの 前の あかり・きっぷの かんばん・ならぶ 柱と ベルト
   for (let i = 0; i < 6; i += 1) { const a0 = -0.7 + (i / 6) * 1.4, a1 = -0.7 + ((i + 1) / 6) * 1.4; const P = (a, yy) => [-5.6 + Math.sin(a) * 2.47, yy, 18.6 + Math.cos(a) * 1.25]; emis(solid(quad4(P(a0, 0.12), P(a1, 0.12), P(a1, 0.16), P(a0, 0.16))), [0.3, 1.2, 1.2]); emis(solid(quad4(P(a0, 0.96), P(a1, 0.96), P(a1, 1.0), P(a0, 1.0))), [1.0, 0.75, 0.45]); }
-  emis(panel(-5.6, 3.55, 19.4, 2.4, 0.6, 0, atlasUV('tickets')), [1.15, 1.15, 1.15]); room(box(-5.6, 3.88, 19.36, 2.5, 0.04, 0.06), 0x14181a);
-  for (const dx of [-1.0, 1.0]) metal(limb([-5.6 + dx, 3.9, 19.4], [-5.6 + dx, 4.98, 19.4], 0.006, 0.006, 4), 2);
-  glow(solid(panel(-5.6, 3.55, 19.42, 4.2, 1.6, 0)), [0.03, 0.10, 0.12], 0);
+  emis(panel(-5.6, 2.45, 19.4, 2.0, 0.5, 0, atlasUV('tickets')), [1.15, 1.15, 1.15]); room(box(-5.6, 2.15, 19.36, 2.1, 0.6, 0.06), 0x0a1418);
+  for (const dx of [-0.9, 0.9]) metal(limb([-5.6 + dx, 2.75, 19.36], [-5.6 + dx, 4.98, 19.36], 0.006, 0.006, 4), 2);
+  glow(solid(panel(-5.6, 2.45, 19.42, 3.6, 1.4, 0)), [0.03, 0.10, 0.12], 0);
   { const posts = [[-3.2, 21.2], [-3.2, 22.6], [-1.6, 21.2], [-1.6, 22.6]]; posts.forEach(([x, z]) => { metal(cyl(x, 0, z, 0.025, 0.025, 0.95, 8), 2); metal(cyl(x, 0, z, 0.16, 0.18, 0.03, 12), 2); });
     for (const [a, b] of [[0, 2], [1, 3], [0, 1]]) { const [x0, z0] = posts[a], [x1, z1] = posts[b]; room(beamBox([x0, 0.9, z0], [x1, 0.9, z1], 0.012, 0.05), 0x1e3a6a); } }
   // 木の たての ルーバー（西の かべ）・天井の まわりの 光の みぞ・ゆかの マット・あんないの 台・じかんの かんばん
@@ -1403,7 +1408,7 @@ export function buildAquarium(opts = {}) {
     entrance: { ...AQUARIUM.entrance },
     zones: { window: { x: 0, z: -21 }, penguins: { x: 17.4, z: -4 } },
     update(t) { U.uTime.value = t; },
-    setQuality(q) { const low = q === 'low'; fishGeo.instanceCount = low ? Math.round(full.fish * 0.5) : full.fish; dots.geometry.setDrawRange(0, low ? Math.round(full.dots * 0.5) : full.dots); if (meshes.glow) meshes.glow.visible = !low; },
+    setQuality(q) { const low = q === 'low'; fishGeo.instanceCount = low ? Math.round(full.fish * 0.5) : full.fish; dots.geometry.setDrawRange(0, low ? Math.round(full.dots * 0.5) : full.dots); if (meshes.glow) meshes.glow.visible = !low; if (meshes.trail) meshes.trail.visible = !low; },
     dispose() { group.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); },
   };
 }
