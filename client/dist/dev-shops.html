@@ -40,7 +40,7 @@ const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerHeight, false);
 renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
-renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled = !Q.has('noshadow'); renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.05, 400);
 
 // 光は ページの もの（島と 同じ：半球＋太陽）。モデルは 光を 持たない。
@@ -71,8 +71,8 @@ const VIEWS = {
   'bout-int': { m: 'bout', pos: [-1.0, 1.7, 5.7], look: [4.4, 2.6, -2.2], fov: 64 },
   'bout-street': { m: 'bout', pos: [-1.0, 3.3, 5.6], look: [-6.4, 1.0, -1.8], fov: 64 },
   'furn-ext': { m: 'furn', pos: [7.0, 1.9, 17.5], look: [0, 3.4, 6.8], fov: 52 },
-  'furn-int': { m: 'furn', pos: [2.4, 1.7, 6.0], look: [-7.2, 1.2, 1.8], fov: 62 },
-  'furn-bed': { m: 'furn', pos: [-1.2, 1.9, -1.0], look: [-5.6, 0.9, -5.8], fov: 62 },
+  'furn-int': { m: 'furn', pos: [1.6, 1.7, 5.4], look: [-6.5, 1.1, 0.0], fov: 64 },
+  'furn-bed': { m: 'furn', pos: [-3.6, 2.0, -0.9], look: [-5.4, 1.0, -5.6], fov: 64 },
 };
 let view = VIEWS[Q.get('view')] ? Q.get('view') : 'bout-ext', night = +(Q.get('night') ?? 1);
 const orb = { target: new THREE.Vector3(), r: 10, th: 0, ph: 1.2 };
@@ -121,6 +121,7 @@ function frame() {
     Object.assign(document.body.dataset, { calls: count(s), tris: s.built.triangles, texmb: shopTextureMB(), buildms: s.ms, boutms: S.bout.ms, furnms: S.furn.ms });
   }
   if (frames >= 3) document.body.dataset.ready = '1';
+  if (Q.has('shot') && frames >= 3) return;   // 写真を とる ときは 3 コマで とめる（おそい 機械の ため）
   requestAnimationFrame(frame);
 }
 frame();

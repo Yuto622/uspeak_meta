@@ -8,14 +8,13 @@
 // ・島の 位置・形は world-map.js（rpg-data.js の x, z）、橋は bridges-data.js。地理は ほんものの 座標の まま。
 // ・とちゅうで 何度も 手を はなす（`slice`）ので、iPad でも 画面が かたまらない。WebGL は つかわない。
 // ・2 まい かく：せかい ぜんぶ（1 単位 1.6 px）と、ちかづいた とき 用の メインの島（1 単位 6 px）。
-import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ } from './world-map.js';
-import { LINKS } from './bridges-data.js';
+import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ, DLINKS as LINKS, BOUNDS } from './world-map.js';
 
-export const WORLD_TILE = { x0: -780, x1: 760, z0: -660, z1: 560, ppu: 1.3, clouds: true };
+export const WORLD_TILE = { x0: Math.floor(BOUNDS.x0 - 420), x1: Math.ceil(BOUNDS.x1 + 420), z0: Math.floor(BOUNDS.z0 - 200), z1: Math.ceil(BOUNDS.z1 + 200), ppu: 1.2, clouds: true };
 export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
 
 // ぬった えの 島は ほんとうの 大きさより 大きく かく（位置と 橋は ほんものの まま。海が ひろすぎて 地形が 見えない ため）。
-export const VS = 1.6;
+const VS = 1;   // 島は world-map.js で もう 大きく して ある（rx, rz）
 
 // ── ノイズ（決まった 乱数・value noise と fbm）──────────────────
 const PERM = new Uint8Array(512);
@@ -50,7 +49,7 @@ const PAL = [
   ['#8cbb52', '#6e9e40', '#8d7a62', '#d8c26a'], ['#6fae4c', '#4f8d3a', '#8d7a62', '#9cc45a'], ['#78b04e', '#5e9840', '#a57d5c', '#a9cf6a'],
 ].map((p) => p.map(RGB));
 const SAND = RGB('#ecd9a2'), SAND_WET = RGB('#d6bd84'), FOAM = RGB('#ffffff');
-const DEEP = RGB('#0f4f8c'), MID = RGB('#1a7fbe'), SHAL = RGB('#25bccc'), LAGOON = RGB('#5fdccf'), NEAR = RGB('#9af0df'), REEF = RGB('#2a9e9a');
+const DEEP = RGB('#1d6fb0'), MID = RGB('#2596cc'), SHAL = RGB('#38c6d4'), LAGOON = RGB('#66e0d2'), NEAR = RGB('#a8f4e4'), REEF = RGB('#34aaa4');
 
 // メインの島の 陸らしさ：角まるの 四角（54×43）と つき出した 土地（四角の 角まる）。
 function mainL(x, z) {
@@ -81,7 +80,7 @@ async function paintTile(T) {
   const W = Math.round((T.x1 - T.x0) * T.ppu), H = Math.round((T.z1 - T.z0) * T.ppu), N = W * H, u = 1 / T.ppu;
   const L = new Float32Array(N).fill(-2.4), K = new Uint8Array(N), I = new Uint8Array(N), Hh = new Float32Array(N);
   let t0 = now(); const tStart = t0;
-  const yieldIf = async () => { if (now() - t0 > 24) { await slice(); t0 = now(); } };
+  const yieldIf = async () => { if (now() - t0 > 40) { await slice(); t0 = now(); } };
   // 1. 陸らしさ（島ごとに まわり だけ）
   for (let ii = 0; ii < MAP_ISLANDS.length; ii++) {
     const r = MAP_ISLANDS[ii], main = r.id === 'main';
@@ -150,6 +149,7 @@ async function paintTile(T) {
       let cshadow = 0;
       if (cgrid) {   // まわりの 雲（もこもこの 積雲：光の 側は 白く、右下の かげは 青灰色。海に 雲の かげ）。こい ところは 下を かかない。
         const base = cgrid(x, z);
+        if (base > 1.6) { const q = 246 + noise(x / 20, z / 20) * 6; const o = i * 4; D[o] = q; D[o + 1] = q + 3; D[o + 2] = Math.min(255, q + 8); D[o + 3] = 255; continue; }   // ずっと 外の こい 雲（はやい 道）
         if (base > 0.15) {
           const F = (bx, bz) => cgrid(bx, bz) + (1 - Math.abs(noise(bx / 15, bz / 15))) * 0.32 + (1 - Math.abs(noise(bx / 6.5 + 7, bz / 6.5))) * 0.16 - 0.36;
           const dn = F(x, z);
@@ -234,7 +234,7 @@ async function paintTile(T) {
   return cv;
 }
 
-const CF = { x0: -455, x1: 450, z0: -535, z1: 445 };   // 雲の 内がわ（ぜんぶの 島の わく）
+const CF = { x0: BOUNDS.x0 - 30, x1: BOUNDS.x1 + 30, z0: BOUNDS.z0 - 30, z1: BOUNDS.z1 + 30 };   // 雲の 内がわ（ぜんぶの 島の わく）
 // 雲の こさ：わくの まわりに まるい かたまり（大・小）を ならべ、4 単位の あらい 格子に 足しこむ（1 回だけ）。かえすのは (x, z) → こさ。
 function cloudField(T) {
   const R = rnd(91), blobs = [];
@@ -246,7 +246,7 @@ function cloudField(T) {
     blobs.push([cx, cz, big]);
     for (let k = 0; k < 3; k++) blobs.push([cx + (R() - 0.5) * big * 1.6, cz + (R() - 0.5) * big * 1.6, big * (0.4 + R() * 0.35)]);
   }
-  for (let k = 0; k < 260; k++) blobs.push([lerp(T.x0, T.x1, R()), lerp(T.z0, T.z1, R()), 45 + R() * 50]);   // わくの ずっと 外は うめる
+  for (let k = 0; k < 520; k++) blobs.push([lerp(T.x0, T.x1, R()), lerp(T.z0, T.z1, R()), 40 + R() * 45]);   // わくの ずっと 外は うめる
   const C = 2.5, GW = Math.ceil((T.x1 - T.x0) / C) + 2, GH = Math.ceil((T.z1 - T.z0) / C) + 2, G = new Float32Array(GW * GH);
   for (const [bx, bz, br] of blobs) {
     const inside = Math.max(CF.x0 - bx, bx - CF.x1, CF.z0 - bz, bz - CF.z1) < -br * 0.6 && false;
@@ -259,7 +259,7 @@ function cloudField(T) {
     }
   }
   // 島の 上には かからない ように（わくの 中は うすく）
-  for (let gz = 0; gz < GH; gz++) for (let gx = 0; gx < GW; gx++) { const x = T.x0 + gx * C, z = T.z0 + gz * C, od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1); G[gz * GW + gx] *= sstep(-60, 30, od + fbm(x / 70 + 5, z / 70, 4) * 110); }
+  for (let gz = 0; gz < GH; gz++) for (let gx = 0; gx < GW; gx++) { const x = T.x0 + gx * C, z = T.z0 + gz * C, od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1); G[gz * GW + gx] = G[gz * GW + gx] * sstep(-60, 30, od + fbm(x / 70 + 5, z / 70, 4) * 110) + sstep(170, 300, od) * 1.5; }   // ずっと 外は かならず 雲（絵の はしが 見えない）
   return (x, z) => {
     const fx = (x - T.x0) / C, fz = (z - T.z0) / C, ix = Math.max(0, Math.min(GW - 2, Math.floor(fx))), iz = Math.max(0, Math.min(GH - 2, Math.floor(fz))), tx = fx - ix, tz = fz - iz, o = iz * GW + ix;
     return lerp(lerp(G[o], G[o + 1], tx), lerp(G[o + GW], G[o + GW + 1], tx), tz);

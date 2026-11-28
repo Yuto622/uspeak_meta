@@ -102,7 +102,7 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
     return `<li><button type="button" class="${open ? '' : 'locked'}${here ? ' here' : ''}" data-wm-pick="${esc(r.id)}" translate="no">
       <i class="wl-n">${r.num}</i><span class="wl-name"><b class="en">${esc(shortName(r))}</b><i class="ja">${esc(r.yomi || r.name)}</i></span>${mark}</button></li>`;
   };
-  const small = globalThis.matchMedia?.('(max-height: 560px), (max-width: 640px)').matches;
+  const small = globalThis.matchMedia?.('(max-height: 500px), (max-width: 900px)').matches;   // スマホ・小さい 画面は パネルを たたんで はじめる
   const keyRow = (icon, en, ja) => `<li><span class="wk-i" aria-hidden="true">${KEY_ICONS[icon]}</span><span><b class="en">${en}</b><i class="ja">${ja}</i></span></li>`;
   host.innerHTML = `<section class="wm ${view === 'cards' ? 'is-cards' : 'is-map'}">
     <header class="wm-head">

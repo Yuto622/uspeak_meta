@@ -97,7 +97,7 @@ function soft(g, X, Y, W, H, n, rnd, a, r0 = 0.08, r1 = 0.25) {
   g.save(); g.beginPath(); g.rect(X, Y, W, H); g.clip();
   for (let i = 0; i < n; i += 1) {
     const x = X + rnd() * W, y = Y + rnd() * H, r = (r0 + rnd() * (r1 - r0)) * Math.max(W, H), l = rnd() > 0.5 ? 255 : 0;
-    for (const ox of [-W, 0, W]) { const gr = g.createRadialGradient(x + ox, y, 0, x + ox, y, r); gr.addColorStop(0, `rgba(${l},${l},${l},${a})`); gr.addColorStop(1, `rgba(${l},${l},${l},0)`); g.fillStyle = gr; g.fillRect(x + ox - r, y - r, r * 2, r * 2); }
+    for (const ox of [-W, 0, W]) for (const oy of [-H, 0, H]) { const gr = g.createRadialGradient(x + ox, y + oy, 0, x + ox, y + oy, r); gr.addColorStop(0, `rgba(${l},${l},${l},${a})`); gr.addColorStop(1, `rgba(${l},${l},${l},0)`); g.fillStyle = gr; g.fillRect(x + ox - r, y + oy - r, r * 2, r * 2); }
   }
   g.restore();
 }
@@ -114,11 +114,11 @@ export function shopTextureMB() { return +[...TEXLOG.values()].reduce((a, b) => 
 /* ───────── 共有の もよう（2 つの お店で 1 回だけ）───────── */
 
 // もようの 帯（512 × 256 が 12 本）：番号と 1 まいの 大きさ（m）は 使う がわの UV で きめる。
-const NSTRIP = 12;
+const NSTRIP = 12, PAD = 8, SLOT = 256 + PAD * 2;
 export const STRIP = { stone: 0, brick: 1, walnut: 2, oak: 3, checker: 4, cobble: 5, plaster: 6, marble: 7, damask: 8, carpet: 9, granite: 10, slab: 11 };
 // 帯ごとの つや（roughness）と でこぼこの 強さ。
-const ROUGH = [0.92, 0.86, 0.38, 0.3, 0.16, 0.7, 0.88, 0.09, 0.55, 0.97, 0.07, 0.72];
-const BUMP = [1.5, 1.0, 0.25, 0.3, 0.25, 1.3, 0.15, 0.08, 0.35, 0.6, 0.06, 0.55];
+const ROUGH = [0.95, 0.86, 0.38, 0.3, 0.16, 0.7, 0.88, 0.09, 0.55, 0.97, 0.07, 0.72];
+const BUMP = [0.8, 1.0, 0.25, 0.3, 0.25, 1.3, 0.15, 0.08, 0.35, 0.6, 0.06, 0.55];
 
 // アトラス（1024 × 512・128 の ます 8 × 4）。[u0, v0, u1, v1]
 const cell = (cx, cy, w = 1, h = 1, pad = 0.004) => [cx / 8 + pad, 1 - (cy + h) / 4 + pad * 2, (cx + w) / 8 - pad, 1 - cy / 4 - pad * 2];
@@ -139,7 +139,8 @@ function equirect(t) { if (t) { t.mapping = THREE.EquirectangularReflectionMappi
 
 function surfAtlas() {
   const rnd = rng(311);
-  const t = tex(512, 256 * NSTRIP, (g) => {
+  const t = tex(512, SLOT * NSTRIP, (gOut) => {
+    const cv = document.createElement('canvas'); cv.width = 512; cv.height = 256 * NSTRIP; const g = cv.getContext('2d');
     const S = (i, paint) => { g.save(); g.beginPath(); g.rect(0, i * 256, 512, 256); g.clip(); g.translate(0, i * 256); paint(512, 256); g.restore(); };
     const wrapX = (W, x, w, draw) => { draw(x); if (x < 0) draw(x + W); if (x + w > W) draw(x - W); };
     const woodLines = (x, y, w, h, n, a, wave = 3, col = '90,50,20') => { for (let k = 0; k < n; k += 1) { const yy = y + rnd() * h, ph = rnd() * 6, amp = rnd() * wave; g.strokeStyle = `rgba(${col},${a * (0.4 + rnd())})`; g.lineWidth = 0.6 + rnd() * 1.2; g.beginPath(); for (let xx = 0; xx <= w; xx += 8) { const v = yy + Math.sin(xx * 0.02 + ph) * amp + Math.sin(xx * 0.07 + ph * 2) * amp * 0.3; if (xx === 0) g.moveTo(x + xx, v); else g.lineTo(x + xx, v); } g.stroke(); } };
@@ -158,7 +159,7 @@ function surfAtlas() {
             g.lineTo(xx + w - 3 + c3, yB - 6); g.quadraticCurveTo(xx + w - 2, yB, xx + w - 9, yB - 1 + c4 * 0.3); g.lineTo(xx + 7 + c4, yB);
             g.quadraticCurveTo(xx + 2, yB, xx + 3 + c1 * 0.3, yB - 7); g.lineTo(xx + 2 + c4 * 0.5, yA + 8); g.quadraticCurveTo(xx + 2, yA + 2, xx + 4 + c1, yA + 2); g.closePath();
             const k = 0.92 + rnd() * 0.16; g.fillStyle = `rgb(${base[0] * k | 0},${base[1] * k | 0},${base[2] * k | 0})`; g.fill(); g.clip();
-            const sh = g.createLinearGradient(xx, yA, xx + w * 0.4, yB); sh.addColorStop(0, 'rgba(255,248,230,0.2)'); sh.addColorStop(0.5, 'rgba(255,248,230,0)'); sh.addColorStop(1, 'rgba(20,14,8,0.28)'); g.fillStyle = sh; g.fillRect(xx, yA, w, yB - yA);
+            const sh = g.createLinearGradient(0, yA, 0, yB); sh.addColorStop(0, 'rgba(255,248,230,0.14)'); sh.addColorStop(0.4, 'rgba(255,248,230,0)'); sh.addColorStop(1, 'rgba(20,14,8,0.18)'); g.fillStyle = sh; g.fillRect(xx, yA, w, yB - yA);
             soft(g, xx, yA, w, yB - yA, 3, rnd, 0.1, 0.15, 0.5); grain(g, xx, yA, w, yB - yA, 260, rnd, 0.16, 1.8);
             for (let q = 0; q < 4; q += 1) { g.strokeStyle = `rgba(40,30,20,${0.08 + rnd() * 0.1})`; g.lineWidth = 1; g.beginPath(); const sx = xx + rnd() * w, sy = yA + rnd() * (yB - yA); g.moveTo(sx, sy); g.lineTo(sx + (rnd() - 0.5) * 18, sy + (rnd() - 0.5) * 8); g.stroke(); }
             g.restore();
@@ -276,6 +277,11 @@ function surfAtlas() {
         g.fillStyle = 'rgba(255,255,255,0.2)'; g.fillRect(k * 256 + 2, 2, 252, 2);
       }
     });
+    // 帯の 上下に 8px ずつ となりの はしを 写す（ミップマップで となりの 帯が にじまない）。
+    for (let k = 0; k < NSTRIP; k += 1) {
+      const y = k * SLOT; gOut.drawImage(cv, 0, k * 256, 512, 256, 0, y + PAD, 512, 256);
+      gOut.drawImage(cv, 0, k * 256 + 256 - PAD, 512, PAD, 0, y, 512, PAD); gOut.drawImage(cv, 0, k * 256, 512, PAD, 0, y + PAD + 256, 512, PAD);
+    }
   });
   if (t) { t.anisotropy = 8; }
   return track('surf', t);
@@ -487,7 +493,7 @@ function lightGLSL(c) {
     if (n.y > 0.5) { vec2 q = (fract((p.xz - vec2(${f3(c.ox)}, ${f3(c.oz)})) / ${f3(c.sp)}) - 0.5) * ${f3(c.sp)}; L += inside * (exp(-dot(q, q) * 1.7) * 0.85 + 0.12); }
     else if (n.y > -0.5) { float al = p.x * n.z - p.z * n.x; float q = (fract(al / ${f3(c.wsp)} + 0.5) - 0.5) * ${f3(c.wsp)}; float h = top - p.y;
       L += inside * (smoothstep(0.0, 0.45, h - 0.2 - q * q * 2.4) * exp(-h * 0.32) * 0.95 + 0.1); }
-    else { L += inside * 0.12; }`;
+    else { L += inside * 1.2; }`;
   for (const [x, y, z, r, k, zMin = -99] of c.lamps || []) s += `\n    { vec3 d = p - vec3(${f3(x)}, ${f3(y)}, ${f3(z)}); L += uNight * ${f3(k)} * step(${f3(zMin)}, p.z) * exp(-dot(d, d) / ${f3(r * r)}); }`;
   return s;
 }
@@ -514,9 +520,9 @@ function enhance(m, { key, light = '', ao = '', strips = false, fabric = false, 
       pre += `
         #ifdef USE_MAP
           sSel = floor(vMapUv.y / 100.0 + 0.5); float sLv = vMapUv.y - sSel * 100.0;
-          vec2 sUv = vec2(vMapUv.x, (fract(sLv) + ${NSTRIP - 1}.0 - sSel) / ${NSTRIP}.0);
+          vec2 sUv = vec2(vMapUv.x, ((${NSTRIP - 1}.0 - sSel) * ${SLOT}.0 + ${PAD}.0 + 256.0 * fract(sLv)) / ${SLOT * NSTRIP}.0);
           #if __VERSION__ >= 300
-            vec4 sTex = textureGrad(map, sUv, dFdx(vec2(vMapUv.x, sLv / ${NSTRIP}.0)), dFdy(vec2(vMapUv.x, sLv / ${NSTRIP}.0)));
+            vec4 sTex = textureGrad(map, sUv, dFdx(vec2(vMapUv.x, sLv * ${(256 / (SLOT * NSTRIP)).toFixed(6)})), dFdy(vec2(vMapUv.x, sLv * ${(256 / (SLOT * NSTRIP)).toFixed(6)})));
           #else
             vec4 sTex = texture2D(map, sUv);
           #endif
@@ -590,6 +596,7 @@ void main() {
   float cosT = clamp(-dot(V, N), 0.0, 1.0);
   vec3 R = reflect(V, N);
   float F = F0 + (1.0 - F0) * pow(1.0 - cosT, 5.0);
+  if (kind < 0.5) F = max(F, outside * mix(0.3, 0.05, uNight));
   vec2 e = eq(R);
   vec3 envE = mix(texture2D(uEnvE, vec2(e.x, 0.5 + e.y * 0.5)).rgb, texture2D(uEnvE, vec2(e.x, e.y * 0.5)).rgb * 1.3, uNight);
   vec3 envI = texture2D(uEnvI, e).rgb;
@@ -602,7 +609,7 @@ void main() {
   } else if (kind < 1.5) {
     col = envI * F * 1.2 + vec3(0.55, 0.75, 0.7) * 0.05; a = clamp(F * 0.85 + 0.05, 0.0, 0.92);
   } else if (kind < 2.5) {
-    col = envI * vec3(0.88, 0.9, 0.9) * mix(1.0, 0.75, uNight) + pow(1.0 - cosT, 4.0) * 0.08; a = 1.0;
+    col = mix(envI * vec3(0.9, 0.92, 0.94), vec3(0.62, 0.64, 0.66) * (0.75 + 0.25 * R.y), 0.45) * mix(1.0, 0.75, uNight) + pow(1.0 - cosT, 4.0) * 0.08; a = 1.0;
   } else if (kind < 3.5) {
     float tw = pow(h31(floor(vW * 40.0) + floor(uTime * 3.0)), 30.0);
     col = envI * 1.6 * (0.4 + F) + vec3(1.0, 0.92, 0.8) * tw * 2.5 + vec3(0.35, 0.33, 0.3) * uNight; a = clamp(0.45 + F * 0.5, 0.0, 1.0);
@@ -679,10 +686,10 @@ function sparkleMaterial(night, time) {
 
 /* ───────── 人（mall-real.js と 同じ つくり・ここで 小さく）───────── */
 // はだ・上の 服・下の 服・かみ・くつ・かばん・目・くちを 頂点の part で わけ、色は 1 体ずつ（instanced attribute）。歩く 足と うでは 頂点シェーダー。
-function peopleMaterial(time) {
+function peopleMaterial(time, night) {
   const m = new THREE.MeshStandardMaterial({ roughness: 0.78, metalness: 0 });
   m.onBeforeCompile = (sh) => {
-    sh.uniforms.uTime = time;
+    sh.uniforms.uTime = time; sh.uniforms.uPool = night.pool;
     sh.vertexShader = `uniform float uTime; attribute vec3 pv; attribute vec2 swing; attribute vec3 iSkin; attribute vec3 iTop; attribute vec3 iBot; attribute vec3 iHair; attribute vec3 iWalk; attribute vec4 iVar; attribute vec3 iBag; varying vec3 vTint;\n${sh.vertexShader}`
       .replace('#include <beginnormal_vertex>', `float pAng = (sin(uTime * 5.5 + iWalk.x) * iWalk.y + iWalk.z) * swing.x; float pc = cos(pAng), ps = sin(pAng);
         float keep = 1.0; float vr = pv.y;
@@ -696,7 +703,7 @@ function peopleMaterial(time) {
         float part = pv.x; float white = mod(iVar.w, 2.0);
         vTint = part < 0.5 ? iSkin : part < 1.5 ? iTop : part < 2.5 ? iBot : part < 3.5 ? iHair : part < 4.5 ? mix(iBot * 0.3 + 0.015, vec3(0.78, 0.78, 0.76), white)
           : part < 5.5 ? iBag : part < 6.5 ? vec3(0.025, 0.02, 0.018) : mix(iSkin, vec3(0.55, 0.22, 0.22), 0.35) * 0.85;`);
-    sh.fragmentShader = `varying vec3 vTint;\n${sh.fragmentShader}`.replace('#include <color_fragment>', 'diffuseColor.rgb *= vTint;');
+    sh.fragmentShader = `uniform float uPool;\nvarying vec3 vTint;\n${sh.fragmentShader}`.replace('#include <color_fragment>', 'diffuseColor.rgb *= vTint;').replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n totalEmissiveRadiance += diffuseColor.rgb * vec3(1.0, 0.86, 0.68) * uPool * 0.55;');
   };
   m.customProgramCacheKey = () => 'uspeak-shop-people';
   return m;
@@ -901,7 +908,7 @@ function garment(K, m, { color, len = 0.78, w = 0.48, type = 'jacket', seed = 1,
 function rack(K, m, { len = 1.6, h = 1.55, color = IRON, items = [], gap = 0.13, rnd, base = true }) {
   const T = tf(m);
   for (const s of [-1, 1]) { K.MT(T(cyl(s * len / 2, 0, 0, 0.016, 0.016, h, 8)), color); if (base) K.MT(T(box(s * len / 2, 0, 0, 0.04, 0.03, 0.5)), color); }
-  K.MT(T(cyl(0, 0, 0, 0.014, 0.014, len, 8).rotateZ(Math.PI / 2).translate(0, h, 0)), color);
+  K.MT(T(cyl(0, -(len) / 2, 0, 0.014, 0.014, len, 8).rotateZ(Math.PI / 2).translate(0, h, 0)), color);
   let x = -len / 2 + 0.12; let i = 0;
   while (x < len / 2 - 0.08 && items.length) {
     const it = items[i % items.length], c = new THREE.Color(it.color).multiplyScalar(0.9 + rnd() * 0.2);
@@ -1014,7 +1021,7 @@ function gildedFrame(K, m, w, h, cell, { lamp = true, glow = 0 } = {}) {
   K.MT(T(ell(0, h + F, 0.06, 0.16, 0.1, 0.03, 10, 5, Math.PI / 2)));
   K.AR(T(new THREE.PlaneGeometry(w, h).toNonIndexed().translate(0, h / 2, 0.025)), cell, glow);
   if (lamp) {
-    K.MT(T(cyl(0, h + F + 0.1, 0.05, 0.015, 0.015, 0.04, 6)), BRASS); K.MT(T(cyl(0, 0, 0, 0.03, 0.03, w * 0.55, 10).rotateZ(Math.PI / 2).translate(0, h + F + 0.16, 0.16)), BRASS);
+    K.MT(T(cyl(0, h + F + 0.1, 0.05, 0.015, 0.015, 0.04, 6)), BRASS); K.MT(T(cyl(0, -(w * 0.55) / 2, 0, 0.03, 0.03, w * 0.55, 10).rotateZ(Math.PI / 2).translate(0, h + F + 0.16, 0.16)), BRASS);
     K.MT(T(beam([0, h + F + 0.12, 0.05], [0, h + F + 0.16, 0.16], 0.015, 0.015)), BRASS);
     K.GW(T(new THREE.PlaneGeometry(w * 1.1, h * 0.9).toNonIndexed().translate(0, h * 0.55, 0.03)), A.streak, [0.28, 0.2, 0.1]);
   }
@@ -1032,7 +1039,7 @@ function curtain(K, m, w, h, color, { open = 0, kind = 3 } = {}) {
   const T = tf(m), g = new THREE.PlaneGeometry(w, h, 28, 2), p = g.attributes.position;
   for (let i = 0; i < p.count; i += 1) { const x = p.getX(i), y = p.getY(i), t = (x / w + 0.5); p.setXYZ(i, x * (1 - open * (0.5 + 0.5 * (y / h + 0.5)) * 0.0), y - h / 2, Math.sin(t * Math.PI * 2 * (w / 0.16)) * 0.035 * (1.1 - (y / h + 0.5) * 0.3)); }
   g.computeVertexNormals(); const gg = ni(g); K.FB(T(gg), color, kind);
-  K.MT(T(cyl(0, 0, 0, 0.015, 0.015, w + 0.2, 8).rotateZ(Math.PI / 2).translate(0, 0.04, 0)), BRASS);
+  K.MT(T(cyl(0, -(w + 0.2) / 2, 0, 0.015, 0.015, w + 0.2, 8).rotateZ(Math.PI / 2).translate(0, 0.04, 0)), BRASS);
 }
 // チェスターフィールドの ソファ（ボタンじめ・ころがる うで・金の あし・クッション）。+z が 前、原点は ゆかの まんなか。
 function chesterfield(K, m, { len = 2.2, color = 0x8c1420, cushions = [0xc9a14a, 0x151515], kind = 1 } = {}) {
@@ -1042,11 +1049,11 @@ function chesterfield(K, m, { len = 2.2, color = 0x8c1420, cushions = [0xc9a14a,
   const seat = (x, w) => { const g = new THREE.BoxGeometry(w, 0.15, d - 0.3, 3, 1, 3), p = g.attributes.position; for (let i = 0; i < p.count; i += 1) if (p.getY(i) > 0) p.setY(i, p.getY(i) + 0.03 * Math.cos(p.getX(i) / w * Math.PI) * Math.cos(p.getZ(i) / (d - 0.3) * Math.PI)); g.computeVertexNormals(); g.translate(x, 0.44, 0.1); K.FB(T(ni(g)), color, 4); };
   const inner = len - 0.48; for (let k = 0; k < 3; k += 1) seat(-inner / 2 + inner / 6 + (k * inner) / 3, inner / 3 - 0.015);
   K.FB(T(box(0, 0.37, -d / 2 + 0.13, len - 0.04, 0.5, 0.24)), color, kind);
-  K.FB(T(cyl(0, 0, 0, 0.13, 0.13, len - 0.04, 14).rotateZ(Math.PI / 2).translate(0, 0.86, -d / 2 + 0.14)), color, kind);
+  K.FB(T(cyl(0, -(len - 0.04) / 2, 0, 0.13, 0.13, len - 0.04, 14).rotateZ(Math.PI / 2).translate(0, 0.86, -d / 2 + 0.14)), color, kind);
   for (const s of [-1, 1]) {
     K.FB(T(box(s * (len / 2 - 0.12), 0.37, 0, 0.24, 0.4, d)), color, kind);
-    K.FB(T(cyl(0, 0, 0, 0.15, 0.15, d, 14).rotateX(Math.PI / 2).translate(s * (len / 2 - 0.12), 0.78, 0)), color, kind);
-    K.FB(T(cyl(0, 0, 0, 0.152, 0.152, 0.01, 14).rotateX(Math.PI / 2).translate(s * (len / 2 - 0.12), 0.78, d / 2 + 0.002)), dk, 4);
+    K.FB(T(cyl(0, -(d) / 2, 0, 0.15, 0.15, d, 14).rotateX(Math.PI / 2).translate(s * (len / 2 - 0.12), 0.78, 0)), color, kind);
+    K.FB(T(cyl(0, -(0.01) / 2, 0, 0.152, 0.152, 0.01, 14).rotateX(Math.PI / 2).translate(s * (len / 2 - 0.12), 0.78, d / 2 + 0.002)), dk, 4);
   }
   cushions.forEach((c, i) => { const x = (i - (cushions.length - 1) / 2) * 0.55; const g = ni(new THREE.BoxGeometry(0.44, 0.44, 0.12, 2, 2, 1)); g.rotateX(-0.25); g.rotateZ(i % 2 ? 0.08 : -0.08); g.translate(x, 0.76, -0.17); K.FB(T(g), c, 2); });
   shadowAt(K, m, len + 0.6, d + 0.5);
@@ -1164,7 +1171,7 @@ function makeMaterials(SHT, key, lightCfg, aoCfg, night, time) {
     art: artMaterial(SHT, night, light, key),
     glow: glowMaterial(SHT, night),
     shadow: new THREE.MeshBasicMaterial({ color: 0x000000, map: SHT.art, transparent: true, opacity: 0.55, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }),
-    leaf: new THREE.MeshStandardMaterial({ map: SHT.leaves, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.7, color: SHT.leaves ? 0xffffff : 0x3f7a2e }),
+    leaf: enhance(new THREE.MeshStandardMaterial({ map: SHT.leaves, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.7, color: SHT.leaves ? 0xffffff : 0x3f7a2e }), { key: `${key}-leaf`, light, night }),
   };
   M2.glass.uniforms.uTime = time;
   return M2;
@@ -1245,9 +1252,9 @@ export function buildBoutique(opts = {}) {
   const HX = 8, HZ = 7, IX = 7.65, IZB = -6.65, IZF = 6.45, FL = BOUTIQUE.floor, CE = BOUTIQUE.ceiling, MZ = BOUTIQUE.mezz, TOP = 8.6, DX = -4.6;
   const LANT = [[DX - 1.45, 2.6, 7.3], [DX + 1.45, 2.6, 7.3], [7.15, 3.3, 7.25]];
   const M2 = makeMaterials(SHT, 'boutique',
-    { x0: -IX, x1: IX, z0: IZB, z1: IZF, top: CE, mezz: MZ, sp: 2.2, ox: 0.0, oz: 0.3, wsp: 1.8, lamps: LANT.map(([x, y, z]) => [x, y + 0.2, z - 0.25, 1.5, 1.8, 6.9]).concat([[2.4, 4.2, 7.1, 3.6, 0.5, 6.9]]) },
+    { x0: -IX, x1: IX, z0: IZB, z1: IZF, top: CE, mezz: MZ, sp: 2.2, ox: 0.0, oz: 0.3, wsp: 1.8, lamps: LANT.map(([x, y, z]) => [x, y + 0.1, z - 0.25, 1.25, 1.1, 6.9]).concat([[2.4, 4.4, 7.1, 3.2, 0.32, 6.9]]) },
     { x0: -IX, x1: IX, z0: IZB, z1: IZF, floor: FL, mezz: MZ, top: CE }, night, time);
-  M2.sparkle = sparkleMaterial(night, time); M2.people = peopleMaterial(time);
+  M2.sparkle = sparkleMaterial(night, time); M2.people = peopleMaterial(time, night);
   const B = createBatch({}), K = makeKit(B), obstacles = [], ob = (x, z, w, d) => obstacles.push(roundOb({ x, z, w, d }));
 
   /* 外：歩道・道・建物の 箱 */
@@ -1269,7 +1276,6 @@ export function buildBoutique(opts = {}) {
   { const g = plate(front(1), 0.55, { seg: 12 }); g.translate(0, 0, HZ); K.stone(g, 0xd6cab4); }
   { const g = plate(front(-1), 0.01, { seg: 12, rim: false }); g.rotateY(Math.PI); g.translate(0, 0, IZF + 0.005); K.plaster(g, 0xefe6d6); }
   // 石の かざり：台石・おび・コーニス・パラペット・すみ石・アーチの 石・かなめ石。
-  K.stone(box(-HX / 2 - 0.1 + 0.0, 0, HZ + 0.05, HX - 0.2 - 0.9 * 2 + 1.6, 0.0001, 0.1), 0x8a8070);
   for (const [a, b] of [[-HX, DX - 1.02], [DX + 1.02, WIN.x0], [WIN.x1, HX]]) K.stone(box((a + b) / 2, 0, HZ + 0.05, b - a, 0.72, 0.12), 0x9e9282);
   K.stone(box(2.4, WIN.y0 - 0.12, HZ + 0.1, WIN.x1 - WIN.x0 + 0.4, 0.12, 0.3), 0xb2a690);
   K.stone(box(0, 5.15, HZ + 0.07, HX * 2 + 0.1, 0.24, 0.16), 0xc9bda6);
@@ -1339,8 +1345,8 @@ export function buildBoutique(opts = {}) {
   for (const s of [-1, 1]) { const x = DX + s * 1.25, z = HZ + 0.55; if (s > 0) continue; K.GS(lathe([[0.16, 0], [0.2, 0.42], [0.22, 0.45], [0.0, 0.45]], 14).translate(x, 0, z), 0x1b1b1c); bushBall(K, M(x, 0.82, z), 0.34, rnd); }
   // ポスターの 台（A 形・黒い わく）。
   { const x = -0.6, z = 9.1, ry = 0.5, m = M(x, 0, z, ry), T = tf(m);
-    for (const s of [-1, 1]) { const g = new THREE.Group(); const mm = m.clone().multiply(new THREE.Matrix4().makeTranslation(0, 0, s * 0.18)).multiply(new THREE.Matrix4().makeRotationX(s * 0.16));
-      K.MT(box(0, 0, 0, 0.66, 1.15, 0.04).applyMatrix4(mm), IRON); K.AR(new THREE.PlaneGeometry(0.56, 0.84).toNonIndexed().translate(0, 0.64, 0.021).rotateY(s < 0 ? Math.PI : 0).applyMatrix4(mm), A.poster, 0); g.clear(); }
+    for (const s of [-1, 1]) { const mm = m.clone().multiply(new THREE.Matrix4().makeTranslation(0, 0, s * 0.18)).multiply(new THREE.Matrix4().makeRotationX(s * 0.16));
+      K.MT(box(0, 0, 0, 0.66, 1.15, 0.04).applyMatrix4(mm), IRON); K.AR(new THREE.PlaneGeometry(0.56, 0.84).toNonIndexed().translate(0, 0.64, 0.021).rotateY(s < 0 ? Math.PI : 0).applyMatrix4(mm), A.poster, 0); }
     K.SH(T(floorQuad(0, 0.015, 0, 1.0, 0.8, A.blob))); ob(x, z, 0.4, 0.35); }
   streetLamp(K, 7.3, 10.55); ob(7.3, 10.55, 0.2, 0.2);
   // 前の かべの 当たり判定（入口だけ あける）・まわりの かべ。
@@ -1492,4 +1498,274 @@ export function buildBoutique(opts = {}) {
   group.userData.shop = { triangles, textureMB: shopTextureMB(), buildMs: Math.round(now() - t0) };
   return { group, obstacles, door: { ...BOUTIQUE.door }, entrance: { ...BOUTIQUE.entrance }, setNight, update, materials: M2, triangles };
 }
-export function buildFurnitureShowroom(o) { return buildBoutique(o); } // TEMP
+
+/* ───────── かぐの 部品（ROYAL HOME）───────── */
+
+// 天がいの ベッド（4 本の はしら・天がいの ぬの・ボタンじめの ヘッドボード・かけぶとん・まくら）。原点は ゆかの まんなか、+z が 足もと。
+function canopyBed(K, m, { w = 2.0, l = 2.25, wood = EBONY, velvet = 0x7a1220, duvet = 0xe8dcc0, drape = 0xd9c79c } = {}) {
+  const T = tf(m), H = 2.55;
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+    const x = sx * (w / 2 + 0.04), z = sz * (l / 2) - 0.02 * sz;
+    K.W(T(lathe([[0.07, 0], [0.07, 0.3], [0.05, 0.36], [0.06, 0.55], [0.035, 0.7], [0.04, H - 0.1], [0.06, H]], 10).translate(x, 0, z)), 'y', wood);
+    K.MT(T(ell(x, H + 0.06, z, 0.05, 0.07, 0.05, 8, 5)));
+  }
+  for (const s of [-1, 1]) { K.W(T(box(0, H - 0.06, s * l / 2, w + 0.2, 0.16, 0.08)), 'x', wood); K.W(T(box(s * (w / 2 + 0.04), H - 0.06, 0, 0.08, 0.16, l)), 'z', wood); }
+  K.FB(T(box(0, H + 0.1, 0, w + 0.1, 0.02, l)), drape);
+  // 天がいの たれぬの（まわりの スカラップ）＋ はしらの カーテン（しばって ある）。
+  for (const s of [-1, 1]) { curtain(K, m.clone().multiply(M(0, H - 0.08, s * (l / 2 + 0.04))), w + 0.2, 0.32, drape, { kind: 3 }); curtain(K, m.clone().multiply(M(s * (w / 2 + 0.08), H - 0.08, 0, Math.PI / 2)), l, 0.32, drape, { kind: 3 }); }
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+    const x = sx * (w / 2 + 0.16), z = sz * (l / 2 - 0.15), g = new THREE.CylinderGeometry(0.06, 0.16, H - 0.4, 12, 6, true), p = g.attributes.position;
+    for (let i = 0; i < p.count; i += 1) { const y = p.getY(i) / (H - 0.4) + 0.5, k = 1 - 0.65 * Math.exp(-Math.pow((y - 0.42) / 0.08, 2)), a = Math.atan2(p.getZ(i), p.getX(i)); p.setX(i, p.getX(i) * k * (1 + 0.15 * Math.sin(a * 6))); p.setZ(i, p.getZ(i) * k * (1 + 0.15 * Math.sin(a * 6))); }
+    g.computeVertexNormals(); g.translate(x, (H - 0.4) / 2 + 0.25, z); K.FB(T(ni(g)), drape, 3); K.MT(T(torus(0.07, 0.012, 4, 12).rotateX(Math.PI / 2).translate(x, 0.25 + (H - 0.4) * 0.42, z)));
+  }
+  const hb = plate(archShape(0, 0, w + 0.06, 1.5), 0.14, { seg: 14 }); hb.translate(0, 0.35, -l / 2 + 0.12); K.FB(T(hb), velvet, 2);
+  const hr = plate(archRing(0, 0.35, w + 0.06, 1.5, 0.06), 0.18, { seg: 14 }); hr.translate(0, 0, -l / 2 + 0.15); K.MT(T(hr));
+  K.W(T(box(0, 0.12, 0, w, 0.3, l)), 'x', wood); K.W(T(box(0, 0.12, l / 2 - 0.02, w + 0.1, 0.62, 0.08)), 'x', wood); K.MT(T(box(0, 0.6, l / 2 + 0.025, w * 0.6, 0.03, 0.01)));
+  K.FB(T(box(0, 0.42, 0, w - 0.06, 0.22, l - 0.1)), 0xf3efe6);
+  { const g = new THREE.BoxGeometry(w + 0.04, 0.08, l * 0.7, 10, 1, 6), p = g.attributes.position; for (let i = 0; i < p.count; i += 1) { const x = p.getX(i), z = p.getZ(i); if (Math.abs(x) > w / 2 - 0.02) p.setY(i, p.getY(i) - 0.28); p.setY(i, p.getY(i) + Math.sin(x * 9 + z * 3) * 0.015 + Math.sin(z * 14) * 0.01); } g.computeVertexNormals(); g.translate(0, 0.66, l * 0.14); K.FB(T(ni(g)), duvet, 0); }
+  { const g = new THREE.BoxGeometry(w + 0.08, 0.05, 0.55, 8, 1, 2), p = g.attributes.position; for (let i = 0; i < p.count; i += 1) { const x = p.getX(i); if (Math.abs(x) > w / 2 - 0.02) p.setY(i, p.getY(i) - 0.3); } g.computeVertexNormals(); g.translate(0, 0.72, l * 0.33); K.FB(T(ni(g)), velvet, 3); }
+  for (const [x, z, c, k] of [[-0.45, -l / 2 + 0.3, 0xf3efe6, 0], [0.45, -l / 2 + 0.3, 0xf3efe6, 0], [-0.4, -l / 2 + 0.48, velvet, 3], [0.4, -l / 2 + 0.48, 0xc9a14a, 2], [0, -l / 2 + 0.55, 0x151515, 2]]) { const g = ell(x, 0.78, z, 0.3 * (k ? 0.75 : 1), 0.13, 0.1, 10, 6); g.rotateX(-0.3); K.FB(T(g), c, k); }
+  shadowAt(K, m, w + 0.9, l + 0.9);
+}
+// ナイトテーブル。
+function nightstand(K, m, wood = EBONY) {
+  const T = tf(m);
+  K.W(T(box(0, 0.08, 0, 0.55, 0.52, 0.42)), 'x', wood); K.GS(T(box(0, 0.6, 0, 0.58, 0.03, 0.45)), 0x0c0c0c);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) K.MT(T(cyl(sx * 0.24, 0, sz * 0.17, 0.02, 0.015, 0.08, 6)));
+  for (const y of [0.18, 0.4]) { K.W(T(box(0, y, 0.212, 0.48, 0.18, 0.012)), 'x', wood); K.MT(T(ell(0, y + 0.09, 0.225, 0.02, 0.02, 0.015, 6, 4))); }
+  tableLamp(K, m.clone().multiply(M(0, 0.63, -0.02)));
+}
+// ダイニング：テーブル・6 つの いす・燭台・お皿。原点は テーブルの まんなか、テーブルは x むき。
+function diningSet(K, m, { len = 2.4, wood = EBONY, seat = 0x8c1420 } = {}) {
+  const T = tf(m), d = 1.05;
+  K.W(T(box(0, 0.74, 0, len, 0.05, d)), 'x', wood); K.W(T(box(0, 0.64, 0, len - 0.12, 0.1, d - 0.12)), 'x', wood); K.MT(T(box(0, 0.735, 0, len + 0.01, 0.012, d + 0.01)));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) K.W(T(lathe([[0.04, 0], [0.06, 0.05], [0.045, 0.15], [0.06, 0.32], [0.04, 0.5], [0.05, 0.64]], 10).translate(sx * (len / 2 - 0.12), 0, sz * (d / 2 - 0.12))), 'y', wood);
+  K.FB(T(box(0, 0.79, 0, len * 0.8, 0.004, 0.36)), 0xc9a14a, 3);
+  const chair = (mm) => {
+    const C = tf(mm);
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) K.W(C(cyl(sx * 0.2, 0, sz * 0.2, 0.025, 0.02, 0.46, 6)), 'y', wood);
+    K.W(C(box(0, 0.42, 0, 0.5, 0.06, 0.5)), 'x', wood); K.FB(C(box(0, 0.48, 0.01, 0.46, 0.06, 0.46)), seat, 3);
+    for (const sx of [-1, 1]) K.W(C(box(sx * 0.21, 0.48, -0.22, 0.05, 0.62, 0.05)), 'y', wood);
+    K.W(C(box(0, 1.06, -0.22, 0.5, 0.08, 0.06)), 'x', wood); K.MT(C(ell(0, 1.14, -0.22, 0.04, 0.04, 0.03, 6, 4)));
+    K.FB(C(box(0, 0.58, -0.22, 0.38, 0.44, 0.04)), seat, 2);
+  };
+  for (const sz of [-1, 1]) for (const x of [-0.75, 0, 0.75]) chair(m.clone().multiply(M(x, 0, sz * 0.72, sz > 0 ? Math.PI : 0)));
+  for (const s of [-1, 1]) chair(m.clone().multiply(M(s * (len / 2 + 0.38), 0, 0, -s * Math.PI / 2)));
+  // 燭台（金・5 本の ろうそく）。
+  K.MT(T(lathe([[0.1, 0], [0.1, 0.02], [0.03, 0.05], [0.05, 0.12], [0.02, 0.3], [0.03, 0.34]], 12).translate(0, 0.79, 0)));
+  for (let k = 0; k < 5; k += 1) { const a = (k / 5) * TAU, x = k ? Math.cos(a) * 0.16 : 0, z = k ? Math.sin(a) * 0.16 : 0; if (k) K.MT(T(tube([[0, 1.1, 0], [x * 0.5, 1.04, z * 0.5], [x, 1.12, z]], 0.008, 6, 3))); K.GS(T(cyl(x, 1.12, z, 0.014, 0.014, 0.14, 8)), 0xf4efe2); K.AR(T(ell(x, 1.29, z, 0.012, 0.028, 0.012, 6, 4)), A.white, 1, 0xffcf80); }
+  { const c = V3(0, 1.3, 0).applyMatrix4(m); haloAt(K, c.x, c.y, c.z, 0.7, [0.5, 0.33, 0.14]); }
+  for (const sz of [-1, 1]) for (const x of [-0.75, 0, 0.75]) { K.MT(T(cyl(x, 0.765, sz * 0.32, 0.15, 0.15, 0.008, 20))); K.GS(T(cyl(x, 0.773, sz * 0.32, 0.12, 0.11, 0.012, 20)), 0xf6f3ec); K.GL(T(cyl(x + 0.15, 0.77, sz * 0.2, 0.035, 0.03, 0.14, 10)), 1, 0.12); }
+  shadowAt(K, m, len + 1.6, d + 1.6);
+}
+// サイドボード（黒い うるし・金の とって・大理石の 天板）。
+function sideboard(K, m, { w = 1.9, color = 0x0c0c0d } = {}) {
+  const T = tf(m);
+  K.GS(T(box(0, 0.14, 0, w, 0.72, 0.5)), color); K.marble(T(box(0, 0.86, 0, w + 0.04, 0.04, 0.54)), 0xffffff);
+  for (let k = 0; k < 4; k += 1) { const x = -w / 2 + w / 8 + (k * w) / 4; K.MT(T(box(x, 0.2, 0.252, w / 4 - 0.06, 0.6, 0.008)), 0x8a6a2a); K.GS(T(box(x, 0.23, 0.256, w / 4 - 0.12, 0.54, 0.008)), color); K.MT(T(cyl(x + (k % 2 ? -0.12 : 0.12), 0.5, 0.27, 0.01, 0.01, 0.12, 6))); }
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) K.MT(T(lathe([[0.03, 0], [0.045, 0.05], [0.025, 0.1], [0.04, 0.14]], 8).translate(sx * (w / 2 - 0.08), 0, sz * 0.18)));
+  vaseRoses(K, m.clone().multiply(M(-w * 0.3, 0.9, 0)), { vase: 0x0e0e10, rose: 0xa0101a, s: 1.2 });
+  K.MT(T(lathe([[0.01, 0], [0.16, 0.03], [0.2, 0.09], [0.19, 0.1]], 18).translate(w * 0.28, 0.9, 0)));
+  shadowAt(K, m, w + 0.4, 0.9);
+}
+// ひさし（くろい ぬの・スカラップの たれ・金の ふち）。原点は かべの 上の まんなか、+z へ 出る。
+function awning(K, m, { w, out = 1.3, drop = 0.6, color = 0x101113 }) {
+  const T = tf(m), ang = Math.atan2(drop, out), L = Math.hypot(out, drop);
+  const g = new THREE.BoxGeometry(w, 0.025, L, 16, 1, 1), p = g.attributes.position;
+  for (let i = 0; i < p.count; i += 1) p.setY(i, p.getY(i) + Math.sin(p.getX(i) * 9) * 0.008);
+  g.computeVertexNormals(); g.rotateX(ang); g.translate(0, -drop / 2, out / 2); K.FB(T(ni(g)), color, 0);
+  for (let x = -w / 2 + 0.25; x < w / 2; x += 0.5) K.FB(T(box(x, -drop / 2 - 0.012, out / 2, 0.04, 0.03, L).rotateX(0).applyMatrix4(new THREE.Matrix4().makeRotationX(ang).setPosition(0, 0, 0))), 0xb8913a);
+  const s = new THREE.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(w / 2, -0.22);
+  const n = Math.round(w / 0.36); for (let i = n; i > 0; i -= 1) { const x1 = -w / 2 + (i * w) / n, x0 = x1 - w / n; s.quadraticCurveTo((x0 + x1) / 2, -0.42, x0, -0.22); }
+  s.lineTo(-w / 2, 0);
+  const v = plate(s, 0.02, { seg: 6 }); v.translate(0, -drop, out + 0.01); K.FB(T(v), color);
+  K.MT(T(cyl(0, -(w) / 2, 0, 0.018, 0.018, w, 8).rotateZ(Math.PI / 2).translate(0, -drop, out + 0.02)));
+  for (const sx of [-1, 1]) { K.MT(T(beam([sx * (w / 2 - 0.1), -drop - 0.8, 0.02], [sx * (w / 2 - 0.1), -drop, out], 0.03, 0.03)), IRON); const side = new THREE.Shape(); side.moveTo(0, 0); side.lineTo(out, -drop); side.lineTo(out, -drop - 0.22); side.lineTo(0, -0.05); side.lineTo(0, 0); const sg = plate(side, 0.02, { seg: 2 }); sg.rotateY(-Math.PI / 2); sg.translate(sx * w / 2, 0, 0); K.FB(T(sg), color); }
+}
+// 真鍮の ポールと 赤い ロープ。
+function stanchions(K, pts) {
+  for (const [x, z] of pts) { K.MT(lathe([[0.15, 0], [0.15, 0.03], [0.04, 0.06], [0.03, 0.9], [0.05, 0.95], [0.04, 1.02], [0.0, 1.04]], 12).translate(x, 0, z)); K.SH(floorQuad(x, 0.01, z, 0.5, 0.5, A.blob)); }
+  for (let i = 0; i < pts.length - 1; i += 1) { const [x0, z0] = pts[i], [x1, z1] = pts[i + 1]; K.FB(tube([[x0, 0.9, z0], [(x0 + x1) / 2, 0.62, (z0 + z1) / 2], [x1, 0.9, z1]], 0.025, 12, 6), 0x9a1020, 3); }
+}
+// 金の わくの パネル（かべ・まんなかに まるい メダリオン）。+z が かべの 前。
+function goldPanel(K, m, w, h, medal = true) {
+  const T = tf(m), t = 0.04;
+  K.MT(T(box(0, 0, 0, w, t, 0.03))); K.MT(T(box(0, h - t, 0, w, t, 0.03)));
+  for (const s of [-1, 1]) K.MT(T(box(s * (w / 2 - t / 2), 0, 0, t, h, 0.03)));
+  const i = 0.1; K.MT(T(box(0, i, 0, w - 2 * i, 0.015, 0.02)), 0xb8913a); K.MT(T(box(0, h - i - 0.015, 0, w - 2 * i, 0.015, 0.02)), 0xb8913a);
+  for (const s of [-1, 1]) K.MT(T(box(s * (w / 2 - i), i, 0, 0.015, h - 2 * i, 0.02)), 0xb8913a);
+  if (medal) { K.MT(T(torus(0.2, 0.025, 6, 28).translate(0, h / 2, 0.02))); K.MT(T(torus(0.12, 0.012, 4, 22).translate(0, h / 2, 0.02))); K.MT(T(cyl(0, -(0.02) / 2, 0, 0.08, 0.08, 0.02, 18).rotateX(Math.PI / 2).translate(0, h / 2, 0.02)), 0xc9a050); }
+}
+
+/* ───────── ROYAL HOME（家具の ショールーム）───────── */
+
+export const FURNITURE = { w: 18, d: 14, height: 7.0, floor: 0.12, ceiling: 5.6, door: { x: 0, z: 7.9 }, entrance: { x: 0, z: 5.6, ry: Math.PI } };
+
+export function buildFurnitureShowroom(opts = {}) {
+  const t0 = now(), { shadows = true } = opts;
+  const SHT = shared(), rnd = rng(2207), time = { value: 0 }, night = { n: { value: 0 }, pool: { value: 0.3 } };
+  const group = new THREE.Group(); group.name = 'furniture-showroom';
+  const HX = 9, HZ = 7, IX = 8.6, IZB = -6.6, IZF = 6.55, FL = FURNITURE.floor, CE = FURNITURE.ceiling, TOP = 6.4;
+  const SCON = [[-1.55, 3.3, 7.35], [1.55, 3.3, 7.35], [-8.75, 3.3, 7.35], [8.75, 3.3, 7.35]];
+  const M2 = makeMaterials(SHT, 'furniture',
+    { x0: -IX, x1: IX, z0: IZB, z1: IZF, top: CE, sp: 2.4, ox: 0.0, oz: 0.0, wsp: 1.6, lamps: SCON.map(([x, y, z]) => [x, y + 0.3, z - 0.3, 1.9, 2.4, 6.95]).concat([[-5.05, 5.0, 7.0, 3.0, 1.2, 6.95], [5.05, 5.0, 7.0, 3.0, 1.2, 6.95], [0, 5.3, 7.1, 2.6, 1.0, 6.95]]) },
+    { x0: -IX, x1: IX, z0: IZB, z1: IZF, floor: FL, top: CE }, night, time);
+  M2.sparkle = sparkleMaterial(night, time); M2.people = peopleMaterial(time, night);
+  const B = createBatch({}), K = makeKit(B), obstacles = [], ob = (x, z, w, d) => obstacles.push(roundOb({ x, z, w, d }));
+
+  /* 外 */
+  street(K, { x0: -13, x1: 13, zWall: HZ, zKerb: 11, zEnd: 17 });
+  K.stone(box(-HX + 0.2, 0, 0, 0.4, TOP, HZ * 2 - 0.02), 0x5a554e); K.stone(box(HX - 0.2, 0, 0, 0.4, TOP, HZ * 2 - 0.02), 0x5a554e);
+  K.granite(box(0, 0, -HZ + 0.2, HX * 2, TOP, 0.4), 0x2a2a2e);
+  K.granite(box(0, CE + 0.05, 0, HX * 2 - 0.4, TOP - CE - 0.05, HZ * 2 - 0.4), 0x26262a);
+  K.plaster(box(0, CE, 0, IX * 2, 0.05, IZF - IZB), 0x231e1c);
+  const WINL = { x0: -8.25, x1: -1.85 }, WINR = { x0: 1.85, x1: 8.25 }, WY0 = 0.55, WY1 = 4.0, DW = 1.25, DH = 3.3;
+  const front = (mx) => {
+    const s = rectShape(-HX, 0, HX, 7.0);
+    const hole = (a, b, y0, y1) => { const h = new THREE.Path(); const A2 = mx > 0 ? a : -b, B2 = mx > 0 ? b : -a; h.moveTo(A2, y0); h.lineTo(B2, y0); h.lineTo(B2, y1); h.lineTo(A2, y1); h.lineTo(A2, y0); s.holes.push(h); };
+    hole(WINL.x0, WINL.x1, WY0, WY1); hole(WINR.x0, WINR.x1, WY0, WY1); hole(-DW, DW, FL, DH + 0.75);
+    return s;
+  };
+  { const g = plate(front(1), 0.45, { seg: 4 }); g.translate(0, 0, HZ); K.stone(g, 0x6a645c); }
+  { const g = plate(front(-1), 0.01, { seg: 4, rim: false }); g.rotateY(Math.PI); g.translate(0, 0, IZF + 0.005); K.damask(g, 0xffffff); }
+  // ピラスター（金の 柱頭）・おびの 金・コーニス。
+  for (const x of [-8.75, -1.55, 1.55, 8.75]) {
+    K.granite(box(x, 0, HZ + 0.07, 0.5, Math.abs(x) > 5 ? 6.1 : 4.42, 0.14), 0x1e1e22); K.MT(box(x, 0, HZ + 0.15, 0.58, 0.3, 0.04)); K.MT(box(x, 4.1, HZ + 0.15, 0.6, 0.12, 0.05)); K.MT(box(x, 4.22, HZ + 0.15, 0.52, 0.05, 0.04), 0xb8913a);
+    K.MT(box(x, 0.3, HZ + 0.145, 0.03, 3.8, 0.01), 0xb8913a);
+    K.GW(new THREE.PlaneGeometry(1.3, 4.2).toNonIndexed().rotateZ(Math.PI).translate(x, 2.25, HZ + 0.16), A.streak, [0.55, 0.4, 0.2], true);
+    K.AR(box(x, 0.02, HZ + 0.3, 0.16, 0.04, 0.08), A.white, 1, 0xffd9a0);
+  }
+  K.MT(box(0, 4.42, HZ + 0.06, HX * 2, 0.05, 0.06)); K.MT(box(0, 6.05, HZ + 0.1, HX * 2 + 0.2, 0.07, 0.12));
+  K.granite(box(0, 6.12, HZ + 0.12, HX * 2 + 0.3, 0.3, 0.3), 0x18181b); K.MT(box(0, 6.42, HZ + 0.12, HX * 2 + 0.3, 0.04, 0.32));
+  K.granite(box(0, 0, HZ + 0.06, HX * 2, 0.3, 0.12), 0x141416);
+  // 看板：黒い 板に 金の 字（夜は 光る）。
+  K.GS(box(0, 4.6, HZ + 0.06, 6.6, 1.3, 0.1), 0x070708); K.MT(box(0, 4.6, HZ + 0.12, 6.7, 0.04, 0.03)); K.MT(box(0, 5.86, HZ + 0.12, 6.7, 0.04, 0.03));
+  K.AR(new THREE.PlaneGeometry(4.8, 1.2).toNonIndexed().translate(0, 5.23, HZ + 0.115), A.signF, 2);
+  K.GW(new THREE.PlaneGeometry(7.0, 1.6).toNonIndexed().translate(0, 5.2, HZ + 0.13), A.streak, [0.35, 0.26, 0.12], true);
+  // 入口：金の わくの ガラスの とびら 2 まい＋上の ガラス・かんむり。
+  {
+    for (const s of [-1, 1]) {
+      const x = s * DW / 2; K.MT(box(x, FL, HZ - 0.2, DW - 0.02, 0.1, 0.07)); K.MT(box(x, FL + DH - 0.08, HZ - 0.2, DW - 0.02, 0.08, 0.07));
+      for (const e of [-1, 1]) K.MT(box(x + e * (DW / 2 - 0.04), FL, HZ - 0.2, 0.08, DH, 0.07));
+      K.GL(new THREE.PlaneGeometry(DW - 0.18, DH - 0.2).toNonIndexed().translate(x, FL + DH / 2, HZ - 0.2), 0, 0.06, 0.5);
+      K.MT(cyl(s * 0.12, FL + 0.9, HZ - 0.12, 0.016, 0.016, 0.9, 8));
+    }
+    K.MT(box(0, FL + DH, HZ - 0.2, DW * 2, 0.08, 0.1));
+    K.GL(new THREE.PlaneGeometry(DW * 2 - 0.1, 0.62).toNonIndexed().translate(0, FL + DH + 0.39, HZ - 0.2), 5, 0.05);
+    K.MT(ell(0, FL + DH + 0.42, HZ - 0.16, 0.2, 0.18, 0.03, 10, 5, Math.PI / 2));
+    K.FB(box(0, 0.0, (HZ + 10.6) / 2, 1.8, 0.012, 10.6 - HZ), 0x8a0f1a, 3); K.MT(box(0, 0.0, (HZ + 10.6) / 2 + 0.0, 1.86, 0.008, 10.6 - HZ + 0.02), 0xb8913a);
+    stanchions(K, [[-1.2, 7.7], [-1.2, 8.9], [-1.2, 10.1]]); stanchions(K, [[1.2, 7.7], [1.2, 8.9], [1.2, 10.1]]);
+    for (const s of [-1, 1]) for (const z of [7.7, 8.9, 10.1]) ob(s * 1.2, z, 0.16, 0.16);
+    K.GW(floorQuad(0, 0.03, HZ + 1.2, 3.4, 2.4, A.blob), A.blob, [0.3, 0.22, 0.1], true);
+  }
+  // ショーウインドー（金の わく）・ひさし・トピアリー・ランタン。
+  for (const W2 of [WINL, WINR]) {
+    const cx = (W2.x0 + W2.x1) / 2, ww = W2.x1 - W2.x0;
+    K.MT(box(cx, WY0, HZ - 0.22, ww, 0.06, 0.24)); K.MT(box(cx, WY1 - 0.06, HZ - 0.22, ww, 0.06, 0.24));
+    for (const x of [W2.x0 + 0.03, cx, W2.x1 - 0.03]) K.MT(box(x, WY0, HZ - 0.22, 0.06, WY1 - WY0, 0.1));
+    K.GL(new THREE.PlaneGeometry(ww - 0.06, WY1 - WY0 - 0.08).toNonIndexed().translate(cx, (WY0 + WY1) / 2, HZ - 0.24), 0, 0.06, 0.85);
+    K.granite(box(cx, WY0 - 0.1, HZ + 0.12, ww + 0.2, 0.1, 0.26), 0x141416); K.MT(box(cx, WY0, HZ + 0.25, ww + 0.2, 0.012, 0.012));
+    awning(K, M(cx, 4.32, HZ + 0.05), { w: ww + 0.3, out: 1.25, drop: 0.55 });
+    K.GW(floorQuad(cx, 0.025, HZ + 1.8, ww + 1, 3.0, A.blob), A.blob, [0.3, 0.2, 0.1], true);
+  }
+  for (const s of [-1, 1]) { const x = s * 2.25, z = HZ + 0.5; K.GS(box(x, 0, z, 0.55, 0.6, 0.55), 0x0c0c0d); K.MT(box(x, 0.58, z, 0.6, 0.04, 0.6)); K.W(cyl(x, 0.6, z, 0.025, 0.03, 0.9, 6), 'y', 0x4a3020); bushBall(K, M(x, 1.65, z), 0.42, rnd); bushBall(K, M(x, 1.0, z), 0.3, rnd); ob(x, z, 0.32, 0.32); }
+  for (const [x, y, z] of SCON) { K.MT(tube([[x, y + 0.2, HZ + 0.14], [x, y + 0.35, z - 0.1], [x, y + 0.42, z]], 0.02, 8, 4)); K.MT(box(x, y + 0.05, HZ + 0.15, 0.14, 0.32, 0.04)); lantern(K, M(x, y, z), 0.9, 0xb8913a); }
+  streetLamp(K, -7.8, 10.55); ob(-7.8, 10.55, 0.2, 0.2);
+  ob((-HX - DW) / 2, HZ - 0.22, (HX - DW) / 2, 0.25); ob((HX + DW) / 2, HZ - 0.22, (HX - DW) / 2, 0.25);
+  ob(-HX + 0.2, 0, 0.2, HZ); ob(HX - 0.2, 0, 0.2, HZ); ob(0, -HZ + 0.2, HX, 0.2);
+
+  /* 中：赤い じゅうたん・黒と 金の かべ・こしいた・天井 */
+  K.carpet(box(0, FL - 0.04, (IZB + IZF) / 2, IX * 2, 0.04, IZF - IZB), 0xffffff);
+  K.granite(box(0, 0, 0, HX * 2 - 0.4, FL - 0.04, HZ * 2 - 0.4), 0x1a1a1c);
+  K.marble(box(0, FL - 0.035, 5.05, 4.6, 0.04, 3.0), 0xffffff); K.MT(box(0, FL + 0.003, 5.05, 4.64, 0.004, 3.04), 0xb8913a); K.marble(box(0, FL - 0.03, 5.05, 4.4, 0.04, 2.8), 0x2a2a2c);
+  K.marble(box(0, FL - 0.026, 5.05, 4.2, 0.04, 2.6), 0xffffff);
+  K.damask(box(-IX + 0.01, FL, (IZB + IZF) / 2, 0.02, CE - FL, IZF - IZB)); K.damask(box(IX - 0.01, FL, (IZB + IZF) / 2, 0.02, CE - FL, IZF - IZB)); K.damask(box(0, FL, IZB + 0.01, IX * 2, CE - FL, 0.02));
+  for (const [x, z, w, d] of [[-IX + 0.03, (IZB + IZF) / 2, 0.04, IZF - IZB], [IX - 0.03, (IZB + IZF) / 2, 0.04, IZF - IZB], [0, IZB + 0.03, IX * 2, 0.04], [-5.2, IZF - 0.03, 6.8, 0.04], [5.2, IZF - 0.03, 6.8, 0.04]]) {
+    K.GS(box(x, FL, z, w, 0.92, d), 0x0b0b0c); K.MT(box(x, FL + 0.9, z, w + 0.02, 0.04, d + 0.02)); K.MT(box(x, FL + 0.1, z, w + 0.015, 0.02, d + 0.015), 0xb8913a);
+    K.GS(box(x, CE - 0.3, z, w * 4 > 1 ? w + (w > 1 ? 0 : 0.2) : w, 0.3, d > 1 ? d : d + 0.2), 0x0d0d0e); K.MT(box(x, CE - 0.34, z, w + (w > 1 ? 0 : 0.26), 0.04, d + (d > 1 ? 0 : 0.26)));
+  }
+  // 金の パネル（右の かべ・おくの かべ）。
+  for (let z = -5.4; z < 6; z += 1.75) { if (z > 2.0 && z < 5.8) continue; goldPanel(K, M(IX - 0.06, FL + 1.25, z, -Math.PI / 2), 1.3, 2.7); }
+  for (let x = -0.6; x < 8.4; x += 1.75) { if (x > 2.2 && x < 4.4) continue; goldPanel(K, M(x, FL + 1.25, IZB + 0.06), 1.3, 2.7, x < 2 || x > 7); }
+  // 天井の 金の 格子・ダウンライト。
+  for (let x = -6; x <= 6; x += 3) K.MT(box(x, CE - 0.06, (IZB + IZF) / 2, 0.06, 0.06, IZF - IZB), 0xb8913a);
+  for (let z = -4.8; z <= 4.8; z += 2.4) K.MT(box(0, CE - 0.06, z, IX * 2, 0.06, 0.06), 0xb8913a);
+  for (let x = -IX + 1.2; x < IX; x += 2.4) for (let z = IZB + 1.2 + ((-IZB - 1.2) % 2.4); z < IZF; z += 2.4) { K.MT(cyl(x, CE - 0.02, z, 0.08, 0.08, 0.02, 12), GOLD); K.AR(cyl(x, CE - 0.025, z, 0.055, 0.055, 0.006, 10), A.white, 1, 0xfff0d8); }
+  // シャンデリア 4 つ。
+  for (const [x, z, r, d] of [[0, -0.8, 1.0, 1.9], [-6.1, 3.0, 0.7, 1.7], [5.3, 3.8, 0.75, 1.8], [-5.2, -4.4, 0.6, 1.4]]) { chandelier(K, x, CE, z, { r, drop: d, tiers: 2, floorY: FL }); K.MT(lathe([[0.5 * r, 0], [0.42 * r, -0.03], [0.2, -0.06], [0.06, -0.08]], 20).translate(x, CE - 0.05, z)); }
+  // 黒い うるしの はしら（金の 柱頭と 台）。
+  for (const x of [-2.9, 2.9]) { K.GS(cyl(x, FL, -2.4, 0.2, 0.22, CE - FL, 18), 0x0b0b0c); K.MT(cyl(x, CE - 0.45, -2.4, 0.3, 0.2, 0.25, 18)); K.MT(cyl(x, FL, -2.4, 0.3, 0.3, 0.2, 18)); for (let k = 0; k < 8; k += 1) K.MT(box(x + Math.cos(k * 0.785) * 0.205, FL + 0.3, -2.4 + Math.sin(k * 0.785) * 0.205, 0.015, CE - FL - 0.8, 0.015), 0xb8913a); ob(x, -2.4, 0.3, 0.3); }
+
+  /* まるい 受付の カウンター（黒い つや・金の おび）*/
+  {
+    const cx = -0.2, cz = 0.6, R = 1.7, a0 = -0.2, a1 = Math.PI + 0.2;
+    const sector = (r0, r1) => { const s = new THREE.Shape(); s.absarc(0, 0, r1, a0, a1, false); s.absarc(0, 0, r0, a1, a0, true); s.closePath(); return s; };
+    const up = (shape, y0, h) => { const g = plate(shape, h, { seg: 32 }); g.rotateX(-Math.PI / 2); g.rotateY(Math.PI); g.translate(cx, y0 + h, cz); return g; };
+    K.GS(up(sector(R - 0.3, R), FL, 1.0), 0x09090a);
+    K.marble(up(sector(R - 0.38, R + 0.06), FL + 1.0, 0.05), 0x1a1a1c);
+    K.MT(up(sector(R - 0.02, R + 0.015), FL + 0.94, 0.05)); K.MT(up(sector(R - 0.02, R + 0.012), FL + 0.12, 0.03));
+    for (let k = 0; k <= 8; k += 1) { const a = a0 + (k / 8) * (a1 - a0); K.MT(box(cx - Math.cos(a) * (R + 0.005), FL + 0.18, cz + Math.sin(a) * (R + 0.005), 0.025, 0.74, 0.025)); }
+    K.GS(up(sector(R - 0.95, R - 0.3), FL + 0.72, 0.04), 0x111113);
+    tableLamp(K, M(cx - 1.1, FL + 1.05, cz + 0.6)); vaseRoses(K, M(cx + 1.05, FL + 1.05, cz + 0.75), { vase: 0x0e0e10, rose: 0xb0101c, s: 1.1 });
+    K.GS(box(cx + 0.2, FL + 1.05, cz + 1.3, 0.3, 0.01, 0.22), 0x111111); K.AR(box(cx + 0.2, FL + 1.06, cz + 1.3, 0.26, 0.004, 0.18), A.screen, 1);
+    shadowAt(K, M(cx, FL, cz + 0.6), 4.2, 3.2); ob(cx, cz + 0.85, R + 0.05, 0.95);
+  }
+  /* リビング（左の まえ）*/
+  {
+    K.AR(floorQuad(-6.0, FL + 0.006, 3.0, 3.3, 3.3, [0, 0, 1, 1]), A.rug, 0);
+    chesterfield(K, M(-7.95, FL, 3.0, Math.PI / 2), { len: 2.5, color: 0x8c1420, cushions: [0xc9a14a, 0x151515, 0xc9a14a] }); ob(-7.95, 3.0, 0.5, 1.3);
+    gildedFrame(K, M(-IX + 0.06, FL + 1.45, 3.0, Math.PI / 2), 1.1, 1.7, A.rose);
+    coffeeTable(K, M(-6.2, FL, 3.0, Math.PI / 2)); ob(-6.2, 3.0, 0.4, 0.7);
+    armchair(K, M(-4.6, FL, 2.0, -Math.PI / 2 + 0.35), { color: 0x8c1420 }); ob(-4.6, 2.0, 0.42, 0.42);
+    armchair(K, M(-4.6, FL, 4.1, -Math.PI / 2 - 0.35), { color: 0x151515 }); ob(-4.6, 4.1, 0.42, 0.42);
+    pedestal(K, M(-7.95, FL, 1.25)); ob(-7.95, 1.25, 0.35, 0.35); pedestal(K, M(-7.95, FL, 4.8), { top: 0x0d0d0e }); ob(-7.95, 4.8, 0.35, 0.35);
+    floorLamp(K, M(-8.1, FL, 5.8));
+    armoire(K, M(-8.25, FL, -0.6, Math.PI / 2)); ob(-8.25, -0.6, 0.35, 0.7);
+  }
+  /* ダイニング（右の まえ）*/
+  {
+    K.AR(floorQuad(5.3, FL + 0.006, 3.8, 4.4, 3.2, [0, 0, 1, 1]), A.rug, 0);
+    diningSet(K, M(5.3, FL, 3.8)); ob(5.3, 3.8, 1.75, 1.0);
+    sideboard(K, M(IX - 0.3, FL, 3.8, -Math.PI / 2)); ob(IX - 0.3, 3.8, 0.3, 1.0);
+    mirror(K, M(IX - 0.05, FL + 1.3, 3.8, -Math.PI / 2), 1.2, 1.6);
+  }
+  /* しんしつ（左の おく）*/
+  {
+    K.AR(floorQuad(-5.2, FL + 0.006, -4.6, 3.6, 3.2, [0, 0, 1, 1]), A.rug, 0);
+    canopyBed(K, M(-5.2, FL, -5.35)); ob(-5.2, -5.35, 1.15, 1.2);
+    for (const s of [-1, 1]) { nightstand(K, M(-5.2 + s * 1.45, FL, -6.2)); ob(-5.2 + s * 1.45, -6.2, 0.3, 0.25); }
+    { const x = -5.2, z = -3.75; K.FB(box(x, FL + 0.35, z, 1.4, 0.14, 0.45), 0x7a1220, 2); K.MT(box(x, FL + 0.3, z, 1.42, 0.05, 0.47)); for (const sx of [-1, 1]) for (const sz of [-1, 1]) K.MT(tube([[x + sx * 0.6, FL + 0.3, z + sz * 0.17], [x + sx * 0.64, FL + 0.15, z + sz * 0.2], [x + sx * 0.6, FL, z + sz * 0.18]], 0.018, 6, 4)); shadowAt(K, M(x, FL, z), 1.8, 0.8); ob(x, z, 0.72, 0.25); }
+    { const x = -IX + 0.3, z = -4.2; K.W(box(x, FL, z, 0.52, 0.85, 1.6), 'z', EBONY); K.marble(box(x, FL + 0.85, z, 0.56, 0.04, 1.64), 0x1a1a1c); for (let k = 0; k < 3; k += 1) { K.W(box(x + 0.265, FL + 0.12 + k * 0.24, z, 0.01, 0.2, 1.5), 'z', 0x4a2e1c); K.MT(box(x + 0.275, FL + 0.22 + k * 0.24, z, 0.012, 0.02, 0.2)); } mirror(K, M(-IX + 0.05, FL + 1.1, z, Math.PI / 2), 1.0, 1.3); vaseRoses(K, M(x, FL + 0.89, z - 0.5), { vase: 0xf2eee6, rose: 0xf0e6dc }); ob(x, z, 0.28, 0.82); }
+  }
+  /* おくの みぎ：たんす 2 つ・ソファ・金の がく */
+  {
+    armoire(K, M(3.3, FL, IZB + 0.35), { w: 1.4, color: 0x2e1a10 }); ob(3.3, IZB + 0.35, 0.72, 0.35);
+    armoire(K, M(7.6, FL, IZB + 0.35), { w: 1.2, h: 2.2, color: 0x0e0e0f }); ob(7.6, IZB + 0.35, 0.62, 0.35);
+    chesterfield(K, M(5.45, FL, -5.85), { len: 2.1, color: 0x151515, cushions: [0x8c1420, 0xc9a14a], kind: 2 }); ob(5.45, -5.85, 1.1, 0.45);
+    gildedFrame(K, M(5.45, FL + 1.9, IZB + 0.06), 1.6, 1.0, A.land);
+    coffeeTable(K, M(5.45, FL, -4.3), { w: 1.1, d: 0.6 }); ob(5.45, -4.3, 0.55, 0.3);
+    for (const s of [-1, 1]) { armchair(K, M(5.45 + s * 1.55, FL, -3.7, s * (-Math.PI / 2 - 0.5) + (s < 0 ? Math.PI : 0)), { color: 0xc9a14a }); ob(5.45 + s * 1.55, -3.7, 0.42, 0.42); }
+    pedestal(K, M(1.4, FL, -5.6)); ob(1.4, -5.6, 0.35, 0.35);
+    K.AR(floorQuad(5.45, FL + 0.006, -4.7, 3.6, 2.8, [0, 0, 1, 1]), A.rug, 0);
+  }
+
+  /* 人 */
+  const people = [
+    { x: -0.2, y: FL, z: 1.25, ry: 0.0, top: 0x111114, bot: 0x111114, hair: 2, skirt: true, bag: 0 },
+    { x: -3.4, y: FL, z: -3.6, ry: -2.2, top: 0xe9e2d0, bot: 0x2f3238, hair: 1, bag: 1, bagC: 0x111111 },
+    { x: 3.2, y: FL, z: 1.6, ry: 1.0, top: 0x2b3550, bot: 0xb49f7a, hair: 0, bag: 0 },
+  ];
+  const sitters = [{ x: -4.68, y: FL, z: 2.03, ry: -Math.PI / 2 + 0.35, top: 0x6e2a33, bot: 0x1f2022, hair: 1, bag: 0 }];
+  const walkers = [
+    { y: FL, z: 4.6, x0: -2.6, x1: 2.6, look: { top: 0xc8b59a, bot: 0x262f42, hair: 1, skirt: true, bag: 1, bagC: 0x8a5a32 } },
+    { y: 0, z: 9.8, x0: -11, x1: 11, look: { top: 0x1b1b1d, bot: 0x2f3238, hair: 0, bag: 1 } },
+  ];
+  assemble(group, B, K, M2, { people, sitters, walkers, rnd, time, shadows });
+  const update = walkUpdater(group, walkers, people.length, time);
+  update(0);
+  function setNight(n) { const k = clamp01(n); night.n.value = k; night.pool.value = 0.32 + 0.7 * k; M2.metal.envMapIntensity = 1.35 - 0.25 * k; }
+  setNight(0);
+  const triangles = countTris(group);
+  group.userData.shop = { triangles, textureMB: shopTextureMB(), buildMs: Math.round(now() - t0) };
+  return { group, obstacles, door: { ...FURNITURE.door }, entrance: { ...FURNITURE.entrance }, setNight, update, materials: M2, triangles };
+}

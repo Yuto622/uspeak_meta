@@ -15,6 +15,7 @@
 //   main-city.js の 島の 中の 座標を 写した もの（MAIN_*）。島の 中を うごかしたら ここも なおす。
 import { HUBS, REGIONS } from './rpg-data.js';
 import { LINKS } from './bridges-data.js';
+import { getLang, onLangChange } from './i18n.js';
 
 // ── 小さな 道具 ────────────────────────────────────────────────
 const f = (n) => Math.round(n * 10) / 10;
@@ -52,6 +53,44 @@ function sizeOf(r) {   // 島の 大きさ（半分の はば）。検査の 歩
 }
 const BY_ID = Object.fromEntries(MAP_ISLANDS.map((r) => [r.id, r]));
 
+export const MX = -26, MZ = -79;   // メインの島の まんなか（rpg-data.js の HUBS と 同じ）
+// ── ちずの 上の 置きかた（2026-11：「島と島が被んないように」）────────────
+// ちずでは 島を ほんとうより 大きく かく（VS 倍。海ばかりで 地形が 見えない ため）。大きく すると となりと かさなるので、
+// かさならなく なるまで すこしずつ おしあう（メインの島は うごかさない・もとの 場所へ よわい ばねで もどす）。
+// x, z ＝ ちずの 上の 場所（ox, oz が ほんとうの 場所）、rx, rz ＝ ちずの 上の 大きさ。橋は DLINKS（ずらした 島と 島を むすぶ）。
+export const VS = 1.5;
+const MAIN_BOX = { x0: MX - 78 - 6, x1: MX + 88 + 6, z0: MZ - 74 - 6, z1: MZ + 43 + 6 };
+{
+  const list = MAP_ISLANDS.filter((r) => r.id !== 'main');
+  for (const r of list) { r.ox = r.x; r.oz = r.z; r.rx *= VS; r.rz *= VS; }
+  const rad = (r) => Math.max(r.rx, r.rz) * 1.12 + 5;   // 海岸の でこぼこ ＋ すなはま ＋ すきま
+  for (let it = 0; it < 400; it++) {
+    for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) {
+      const a = list[i], b = list[j], dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz) || 0.01, m = rad(a) + rad(b);
+      if (d < m) { const k = (m - d) / 2 / d; a.x -= dx * k; a.z -= dz * k; b.x += dx * k; b.z += dz * k; }
+    }
+    for (const r of list) {
+      const cx = Math.max(MAIN_BOX.x0, Math.min(MAIN_BOX.x1, r.x)), cz = Math.max(MAIN_BOX.z0, Math.min(MAIN_BOX.z1, r.z));
+      const dx = r.x - cx, dz = r.z - cz, d = Math.hypot(dx, dz), R = rad(r);
+      if (d === 0) { r.z = r.z < MZ ? MAIN_BOX.z0 - R : MAIN_BOX.z1 + R; } else if (d < R) { r.x += dx / d * (R - d); r.z += dz / d * (R - d); }
+      if (it < 300) { r.x += (r.ox - r.x) * 0.02; r.z += (r.oz - r.z) * 0.02; }
+    }
+  }
+  for (const r of list) { r.x = Math.round(r.x * 10) / 10; r.z = Math.round(r.z * 10) / 10; }
+  const m = BY_ID.main; m.ox = m.x; m.oz = m.z;
+}
+// 橋：メインの島の はしは ほんとうの 岸（ダウンタウンの 道の 行き止まり）、ほかは ずらした 島の まんなか。海の 上だけ かく（world-paint.js）。
+export const DLINKS = LINKS.map((l) => {
+  const foot = (id, p) => (id === 'main' ? { x: p.x, z: p.z } : { x: BY_ID[id].x, z: BY_ID[id].z });
+  return { ...l, from: foot(l.a, l.from), to: foot(l.b, l.to) };
+});
+// ぜんぶの 島が 入る わく
+export const BOUNDS = (() => {
+  const b = { x0: MAIN_BOX.x0, x1: MAIN_BOX.x1, z0: MAIN_BOX.z0, z1: MAIN_BOX.z1 };
+  for (const r of MAP_ISLANDS) { b.x0 = Math.min(b.x0, r.x - r.rx * 1.15); b.x1 = Math.max(b.x1, r.x + r.rx * 1.15); b.z0 = Math.min(b.z0, r.z - r.rz * 1.15); b.z1 = Math.max(b.z1, r.z + r.rz * 1.15); }
+  return b;
+})();
+
 // 島の 色（くさ）。ぼうけんの ちいきは biome の 色、島は あたたかい みどりを すこしずつ かえる。
 // 札の 色（world-picker.js の LOOK と 同じ 色あい）。
 const BANNER = {
@@ -84,7 +123,6 @@ function smooth(p) {
 }
 
 // メインの島：もとの 角まるの 四角（54×43・power 4）＋ つき出した 土地（main-plaza.js の PLAZA.annex と also）。島の 中の 座標。
-export const MX = -26, MZ = -79;
 export const MAIN_RECTS = [
   { x0: 52, x1: 88, z0: -30, z1: 33, r: 7 }, { x0: 12, x1: 72, z0: -47, z1: -26, r: 7 },
   { x0: -78, x1: -40, z0: -74, z1: -1, r: 9 }, { x0: -78, x1: -14, z0: -74, z1: -40, r: 9 },   // ビルの まち（main-city.js の CITY.rects）
@@ -268,14 +306,14 @@ function boat(x, y, c, k = 1) {
 // ── 下絵 ぜんぶ（1 回だけ 作る）──────────────────────────────
 // 「🗺 ちず」は world-paint.js の ぬった 絵（canvas）が 下に 出て、SVG は 名前・番号・押せる ところだけ。
 // 「📍 あんない」と、絵が まだ できて いない あいだは、この SVG の `wm-guide`（たいらな パステルの 地図）が 出る。
-export const VIEW = { x0: -470, x1: 460, z0: -545, z1: 450 };   // うごかせる はんい
-export const FIT = { x0: -430, x1: 425, z0: -505, z1: 410 };   // ぜんぶの 島と 札が 入る わく（はじめの 見え方）
+export const FIT = { x0: BOUNDS.x0 - 8, x1: BOUNDS.x1 + 8, z0: BOUNDS.z0 - 8, z1: BOUNDS.z1 + 8 };   // ぜんぶの 島が 入る わく（はじめの 見え方）
+export const VIEW = { x0: FIT.x0 - 40, x1: FIT.x1 + 40, z0: FIT.z0 - 40, z1: FIT.z1 + 40 };   // うごかせる はんい
 // あんないの 色（たいらな パステル）
 const GUIDE = { snow: '#e3edf6', desert: '#efdcaa', canyon: '#eab994', reef: '#bfe7c9', ruins: '#cfd6c2', moon: '#c9c6e6', sky: '#eef0c8', storm: '#bcd3a6', forest: '#9ccf8c', grass: '#c3e39c' };
 const guideOf = (r) => (r.id === 'main' ? '#cfe6a8' : r.biome ? GUIDE[r.biome] : r.id === 'farm' ? '#e4dc9c' : r.id === 'fishworld' ? '#bfe3b0' : /^eiken/.test(r.id) ? '#c8e3a4' : '#c9e7a2');
-const SEAS = [
-  { x: -150, z: -500, en: 'North Sea', ja: 'きたの うみ', rot: 0 }, { x: 150, z: 412, en: 'South Sea', ja: 'みなみの うみ', rot: 0 },
-  { x: -428, z: 90, en: 'West Sea', ja: 'にしの うみ', rot: -90 }, { x: 425, z: -240, en: 'East Sea', ja: 'ひがしの うみ', rot: 90 },
+const SEAS = [   // 海の 名前（島の わくの 外がわ）
+  { x: BOUNDS.x0 + 140, z: BOUNDS.z0 - 4, en: 'North Sea', ja: 'きたの うみ', rot: 0 }, { x: BOUNDS.x1 - 160, z: BOUNDS.z1 + 6, en: 'South Sea', ja: 'みなみの うみ', rot: 0 },
+  { x: BOUNDS.x0 - 6, z: (BOUNDS.z0 + BOUNDS.z1) / 2 + 60, en: 'West Sea', ja: 'にしの うみ', rot: -90 }, { x: BOUNDS.x1 + 8, z: (BOUNDS.z0 + BOUNDS.z1) / 2 - 120, en: 'East Sea', ja: 'ひがしの うみ', rot: 90 },
 ];
 let cachedSvg = null;
 export function baseSvg() {
@@ -290,23 +328,27 @@ export function baseSvg() {
   // あんない（たいらな 地図）
   let gd = `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#9fd3e6"/><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#wm-waves)"/>`;
   gd += `<g stroke-linejoin="round" fill="#c4e9f3" stroke="#c4e9f3" stroke-width="26">${uses()}</g>`;
+  gd += `<g class="wm-gbridges">${DLINKS.map(bridgeSvg).join('')}</g>`;   // 橋は 島の 下に（島の 中の ぶんは かくれる）
   gd += `<g stroke-linejoin="round" fill="#ffffff" stroke="#ffffff" stroke-width="5">${uses()}</g>`;
   gd += MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}" fill="${guideOf(r)}"/>`).join('');
   gd += MAP_ISLANDS.filter((r) => r.id !== 'main').map((r) => `<path d="${blob(r.x - r.rx * 0.08, r.z - r.rz * 0.1, r.rx * 0.56, r.rz * 0.5, seedOf(r.id) + 3, { wob: 0.12 })}" fill="#ffffff" fill-opacity=".22"/>`).join('');
   { const x0 = MX + MAIN_BAY.x0, x1 = MX + MAIN_BAY.x1, z0 = MZ + MAIN_BAY.z0; gd += `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="40" rx="6" fill="#ffffff"/><rect x="${x0 + 2.5}" y="${z0 + 2.5}" width="${x1 - x0 - 5}" height="40" rx="5" fill="#c4e9f3"/>`; }
   gd += `<g class="wm-gtown">${guideTown()}</g>`;
-  gd += `<g class="wm-gbridges">${LINKS.map(bridgeSvg).join('')}</g>`;
-  for (const [x, z] of [[22, 15], [MX + 64, MZ - 40]]) gd += planeMark(x, z);
+  for (const [x, z] of [[BY_ID.willow.x + 30, BY_ID.willow.z + 20], [MX + 64, MZ - 40]]) gd += planeMark(x, z);
   gd += boat(MX + 40, MZ + 41, '#e27a2d', 1.3) + boat(MX - 2, MZ - 48, '#3f9a62', 1.3);
   s += `<g class="wm-guide">${gd}</g>`;
   // 海の 名前（どちらの 見せかたでも）
   s += `<g class="wm-seas">${SEAS.map((q) => `<text class="wm-sea" transform="translate(${q.x} ${q.z}) rotate(${q.rot})" font-size="17" text-anchor="middle" dominant-baseline="central"><tspan class="en">${q.en}</tspan><tspan class="ja">${q.ja}</tspan></text>`).join('')}</g>`;
   s += '<g class="wm-live-under"></g>';
-  // あんないの まるい しるし（島の 絵）
-  s += `<g class="wm-markers">${MAP_ISLANDS.map((r) => { const [x, z] = r.id === 'main' ? [MX + 10, MZ - 2] : [r.x, r.z - 4]; return `<g class="wm-cs wm-marker" data-x="${f(x)}" data-y="${f(z)}" data-k=".85"><circle r="16.5" fill="#ffffff" stroke="${bannerOf(r)}" stroke-width="3"/><g clip-path="url(#wm-mclip)"><circle r="13" fill="${light(bannerOf(r), 0.78)}"/><g transform="translate(0 3) scale(.52)">${r.id === 'main' ? mainIcon() : (LANDMARK[r.id] || defaultMark(r))()}</g></g></g>`; }).join('')}</g>`;
-  // メインの島の 中の 場所の 名前（ちかづけた ときだけ）
-  s += `<g class="wm-places">${MAIN_PLACES.map((p) => { const [x, z] = MW(p.x, p.z); return `<g class="wm-cs wm-place" data-x="${x}" data-y="${z}" data-k=".9"><text class="wm-ptext" text-anchor="middle" dominant-baseline="central" font-size="14"><tspan class="en">${esc(p.en)}</tspan><tspan class="ja">${esc(p.ja)}</tspan></text></g>`; }).join('')}</g>`;
-  s += `<g class="wm-labels">${MAP_ISLANDS.map(labelSvg).join('')}</g>`;
+  // 番号の しるし（🗺：赤い まる／📍：島の 絵の まる＋小さい 番号）。押せる（28px 以上）。大きさは 画面の 上で いつも 同じ（mount の layout）。
+  s += `<g class="wm-nums">${MAP_ISLANDS.map((r) => `<g class="wm-num" data-island="${esc(r.id)}"><circle r="19" fill="transparent"/>`
+    + `<g class="n-guide"><circle r="19" fill="#ffffff" stroke="${bannerOf(r)}" stroke-width="3"/><g clip-path="url(#wm-mclip)"><circle r="15.5" fill="${light(bannerOf(r), 0.78)}"/><g transform="translate(0 3.5) scale(.62)">${r.id === 'main' ? mainIcon() : (LANDMARK[r.id] || defaultMark(r))()}</g></g>`
+    + `<g transform="translate(-15 -15)"><circle r="10" class="n-fill" stroke="#fff4d6" stroke-width="2"/><text class="wm-ntext" font-size="11" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`
+    + `<g class="n-paint"><circle r="14" class="n-fill" stroke="#fff4d6" stroke-width="2.5"/><circle r="14" fill="none" stroke="${INK}" stroke-width="1"/><text class="wm-ntext" font-size="13" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g>`
+    + `<g class="n-lock" transform="translate(12 -12)">${lockSvg(0.62)}</g><g class="n-star" transform="translate(13 -12)"><circle r="7" fill="#ffd84a" stroke="#7a5200" stroke-width="1.2"/><path d="M0-4 1.2-1.3 4-1.2 1.8.7 2.5 3.4 0 1.9-2.5 3.4-1.8.7-4-1.2-1.2-1.3Z" fill="#fff"/></g>`
+    + '</g>').join('')}</g>`;
+  // 名前の 札（まるい クリームの 板に こい 字・ばしょは mount の layout が かさならない ように えらぶ）。メインの島の 中の 場所の 名前も 同じ 札。
+  s += `<g class="wm-labels">${MAP_ISLANDS.map(labelSvg).join('')}${MAIN_PLACES.map((p, i) => `<g class="wm-label wm-place" data-place="${i}" translate="no"><rect class="wm-pill"/><text class="wm-ltext" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(p.en)}</tspan><tspan class="ja">${esc(p.ja)}</tspan></text></g>`).join('')}</g>`;
   s += '<g class="wm-live-over"></g><g class="wm-hits"></g>';
   s += `<g transform="translate(${FIT.x1 - 18} ${FIT.z1 - 30})" class="wm-compass"><circle r="20" fill="#fff4d6" fill-opacity=".92" stroke="#1b3a2f" stroke-width="2"/><path d="M0-16 4.6 0 0 16-4.6 0Z" fill="#1b3a2f"/><path d="M0-16 4.6 0H-4.6Z" fill="#e27a2d"/><text y="-27" font-size="13" font-weight="900" text-anchor="middle" fill="#fff" class="wm-ink">N</text></g>`;
   cachedSvg = `<svg class="wm-svg" xmlns="http://www.w3.org/2000/svg" viewBox="${VIEW.x0} ${VIEW.z0} ${VIEW.x1 - VIEW.x0} ${VIEW.z1 - VIEW.z0}" font-family="'Hiragino Maru Gothic ProN','Arial Rounded MT Bold','M PLUS Rounded 1c','Noto Sans JP',sans-serif">${s}</svg>`;
@@ -337,22 +379,23 @@ function bridgeSvg(l) {
   if (l.rest) g += `<rect x="${f(len / 2 - 6)}" y="${f(-w / 2 - 2.6)}" width="12" height="${f(w + 5.2)}" rx="1.6" fill="#c98a4b" stroke="#6b3f1c" stroke-width=".6"/><path d="M${f(len / 2 - 4.6)} ${f(-w / 2 - 1.4)}h9.2" stroke="#7a4a22" stroke-width="1.2"/>` + `<circle cx="${f(len / 2 + 5)}" cy="${f(w / 2 + 1.6)}" r="1" fill="#ffd84a" stroke="#6b3f1c" stroke-width=".3"/>`;
   return `<g class="wm-bridge" data-bridge="${esc(l.id)}" transform="translate(${f(l.from.x)} ${f(l.from.z)}) rotate(${f(ang)})">${g}</g>`;
 }
-// 名前の 札：ふちどりの ある 白い 字（ゲームの 地図の ように）＋ 赤い 番号。ちかづけても 大きく なりすぎない（`wm-cs`）。
-// 英語の とき：英語・下に 日本語（よみ）。日本語の とき：日本語の 名前・下に よみ（同じなら 英語）。下の 行は ちかづけた ときだけ。
-const LABEL_UP = new Set(['meadow', 'desert', 'canyon']);   // となりの 島の 札と かさなる ので 上に
+// 名前の 札：英語の とき 英語（ちかづくと 下に よみ）、日本語の とき 日本語の 名前（ちかづくと 下に よみ／英語）。
 function labelSvg(r) {
-  const big = r.id === 'main';
-  const y = big ? MZ + 49 : LABEL_UP.has(r.id) ? r.z - r.rz - 4 : r.z + r.rz * 0.78, x = big ? MX + 4 : r.x;
   const yomi = r.yomi && r.yomi !== r.name ? r.yomi : shortName(r);
-  const one = (main, sub, cls, jaMain) => {
-    const fs = big ? 19 : 14.5, sfs = big ? 13.5 : 12;
-    const w = main.length * fs * (jaMain ? 1.02 : 0.66);
-    return `<g class="${cls}"><text class="wm-ltext" y="0" font-size="${fs}" text-anchor="middle" dominant-baseline="central">${esc(main)}</text>`
-      + `<text class="wm-jtext wm-sub" y="${f(fs * 0.62 + sfs * 0.75)}" font-size="${sfs}" text-anchor="middle" dominant-baseline="central">${esc(sub)}</text>`
-      + `<g transform="translate(${f(-w / 2 - 13)} 0)"><circle r="${big ? 10 : 8.6}" fill="#e04a2f" stroke="#fff4d6" stroke-width="2"/><circle r="${big ? 10 : 8.6}" fill="none" stroke="${INK}" stroke-width=".8"/><text class="wm-ntext" font-size="${big ? 13 : 12}" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`;
-  };
-  return `<g class="wm-cs wm-label" data-island="${esc(r.id)}" data-x="${f(x)}" data-y="${f(y)}" data-k="${big ? 1.1 : 1}" translate="no">`
-    + one(shortName(r), r.yomi || r.name, 'en', false) + one(r.name, yomi, 'ja', true) + '</g>';
+  return `<g class="wm-label" data-island="${esc(r.id)}" translate="no"><rect class="wm-pill"/>`
+    + `<text class="wm-ltext" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(shortName(r))}</tspan><tspan class="ja">${esc(r.name)}</tspan></text>`
+    + `<text class="wm-sub" font-size="11.5" text-anchor="middle" dominant-baseline="central"><tspan class="en">${esc(r.yomi || r.name)}</tspan><tspan class="ja">${esc(yomi)}</tspan></text></g>`;
+}
+const LABEL_TEXT = (r, ja) => (ja ? [r.name, r.yomi && r.yomi !== r.name ? r.yomi : shortName(r)] : [shortName(r), r.yomi || r.name]);
+// 文字の はば（canvas で はかる・1 回だけ）
+const widths = new Map();
+let measureCtx = null;
+function textW(t, px) {
+  const key = px + '|' + t; if (widths.has(key)) return widths.get(key);
+  try { measureCtx ||= document.createElement('canvas').getContext('2d'); } catch { /* */ }
+  let w = t.length * px * 0.62;
+  if (measureCtx?.measureText) { measureCtx.font = `800 ${px}px 'Hiragino Maru Gothic ProN','Arial Rounded MT Bold','M PLUS Rounded 1c','Noto Sans JP',sans-serif`; w = measureCtx.measureText(t).width || w; }
+  widths.set(key, w); return w;
 }
 
 // ── 見える 物（ひらく たびに かく）＋ うごかす しくみ ────────────
@@ -365,14 +408,11 @@ function liveParts(state, kid, KIDS) {
     if (here) under += r.id === 'main' ? `<rect class="wm-here-ring" x="${MX - 86}" y="${MZ - 82}" width="182" height="134" rx="40"/>` : `<ellipse class="wm-here-ring" cx="${r.x}" cy="${r.z}" rx="${r.rx + 12}" ry="${r.rz + 12}"/>`;
     if (!open && !prem && !off) {   // まだ ひらいて いない：くもで かくす
       const C = rng(seedOf(r.id) + 5);
-      let cl = ''; for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2; cl += `<circle cx="${f(r.x + Math.cos(a) * r.rx * 0.8)}" cy="${f(r.z + Math.sin(a) * r.rz * 0.75 - 4)}" r="${f(r.rx * (0.45 + C() * 0.18))}"/>`; }
-      under += `<g class="wm-cloud" fill="url(#wm-cloudgrad)">${cl}<circle cx="${r.x}" cy="${r.z - 4}" r="${f(r.rx * 1.05)}"/></g>`;
-      over += `<g class="wm-cs" data-x="${r.x}" data-y="${f(r.z - 6)}" data-k=".9"><circle r="11" fill="#7a8f9a" stroke="#fff" stroke-width="2"/><text class="wm-ntext" font-size="14" text-anchor="middle" dominant-baseline="central">?</text></g>`;
+      let cl = ''; for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2; cl += `<circle cx="${f(r.x + Math.cos(a) * r.rx * 0.55)}" cy="${f(r.z + Math.sin(a) * r.rz * 0.5)}" r="${f(r.rx * (0.32 + C() * 0.12))}"/>`; }
+      under += `<g class="wm-cloud" fill="url(#wm-cloudgrad)">${cl}<circle cx="${r.x}" cy="${r.z}" r="${f(r.rx * 0.7)}"/></g>`;
     }
     if (off) under += `<use href="#wms-${r.id}" class="wm-off"/>`;
-    if (prem && !open) over += `<g class="wm-cs" data-x="${f(r.x + r.rx * 0.55)}" data-y="${f(r.z - r.rz * 0.55)}" data-k="1">${lockSvg()}</g>`;
-    else if (prem) over += `<g class="wm-cs" data-x="${f(r.x + r.rx * 0.6)}" data-y="${f(r.z - r.rz * 0.55)}" data-k=".8"><circle r="9" fill="#ffd84a" stroke="#7a5200" stroke-width="1.4"/><path d="M0-5.4 1.6-1.8 5.4-1.6 2.4.9 3.4 4.6 0 2.6-3.4 4.6-2.4.9-5.4-1.6-1.6-1.8Z" fill="#fff"/></g>`;
-    if (here) pin = { x: r.x, y: r.z - (r.id === 'main' ? 6 : 10) };
+    if (here) pin = r.id;
     if (off) continue;
     const name = state.isJa ? r.name : shortName(r);
     const st = here ? (state.isJa ? '（いま ここ）' : ' (you are here)') : !open ? (prem ? (state.isJa ? '（🔒 プレミアム）' : ' (premium)') : (state.isJa ? '（まだ ひらいて いない）' : ' (not open yet)')) : '';
@@ -380,7 +420,7 @@ function liveParts(state, kid, KIDS) {
   }
   return { under, over, hits, pin };
 }
-const lockSvg = () => `<g><rect x="-8" y="-3" width="16" height="13" rx="3" fill="#f2b04a" stroke="${INK}" stroke-width="1.3"/><path d="M-4.6-3v-3.6a4.6 4.6 0 0 1 9.2 0V-3" fill="none" stroke="#7a8a96" stroke-width="2.6"/><path d="M-4.6-3v-3.6a4.6 4.6 0 0 1 9.2 0V-3" fill="none" stroke="${INK}" stroke-width=".6"/><circle cy="3" r="1.8" fill="${INK}"/><path d="M0 3v3.6" stroke="${INK}" stroke-width="1.4"/></g>`;
+const lockSvg = (k = 1) => `<g transform="scale(${k})"><rect x="-8" y="-3" width="16" height="13" rx="3" fill="#f2b04a" stroke="${INK}" stroke-width="1.3"/><path d="M-4.6-3v-3.6a4.6 4.6 0 0 1 9.2 0V-3" fill="none" stroke="#7a8a96" stroke-width="2.6"/><path d="M-4.6-3v-3.6a4.6 4.6 0 0 1 9.2 0V-3" fill="none" stroke="${INK}" stroke-width=".6"/><circle cy="3" r="1.8" fill="${INK}"/><path d="M0 3v3.6" stroke="${INK}" stroke-width="1.4"/></g>`;
 
 // host に ちずを 出す。下絵の DOM は 1 回だけ 作って 使いまわす（ひらく たびに 文字から 作りなおさない）。
 // うごかして いる 間は SVG に CSS の transform を かけるだけ（GPU が うごかす・かきなおさない）。
@@ -393,7 +433,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   const paint = document.createElement('div'); paint.className = 'wmap-paint'; view.appendChild(paint);
   view.appendChild(svg);
   const tiles = [];
-  const setStyle = (st) => { style = st; svg.dataset.style = st; host.dataset.style = st; placeTiles(); };
+  const setStyle = (st) => { style = st; svg.dataset.style = st; host.dataset.style = st; placeTiles(); if (typeof v !== 'undefined') layout(); };
   svg.dataset.ready = paintCache ? '1' : '';
   const addTile = (t) => { if (!t?.canvas || tiles.some((q) => q.canvas === t.canvas)) return; t.canvas.className = t.soft ? 'wmap-tile soft' : t.ppu > 3 ? 'wmap-tile main' : 'wmap-tile'; paint.appendChild(t.canvas); tiles.push(t); placeTiles(); };
   const useResult = (res) => { if (!res || dead) return; paintCache = res; svg.dataset.ready = '1'; host.dataset.ready = '1'; addTile(res.world); res.main?.then((m) => { if (!dead) addTile(m); }); };
@@ -402,10 +442,22 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   svg.querySelector('.wm-live-under').innerHTML = under;
   svg.querySelector('.wm-live-over').innerHTML = over;
   svg.querySelector('.wm-hits').innerHTML = hits;
-  for (const g of svg.querySelectorAll('.wm-label')) {   // 下絵の 札にも いまの ようすを（くもの 島は うすく）
-    const id = g.dataset.island; g.classList.toggle('dim', !state.unlocked(id) && !state.premium?.(id)); g.classList.toggle('off', kid && !kids.includes(id));
+  // 札と 番号の しるしに いまの ようすを（くもの 島は うすく・🔒・⭐・いま ここ）
+  const labels = [], nums = [];
+  for (const g of svg.querySelectorAll('.wm-label[data-island]')) {
+    const r = BY_ID[g.dataset.island], open = state.unlocked(r.id), prem = !!state.premium?.(r.id);
+    g.classList.toggle('dim', !open && !prem); g.classList.toggle('off', kid && !kids.includes(r.id)); g.classList.toggle('here', r.id === state.current);
+    labels.push({ g, r, rect: g.querySelector('rect'), main: g.querySelector('.wm-ltext'), sub: g.querySelector('.wm-sub') });
   }
-  const scaled = [...svg.querySelectorAll('.wm-cs')].map((n) => [n, +n.dataset.x, +n.dataset.y, +n.dataset.k || 1]);
+  for (const g of svg.querySelectorAll('.wm-num')) {
+    const r = BY_ID[g.dataset.island], open = state.unlocked(r.id), prem = !!state.premium?.(r.id);
+    g.classList.toggle('locked', !open); g.classList.toggle('prem', prem); g.classList.toggle('here', r.id === state.current); g.classList.toggle('off', kid && !kids.includes(r.id));
+    nums.push({ g, r });
+  }
+  const places = [...svg.querySelectorAll('.wm-place')].map((g) => ({ g, p: MAIN_PLACES[+g.dataset.place], rect: g.querySelector('rect') }));
+  const order = [...labels].sort((a, b) => (b.r.id === state.current) - (a.r.id === state.current) || (b.r.id === 'main') - (a.r.id === 'main') || (b.r.hub ? 1 : 0) - (a.r.hub ? 1 : 0) || a.r.num - b.r.num);
+  const numAt = (r) => (r.id === 'main' ? [MX + 10, MZ - 12] : [r.x, r.z]);
+  let moved0 = false;   // 子どもが じぶんで うごかしたか（うごかして いなければ パネルを たたんだ とき 見え方を なおす）
   // 「きみは ここ」は HTML の 札（ぴょこぴょこ うごく のは この 札だけ。SVG は かきなおさない）。
   let here = null;
   if (pin) {
@@ -413,30 +465,93 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
     here.innerHTML = `<span class="wh-tag"><b class="en">You are here</b><i class="ja">きみは ここ</i></span><svg class="wh-pin" viewBox="-11 -24 22 30"><ellipse cy="3" rx="6" ry="2.2" fill="#000" fill-opacity=".25"/><path d="M0 2C-3-4-9-7-9-13a9 9 0 0 1 18 0c0 6-6 9-9 15Z" fill="#ffd246" stroke="${INK}" stroke-width="1.4"/><path d="M0-18.4l1.9 3.9 4.3.6-3.1 3 .7 4.3L0-8.6l-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#e27a2d"/></svg>`;
     host.appendChild(here);
   }
+  const pinR = pin ? BY_ID[pin] : null;
+  // 札の ばしょ えらび（ひらく・うごかし おわる・パネルを たたむ・ことばを かえる たびに 1 回）：
+  // 番号の まるは 島の まんなか。名前の 札は こうほ（下・上・右・左・島の 外・ななめ）から、ほかの 札・番号・ほかの 島・パネル・
+  // 「きみは ここ」に かさならない ものを えらぶ。どこにも おけない 札は かくす（番号は のこる・ちかづくと 出る）。
+  const layout = () => {
+    const [W, H] = size(), k = W / v.w, ja = getLang() === 'ja', guide = style === 'guide';
+    const mid = k > 1.25, vb = view.getBoundingClientRect();
+    const toS = (x, z) => [W / 2 + (x - v.cx) * k, H / 2 + (z - v.cy) * k];
+    const hit = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+    const blocks = [];
+    const addEl = (el) => { const b = el.getBoundingClientRect(); if (b.width) blocks.push([b.left - vb.left - 4, b.top - vb.top - 4, b.right - vb.left + 4, b.bottom - vb.top + 4]); };
+    host.querySelectorAll('.wmap-panel, .wmap-title, .wmap-tools').forEach(addEl);
+    host.closest('.wm')?.querySelectorAll('.wm-views, .wm-close').forEach(addEl);
+    const isl = MAP_ISLANDS.map((r) => {
+      if (r.id === 'main') return [r.id, [toS(MX - 78, 0)[0], toS(0, MZ - 74)[1], toS(MX + 88, 0)[0], toS(0, MZ + 43)[1]]];
+      const [x, z] = toS(r.x, r.z), rx = r.rx * 0.82 * k, rz = r.rz * 0.82 * k; return [r.id, [x - rx, z - rz, x + rx, z + rz]];
+    });
+    const far = k < 0.4, ms = far ? 0.78 : 1, nr = (guide && !far ? 21 : 16) * ms; svg.dataset.far = far ? '1' : '';   // とおくは 番号の まるだけ（あんないの 絵の まるは ちかづくと）   // とても ひいた とき（スマホ）は しるしを すこし 小さく（押せる はばは のこす）
+    for (const n of nums) {
+      const [x, z] = numAt(n.r), [sx, sy] = toS(x, z);
+      n.g.setAttribute('transform', `translate(${f(x)} ${f(z)}) scale(${f(ms / k * 1000) / 1000})`);
+      if (!n.g.classList.contains('off')) blocks.push([sx - nr, sy - nr, sx + nr, sy + nr]);
+    }
+    if (pinR) { const [x, z] = numAt(pinR), [sx, sy] = toS(x, z); blocks.push([sx - 62, sy - 96, sx + 62, sy - 12]); }
+    const placed = [];
+    const put = (L, cands, w, h, x, z, own) => {
+      const [sx, sy] = toS(x, z);
+      for (const [dx, dy] of cands) {
+        const cx = sx + dx, cy = sy + dy, R = [cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2];
+        if (R[0] < 4 || R[1] < 4 || R[2] > W - 4 || R[3] > H - 4) continue;
+        if (blocks.some((b) => hit(R, b)) || placed.some((b) => hit(R, b)) || isl.some(([id, b]) => id !== own && hit(R, b))) continue;
+        placed.push(R);
+        L.g.setAttribute('transform', `translate(${f(x + dx / k)} ${f(z + dy / k)}) scale(${f(1 / k * 1000) / 1000})`);
+        L.g.style.display = ''; return true;
+      }
+      L.g.style.display = 'none'; return false;
+    };
+    for (const L of order) {
+      if (L.g.classList.contains('off')) { L.g.style.display = 'none'; continue; }
+      const [t1, t2] = LABEL_TEXT(L.r, ja), w = Math.max(textW(t1, 13), mid ? textW(t2, 11.5) : 0) + 22, h = mid ? 40 : 26;
+      L.rect.setAttribute('x', f(-w / 2)); L.rect.setAttribute('y', f(-h / 2)); L.rect.setAttribute('width', f(w)); L.rect.setAttribute('height', h); L.rect.setAttribute('rx', 13);
+      L.main.setAttribute('y', mid ? -7 : 0.5); L.sub.setAttribute('y', 10); L.sub.style.display = mid ? '' : 'none';
+      const [x, z] = numAt(L.r), ex = (L.r.id === 'main' ? 88 : L.r.rx * 0.82) * k, ez = (L.r.id === 'main' ? 62 : L.r.rz * 0.82) * k, g2 = nr + 3;
+      put(L, [[0, g2 + h / 2], [0, -g2 - h / 2], [g2 + w / 2, 0], [-g2 - w / 2, 0], [0, ez + h / 2 + 2], [0, -ez - h / 2 - 2], [ex + w / 2, 0], [-ex - w / 2, 0],
+        [ex * 0.8 + w / 2, ez * 0.8 + h / 2], [-ex * 0.8 - w / 2, ez * 0.8 + h / 2], [ex * 0.8 + w / 2, -ez * 0.8 - h / 2], [-ex * 0.8 - w / 2, -ez * 0.8 - h / 2]], w, h, x, z, L.r.id);
+    }
+    for (const P of places) {   // メインの島の 中の 名前：ちかづいた とき だけ、あいて いれば
+      if (k < 2.2) { P.g.style.display = 'none'; continue; }
+      const t = ja ? P.p.ja : P.p.en, w = textW(t, 12) + 18, h = 22;
+      P.rect.setAttribute('x', f(-w / 2)); P.rect.setAttribute('y', -h / 2); P.rect.setAttribute('width', f(w)); P.rect.setAttribute('height', h); P.rect.setAttribute('rx', 11);
+      const [x, z] = MW(P.p.x, P.p.z); put(P, [[0, 0], [0, 16], [0, -16]], w, h, x, z, 'main');
+    }
+  };
+  const offLang = onLangChange(() => { if (!dead) layout(); });
+  for (const d of host.querySelectorAll('details')) d.addEventListener('toggle', () => { if (dead) return; if (!moved0) Object.assign(v, fit()); commit(); });
 
   // 見え方：cx, cy ＝ まんなか、w ＝ 見える はば（世界の 単位）。cv ＝ いま viewBox に 入って いる 見え方。
   const size = () => [view.clientWidth || 800, view.clientHeight || 500];
   // はじめの 見え方：ぜんぶの 島（FIT）が 入る いちばん 大きな 見え方。上は タイトルの ぶん あける。
+  // ひらいて いる パネルの ぶん（左・右・上・下）を よけた あいた ところの まんなかに、ぜんぶの 島を おさめる。
   const fit = () => {
-    const [W, H] = size(), top = H < 480 ? 46 : 74, pad = 12, bw = FIT.x1 - FIT.x0, bh = FIT.z1 - FIT.z0;
-    const w = Math.max(bw * W / (W - pad * 2), bh * W / (H - top - pad));
-    const k = W / w;   // ピクセル / 単位
-    return { cx: (FIT.x0 + FIT.x1) / 2, cy: (FIT.z0 + FIT.z1) / 2 - (top - pad) / 2 / k, w };
+    const [W, H] = size(), vb = view.getBoundingClientRect();
+    let L = 12, R = 12, T = 12, B = 12;
+    const rel = (el) => { const b = el?.getBoundingClientRect?.(); return b && b.width ? [b.left - vb.left, b.top - vb.top, b.right - vb.left, b.bottom - vb.top] : null; };
+    for (const el of [host.querySelector('.wmap-title'), ...(host.closest('.wm')?.querySelectorAll('.wm-views, .wm-close') || [])]) { const b = rel(el); if (b) T = Math.max(T, b[3] + 26); }
+    const list = host.querySelector('.wmap-list'), key = host.querySelector('.wmap-key'), tools = host.querySelector('.wmap-tools');
+    const lb = list?.open ? rel(list) : null, kb = key?.open ? rel(key) : null, tb = rel(tools);
+    if (lb) R = Math.max(R, W - lb[0] + 8);
+    if (kb) L = Math.max(L, kb[2] + 8);
+    if (tb) B = Math.max(B, H - tb[1] + 6);
+    if (W - L - R < W * 0.45) { L = 12; R = 12; }   // せまい 画面で パネルが 大きい ときは かさねる
+    const bw = FIT.x1 - FIT.x0, bh = FIT.z1 - FIT.z0, aw = Math.max(80, W - L - R), ah = Math.max(80, H - T - B);
+    const k = Math.min(aw / bw, ah / bh), w = W / k;
+    return { cx: (FIT.x0 + FIT.x1) / 2 - ((L - R) / 2) / k, cy: (FIT.z0 + FIT.z1) / 2 - ((T - B) / 2) / k, w };
   };
   const v = nowView.w && !fresh ? { cx: nowView.cx, cy: nowView.cy, w: nowView.w } : fit();
   const cv = { ...v };
-  const clampV = () => { v.w = Math.max(60, Math.min((VIEW.x1 - VIEW.x0) * 1.9, v.w)); v.cx = Math.max(VIEW.x0, Math.min(VIEW.x1, v.cx)); v.cy = Math.max(VIEW.z0, Math.min(VIEW.z1, v.cy)); };
+  const clampV = () => { v.w = Math.max(60, Math.min((VIEW.x1 - VIEW.x0) * 4.5, v.w)); v.cx = Math.max(VIEW.x0, Math.min(VIEW.x1, v.cx)); v.cy = Math.max(VIEW.z0, Math.min(VIEW.z1, v.cy)); };
   function placeTiles() { if (!tiles.length) return; const [W, H] = size(), k = W / v.w; for (const t of tiles) { if (!t.canvas) continue; t.canvas.style.width = `${t.x1 - t.x0}px`; t.canvas.style.height = `${t.z1 - t.z0}px`; t.canvas.style.transform = `translate(${f(W / 2 + (t.x0 - v.cx) * k)}px, ${f(H / 2 + (t.z0 - v.cy) * k)}px) scale(${f(k * 10000) / 10000})`; } }
-  const placePin = () => { if (!here) return; const [W, H] = size(), k = W / v.w; here.style.transform = `translate(${f(W / 2 + (pin.x - v.cx) * k)}px, ${f(H / 2 + (pin.y - v.cy) * k)}px)`; };
+  const placePin = () => { if (!here) return; const [W, H] = size(), k = W / v.w, [x, z] = numAt(pinR); here.style.transform = `translate(${f(W / 2 + (x - v.cx) * k)}px, ${f(H / 2 + (z - v.cy) * k)}px)`; };
   const commit = () => {
     timer = 0; clampV(); Object.assign(cv, v);
     const [W, H] = size(), h = v.w * (H / W), px = W / v.w;   // px ＝ 1 単位が 何ピクセルか
     svg.style.transform = '';
     svg.setAttribute('viewBox', `${f(v.cx - v.w / 2)} ${f(v.cy - h / 2)} ${f(v.w)} ${f(h)}`);
     // 札は 画面の 上で ほぼ 同じ 大きさ（とおくでは ちいさく しすぎず、ちかくでは 大きく しすぎない）。
-    const target = Math.max(0.92, Math.min(1.25, 0.9 + (px - 0.6) * 0.12));
-    const sc = f(Math.max(0.22, target / px) * 100) / 100;
-    for (const [n, x, y, k] of scaled) n.setAttribute('transform', `translate(${x} ${y}) scale(${f(sc * k * 100) / 100})`);
+    layout();
     svg.dataset.near = px > 2.2 ? '1' : ''; svg.dataset.mid = px > 1.25 ? '1' : '';
     nowView.cx = v.cx; nowView.cy = v.cy; nowView.w = v.w;
     placePin(); placeTiles();
@@ -467,14 +582,14 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   // ── 指・マウス：ひっぱって うごかす・2 本指で ちかづける・ホイール
   const pts = new Map(); let moved = 0, pinch = null;
   const toWorld = (cx, cy) => { const b = view.getBoundingClientRect(), W = b.width || 1, H = b.height || 1; return [v.cx + ((cx - b.left) / W - 0.5) * v.w, v.cy + ((cy - b.top) / H - 0.5) * v.w * (H / W)]; };
-  const zoomAt = (k, cx, cy) => { const [wx, wy] = toWorld(cx, cy); v.w /= k; clampV(); const [nx, ny] = toWorld(cx, cy); v.cx += wx - nx; v.cy += wy - ny; draw(); };
+  const zoomAt = (k, cx, cy) => { moved0 = true; const [wx, wy] = toWorld(cx, cy); v.w /= k; clampV(); const [nx, ny] = toWorld(cx, cy); v.cx += wx - nx; v.cy += wy - ny; draw(); };
   view.onpointerdown = (e) => { pts.set(e.pointerId, [e.clientX, e.clientY]); if (pts.size === 1) moved = 0; if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]) || 1 }; } };
   view.onpointermove = (e) => {
     const p = pts.get(e.pointerId); if (!p) return;
     const dx = e.clientX - p[0], dy = e.clientY - p[1]; p[0] = e.clientX; p[1] = e.clientY;
     if (pts.size === 1) {
       moved += Math.abs(dx) + Math.abs(dy);
-      if (moved > 6) { try { view.setPointerCapture(e.pointerId); } catch { /* */ } view.classList.add('drag'); const W = view.clientWidth || 1; v.cx -= dx * v.w / W; v.cy -= dy * v.w / W; draw(); }
+      if (moved > 6) { moved0 = true; try { view.setPointerCapture(e.pointerId); } catch { /* */ } view.classList.add('drag'); const W = view.clientWidth || 1; v.cx -= dx * v.w / W; v.cy -= dy * v.w / W; draw(); }
     } else if (pts.size === 2 && pinch) {
       moved = 99; const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1;
       zoomAt(d / pinch.d, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); pinch.d = d;
@@ -496,13 +611,13 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   };
   // tab で 島に きたら 見える ところへ
   view.onfocusin = (e) => { const g = e.target.closest?.('.wmi'); if (!g) return; const r = BY_ID[g.dataset.island], [W, H] = size(), h = v.w * H / W; if (Math.abs(r.x - v.cx) > v.w * 0.38 || Math.abs(r.z - v.cy) > h * 0.38) { v.cx = r.x; v.cy = r.z; draw(); } };
-  const ro = globalThis.ResizeObserver ? new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(commit, 60); }) : null; ro?.observe(view);
+  const ro = globalThis.ResizeObserver ? new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(() => { if (!moved0) Object.assign(v, fit()); commit(); }, 60); }) : null; ro?.observe(view);
   return {
     zoom: (k) => zoomAt(k, ...mid()),
-    reset: () => { Object.assign(v, fit()); draw(); },
+    reset: () => { moved0 = false; Object.assign(v, fit()); draw(); },
     focus: (id, w = 250) => { const r = BY_ID[id]; if (!r) return; v.cx = r.id === 'main' ? MX + 5 : r.x; v.cy = r.id === 'main' ? MZ - 14 : r.z; v.w = w; draw(); },
     commit,
     setStyle,
-    destroy: () => { dead = true; paint.remove(); ro?.disconnect(); if (raf) cancelAnimationFrame(raf); clearTimeout(timer); here?.remove(); },
+    destroy: () => { dead = true; offLang?.(); paint.remove(); ro?.disconnect(); if (raf) cancelAnimationFrame(raf); clearTimeout(timer); here?.remove(); },
   };
 }

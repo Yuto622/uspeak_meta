@@ -297,7 +297,7 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wm-svg .wm-sub { display: none; }
 .wm-svg[data-mid="1"] .wm-sub { display: inline; }
 /* ── ぬった 地形（🗺 ちず）と あんない（📍）・2026-11 ── */
-.wmap { background: #f1f6f9; }
+.wmap { background: #f8fbfd; }
 .wmap[data-style="guide"] { background: #9fd3e6; }
 .wmap-paint { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .wmap-tile { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
@@ -322,3 +322,30 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wmap-tools { flex-direction: row; }
 /* ちかづいた とき：メインの島の 大きな 名前は かくす（中の 場所の 名前と かさなる） */
 .wm-svg[data-near="1"] .wm-label[data-island="main"] { display: none; }
+/* ── 見やすく（2026-11：「文字と文字 被んない・島と島 被んない」）：札は まるい 板・番号の まるは 28px 以上・かさならない 置きかたは world-map.js の layout ── */
+.wm-svg .wm-pill { fill: #fff4d6; stroke: #1b3a2f; stroke-width: 1.6px; }
+.wm-svg .wm-label .wm-ltext { fill: #1b3a2f; stroke: none; font-weight: 900; }
+.wm-svg .wm-label .wm-sub { fill: #4b6157; stroke: none; font-weight: 800; }
+.wm-svg .wm-label.here .wm-pill { fill: #1b3a2f; stroke: #ffd246; stroke-width: 2px; }
+.wm-svg .wm-label.here .wm-ltext, .wm-svg .wm-label.here .wm-sub { fill: #fff4d6; }
+.wm-svg .wm-label.dim { opacity: 1; }
+.wm-svg .wm-label.dim .wm-pill { fill: #e9eeec; stroke: #7a8a86; }
+.wm-svg .wm-label.dim .wm-ltext { fill: #5d6e69; }
+.wm-svg .wm-place .wm-pill { fill: #1b3a2f; fill-opacity: .9; stroke: #fff4d6; stroke-width: 1.2px; }
+.wm-svg .wm-place .wm-ltext { fill: #fff4d6; font-weight: 800; }
+.wm-svg .wm-places, .wm-svg[data-near="1"] .wm-places { display: none; }
+.wm-svg .wm-num { cursor: pointer; }
+.wm-svg .wm-num.off { display: none; }
+.wm-svg .n-fill { fill: #e04a2f; }
+.wm-svg .wm-num.here .n-fill { fill: #e27a2d; }
+.wm-svg .wm-num.locked .n-fill { fill: #8a9aa2; }
+.wm-svg .n-lock, .wm-svg .n-star { display: none; }
+.wm-svg .wm-num.prem.locked .n-lock { display: inline; }
+.wm-svg .wm-num.prem:not(.locked) .n-star { display: inline; }
+.wm-svg[data-style="guide"] .n-paint, .wm-svg:not([data-style="guide"]) .n-guide { display: none; }
+.wm-svg .wm-num:hover .n-fill { fill: #ff6a3d; }
+.wmap-here .wh-pin { top: -62px; }
+.wmap-here .wh-tag { top: -96px; }
+.wm-svg[data-near="1"] .wm-label[data-island="main"] { display: inline; }
+.wm-svg[data-style="guide"][data-far="1"] .n-guide { display: none; }
+.wm-svg[data-style="guide"][data-far="1"] .n-paint { display: inline; }

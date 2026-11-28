@@ -662,7 +662,7 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  const svg=baseSvg(),bad=[];
  for(const r of [...HUBS,...REGIONS]){
   if(!svg.includes(`id="wms-${r.id}"`))bad.push(r.id+': 島の かたちが ない');
-  if(!new RegExp(`class="wm-cs wm-label" data-island="${r.id}"`).test(svg))bad.push(r.id+': 名前の 札が ない');
+  if(!svg.includes(`class="wm-label" data-island="${r.id}"`)||!svg.includes(`class="wm-num" data-island="${r.id}"`))bad.push(r.id+': 名前の 札が ない');
  }
  for(const l of LINKS)if(!svg.includes(`data-bridge="${l.id}"`))bad.push(l.id+': 橋が かかれて いない');
  MAP_ISLANDS.forEach((r,i)=>{if(r.num!==i+1)bad.push(r.id+': 番号が '+r.num);});
@@ -671,6 +671,10 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  if(baseSvg()!==svg)bad.push('下絵が 1 回で とっておかれて いない');
  const {paintWorld,WORLD_TILE,MAIN_TILE}=await import('../dist/world-paint.js');   // ぬった え（ここでは かかない：重い）。わくに 島が ぜんぶ 入るか だけ。
  if(typeof paintWorld!=='function')bad.push('world-paint: paintWorld が ない');
+ // 島どうしが かさならない（ちずの 上では 大きく かいて、おしあって ならべて いる）・メインの島とも
+ {const {MX,MZ}=await import('../dist/world-map.js');const L=MAP_ISLANDS.filter(r=>r.id!=='main');
+  for(let i=0;i<L.length;i++)for(let j=i+1;j<L.length;j++){const a=L[i],b=L[j];if(Math.hypot(a.x-b.x,a.z-b.z)<Math.max(a.rx,a.rz)*1.12+Math.max(b.rx,b.rz)*1.12)bad.push(a.id+' と '+b.id+' が ちずの 上で かさなる');}
+  for(const r of L){const cx=Math.max(MX-84,Math.min(MX+94,r.x)),cz=Math.max(MZ-80,Math.min(MZ+49,r.z));if(Math.hypot(r.x-cx,r.z-cz)<Math.max(r.rx,r.rz)*1.12)bad.push(r.id+' が メインの島に かさなる');}}
  for(const r of MAP_ISLANDS)if(r.x<WORLD_TILE.x0+60||r.x>WORLD_TILE.x1-60||r.z<WORLD_TILE.z0+60||r.z>WORLD_TILE.z1-60)bad.push(r.id+': ぬった えの 外');
  if(!(MAIN_TILE.x0<-104&&MAIN_TILE.x1>62))bad.push('メインの島の こまかい え が 島を つつんで いない');
  if(bad.length){console.error('FAIL: せかいの ちず\n  '+bad.join('\n  '));process.exit(1);}
