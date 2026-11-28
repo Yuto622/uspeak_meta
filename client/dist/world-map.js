@@ -322,7 +322,7 @@ export function baseSvg() {
   const uses = () => MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}"/>`).join('');
   let s = `<defs>${TREE_DEFS}${shapes}
     <pattern id="wm-waves" width="40" height="26" patternUnits="userSpaceOnUse"><path d="M3 7q3-2.4 6 0t6 0M23 20q3-2.4 6 0t6 0" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-opacity=".5"/></pattern>
-    <radialGradient id="wm-cloudgrad"><stop offset="0" stop-color="#ffffff" stop-opacity=".96"/><stop offset=".6" stop-color="#f3f8fb" stop-opacity=".88"/><stop offset="1" stop-color="#e6eff5" stop-opacity="0"/></radialGradient>
+    <radialGradient id="wm-cloudgrad"><stop offset="0" stop-color="#cfe8dc" stop-opacity=".55"/><stop offset=".55" stop-color="#1b3a2f" stop-opacity=".78"/><stop offset="1" stop-color="#0c241c" stop-opacity="0"/></radialGradient>
     <clipPath id="wm-mclip"><circle r="15.5"/></clipPath>
     <radialGradient id="wm-orb" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#fff4d6"/><stop offset=".35" stop-color="#ffb066"/><stop offset=".8" stop-color="#e27a2d"/><stop offset="1" stop-color="#9a4a14"/></radialGradient>
     <radialGradient id="wm-orb-here" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#ffd246"/><stop offset="1" stop-color="#e27a2d"/></radialGradient>
@@ -350,6 +350,7 @@ export function baseSvg() {
     + `<g class="n-guide"><circle r="19" fill="#ffffff" stroke="${bannerOf(r)}" stroke-width="3"/><g clip-path="url(#wm-mclip)"><circle r="15.5" fill="${light(bannerOf(r), 0.78)}"/><g transform="translate(0 3.5) scale(.62)">${r.id === 'main' ? mainIcon() : (LANDMARK[r.id] || defaultMark(r))()}</g></g>`
     + `<g transform="translate(-15 -15)"><circle r="10" class="n-fill" stroke="#fff4d6" stroke-width="2"/><text class="wm-ntext" font-size="11" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`
     + `<g class="n-paint"><circle r="22" fill="url(#wm-glow)"/><circle r="14" class="n-fill" stroke="#fff4d6" stroke-width="2"/><circle r="14" fill="none" stroke="${INK}" stroke-width="1"/><text class="wm-ntext" font-size="13" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g>`
+    + `<g class="n-q" transform="translate(-13 -12)"><circle r="8" fill="#0c241c" stroke="#8ff0c8" stroke-width="1.6"/><text font-size="11" font-weight="900" fill="#8ff0c8" text-anchor="middle" dominant-baseline="central" y=".5">?</text></g>`
     + `<g class="n-lock" transform="translate(12 -12)">${lockSvg(0.62)}</g><g class="n-star" transform="translate(13 -12)"><circle r="7" fill="#ffd84a" stroke="#7a5200" stroke-width="1.2"/><path d="M0-4 1.2-1.3 4-1.2 1.8.7 2.5 3.4 0 1.9-2.5 3.4-1.8.7-4-1.2-1.2-1.3Z" fill="#fff"/></g>`
     + '</g>').join('')}</g>`;
   // 名前の 札（まるい クリームの 板に こい 字・ばしょは mount の layout が かさならない ように えらぶ）。メインの島の 中の 場所の 名前も 同じ 札。
@@ -455,7 +456,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   }
   const places = [...svg.querySelectorAll('.wm-place')].map((g) => ({ g, p: MAIN_PLACES[+g.dataset.place], rect: g.querySelector('rect') }));
   const order = [...labels].sort((a, b) => (b.r.id === state.current) - (a.r.id === state.current) || (b.r.id === 'main') - (a.r.id === 'main') || (b.r.hub ? 1 : 0) - (a.r.hub ? 1 : 0) || a.r.num - b.r.num);
-  const numAt = (r) => (r.id === 'main' ? [MX + 10, MZ - 12] : [r.x, r.z]);
+  const numAt = (r) => (r.id === 'main' ? [MX + 10, MZ - 12] : [r.x - r.rx * 0.5, r.z - r.rz * 0.55]);   // 番号は 島の 左上（まんなかの 絵を かくさない）
   let moved0 = false;   // 子どもが じぶんで うごかしたか（うごかして いなければ パネルを たたんだ とき 見え方を なおす）
   // 「きみは ここ」は HTML の 札（ぴょこぴょこ うごく のは この 札だけ。SVG は かきなおさない）。
   let here = null;
@@ -522,7 +523,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
       L.rect.setAttribute('x', f(-w / 2)); L.rect.setAttribute('y', f(-h / 2)); L.rect.setAttribute('width', f(w)); L.rect.setAttribute('height', h); L.rect.setAttribute('rx', 13);
       L.main.setAttribute('y', mid ? -7 : 0.5); L.sub.setAttribute('y', 10); L.sub.style.display = mid ? '' : 'none';
       const [x, z] = numAt(L.r), ex = (L.r.id === 'main' ? 88 : L.r.rx * 0.82) * k, ez = (L.r.id === 'main' ? 62 : L.r.rz * 0.82) * k, g2 = nr + 3;
-      put(L, [[0, g2 + h / 2], [0, -g2 - h / 2], [g2 + w / 2, 0], [-g2 - w / 2, 0], [0, ez + h / 2 + 2], [0, -ez - h / 2 - 2], [ex + w / 2, 0], [-ex - w / 2, 0],
+      put(L, [[0, -g2 - h / 2], [-g2 - w / 2, 0], [g2 + w / 2, 0], [0, g2 + h / 2], [0, ez + h / 2 + 2], [0, -ez - h / 2 - 2], [ex + w / 2, 0], [-ex - w / 2, 0],
         [ex * 0.8 + w / 2, ez * 0.8 + h / 2], [-ex * 0.8 - w / 2, ez * 0.8 + h / 2], [ex * 0.8 + w / 2, -ez * 0.8 - h / 2], [-ex * 0.8 - w / 2, -ez * 0.8 - h / 2]], w, h, x, z, L.r.id);
     }
     for (const P of places) {   // メインの島の 中の 名前：ちかづいた とき だけ、あいて いれば

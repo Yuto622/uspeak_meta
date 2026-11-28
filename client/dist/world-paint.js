@@ -9,6 +9,7 @@
 // ・とちゅうで 何度も 手を はなす（`slice`）ので、iPad でも 画面が かたまらない。WebGL は つかわない。
 // ・2 まい かく：せかい ぜんぶ（1 単位 1.6 px）と、ちかづいた とき 用の メインの島（1 単位 6 px）。
 import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ, DLINKS as LINKS, BOUNDS } from './world-map.js';
+import { shapeQ, AURA, drawIslandArt } from './world-art.js';   // 島ごとの 異次元の かたちと 絵
 
 export const WORLD_TILE = { x0: Math.floor(BOUNDS.x0 - 420), x1: Math.ceil(BOUNDS.x1 + 420), z0: Math.floor(BOUNDS.z0 - 200), z1: Math.ceil(BOUNDS.z1 + 200), ppu: 1.2, clouds: true };
 export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
@@ -52,9 +53,10 @@ const SAND = RGB('#ecd9a2'), SAND_WET = RGB('#d6bd84'), FOAM = RGB('#ffffff');
 // 異次元の 海と 宇宙（2026-11：「地図もっと異次元デザインで」）。色は ブランド（深緑・ミント・オレンジ・クリーム）だけ。
 const DEEP = RGB('#0f4a43'), MID = RGB('#167c6b'), SHAL = RGB('#33bd9e'), LAGOON = RGB('#7ee9c8'), NEAR = RGB('#a6f6d8'), RIM = RGB('#ffb066');
 const ROCK0 = RGB('#6b4a33'), ROCK1 = RGB('#241812');
-const OCEAN = 0.62, HANG = 15;   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
+const OCEAN = 0.22, HANG = 15;   // 島の まわりに うすい 光る 水だけ（島ごとに うかぶ）   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
 const VOID = RGB('#06120d'), NEB1 = RGB('#1f6e5a'), NEB2 = RGB('#93501c'), NEB3 = RGB('#4fc7a0');
 const RINGS = [520, 640, 780];
+const AURA_RGB = Object.fromEntries(Object.entries(AURA).map(([k, v]) => [k, RGB(v)]));
 let SC = null;   // 宇宙の まんなか（わの 中心）
 function spaceAt(x, z, px, py) {
   SC ||= [(BOUNDS.x0 + BOUNDS.x1) / 2, (BOUNDS.z0 + BOUNDS.z1) / 2];
@@ -123,8 +125,7 @@ async function paintTile(T) {
         let l;
         if (main) l = mainL(x, z) + fbm(x / 22 + 40, z / 22, 3) * 0.12;
         else {
-          const dx = (x - r.x) / (r.rx * VS), dz = (z - r.z) / (r.rz * VS);
-          const q = (Math.abs(dx) ** 2.6 + Math.abs(dz) ** 2.6) ** (1 / 2.6);
+          const q = shapeQ(r, x, z);   // とがった かけら・わ（world-art.js）
           l = 1 - q + fbm(x / 34 + sx, z / 34 + sx, q > 1.6 ? 2 : 4) * 0.3;
         }
         if (l > L[i]) { L[i] = l; K[i] = main ? 1 : k; I[i] = ii; }
@@ -199,7 +200,10 @@ async function paintTile(T) {
             if (hash(Math.floor(x * 1.5), 7) > 0.86 && t > 0.3) c = mixc(c, RGB('#2c4a22'), 0.6);   // ねっこ
             if (t < 0.12) c = mixc(c, RIM, (1 - t / 0.12) * 0.5);
             c = mixc(c, [0, 0, 0], t * 0.35);
-          } else c = spaceAt(x, z, px, py);
+          } else {
+            c = spaceAt(x, z, px, py);
+            if (l > -1.6) { const ac = AURA_RGB[MAP_ISLANDS[I[i]].id]; if (ac) c = mixc(c, ac, sstep(-1.6, -edge, l) ** 2 * 0.55); }   // 島の まわりの 光
+          }
         }
       }
       if (c) { const o = i * 4; D[o] = c[0]; D[o + 1] = c[1]; D[o + 2] = c[2]; D[o + 3] = 255; continue; }
@@ -250,7 +254,7 @@ async function paintTile(T) {
   const spans = new Map(LINKS.map((l) => [l, spanOf(l, water)]));
   drawRoadsAndVillages(g, spans); await slice();
   drawBridges(g, spans); await slice();
-  drawMain(g); await slice();
+  drawMain(g); drawIslandArt(g, MAP_ISLANDS.find((r) => r.id === 'main')); await slice();
   g.restore();
   tm.push(now()); cv.timing = tm.map((v, i) => (i ? Math.round(v - tm[i - 1]) : 0)).slice(1);
   return cv;
@@ -312,13 +316,9 @@ function drawRoadsAndVillages(g, spans) {
       const p = { x: lerp(l.from.x, l.to.x, t0), z: lerp(l.from.z, l.to.z, t0) };   // 岸（橋の はし）から
       const mx = (p.x + r.x) / 2 + (p.z - r.z) * 0.15, mz = (p.z + r.z) / 2 - (p.x - r.x) * 0.15;
       const pts = []; for (let t = 0; t <= 1.001; t += 0.1) pts.push([(1 - t) ** 2 * p.x + 2 * (1 - t) * t * mx + t * t * r.x, (1 - t) ** 2 * p.z + 2 * (1 - t) * t * mz + t * t * r.z]);
-      road(g, pts, 1.6, k === 2 ? '#e8eef2' : '#dcc596');
+      road(g, pts, 1.3, 'rgba(255,244,214,.75)', 'rgba(143,240,200,.35)');   // 光の 小道
     }
-    if (r.hub && ![5, 6].includes(k)) {   // 村の やね
-      const n = 6 + Math.floor(R() * 5);
-      for (let j = 0; j < n; j++) { const a = R() * 6.28, d = (6 + R() * 9) * 1.35; roof(g, r.x + Math.cos(a) * d, r.z + Math.sin(a) * d * 0.8, 2.6 + R() * 1.6, 2 + R() * 1.2, ROOFS[Math.floor(R() * ROOFS.length)], 1, (R() - 0.5) * 0.6); }
-    }
-    feature(g, r);
+    drawIslandArt(g, r);   // 島ごとの 異次元の 絵（world-art.js）
   }
 }
 function feature(g, r) { g.save(); g.translate(r.x, r.z); g.scale(1.4, 1.4); g.translate(-r.x, -r.z); feature0(g, r); g.restore(); }

@@ -413,3 +413,7 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 @media (prefers-reduced-motion: reduce) { .wmap-here .wh-ring, .wt-in::before, .wt-in::after { animation: none; } .wmap-here .wh-ring { opacity: .6; } }
 .wmap-tile:not(.soft):not(.main) { -webkit-mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); }
 .wmap-here.nopin .wh-pin { display: none; }
+/* まだ ひらいて いない 島：くらい すりガラスと 光る「?」（異次元） */
+.wm-svg .n-q { display: none; }
+.wm-svg .wm-num.locked:not(.prem) .n-q { display: inline; }
+.wmap:has(.wm-svg[data-mid="1"]) .wmap-compass { display: none; }
