@@ -2235,3 +2235,8 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **わかって いて のこした こと（持ち主が 2026-11-28 に「いまのまま」と きめた）**：① 名簿で 先生の 名前で 入れば だれでも 先生（11/19 に 先生パスワードを なくした ため）。② クラスコードを 知って いれば ほかの 子の 名前で 入れる（その 子の コイン・記録・保護者 QR）。③ BLOCKWILD の せかいも 名前は 自分で 名のる。かえる ときは gate.js の `isTeacher`／`allow` と ロビーに パスワードの 欄を もどす。
 - **持ち主が する こと**：OpenAI の 鍵（sk-proj-4A69…）と LINE の チャネルシークレット（41ab…）を 作りなおして `fly secrets set`。`fly ips list -a uspeak-report-worker` で 公開の IP が あれば はずす。
 - **案（まだ）**：CSP の `unsafe-inline` を やめる・`connect-src` を しぼる、LiveKit の トークンを みじかく、TeX に `openin_any: 'p'`、colyseus 0.18 への 大きな 上げ、Docker の 画像を digest で 固定。
+
+## ショッピングモールの 3D（`mall-real.js`／2026-11・まだ 島には 置いて いない）
+- 写真 2 まい（角の まるい ガラスの 建物・木の 吹きぬけ）を もとに した オリジナルの「U-SPEAK MALL ユースピーク モール」。**本物の 会社の 名前・ロゴは 使わない**。
+- `buildMallExterior()`（70×20・高さ 約 23.5・描画 8 回・約 1.8 万 三角形・`door`・当たり判定 50）と `buildMallInterior()`（40×30・3 階・描画 13 回・約 10 万 三角形・`entrance`・`update(t)` で 人が 歩く）。どちらも `setNight(n)`（emissive だけ）。部品は `library-real.js` の ものを 使う。見る ページは `/dev-mall.html`（`?mode=int&night=1` など）。
+- ガラスの 中（2 階の 人・お店の 中）は 絵。当たり判定は 1 階だけ。置く ときは 島の 土地・道・ミニマップ・戸口（`attachLibrary` と 同じ 作りで 中へ）を 足す。
