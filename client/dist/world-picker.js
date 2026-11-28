@@ -14,8 +14,10 @@ const TAB_NAMES = { main: { en: 'Central', ja: 'まんなか' }, eiken: { en: 'E
 
 // 「🗺 ちず」（ぬった 地形の ちず＝world-paint.js・はじめは こちら）・「📍 あんない」（たいらな あんないの ちず＝world-map.js の SVG）・
 // 「🃏 カード」（いままでの カード）。えらんだ ものを この 端末に 覚える。
-const VIEW_KEY = 'uspeak-worldmap-view-v1';
-const readView = () => { try { const v = globalThis.localStorage?.getItem(VIEW_KEY); return v === 'cards' || v === 'guide' ? v : 'map'; } catch { return 'map'; } };
+// 2026-11：はじめは まえの カード（持ち主の「前の カードの やつに 戻して」）。v2 に して、v1 で「ちず」を 覚えて いた 端末も カードに もどす。
+// えの ちずは「🗺 ちず」を おした ときだけ 作る（mount）。
+const VIEW_KEY = 'uspeak-worldmap-view-v2';
+const readView = () => { try { const v = globalThis.localStorage?.getItem(VIEW_KEY); return v === 'map' || v === 'guide' ? v : 'cards'; } catch { return 'cards'; } };
 const saveView = (v) => { try { globalThis.localStorage?.setItem(VIEW_KEY, v); } catch { /* 保存 できない 端末でも うごく */ } };
 let mapCtl = null;
 // せつめい（KEY）の 小さな 絵（ちずの 絵と 同じ 形）。
