@@ -349,3 +349,4 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wm-svg[data-near="1"] .wm-label[data-island="main"] { display: inline; }
 .wm-svg[data-style="guide"][data-far="1"] .n-guide { display: none; }
 .wm-svg[data-style="guide"][data-far="1"] .n-paint { display: inline; }
+.wm-svg[data-far="1"] .wm-compass { display: none; }
