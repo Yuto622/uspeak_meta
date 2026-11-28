@@ -2226,3 +2226,12 @@ IAC（アイエイシー英会話）むけ。幼児モードの ホームの 2 �
 - **フリー会話**：topic の `free: true`（目あて 0・目あてが あると 起動で 落ちる）と `persona: 'yupi'`。`tutor.js` の `buildFreeTalkPrompt`・台本の `scriptedFreeTurn`（キーなしでも 英語＋日本語）。`complete` に ならない・14 回で ふりかえり。**コインなし・XP 0**。学習ログは mode `conv-free`（はなす に 数える・タスクと 正解率には 数えない）。AI の 回数の 上限は いつもと 同じ。プレミアムは ほかの お店と 同じ `talkshops`。
 - **安全**：ゆぴちゃんは「きいて くれる ともだち」で カウンセラーでは ない（しんだん・くすり・お金の 話を しない・名前／住所／学校名を きかない・ひみつに しない・外で 会う 話を しない）。いじめ・けが・こわい・しにたい などは `distressOf`（英語と 日本語）で 見つけ、いつも きまった 返事（`SAFE_REPLY`：しんじられる 大人に いますぐ はなしてね）。AI の 返事が それを 言って いなければ `guardFreeTalk` が おきかえる。会話の 保存は ほかの conv と 同じ（学習ログに 1 回 80 字まで）。
 - 検査：`server/test/free-talk.test.mjs`。本物の AI・音声・iPad は まだ ためして いない。
+
+## セキュリティの 見なおし（2026-11-27・4 つに わけて しらべた）
+- **サーバーの 入口**：署名つきの ページ（/report・/class・/export・/report-live）にも 1 分 120 回の 上限、宿題の 読みとりは ReDoS と zip ばくだんに つよく（`upToLast`・1 ファイル 40MB・ぜんぶで 120MB・2000 こ）、BLOCKWILD の チャットは `cleanSay()`・1.5 秒に 1 行・クラスコードの 形を 見る・せかいは 200 まで・世界を 作るのは 同時に 2 つ、読み上げの 保存は `TTS_CACHE_MAX_MB`（1024）まで、`Fly-Client-IP` は Fly の 上だけ 信じる（`clientIp()`）、店の 設定などの 表は `Object.create(null)`、CSV の 式は `'` で 止める。テスト：`server/test/http-hardening.test.mjs`。
+- **ゲームの 部屋**：れんしゅうの コイン（answer・クイズ・カート・ジム・英単語ハウス）は 1 日 `PRACTICE_COIN_CAP`（400）、ふくしゅうは `REVIEW_COIN_CAP`（90）、定型文の XP は `PHRASE_XP_CAP`（100）。AI の 回数は クラス＋名前ごと（`game/day-budget.js`・入りなおしても へらない・サーバーを 起こしなおすと もどる）。大文字・小文字ちがいの クラスコードの 2 つめの 部屋は 4009 で ことわる。AI の 返事は 見えない 文字・`<>`・NG・連絡先を 見て だめなら かわりの 返事。見えない 文字で NG を すりぬけない。幼児モードは `voice:msg` の 文も 止める。プレミアムの 島の 建物では 通話しない。1 人 1 秒 80 メッセージまで。`move.s` は `^[A-Za-z0-9_.:-]{1,48}$`。テスト：`security-room.test.mjs`・`security-ai.test.mjs`。
+- **画面**：`?server=` は ページと 行き先の 両方が localhost／LAN の ときだけ（`isDevHost()`）。`.location` の 名前も `esc`。regression に セキュリティの 検査（eval なし・先生の 鍵を localStorage に 書かない・答えの ファイルが dist に ない ほか）。
+- **鍵・設定**：git の 記録に 鍵は なかった。body-parser を 1.20.9 に。`.dockerignore` を きびしく。デプロイの スクリプトは 鍵を コマンドの 引数に のせず `fly secrets import`（標準入力）で わたす。
+- **わかって いて のこした こと（持ち主が 2026-11-28 に「いまのまま」と きめた）**：① 名簿で 先生の 名前で 入れば だれでも 先生（11/19 に 先生パスワードを なくした ため）。② クラスコードを 知って いれば ほかの 子の 名前で 入れる（その 子の コイン・記録・保護者 QR）。③ BLOCKWILD の せかいも 名前は 自分で 名のる。かえる ときは gate.js の `isTeacher`／`allow` と ロビーに パスワードの 欄を もどす。
+- **持ち主が する こと**：OpenAI の 鍵（sk-proj-4A69…）と LINE の チャネルシークレット（41ab…）を 作りなおして `fly secrets set`。`fly ips list -a uspeak-report-worker` で 公開の IP が あれば はずす。
+- **案（まだ）**：CSP の `unsafe-inline` を やめる・`connect-src` を しぼる、LiveKit の トークンを みじかく、TeX に `openin_any: 'p'`、colyseus 0.18 への 大きな 上げ、Docker の 画像を digest で 固定。
