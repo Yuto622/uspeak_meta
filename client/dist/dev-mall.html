@@ -30,7 +30,8 @@
 <div id="info">…</div>
 <script type="module">
 import * as THREE from './three.module.js';
-import { buildMallExterior, buildMallInterior } from './mall-real.js';
+import { buildMallExterior, buildMallInterior, mallTextureMB } from './mall-real.js';
+import { groundMaterial } from './ground-fx.js';
 
 const Q = new URLSearchParams(location.search);
 const canvas = document.querySelector('#c');
@@ -51,15 +52,22 @@ function makeScene(kind) {
   let built, extra = [];
   if (kind === 'ext') {
     built = buildMallExterior();
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.MeshStandardMaterial({ color: 0x6f9a4e, roughness: 0.95 }));
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), groundMaterial(new THREE.MeshStandardMaterial({ color: 0x6f9a4e, roughness: 0.95 }), 'grass'));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -0.07; ground.receiveShadow = true;
-    const road = new THREE.Mesh(new THREE.PlaneGeometry(400, 14), new THREE.MeshStandardMaterial({ color: 0x4a4d50, roughness: 0.9 }));
+    // 道（アスファルトの もよう）と 白い 線（まんなかは 破線）。見本の ページだけの もの（モデルには 入れない）。
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(400, 14), groundMaterial(new THREE.MeshStandardMaterial({ color: 0x55585b, roughness: 0.9 }), 'asphalt'));
     road.rotation.x = -Math.PI / 2; road.position.set(0, -0.04, 18.5); road.receiveShadow = true;
-    const line = new THREE.Mesh(new THREE.PlaneGeometry(400, 0.2), new THREE.MeshBasicMaterial({ color: 0xf2f0e6 }));
-    line.rotation.x = -Math.PI / 2; line.position.set(0, -0.03, 18.5);
+    const lg = new THREE.BufferGeometry(), pos = [];
+    const strip = (x0, x1, z, w) => pos.push(x0, 0, z - w, x1, 0, z + w, x1, 0, z - w, x0, 0, z - w, x0, 0, z + w, x1, 0, z + w);
+    for (let x = -200; x < 200; x += 6) strip(x, x + 3, 18.5, 0.08);
+    for (const z of [12.2, 24.8]) strip(-200, 200, z, 0.07);
+    lg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); lg.computeVertexNormals();
+    const line = new THREE.Mesh(lg, new THREE.MeshStandardMaterial({ color: 0xe9e7df, roughness: 0.7, side: THREE.DoubleSide }));
+    line.position.y = -0.03; line.receiveShadow = true;
     extra = [ground, road, line]; scene.add(...extra);
   } else built = buildMallInterior();
   scene.add(built.group);
+  if (kind === 'ext') scene.fog = new THREE.Fog(0xc9dbe6, 70, 260);
   return { scene, hemi, sun, built, extra, kind };
 }
 const S = { ext: makeScene('ext'), int: makeScene('int') };
@@ -103,7 +111,9 @@ function applyNight() {
     s.built.setNight(night);
     s.hemi.intensity = (s.kind === 'ext' ? 2.1 : 2.3) * (1 - 0.72 * night); s.sun.intensity = (s.kind === 'ext' ? 3.2 : 1.6) * (1 - 0.85 * night);
     s.sun.color.setHex(night ? 0x9fb4ff : 0xffe8b5);
-    s.scene.background = new THREE.Color(s.kind === 'ext' ? (night ? 0x0e1a2e : 0xa9d4f0) : 0x2a2420);
+    const sky = s.built.materials?.glass?.uniforms?.uSky?.value;
+    s.scene.background = s.kind === 'ext' && sky && !night ? sky : new THREE.Color(s.kind === 'ext' ? (night ? 0x0e1a2e : 0xa9d4f0) : 0x2a2420);
+    if (s.scene.fog) s.scene.fog.color.setHex(night ? 0x0e1a2e : 0xc9dbe6);
   }
   document.querySelectorAll('[data-night]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.night === night)));
 }
@@ -124,7 +134,8 @@ function frame() {
   renderer.render(s.scene, camera); frames += 1;
   if (frames % 10 === 1) {
     const info = renderer.info.render;
-    document.querySelector('#info').innerHTML = `<b>${mode === 'ext' ? 'Exterior' : 'Interior'}</b> ・ モデルの 描画 <b>${count(s)}</b> 回 ・ 三角形 <b>${s.built.triangles.toLocaleString()}</b> ・ 画面ぜんぶ ${info.calls} 回 / ${info.triangles.toLocaleString()}`;
+    document.querySelector('#info').innerHTML = `<b>${mode === 'ext' ? 'Exterior' : 'Interior'}</b> ・ モデルの 描画 <b>${count(s)}</b> 回 ・ 三角形 <b>${s.built.triangles.toLocaleString()}</b> ・ 画面ぜんぶ ${info.calls} 回 / ${info.triangles.toLocaleString()} ・ もよう ${mallTextureMB()} MB ・ 作る ${s.built.group.userData.mall?.buildMs ?? '?'} ms`;
+    document.body.dataset.texmb = mallTextureMB(); document.body.dataset.buildms = s.built.group.userData.mall?.buildMs;
     document.body.dataset.calls = count(s); document.body.dataset.tris = s.built.triangles;
   }
   if (frames >= 2) document.body.dataset.ready = '1';
