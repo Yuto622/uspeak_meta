@@ -4,8 +4,9 @@
 //   保護者の LINE の 紐づけ・QR・先生の ひとこと・レポートと その PDF/PNG・送信の 記録・👏（parent-reports）
 //   宿題の すすみぐあい（homework）
 //   ロードマップの 段階（roadmap）
+//   使用履歴（usage：日ごとの 分・場所・端末・回数と 入室の 記録。/admin/usage）
 //   名簿（roster）は 消さない：名簿は 教室が 「入れる 人」として 持つ 表で、先生が 画面で 消す。
-export async function eraseStudent({ store, parentReports = null, homework = null, roadmap = null, abc = null, log = console }, { classCode, name, username = '' }) {
+export async function eraseStudent({ store, parentReports = null, homework = null, roadmap = null, abc = null, usage = null, log = console }, { classCode, name, username = '' }) {
   if (!classCode || !name) throw new Error('classCode and name are required');
   const out = { classCode, name, username, store: null, reports: null };
   out.store = await store.erasePlayer(classCode, name, { username });
@@ -13,17 +14,21 @@ export async function eraseStudent({ store, parentReports = null, homework = nul
   if (homework?.eraseStudent) out.homework = await homework.eraseStudent(classCode, name);
   if (roadmap?.eraseStudent) out.roadmap = await roadmap.eraseStudent(classCode, name);
   if (abc?.erase) out.abc = await abc.erase(classCode, name); // 「ABC と おと」の 記録
+  if (usage?.erase) out.usage = await usage.erase(classCode, name); // 使用履歴
   log.info?.(`[privacy] erased one student in class=${classCode} (store ${JSON.stringify(out.store)}, reports ${JSON.stringify(out.reports)})`);
   return out;
 }
 
 // 保持期間：起動の 1 分後と、そのあと 24 時間ごと。
-export function startRetention({ store, parentReports = null, days = 400, log = console, now = Date.now }) {
+export function startRetention({ store, parentReports = null, usage = null, days = 400, log = console, now = Date.now }) {
+  // 使用履歴は RETENTION_DAYS が 0（切る）でも 400 日より 古い 日を すてる（usage/store.js の 毎分の trim）。
   if (!(days > 0)) { log.info?.('[privacy] retention off (RETENTION_DAYS=0)'); return () => {}; }
   const maxAgeMs = days * 86400000;
   const run = async () => {
     try {
       const a = await store.prune?.({ maxAgeMs, now: now() });
+      const u = await usage?.prune?.({ maxAgeMs, now: now() });
+      if (u) log.info?.(`[privacy] retention usage ${JSON.stringify(u)}`);
       const b = parentReports?.reports?.purge?.(now(), { keepDeliveriesMs: maxAgeMs });
       log.info?.(`[privacy] retention ${days}d: store ${JSON.stringify(a || {})} parent-links ${b ?? 0}`);
     } catch (err) { log.warn?.('[privacy] retention failed:', err.message); }

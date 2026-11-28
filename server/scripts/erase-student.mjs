@@ -8,6 +8,7 @@ import { ReportStore } from '../src/parent-report/store.js';
 import { eraseStudent } from '../src/privacy.js';
 import { HomeworkStore } from '../src/homework/store.js';
 import { RoadmapStore } from '../src/roadmap/store.js';
+import { UsageStore } from '../src/usage/store.js';
 import { promises as fs } from 'node:fs';
 
 const [classCode, name, username = ''] = process.argv.slice(2);
@@ -20,6 +21,8 @@ const dir = path.join(dataDir, 'parent-reports');
 const service = { eraseStudent: async (c, u) => { const r = reports.eraseStudent(c, u); for (const t of r.tokens) for (const ext of ['pdf', 'png', 'thumb.png']) await fs.rm(path.join(dir, `${t}.${ext}`), { force: true }).catch(() => {}); await reports.flush(); const { tokens, ...n } = r; return n; } };
 const homework = await new HomeworkStore(path.join(dataDir, 'homework.json')).init();
 const roadmap = await new RoadmapStore(path.join(dataDir, 'roadmap.json')).init();
-const out = await eraseStudent({ store, parentReports: { service }, homework, roadmap }, { classCode, name, username });
+// 使用履歴（/admin/usage）。**サーバーが 動いて いる 間は 1 分ごとに サーバーが 上書きする**ので、画面（/admin の 消す）から 消すのが 確実。
+const usage = await new UsageStore(path.join(dataDir, 'usage.json')).init({ autosave: false });
+const out = await eraseStudent({ store, parentReports: { service }, homework, roadmap, usage }, { classCode, name, username });
 await store.close(); await reports.close();
 console.log(JSON.stringify(out, null, 2));

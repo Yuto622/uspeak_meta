@@ -64,6 +64,9 @@ import { allBooks as allReadingBooks } from './game/reading.js';
 import { robloxBooksAdminExtension } from './roblox/book-admin.js';
 import { parentHtml as robloxParentHtml, classSection as robloxClassSection, classCsv as robloxClassCsv } from './roblox/pages.js';
 import { setupParentReports } from './parent-report/index.js';
+import { UsageStore } from './usage/store.js';
+import { createUsageService } from './usage/service.js';
+import { usageAdminExtension } from './usage/admin.js';
 import { log } from './log.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -135,6 +138,8 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   const readingStore = await new ReadingStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'reading.json'), { log }).init();
   const roadmapStore = await new RoadmapStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'roadmap.json'), { log }).init();
   const roadmap = createRoadmapService({ store, roadmap: roadmapStore, roblox, log });
+  // 使用履歴（/admin/usage）：日ごとの 分・場所・端末・回数。DATA_DIR/usage.json、400 日まで。チャットの 文・AI の 会話は 入れない。
+  const usage = await new UsageStore(config.storeBackend === 'memory' ? null : path.resolve(config.dataDir, 'usage.json'), { log }).init();
   const parentReports = await setupParentReports({
     store, roster, rosterOn: () => access.mode() === 'roster', seats, roblox, homework, roadmap, dataDir: config.dataDir, memory: config.storeBackend === 'memory', log, secret: config.reportSecret,
     baseUrl: config.corsOrigins.find((o) => /^https?:\/\//.test(o)) || '',
@@ -455,16 +460,18 @@ export async function startServer({ port = config.port, storeOverride = null, tt
       const name = String(req.body?.name || '').trim().slice(0, 40);
       const username = String(req.body?.username || '').trim().slice(0, 40);
       if (!classCode || !name) { res.status(400).json({ ok: false, error: 'クラスと 名前が いります' }); return; }
-      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, roadmap: roadmapStore, abc: abcStore, log }, { classCode, name, username })) }); }
+      try { res.json({ ok: true, ...(await eraseStudent({ store, parentReports, homework, roadmap: roadmapStore, abc: abcStore, usage, log }, { classCode, name, username })) }); }
       catch (err) { log.warn('[privacy] erase failed:', err.message); res.status(500).json({ ok: false, error: '消せませんでした' }); }
     });
   };
-  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); robloxBooksAdminExtension({ assets: robloxBookAssets, log })(ctx); kidsAdmin(ctx); abcAdmin(ctx); } });
+  const usageService = createUsageService({ usage, store, homework, reading: readingStore, roadmapStore, roblox, log });
+  const usageAdmin = usageAdminExtension({ service: usageService, log });
+  mountAdmin(app, { access, roblox, adminKey: config.adminKey, teacherKeySet: !!config.teacherKey, isProduction: config.isProduction, log, extend: (ctx) => { parentReports.adminExtend?.(ctx); tasksAdmin(ctx); qbankAdmin(ctx); homeworkAdmin(ctx); classroomAdmin(ctx); roadmapAdmin(ctx); privacyAdmin(ctx); robloxBooksAdminExtension({ assets: robloxBookAssets, log })(ctx); kidsAdmin(ctx); abcAdmin(ctx); usageAdmin(ctx); } });
   // 保持期間（RETENTION_DAYS、既定 400 日）：学習ログ・コインログ・送信の 記録を 毎日 消す。
-  const stopRetention = startRetention({ store, parentReports, days: config.retentionDays, log });
+  const stopRetention = startRetention({ store, parentReports, usage, days: config.retentionDays, log });
   // なまえを えらんで 入る（クラスの QR）。その クラスの 子どもの なまえ だけ・1 つの IP から 1 分 30 回まで。
   mountJoinNames(app, { kids: kidsStore, classrooms, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, limiter: rateLimit({ windowMs: 60_000, max: 30 }), log });
-  if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, log });
+  if (classrooms) mountTeacherHomework(app, { classrooms, homework, kids: kidsStore, rosterRows: async () => (await roster.listAllRoster?.()) || [], secret: config.reportSecret, aiReady: !!config.ai.apiKey, isProduction: config.isProduction, usage: usageService, log });
   mountReadingArt(app, { log }); // 絵本の 絵（サーバーで かく SVG）
   // 絵本を 合言葉なしで わたす 口（Roblox の 絵本の place が Secrets なしで 読む）。答えは 入れない・記録も しない。
   mountPublicBooks(app, { express, assets: robloxBookAssets, readLimiter: rateLimit({ windowMs: 60_000, max: config.publicBooksPerMin }), checkLimiter: rateLimit({ windowMs: 60_000, max: config.publicBooksPerMin }) });
@@ -550,7 +557,7 @@ export async function startServer({ port = config.port, storeOverride = null, tt
   // BLOCKWILD's own room server, on this port, behind Colyseus's door: `/bw/<class>/ws`.
   const blockwild = createBlockwildServer({ server, dataDir: config.dataDir, log, originAllowed });
   const tutor = createTutor();
-  gameServer.define('class', ClassRoom, { store, phonics: phonicsVoices, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: config.kidsMode ? kidsStore : null, abc: abcStore, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
+  gameServer.define('class', ClassRoom, { store, phonics: phonicsVoices, roster, access, tutor, roblox, tasks: tasksOn ? tasks : null, homework, roadmap, reading: readingStore, kids: config.kidsMode ? kidsStore : null, abc: abcStore, usage, claps: parentReports.service.clapHub, parentLink: parentReports.service.childLink, teacherLink: parentReports.service.teacherLink }).filterBy(['classCode']);
 
   await gameServer.listen(port);
   parentReports.start();
@@ -564,10 +571,11 @@ export async function startServer({ port = config.port, storeOverride = null, tt
     try { blockwild.close(); } catch (err) { log.warn('[server] blockwild shutdown error:', err.message); }
     try { await gameServer.gracefullyShutdown(false); } catch (err) { log.warn('[server] shutdown error:', err.message); }
     stopRetention();
+    try { await usage.close(); } catch (err) { log.warn('[server] usage save failed:', err.message); }
     await parentReports.close();
     await closeStore();
   };
-  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports, homework, roadmap, roadmapStore };
+  return { app, server, gameServer, store, shutdown, port, blockwild, roblox, parentReports, homework, roadmap, roadmapStore, usage };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

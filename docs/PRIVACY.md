@@ -11,10 +11,11 @@
 | 学習ログ（答え・正誤・チャット・AI 会話の 文）・コインログ | `store.json` の `learning` / `coins`（Sheets なら `learning_log` / `coin_log`） | 同上（Sheets の 行は シートで 名前で しぼって 消す）。**400 日で 自動で 消える**（`RETENTION_DAYS`） |
 | Roblox の できごと・ウォレット・紐づけ | `store.json` の `roblox_events` / `wallet_*` / `roblox_links` | 同上（Roblox 名を 渡す） |
 | 保護者の LINE の 紐づけ・QR・レポート・送信の 記録・👏 | `DATA_DIR/parent-reports.json`、PDF/PNG は `DATA_DIR/parent-reports/` | 同上。止めた 紐づけは 30 日、ブロックは 30 日、レポートは 60 日、送信の 記録は 400 日で 自動で 消える |
+| 使用履歴（日ごとの 接続・学習中の 秒、島・場所ごとの 秒、時間帯、入った 回数、端末の 種類 pc/tablet/phone、答え・AI・チャット・買いものの **数**、入室の 記録＝はじめ・おわり・場所の 順番） | `DATA_DIR/usage.json`（`server/src/usage/`。memory では ファイルなし）。**チャットの 文・AI 会話の 中身・IP・User-Agent そのものは 入れない** | 同上（`eraseStudent()` が `usage.erase()`）。**400 日を こえた 日は 毎分の 見なおしで 自動で 消える**（`RETENTION_DAYS` が 短ければ それに あわせる・0 でも 400 日で 消す）。見るのは /admin/usage（運営）だけ |
 | 名簿（入れる 人・先生か・プレミアムか） | `DATA_DIR/roster.json` か Google シート、写しが `roster-snapshot.json` | /admin の 名簿で 行を 消す（写しは 次の 読みこみで 入れかわる） |
 | サーバーの ログ | Fly の ログ（数日） | 名前は `who()` の 札（HMAC・6 文字）、IP は `ipTag()`。`LOG_PII=1` の ときだけ 生の 名前 |
 
-`eraseStudent()`（`server/src/privacy.js`）が 上の 1〜4 を まとめて 消す。**名簿は 消さない**（教室が「入れる 人」として 持つ 表なので、先生が 画面で 消す）。
+`eraseStudent()`（`server/src/privacy.js`）が 上の 1〜5 を まとめて 消す。**名簿は 消さない**（教室が「入れる 人」として 持つ 表なので、先生が 画面で 消す）。
 
 ## 2. 環境変数
 

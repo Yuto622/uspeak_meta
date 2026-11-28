@@ -113,6 +113,7 @@ import { rideOf, ParkError } from '../game/themepark.js';
 import { rankings, boardPayload, sanitizeWeekHist, noteWeek, selfView, classGoal } from '../game/rankings.js';
 import { isPier, preparePier, pierInfo, PierError } from '../game/eiken-pier.js';
 import { STALLS, sanitizeFood, resume as resumeFood, pause as pauseFood, forSave as foodForSave, foodPayload, menuPayload, buy as buyFood, addToBag, eat as eatFood, give as giveFood, visitHome, HEARTS_MAX, FoodError } from '../game/food.js';
+import { deviceOf } from '../usage/usage.js';
 
 // 学習ログの 1 行 → 保護者レポートの 箱（roblox_events）の quiz。もう 自分で 書いて いる あそび（英検・つり島・宿題・英単語ハウス・復習）と、
 // 正解・不正解では ない もの（チャット・会話・面接の 1 問ずつ・声の 判定）は null。word は 英単語の ときだけ（苦手単語の 箱に 入る）。
@@ -235,6 +236,8 @@ export class ClassRoom extends Room {
     this.reading = options.reading || null;
     this.phonics = options.phonics || null; // フォニックスの おとの 版（ろくおんが かわると かわる）
     this.abc = options.abc || null; // 「ABC と おと」（幼児モードの カード）の 記録と 教室の 設定
+    // 使用履歴（/admin/usage・usage/store.js）：日ごとの 箱に 1 秒ずつ。無ければ 何も しない（テスト）。
+    this.usage = options.usage || null;
     // 幼児モード（classroom/kids-store.js）。画面の 出し分けだけ（判定・コイン・記録は 同じ）。
     this.kids = options.kids || null;
     this.kidsVersion = this.kids?.version ?? 0;
@@ -506,7 +509,7 @@ export class ClassRoom extends Room {
       log.info(`[room ${this.roomId}] evicting silent seat ${who(name)} (${id}, ${silentFor}ms)`);
       ghost?.leave(4003);
     }
-    return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar) };
+    return { name, role, byKey, avatar: sanitizeAvatar(options?.avatar), device: deviceOf(request?.headers?.['user-agent'], options?.device) };
   }
 
   async onJoin(client, options, auth) {
@@ -526,6 +529,7 @@ export class ClassRoom extends Room {
       priv.reconnect?.reject(new Error('seat taken over by a new connection'));
       priv.reconnect = null;
       restored = true;
+      this.usage?.end(previousId, now);
       position = { space: old.space, x: old.x, z: old.z };
     } else {
       // 2. Otherwise load the persisted record (Google Sheets / file).
@@ -568,6 +572,7 @@ export class ClassRoom extends Room {
     player.level = priv.progress.level;
     this.state.players.set(client.sessionId, player);
     if (auth.role === 'teacher') this.state.teacherId = client.sessionId;
+    else this.usage?.join(client.sessionId, this.classCode, auth.name, { device: auth.device, now });
 
     // The day's bonus is banked before `welcome` is built, so the page never shows a coin
     // count it has to correct a moment later. The popup follows the welcome.
@@ -676,7 +681,7 @@ export class ClassRoom extends Room {
     this.gpClockOff();
     this.roblox?.rooms.delete(this);
     if (!this.priv) return undefined; // creation was refused before state existed
-    for (const id of this.priv.keys()) this.persist(id);
+    for (const id of this.priv.keys()) { this.persist(id); this.usage?.end(id); }
     log.info(`[room ${this.roomId}] disposed class=${this.classCode}`);
     return this.store.flush().catch((err) => log.warn('[room] final flush failed:', err.message));
   }
@@ -684,6 +689,7 @@ export class ClassRoom extends Room {
   remove(id) {
     if (!this.priv.has(id) && !this.state.players.has(id)) return;
     const name = this.state.players.get(id)?.name;
+    this.usage?.end(id);
     this.priv.delete(id);
     this.state.players.delete(id);
     this.msgBuckets?.delete(id);
@@ -739,7 +745,11 @@ export class ClassRoom extends Room {
 
   // AI の 回数（英会話島・おつかい・面接の ひとこと）。1 日 1 人 config.ai.dailyTurnsPerStudent まで。入りなおしで もどらない。
   aiTurnsLeft(priv) { return DAY_BUDGET.left(this.classCode, priv.name, 'ai', config.ai.dailyTurnsPerStudent); }
-  aiSpend(priv) { DAY_BUDGET.add(this.classCode, priv.name, 'ai', 1); }
+  aiSpend(priv) {
+    DAY_BUDGET.add(this.classCode, priv.name, 'ai', 1);
+    // 使用履歴：AI の 回数だけ（会話の 中身は 入れない）。
+    if (this.usage) for (const [id, p] of this.priv) if (p === priv) { this.usage.count(id, { ai: 1 }); break; }
+  }
 
   // ---- messages ----------------------------------------------------------------
 
@@ -871,8 +881,10 @@ export class ClassRoom extends Room {
       const text = this.acceptSay(client, msg.text, 'chat');
       if (!text) return;
       this.broadcast('chat', { from: client.sessionId, name: player.name, text, t: now });
+      this.usage?.count(client.sessionId, { ch: 1 }); // 数だけ（文は 入れない）
       return;
     }
+    this.usage?.count(client.sessionId, { ch: 1 });
     priv.progress.chats += 1;
     const level = this.awardXp(client.sessionId, this.phraseXp(priv), `phrase:${id}`);
     this.broadcast('chat', { from: client.sessionId, name: player.name, id, t: now });
@@ -1284,9 +1296,14 @@ export class ClassRoom extends Room {
       const priv = this.priv.get(id);
       if (!priv) continue;
       const last = Math.max(priv.study.activeAt, priv.lastMoveAt);
-      if (last && now - last < STUDY_IDLE_MS) {
+      const active = !!last && now - last < STUDY_IDLE_MS;
+      if (active) {
         priv.study.ms += 1000;
         bumpMonth(priv.months, { seconds: 1 }, { now });
+      }
+      // 使用履歴：つながって いる 秒・何か して いた 秒（↑と 同じ きまり）・いる 場所。
+      if (this.usage && player.role !== 'teacher') {
+        try { this.usage.sample(id, this.classCode, player.name, { active, space: player.space, now }); } catch (err) { log.warn('[usage] sample failed:', err.message); }
       }
     }
   }
@@ -2051,6 +2068,8 @@ export class ClassRoom extends Room {
         // ロードマップ：10 問 ごとに「次の 段階に 進めるか」を 見る（記録が 書かれて から 読むので 少し おくらせる）。
         priv.rmAnswers = (priv.rmAnswers || 0) + 1;
         if (priv.rmAnswers % 10 === 0) this.scheduleRoadmapCheck(sessionId, 1500);
+        // 使用履歴：答えの 数（あそびの 形ごと）と XP。中身（えらんだ 答え）は 入れない。
+        this.usage?.count(sessionId, { mode: String(row[4] || ''), correct: Number(row[6]) === 1, xp: Number(row[7]) || 0 });
       }
     } catch (err) {
       // A miscounted skill must never cost a child the record of the answer itself.
@@ -4886,6 +4905,8 @@ export class ClassRoom extends Room {
   coinRow(sessionId, entry) {
     const priv = this.priv.get(sessionId);
     if (priv && entry.delta > 0) bumpMonth(priv.months, { coins: entry.delta });
+    // 使用履歴：もらった コイン・コインを つかった 回数（買いもの）。
+    if (priv && this.usage && entry.delta) this.usage.count(sessionId, entry.delta > 0 ? { coin: entry.delta } : { buy: 1 });
     // **コインが動く所はここ1つ**（applyOp → appendCoin）。Roblox 連携が入っていれば、
     // 同じ増減を Roblox に届ける行（wallet_entries）にも書く。
     if (priv && entry.delta && this.roblox?.enabled) this.roblox.walletAdd(this.roblox.usernameFor(this.classCode, priv.name), entry.delta, `${entry.op}:${entry.item ?? ''}`);

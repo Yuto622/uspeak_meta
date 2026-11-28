@@ -9,6 +9,7 @@
 // 書きこみは 画面の スクリプトだけが 送る ヘッダー（x-requested-with: uspeak-teacher）も いる。
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import express from 'express';
+import { usagePage, mountUsageRoutes } from '../usage/admin.js';
 import { ipTag } from '../log.js';
 import { clientIp } from '../privacy.js';
 import { mountHomeworkApi, page as homeworkPage } from '../homework/admin.js';
@@ -26,7 +27,7 @@ const decode = (v) => { try { return decodeURIComponent(v); } catch { return '';
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(';').map((c) => c.trim().split('=')).filter((p) => p[0]).map(([k, ...v]) => [k, decode(v.join('='))]));
 const safeEqual = (a, b) => { const x = Buffer.from(String(a)); const y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
 
-export function mountTeacherHomework(app, { classrooms, homework, secret, aiReady = false, isProduction = false, log = console, now = Date.now, kids = null, rosterRows = async () => [] }) {
+export function mountTeacherHomework(app, { classrooms, homework, secret, aiReady = false, isProduction = false, log = console, now = Date.now, kids = null, rosterRows = async () => [], usage = null }) {
   if (!secret) return;
   const sign = (exp, id, setAt) => createHmac('sha256', secret).update(`teacher|${exp}|${id}|${setAt}`).digest('hex');
   const fails = new Map();
@@ -79,6 +80,13 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     if (!room || !kids) { res.redirect(303, '/teacher/homework'); return; }
     res.send(kidsPage({ room: { name: room.name, classes: room.classes } }));
   });
+  // 使用履歴（/admin/usage と 同じ 画面）。その 教室の クラスだけ。子ども・保護者には 出さない。
+  router.get('/usage', (req, res) => {
+    const room = roomOf(req);
+    res.type('text/html; charset=utf-8');
+    if (!room || !usage) { res.redirect(303, '/teacher/homework'); return; }
+    res.send(usagePage({ api: '/teacher/api', home: '/teacher/homework', homeLabel: `宿題（${room.name}）`, scope: 'teacher' }));
+  });
   router.post('/login', express.urlencoded({ extended: false, limit: '4kb' }), (req, res) => {
     const ip = clientIp(req);
     if (locked(ip)) { log.warn(`[teacher] login locked for ${ipTag(ip)}`); res.redirect(303, '/teacher/homework?locked'); return; }
@@ -112,6 +120,7 @@ export function mountTeacherHomework(app, { classrooms, homework, secret, aiRead
     },
   });
   if (kids) mountKidsApi(api, { kids, scope: (req) => req.classroom.classes, rooms: (req) => [{ id: req.classroom.id, name: req.classroom.name, classes: req.classroom.classes }], rosterRows, header: 'uspeak-teacher', secret, log });
+  if (usage) mountUsageRoutes(api, { service: usage, allowed: (req) => req.classroom.classes.map((c) => String(c).normalize('NFKC').toLowerCase().trim()), now, log });
   router.use('/api', api);
   app.use('/teacher', router);
 }
