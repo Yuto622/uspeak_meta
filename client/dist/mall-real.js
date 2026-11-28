@@ -1063,7 +1063,7 @@ export function buildMallInterior(opts = {}) {
   const WHITE = 0xe9e6df, DARK = 0x2a2c30, SILVER = 0x868b91;
   // 白は 1 まいずつ ほんの 少し あたたかく／つめたく。木は 柱・はりごとに 色と こさが ちがう。
   const wj = (base = WHITE, a = 0.045) => { const c = new THREE.Color(base), k = 1 - rnd() * a, w = (rnd() - 0.5) * a * 0.8; c.r *= k * (1 + w); c.g *= k; c.b *= k * (1 - w); return c; };
-  const woodJ = () => { const k = 0.72 + rnd() * 0.2, w = rnd(); return new THREE.Color(k, k * (0.95 + w * 0.05), k * (0.86 + w * 0.12)); };
+  const woodJ = () => { const k = 0.74 + rnd() * 0.2, w = rnd(); return new THREE.Color(k * 0.97, k * (0.96 + w * 0.04), k * (1.0 + w * 0.1)); };
   const obstacles = [], ob = (x, z, w, d) => obstacles.push(roundOb({ x, z, w, d }));
 
   /* ゆか・バルコニー・天井 */
