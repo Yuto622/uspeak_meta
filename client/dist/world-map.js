@@ -259,7 +259,7 @@ const MAIN_PLACES = [
   { x: 71, z: 31, en: 'Plaza', ja: 'ひろば' }, { x: 79, z: -2, en: 'Clock Tower', ja: 'とけいだい' }, { x: 70, z: -26, en: 'Library', ja: 'としょかん' },
   { x: -40, z: 41, en: 'Shops Street', ja: 'おみせの とおり' }, { x: -57, z: 25, en: "Yupi's Room", ja: 'ゆぴちゃんの へや' }, { x: -62, z: 4, en: 'Bike Shop', ja: 'じてんしゃや' },
   { x: 31, z: 46, en: 'Boat Dock', ja: 'ふなつきば' }, { x: 31, z: -44, en: 'Word Houses', ja: 'えいたんご ハウス' }, { x: 28, z: 26.5, en: 'Food Stalls', ja: 'やたい' },
-  { x: -12, z: 9, en: 'Gates', ja: 'ゲート' }, { x: 4, z: 50, en: 'Fishing Piers', ja: 'つりば' }, { x: -37, z: 4, en: 'Talk Shops', ja: 'えいかいわの おみせ' },
+  { x: -12, z: 9, en: 'Gates', ja: 'ゲート' }, { x: -12, z: 47, en: 'Fishing Piers', ja: 'つりば' }, { x: -37, z: 4, en: 'Talk Shops', ja: 'えいかいわの おみせ' },
 ];
 function boat(x, y, c, k = 1) {
   return `<g transform="translate(${f(x)} ${f(y)}) scale(${k})"><path d="M-4 0h8l-1.6 2h-4.8Z" fill="#fff4d6" ${S(0.35)}/><path d="M0 0V-6" stroke="${INK}" stroke-width=".4"/><path d="M.3-6 3.6-.6H.3Z" fill="${c}" ${S(0.3)}/><path d="M-.3-5-2.6-.6h2.3Z" fill="#fff" ${S(0.3)}/></g>`;
@@ -268,14 +268,14 @@ function boat(x, y, c, k = 1) {
 // ── 下絵 ぜんぶ（1 回だけ 作る）──────────────────────────────
 // 「🗺 ちず」は world-paint.js の ぬった 絵（canvas）が 下に 出て、SVG は 名前・番号・押せる ところだけ。
 // 「📍 あんない」と、絵が まだ できて いない あいだは、この SVG の `wm-guide`（たいらな パステルの 地図）が 出る。
-export const VIEW = { x0: -430, x1: 410, z0: -505, z1: 405 };   // うごかせる はんい
-export const FIT = { x0: -398, x1: 392, z0: -470, z1: 382 };   // ぜんぶの 島と 札が 入る わく（はじめの 見え方）
+export const VIEW = { x0: -470, x1: 460, z0: -545, z1: 450 };   // うごかせる はんい
+export const FIT = { x0: -430, x1: 425, z0: -505, z1: 410 };   // ぜんぶの 島と 札が 入る わく（はじめの 見え方）
 // あんないの 色（たいらな パステル）
 const GUIDE = { snow: '#e3edf6', desert: '#efdcaa', canyon: '#eab994', reef: '#bfe7c9', ruins: '#cfd6c2', moon: '#c9c6e6', sky: '#eef0c8', storm: '#bcd3a6', forest: '#9ccf8c', grass: '#c3e39c' };
 const guideOf = (r) => (r.id === 'main' ? '#cfe6a8' : r.biome ? GUIDE[r.biome] : r.id === 'farm' ? '#e4dc9c' : r.id === 'fishworld' ? '#bfe3b0' : /^eiken/.test(r.id) ? '#c8e3a4' : '#c9e7a2');
 const SEAS = [
-  { x: -150, z: -488, en: 'North Sea', ja: 'きたの うみ', rot: 0 }, { x: 150, z: 398, en: 'South Sea', ja: 'みなみの うみ', rot: 0 },
-  { x: -412, z: 60, en: 'West Sea', ja: 'にしの うみ', rot: -90 }, { x: 404, z: -200, en: 'East Sea', ja: 'ひがしの うみ', rot: 90 },
+  { x: -150, z: -500, en: 'North Sea', ja: 'きたの うみ', rot: 0 }, { x: 150, z: 412, en: 'South Sea', ja: 'みなみの うみ', rot: 0 },
+  { x: -428, z: 90, en: 'West Sea', ja: 'にしの うみ', rot: -90 }, { x: 425, z: -240, en: 'East Sea', ja: 'ひがしの うみ', rot: 90 },
 ];
 let cachedSvg = null;
 export function baseSvg() {
@@ -365,8 +365,8 @@ function liveParts(state, kid, KIDS) {
     if (here) under += r.id === 'main' ? `<rect class="wm-here-ring" x="${MX - 86}" y="${MZ - 82}" width="182" height="134" rx="40"/>` : `<ellipse class="wm-here-ring" cx="${r.x}" cy="${r.z}" rx="${r.rx + 12}" ry="${r.rz + 12}"/>`;
     if (!open && !prem && !off) {   // まだ ひらいて いない：くもで かくす
       const C = rng(seedOf(r.id) + 5);
-      let cl = ''; for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2; cl += `<circle cx="${f(r.x + Math.cos(a) * r.rx * 0.55)}" cy="${f(r.z + Math.sin(a) * r.rz * 0.5 - 4)}" r="${f(r.rx * (0.32 + C() * 0.14))}"/>`; }
-      under += `<g class="wm-cloud" fill="url(#wm-cloudgrad)">${cl}<circle cx="${r.x}" cy="${r.z - 4}" r="${f(r.rx * 0.75)}"/></g>`;
+      let cl = ''; for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2; cl += `<circle cx="${f(r.x + Math.cos(a) * r.rx * 0.8)}" cy="${f(r.z + Math.sin(a) * r.rz * 0.75 - 4)}" r="${f(r.rx * (0.45 + C() * 0.18))}"/>`; }
+      under += `<g class="wm-cloud" fill="url(#wm-cloudgrad)">${cl}<circle cx="${r.x}" cy="${r.z - 4}" r="${f(r.rx * 1.05)}"/></g>`;
       over += `<g class="wm-cs" data-x="${r.x}" data-y="${f(r.z - 6)}" data-k=".9"><circle r="11" fill="#7a8f9a" stroke="#fff" stroke-width="2"/><text class="wm-ntext" font-size="14" text-anchor="middle" dominant-baseline="central">?</text></g>`;
     }
     if (off) under += `<use href="#wms-${r.id}" class="wm-off"/>`;

@@ -320,3 +320,5 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wmap-tile.main { z-index: 2; }
 /* ＋－⌂⤢📖 は 右下に 横 1 れつ（右の いちらんと かさならない）。 */
 .wmap-tools { flex-direction: row; }
+/* ちかづいた とき：メインの島の 大きな 名前は かくす（中の 場所の 名前と かさなる） */
+.wm-svg[data-near="1"] .wm-label[data-island="main"] { display: none; }
