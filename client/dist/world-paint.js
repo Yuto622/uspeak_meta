@@ -52,18 +52,30 @@ const SAND = RGB('#ecd9a2'), SAND_WET = RGB('#d6bd84'), FOAM = RGB('#ffffff');
 // 異次元の 海と 宇宙（2026-11：「地図もっと異次元デザインで」）。色は ブランド（深緑・ミント・オレンジ・クリーム）だけ。
 const DEEP = RGB('#0f4a43'), MID = RGB('#167c6b'), SHAL = RGB('#33bd9e'), LAGOON = RGB('#7ee9c8'), NEAR = RGB('#a6f6d8'), RIM = RGB('#ffb066');
 const ROCK0 = RGB('#6b4a33'), ROCK1 = RGB('#241812');
-const OCEAN = 0.62, HANG = 9;   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
-const VOID = RGB('#06120d'), NEB1 = RGB('#1d6b58'), NEB2 = RGB('#8a4716');
+const OCEAN = 0.62, HANG = 15;   // 海の ひろさ（島から）・下に ぶらさがる 岩の ながさ（単位）
+const VOID = RGB('#06120d'), NEB1 = RGB('#1f6e5a'), NEB2 = RGB('#93501c'), NEB3 = RGB('#4fc7a0');
+const RINGS = [520, 640, 780];
 let SC = null;   // 宇宙の まんなか（わの 中心）
 function spaceAt(x, z, px, py) {
   SC ||= [(BOUNDS.x0 + BOUNDS.x1) / 2, (BOUNDS.z0 + BOUNDS.z1) / 2];
-  const n1 = fbm(x / 260, z / 260, 3), n2 = fbm(x / 190 + 30, z / 190 - 11, 3);   // ふわっと した 星雲（ミント・オレンジ）
-  let c = mixc(VOID, NEB1, sstep(0.0, 0.6, n1) * 0.5);
-  c = mixc(c, NEB2, sstep(0.18, 0.62, n2) * 0.32);
+  // 星雲：ずらした ノイズで うずまく すじ（ミント・みどり・オレンジ）
+  const wx = fbm(x / 140, z / 140, 2) * 1.6, wz = fbm(x / 140 + 17, z / 140 - 4, 2) * 1.6;
+  const n1 = fbm(x / 230 + wx, z / 230 + wz, 4), n2 = fbm(x / 170 - wz + 30, z / 170 + wx - 11, 4);
+  const streak = 1 - Math.abs(noise(x / 90 + wx * 2, z / 90 + wz * 2));
+  let c = mixc(VOID, NEB1, Math.min(1, sstep(-0.05, 0.5, n1) * 0.7 + streak ** 6 * 0.35));
+  c = mixc(c, NEB2, sstep(0.12, 0.55, n2) * 0.55);
+  c = mixc(c, NEB3, sstep(0.3, 0.6, n1 + n2 * 0.3) * 0.4);
+  // 星の わ（うすく 点線）
   const r = Math.hypot(x - SC[0], z - SC[1]);
-  for (const R of [560, 700, 860]) { const dr = Math.abs(r - R); if (dr < 1.2) { const a = Math.atan2(z - SC[1], x - SC[0]); if (((a * R / 9) % 2 + 2) % 2 < 1.2) c = mixc(c, NEAR, 0.22 * (1 - dr / 1.2)); } }
-  const hs = hash(px, py);
-  if (hs > 0.9972) { const b = (hs - 0.9972) / 0.0028; c = mixc(c, b > 0.7 ? [255, 214, 160] : [255, 248, 230], 0.55 + b * 0.45); }
+  for (const R of RINGS) { const dr = Math.abs(r - R); if (dr < 2.2) { const a = Math.atan2(z - SC[1], x - SC[0]); if (((a * R / 12) % 2 + 2) % 2 < 1.3) c = mixc(c, NEAR, 0.32 * (1 - dr / 2.2)); } }
+  // 星（4 単位の マスに 1 つ まで・大きさ いろいろ）
+  const cx = Math.floor(x / 4), cz = Math.floor(z / 4), hs = hash(cx + 9000, cz - 7000);
+  if (hs > 0.93) {
+    const sx = (cx + 0.2 + hash(cx, cz + 3) * 0.6) * 4, sz = (cz + 0.2 + hash(cx + 5, cz) * 0.6) * 4, rad = 0.35 + (hs - 0.93) * 14;
+    const d = Math.hypot(x - sx, z - sz);
+    if (d < rad * 2.2) { const b = Math.max(0, 1 - d / (rad * 2.2)) ** 2; c = mixc(c, hs > 0.975 ? [255, 214, 160] : hs > 0.95 ? [190, 255, 225] : [255, 250, 236], Math.min(1, b * 1.6)); }
+  }
+  if (hash(px, py) > 0.9985) c = mixc(c, [255, 250, 236], 0.6);
   return c;
 }
 
@@ -334,13 +346,13 @@ function drawBridges(g, spans) {
     const sp = spans.get(l); if (!sp) continue;
     const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, L0 = Math.hypot(dx, dz), w = 3.6, len = sp[1] - sp[0];
     g.save(); g.translate(l.from.x + dx * sp[0] / L0, l.from.z + dz * sp[0] / L0); g.rotate(Math.atan2(dz, dx));
-    g.fillStyle = 'rgba(143,240,200,.16)'; g.fillRect(-0.5, -w / 2 - 1.6, len + 1, w + 3.2);   // ひかりの 橋：ミントの 光の おび
-    g.fillStyle = 'rgba(143,240,200,.22)'; g.fillRect(-0.5, -w / 2 - 0.8, len + 1, w + 1.6);
+    g.fillStyle = 'rgba(143,240,200,.22)'; g.fillRect(-0.5, -w / 2 - 2.4, len + 1, w + 4.8);   // ひかりの 橋：ミントの 光の おび
+    g.fillStyle = 'rgba(143,240,200,.35)'; g.fillRect(-0.5, -w / 2 - 1.1, len + 1, w + 2.2);
     g.fillStyle = '#9a6233'; g.fillRect(-0.5, -w / 2, len + 1, w);
     for (let s = 0; s < len; s += 0.9) { g.fillStyle = (Math.floor(s / 0.9) % 3) ? '#b97c46' : '#a86d3b'; g.fillRect(s, -w / 2 + 0.25, 0.75, w - 0.5); }
     g.fillStyle = '#5a3418'; g.fillRect(-0.5, -w / 2, len + 1, 0.35); g.fillRect(-0.5, w / 2 - 0.35, len + 1, 0.35);
     for (let s = 0; s < len; s += 4) { g.fillRect(s, -w / 2 - 0.2, 0.6, 0.6); g.fillRect(s, w / 2 - 0.4, 0.6, 0.6); }
-    g.fillStyle = '#8ff0c8'; g.fillRect(-0.5, -w / 2 - 0.15, len + 1, 0.22); g.fillRect(-0.5, w / 2 - 0.07, len + 1, 0.22);   // ネオンの ふち
+    g.fillStyle = '#b8ffe2'; g.fillRect(-0.5, -w / 2 - 0.3, len + 1, 0.45); g.fillRect(-0.5, w / 2 - 0.15, len + 1, 0.45);   // ネオンの ふち
     for (let s = 2; s < len; s += 8) { g.fillStyle = 'rgba(255,176,102,.35)'; g.beginPath(); g.arc(s, -w / 2, 1.1, 0, 6.283); g.arc(s, w / 2, 1.1, 0, 6.283); g.fill(); g.fillStyle = '#ffd9a8'; g.fillRect(s - 0.25, -w / 2 - 0.25, 0.5, 0.5); g.fillRect(s - 0.25, w / 2 - 0.25, 0.5, 0.5); }
     if (l.rest) { g.fillStyle = '#a86d3b'; g.fillRect(len / 2 - 4.5, -3.4, 9, 6.8); g.strokeStyle = '#5a3418'; g.lineWidth = 0.3; g.strokeRect(len / 2 - 4.5, -3.4, 9, 6.8); }
     g.restore();

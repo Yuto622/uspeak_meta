@@ -412,3 +412,4 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 .wmap-here .wh-tag { background: #0c241c; color: #ffd9a8; border-color: #ffb066; box-shadow: 0 0 12px #ffb06666; }
 @media (prefers-reduced-motion: reduce) { .wmap-here .wh-ring, .wt-in::before, .wt-in::after { animation: none; } .wmap-here .wh-ring { opacity: .6; } }
 .wmap-tile:not(.soft):not(.main) { -webkit-mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent); }
+.wmap-here.nopin .wh-pin { display: none; }

@@ -490,8 +490,11 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
     const placed = [];
     if (pinR && here) {   // 「きみは ここ」：ピンは 番号の 上。ことばの 札は、ほかの 番号・札・パネルに かさならない ところへ
       const [x, z] = numAt(pinR), [sx, sy] = toS(x, z), tag = here.querySelector('.wh-tag'), tw = tag.offsetWidth || 110, th = tag.offsetHeight || 28;
-      blocks.push([sx - 18, sy - 64, sx + 18, sy - 12]);
-      const own = blocks.length - 1;
+      const pinR2 = [sx - 18, sy - 64, sx + 18, sy - 12];
+      const crowd = blocks.some((b) => hit(pinR2, b) && !(b[0] <= sx && b[2] >= sx && b[1] <= sy && b[3] >= sy));
+      here.classList.toggle('nopin', crowd);   // ピンが ほかの 番号に かかる ときは ピンを 出さない（ひかりの わと 札だけ）
+      if (!crowd) blocks.push(pinR2);
+      const own = crowd ? -1 : blocks.length - 1;
       let best = null;
       for (const [dx, dy] of [[0, -82], [24 + tw / 2, -40], [-24 - tw / 2, -40], [0, nr + th / 2 + 6], [24 + tw / 2, 0], [-24 - tw / 2, 0], [0, -112], [44 + tw / 2, -72], [-44 - tw / 2, -72], [44 + tw / 2, 30], [-44 - tw / 2, 30], [0, nr + th / 2 + 40], [70 + tw / 2, -10], [-70 - tw / 2, -10], [0, -140], [100 + tw / 2, -40], [-100 - tw / 2, -40], [100 + tw / 2, 40], [-100 - tw / 2, 40], [0, nr + th / 2 + 70]]) {
         const R = [sx + dx - tw / 2, sy + dy - th / 2, sx + dx + tw / 2, sy + dy + th / 2];
