@@ -50,8 +50,6 @@ function sizeOf(r) {   // 島の 大きさ（半分の はば）。検査の 歩
 const BY_ID = Object.fromEntries(MAP_ISLANDS.map((r) => [r.id, r]));
 
 // 島の 色（くさ）。ぼうけんの ちいきは biome の 色、島は あたたかい みどりを すこしずつ かえる。
-const GRASS = { snow: '#e8f2f4', desert: '#e8c77e', canyon: '#d39a5e', reef: '#7fcf9c', ruins: '#a7b79a', moon: '#8f9fc4', sky: '#d7e7b5', storm: '#87a98b', forest: '#4f9a55', grass: '#8cc85e' };
-const grassOf = (r) => (r.biome ? GRASS[r.biome] || hex(r.color) : ['#86c45a', '#7dbd55', '#92ca60', '#79b956', '#8fc65f'][seedOf(r.id) % 5]);
 // 札の 色（world-picker.js の LOOK と 同じ 色あい）。
 const BANNER = {
   willow: '#3f9a62', park: '#e27a2d', errand: '#d69a1c', school: '#3f7fd0', arena: '#c8573e', pet: '#e2a224', ride: '#3f75c8', town: '#5f9e43',
@@ -81,7 +79,6 @@ function smooth(p) {
   }
   return d + 'Z';
 }
-const inBlob = (r, x, z, k = 1) => (Math.abs((x - r.x) / (r.rx * k)) ** 2.6 + Math.abs((z - r.z) / (r.rz * k)) ** 2.6) <= 1;
 
 // メインの島：もとの 角まるの 四角（54×43・power 4）＋ つき出した 土地（main-plaza.js の PLAZA.annex と also）。島の 中の 座標。
 export const MX = -26, MZ = -79;
@@ -114,9 +111,6 @@ const TREE_DEFS = `
 <g id="wt-gold"><ellipse cx="1" cy="2.7" rx="3.6" ry="1.4" fill="#0b3b26" fill-opacity=".26"/><circle cy="-.6" r="3.2" fill="#d9822b" stroke="${INK}" stroke-width=".35"/><circle cx="-1.1" cy="-1.9" r="1.6" fill="#f2b04a"/><circle cx="-1.5" cy="-2.5" r=".6" fill="#ffe0a0"/></g>
 <g id="wt-bush"><circle cx="-1.2" cy=".2" r="1.5" fill="#3f9a3d" stroke="${INK}" stroke-width=".3"/><circle cx="1.1" cy=".2" r="1.4" fill="#2e7f3c" stroke="${INK}" stroke-width=".3"/><circle cy="-.8" r="1.5" fill="#58b14f" stroke="${INK}" stroke-width=".3"/></g>
 <g id="wt-flower"><circle r=".55" fill="#ffd84a"/><circle cx="1.3" cy=".5" r=".5" fill="#ff7a8a"/><circle cx="-1.1" cy=".7" r=".5" fill="#fff"/></g>`;
-const TREE_KIND = { snow: ['wt-snow', 'wt-snow', 'wt-pine'], desert: ['wt-palm', 'wt-palm', 'wt-bush'], reef: ['wt-palm', 'wt-a', 'wt-palm'], canyon: ['wt-gold', 'wt-bush', 'wt-gold'], moon: ['wt-pink', 'wt-c', 'wt-pink'],
-  sky: ['wt-pink', 'wt-b', 'wt-a'], forest: ['wt-pine', 'wt-c', 'wt-pine', 'wt-a'], storm: ['wt-pine', 'wt-c', 'wt-bush'], ruins: ['wt-c', 'wt-bush', 'wt-a'], grass: ['wt-a', 'wt-b', 'wt-b', 'wt-pink'] };
-const treesFor = (r) => TREE_KIND[r.biome] || (r.id === 'pet' || r.id === 'wear' ? ['wt-a', 'wt-b', 'wt-pink'] : r.id === 'fishworld' || r.id === 'land' ? ['wt-a', 'wt-palm', 'wt-b'] : ['wt-a', 'wt-b', 'wt-c', 'wt-b']);
 
 // ── 建物の 部品（ななめ上から 見た かたち：おくゆきは 右上へ）──────
 const DX = 0.55, DY = -0.45;
@@ -264,153 +258,67 @@ const MAIN_PLACES = [
   { x: 31, z: 46, en: 'Boat Dock', ja: 'ふなつきば' }, { x: 31, z: -44, en: 'Word Houses', ja: 'えいたんご ハウス' }, { x: 28, z: 26.5, en: 'Food Stalls', ja: 'やたい' },
   { x: -12, z: 9, en: 'Gates', ja: 'ゲート' }, { x: 4, z: 50, en: 'Fishing Piers', ja: 'つりば' }, { x: -37, z: 4, en: 'Talk Shops', ja: 'えいかいわの おみせ' },
 ];
-function mainTown() {
-  let s = '';
-  // 道（こげ茶の ふち → クリームの 道 → まんなかの 点線）
-  const road = () => MAIN_ROADS.map(([[x0, z0], [x1, z1]]) => { const [a, b] = MW(x0, z0), [c2, d] = MW(x1, z1); return `<path d="M${a} ${b}L${c2} ${d}"/>`; }).join('');
-  s += `<g fill="none" stroke-linecap="round"><g stroke="#c8a46a" stroke-width="5.6">${road()}</g><g stroke="#fbeccb" stroke-width="4">${road()}</g><g stroke="#e4c48d" stroke-width=".4" stroke-dasharray="1.6 1.6">${road()}</g></g>`;
-  // ビルの まち：たかい ビル（ガラスの 青・まどの すじ）
-  const towers = [[-71, -62, 14], [-55, -62, 20], [-38, -58, 12], [-22, -60, 16], [-71, -42, 18], [-55, -41, 24], [-71, -22, 12], [-55, -22, 16], [-55, -5, 10], [-71, -5, 8], [-38, -42, 10]];
-  const glass = ['#7fb8d8', '#9cc8e0', '#6aa2c6', '#a9d2e6'];
-  towers.forEach(([x, z, h], i) => {
-    const [wx, wz] = MW(x, z), c = glass[i % 4], w = 8.5, d = 6;
-    s += box(wx, wz + 4, w, h, d, c);
-    for (let k = 2; k < h - 1; k += 2.2) s += `<path d="M${f(wx - w / 2 + 0.8)} ${f(wz + 4 - k)}h${f(w - 1.6)}" stroke="#fff" stroke-width=".55" opacity=".75"/>`;
-    s += `<path d="M${f(wx - w / 2 + 2)} ${f(wz + 4 - h + 0.6)}v${f(h - 1.2)}" stroke="#ffffff" stroke-width=".8" opacity=".45"/>`;
-  });
-  // プラネタリウム（まるい やね）
-  { const [x, z] = MW(-28, -24.6); s += shadow(x + 1, z + 4, 10, 3) + box(x, z + 4, 16, 3, 9, '#e9e4f0') + `<path d="M${f(x - 7.6)} ${f(z + 1)}a7.6 7 0 0 1 15.2 0Z" fill="#cfd8e6" ${S(0.45)}/><path d="M${f(x - 7.6)} ${f(z + 1)}a7.6 7 0 0 1 15.2 0" fill="none" stroke="#fff" stroke-width=".6" stroke-dasharray="1.2 1"/><path d="M${f(x - 3)} ${f(z - 4)}l.6 1.2 1.3.2-1 .9.3 1.3-1.2-.6-1.2.6.3-1.3-1-.9 1.3-.2Z" fill="#ffd84a"/>`; }
-  // ひろば：まるい 石だたみ・ふんすい・時計台・フリーマーケット
-  { const [x, z] = MW(71, 16); s += `<ellipse cx="${x}" cy="${z}" rx="14" ry="12" fill="#efd9b0" ${S(0.4)}/><ellipse cx="${x}" cy="${z}" rx="9" ry="7.6" fill="none" stroke="#d9bd8c" stroke-width="1"/>`
-    + `<ellipse cx="${x}" cy="${z}" rx="4.2" ry="3" fill="#4fb9e0" ${S(0.4)}/><path d="M${x} ${z}v-4" stroke="#bfe8ff" stroke-width="1.2" stroke-linecap="round"/>${circle(x, z - 4.4, 1, '#e6f8ff', 0.2)}`;
-    for (let i = 0; i < 6; i++) { const sx = MX + 59.8 + i * 4.5, sz = MZ + 25.6; s += box(sx, sz + 1, 3.4, 1.6, 2, '#c98a4b') + `<path d="M${f(sx - 2)} ${f(sz - 1.6)}h4l-.5 1.2h-3Z" fill="${['#d9483b', '#e27a2d', '#f2b630', '#3f75c8', '#2f8f5b', '#c8553d'][i]}" ${S(0.25)}/>`; } }
-  { const [x, z] = MW(79, 6.5); s += shadow(x + 1, z + 1, 4) + box(x, z + 1, 4, 16, 3.4, '#f4e6c8') + `<path d="M${f(x - 2.6)} ${f(z - 15)}L${x} ${f(z - 20)}L${f(x + 2.6)} ${f(z - 15)}Z" fill="#e27a2d" ${S(0.4)}/>`
-    + circle(x, z - 12, 1.6, '#fff', 0.35) + `<path d="M${x} ${f(z - 12)}v-1.1M${x} ${f(z - 12)}h.8" stroke="${INK}" stroke-width=".3"/>`; }
-  // としょかん（はしらの ある 大きな 建物）
-  { const [x, z] = MW(70, -14); s += shadow(x + 1, z + 6, 16, 3.4) + box(x, z + 6, 26, 7, 8, '#efe4cf') + columns(x, z + 5.6, 22, 6, 8, '#fffaf0') + `<path d="M${f(x - 14)} ${f(z - 1)}L${x} ${f(z - 6)}L${f(x + 14)} ${f(z - 1)}Z" fill="#3f9a62" ${S(0.4)}/><path d="M${f(x + 14)} ${f(z - 1)}L${f(x + 18.4)} ${f(z - 4.6)}L${f(x + 4.4)} ${f(z - 9.6)}L${x} ${f(z - 6)}Z" fill="#2f7a4c" ${S(0.4)}/>`; }
-  // 英単語ハウス 3 けん・ぶきや
-  [[20, -35, '#4fae6b'], [31, -35, '#e0a52c'], [42, -35, '#3f6fb8'], [53, -35, '#7a8a96']].forEach(([x, z, c]) => { const [wx, wz] = MW(x, z); s += house(wx, wz + 3, 6.4, 4.6, 4.6, '#fff4d6', c, { win: 1 }); });
-  // 大通りの お店（屋台・ふくや・ブロックや・いえの おみせ・かいとりや）
-  [[17.5, 21, '#e0566a'], [28, 21, '#f2b04a'], [38.5, 21, '#4fb9e0']].forEach(([x, z, c]) => { const [wx, wz] = MW(x, z); s += box(wx, wz + 2.4, 5, 2.6, 3, '#fff4d6') + `<path d="M${f(wx - 3)} ${f(wz - 0.4)}h6l-.6 1.4h-4.8Z" fill="${c}" ${S(0.3)}/><path d="M${f(wx - 1.5)} ${f(wz - .4)}v1.4M${f(wx + .3)} ${f(wz - .4)}v1.4M${f(wx + 1.9)} ${f(wz - .4)}v1.4" stroke="#fff" stroke-width=".7"/>`; });
-  [[4, 8, '#2f9aa8'], [17, 8, '#3f75c8'], [27.5, 8, '#c0569a'], [38.5, 8, '#26909f'], [-19.5, 10.5, '#e27a2d'], [45, 30, '#cf6a2e']].forEach(([x, z, c]) => { const [wx, wz] = MW(x, z); s += house(wx, wz + 3, 7, 4.6, 5, '#fff4d6', c); });
-  // 英会話の お店（けいたいや・でんきや）と おみせの とおり（ほんや・ピザや・バーガーや・ゆぴちゃんの ピンクの へや）・じてんしゃや
-  [[-44, 10, '#3baacb'], [-30, 10, '#e2a224'], [-46, 33.1, '#4f7a3c'], [-35, 33.1, '#d9483b'], [-24, 33.1, '#c8783e']].forEach(([x, z, c]) => { const [wx, wz] = MW(x, z); s += house(wx, wz + 2, 7.4, 5, 5, '#fff4d6', c); });
-  { const [x, z] = MW(-57, 33.1); s += house(x, z + 2, 8, 5.4, 5.4, '#ffd1e3', '#ff7eb3') + `<path d="M${x} ${f(z - 9)}c-1.6-2.2-4-.6-2.4 1.4L${x} ${f(z - 5.6)}l2.4-2.2c1.6-2-.8-3.6-2.4-1.4Z" fill="#ff5a9a" ${S(0.3)}/>`; }
-  { const [x, z] = MW(-61, 11); s += box(x, z + 2.4, 7, 4, 5, '#e8f2d0') + `<g transform="translate(${f(x)} ${f(z - 4.6)})"><circle cx="-2" r="1.5" fill="none" stroke="${INK}" stroke-width=".5"/><circle cx="2" r="1.5" fill="none" stroke="${INK}" stroke-width=".5"/><path d="M-2 0 0-1.6H1.4L2 0M0-1.6-.6-2.4" stroke="#e27a2d" stroke-width=".55" fill="none"/></g>`; }
-  // ゲート 4 つ（ほかの ワールドへの とびら）＋ つりの ゲート
-  [[-12, -30, '#e27a2d'], [-12, -19, '#3f75c8'], [-12, -8, '#3f9a62'], [-12, 3, '#c8573e'], [-4, 21, '#2d8fc4']].forEach(([x, z, c]) => { const [wx, wz] = MW(x, z); s += `<path d="M${f(wx - 2.4)} ${f(wz + 1.4)}V${f(wz - 2.4)}a2.4 2.4 0 0 1 4.8 0V${f(wz + 1.4)}" fill="none" stroke="${c}" stroke-width="1.4"/><path d="M${f(wx - 1.4)} ${f(wz + 1.4)}V${f(wz - 2.2)}a1.4 1.4 0 0 1 2.8 0V${f(wz + 1.4)}Z" fill="#8ff0c8" opacity=".9"/>`; });
-  // 入り江：さんばし（x 4）と 英検の さんばし・ふなつきば（橋の たもと）
-  { const [px, pz] = MW(4, 24); s += `<rect x="${f(px - 1.7)}" y="${pz}" width="3.4" height="11" fill="#c98a4b" ${S(0.35)}/>`;
-    const [ex0, ez] = MW(-14, 29), [ex1] = MW(21, 29); s += `<rect x="${ex0}" y="${f(ez - 1.2)}" width="${ex1 - ex0}" height="2.4" fill="#c98a4b" ${S(0.35)}/>`;
-    for (const [x, end] of [[19.6, 43], [14.6, 33], [9.6, 43], [-2.2, 43], [-7.4, 33], [-12.6, 43]]) { const [wx, wz] = MW(x, 29); s += `<rect x="${f(wx - 1.2)}" y="${wz}" width="2.4" height="${end - 29}" fill="#b97a3f" ${S(0.3)}/>`; } }
-  { const [x, z] = MW(31, 37); s += `<rect x="${f(x - 4)}" y="${f(z - 1)}" width="8" height="4" fill="#b97a3f" ${S(0.35)}/>` + boat(x + 9, z + 4, '#e27a2d'); }
-  { const [x, z] = MW(-6, -38.8); s += `<rect x="${f(x - 1.4)}" y="${f(z - 7)}" width="2.8" height="7" fill="#b97a3f" ${S(0.3)}/>` + boat(x + 4, z - 9, '#3f9a62'); }
-  return s;
-}
 function boat(x, y, c, k = 1) {
   return `<g transform="translate(${f(x)} ${f(y)}) scale(${k})"><path d="M-4 0h8l-1.6 2h-4.8Z" fill="#fff4d6" ${S(0.35)}/><path d="M0 0V-6" stroke="${INK}" stroke-width=".4"/><path d="M.3-6 3.6-.6H.3Z" fill="${c}" ${S(0.3)}/><path d="M-.3-5-2.6-.6h2.3Z" fill="#fff" ${S(0.3)}/></g>`;
 }
 
 // ── 下絵 ぜんぶ（1 回だけ 作る）──────────────────────────────
-export const VIEW = { x0: -430, x1: 410, z0: -505, z1: 405 };   // 海の 小物を まく わく・うごかせる はんい
-const FIT = { x0: -398, x1: 392, z0: -470, z1: 382 };   // ぜんぶの 島と 札が 入る わく（はじめの 見え方）
+// 「🗺 ちず」は world-paint.js の ぬった 絵（canvas）が 下に 出て、SVG は 名前・番号・押せる ところだけ。
+// 「📍 あんない」と、絵が まだ できて いない あいだは、この SVG の `wm-guide`（たいらな パステルの 地図）が 出る。
+export const VIEW = { x0: -430, x1: 410, z0: -505, z1: 405 };   // うごかせる はんい
+export const FIT = { x0: -398, x1: 392, z0: -470, z1: 382 };   // ぜんぶの 島と 札が 入る わく（はじめの 見え方）
+// あんないの 色（たいらな パステル）
+const GUIDE = { snow: '#e3edf6', desert: '#efdcaa', canyon: '#eab994', reef: '#bfe7c9', ruins: '#cfd6c2', moon: '#c9c6e6', sky: '#eef0c8', storm: '#bcd3a6', forest: '#9ccf8c', grass: '#c3e39c' };
+const guideOf = (r) => (r.id === 'main' ? '#cfe6a8' : r.biome ? GUIDE[r.biome] : r.id === 'farm' ? '#e4dc9c' : r.id === 'fishworld' ? '#bfe3b0' : /^eiken/.test(r.id) ? '#c8e3a4' : '#c9e7a2');
+const SEAS = [
+  { x: -150, z: -488, en: 'North Sea', ja: 'きたの うみ', rot: 0 }, { x: 150, z: 398, en: 'South Sea', ja: 'みなみの うみ', rot: 0 },
+  { x: -412, z: 60, en: 'West Sea', ja: 'にしの うみ', rot: -90 }, { x: 404, z: -200, en: 'East Sea', ja: 'ひがしの うみ', rot: 90 },
+];
 let cachedSvg = null;
 export function baseSvg() {
   if (cachedSvg) return cachedSvg;
-  const R = rng(20261128);
   const shapes = MAP_ISLANDS.map((r) => `<g id="wms-${r.id}">${r.id === 'main' ? mainShape() : `<path d="${blob(r.x, r.z, r.rx, r.rz, seedOf(r.id))}"/>`}</g>`).join('');
-  const uses = (attrs) => MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}"${typeof attrs === 'function' ? attrs(r) : ''}/>`).join('');
-  // 海：ふかい 青みどり → 島の まわりの あさせ（ひろい 線を 3 だん）→ 白い なみ（点線）
+  const uses = () => MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}"/>`).join('');
   let s = `<defs>${TREE_DEFS}${shapes}
-    <pattern id="wm-waves" width="34" height="22" patternUnits="userSpaceOnUse"><path d="M2 6q3-3 6 0t6 0M19 17q3-3 6 0t6 0" fill="none" stroke="#e9fbff" stroke-width="1" stroke-linecap="round" opacity=".55"/></pattern>
-    <radialGradient id="wm-sea" cx="50%" cy="45%" r="75%"><stop offset="0" stop-color="#3cc4cf"/><stop offset=".7" stop-color="#22a7bd"/><stop offset="1" stop-color="#17839e"/></radialGradient>
+    <pattern id="wm-waves" width="40" height="26" patternUnits="userSpaceOnUse"><path d="M3 7q3-2.4 6 0t6 0M23 20q3-2.4 6 0t6 0" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-opacity=".5"/></pattern>
+    <radialGradient id="wm-cloudgrad"><stop offset="0" stop-color="#ffffff" stop-opacity=".96"/><stop offset=".6" stop-color="#f3f8fb" stop-opacity=".88"/><stop offset="1" stop-color="#e6eff5" stop-opacity="0"/></radialGradient>
+    <clipPath id="wm-mclip"><circle r="13"/></clipPath>
   </defs>`;
-  s += `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#17839e"/><rect x="${VIEW.x0 - 400}" y="${VIEW.z0 - 400}" width="${VIEW.x1 - VIEW.x0 + 800}" height="${VIEW.z1 - VIEW.z0 + 800}" fill="url(#wm-sea)"/>`;
-  s += `<rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#wm-waves)"/>`;
-  s += `<g class="wm-shallow" stroke-linejoin="round"><g fill="#38bccb" stroke="#38bccb" stroke-width="46">${uses()}</g><g fill="#5cd0d4" stroke="#5cd0d4" stroke-width="24">${uses()}</g>`
-    + `<g fill="none" stroke="#d9f6f6" stroke-width="1.3" stroke-dasharray="5 4">${uses((r) => ` transform="translate(${f(r.x)} ${f(r.z)}) scale(1.13) translate(${f(-r.x)} ${f(-r.z)})"`)}</g></g>`;
-  // 海の 小物：ヨット・なみの しるし・岩
-  for (let i = 0; i < 46; i++) {
-    const x = VIEW.x0 + R() * (VIEW.x1 - VIEW.x0), z = VIEW.z0 + R() * (VIEW.z1 - VIEW.z0);
-    if (MAP_ISLANDS.some((r) => Math.hypot((x - r.x) / (r.rx + 24), (z - r.z) / (r.rz + 24)) < 1) || inMain(x, z) || nearBridge(x, z, 10)) continue;
-    s += i % 6 === 0 ? boat(x, z, ['#e27a2d', '#3f9a62', '#d9483b', '#f2b04a'][i % 4], 1.5) : i % 6 === 1 ? `<g transform="translate(${f(x)} ${f(z)})"><ellipse rx="3.4" ry="1.6" fill="#7d8f86" ${S(0.35)}/><ellipse cx="-.8" cy="-.5" rx="1.6" ry=".7" fill="#a9b8ae"/></g>`
-      : `<path d="M${f(x)} ${f(z)}q2.4-2.4 4.8 0t4.8 0" fill="none" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" opacity=".8"/>`;
-  }
-  // かげ → すなはま → くさ（くさの ふちは こい みどりの 線：ふちどりを 先に 太く、上に くさを ぬる）
-  s += `<g fill="#2b8f98">${uses(() => ' transform="translate(3 7)"')}</g>`;
-  s += `<g stroke-linejoin="round"><g fill="#f4dca0" stroke="#f4dca0" stroke-width="13">${uses()}</g>`;
-  s += `<g fill="#3d7a3a" stroke="#3d7a3a" stroke-width="2.6">${uses()}</g>`;
-  s += MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}" fill="${r.id === 'main' ? '#8cc85e' : grassOf(r)}"/>`).join('') + '</g>';
-  // くさの ひかり（左上を あかるく）と もよう
-  for (const r of MAP_ISLANDS) {
-    if (r.id === 'main') continue;
-    const g = grassOf(r);
-    s += `<path d="${blob(r.x - r.rx * 0.12, r.z - r.rz * 0.14, r.rx * 0.62, r.rz * 0.56, seedOf(r.id) + 3, { wob: 0.12 })}" fill="${light(g, 0.22)}" opacity=".7"/>`;
-  }
-  // メインの島の 入り江（さんばしの 海）
-  { const x0 = MX + MAIN_BAY.x0, x1 = MX + MAIN_BAY.x1, z0 = MZ + MAIN_BAY.z0; s += `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="40" rx="6" fill="#f4dca0"/><rect x="${x0 + 3}" y="${z0 + 3}" width="${x1 - x0 - 6}" height="40" rx="5" fill="#59cfd8"/><path d="M${x0 + 6} ${z0 + 10}q3-2 6 0t6 0M${x0 + 20} ${z0 + 14}q3-2 6 0t6 0" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/>`; }
-  // 島の 中の 小道：橋の たもとから しるしの 絵まで（クリームの まがった 道）
-  let paths = '';
-  for (const l of LINKS) for (const [id, p] of [[l.a, l.from], [l.b, l.to]]) {
-    const r = BY_ID[id]; if (!r || id === 'main') continue;
-    const mx = (p.x + r.x) / 2 + (p.z - r.z) * 0.18, mz = (p.z + r.z) / 2 - (p.x - r.x) * 0.18;
-    paths += `<path d="M${f(p.x)} ${f(p.z)}Q${f(mx)} ${f(mz)} ${f(r.x)} ${f(r.z + 4)}"/>`;
-  }
-  s += `<g fill="none" stroke-linecap="round"><g stroke="#d8b57a" stroke-width="5">${paths}</g><g stroke="#fbeccb" stroke-width="3.4">${paths}</g></g>`;
-  // 木：まとまりで おく（しるしの 絵の まわりは あける）
-  let trees = '';
-  for (const r of MAP_ISLANDS) {
-    if (r.id === 'main') continue;
-    const T = rng(seedOf(r.id) + 11), kinds = treesFor(r), list = [];
-    const clusters = 11 + Math.floor(T() * 4);
-    for (let c = 0; c < clusters; c++) {
-      const a = T() * Math.PI * 2, d = 0.5 + T() * 0.38, cx = r.x + Math.cos(a) * r.rx * d, cz = r.z + Math.sin(a) * r.rz * d;
-      const n = 4 + Math.floor(T() * 5);
-      for (let k = 0; k < n; k++) {
-        const x = cx + (T() - 0.5) * 13, z = cz + (T() - 0.5) * 10;
-        if (!inBlob(r, x, z, 0.9) || Math.abs(x - r.x) < 16 && Math.abs(z - r.z + 3) < 13 || nearBridge(x, z, 5) || nearLabel(r, x, z)) continue;
-        list.push([x, z, kinds[Math.floor(T() * kinds.length)], 0.9 + T() * 0.5]);
-      }
-    }
-    list.sort((p, q) => p[1] - q[1]);
-    trees += list.map(([x, z, k, sc]) => `<use href="#${k}" transform="translate(${f(x)} ${f(z)}) scale(${f(sc)})"/>`).join('');
-  }
-  // メインの島の 木：まちの 外がわの くさに
-  { const T = rng(99), list = [];
-    for (let i = 0; i < 260 && list.length < 70; i++) {
-      const lx = -78 + T() * 166, lz = -74 + T() * 117, x = MX + lx, z = MZ + lz;
-      if (!inMain(x, z) || !inMain(x + 4, z) || !inMain(x - 4, z) || !inMain(x, z + 4) || !inMain(x, z - 4)) continue;
-      if (lx > MAIN_BAY.x0 - 4 && lx < MAIN_BAY.x1 + 4 && lz > MAIN_BAY.z0 - 4) continue;
-      if (MAIN_BUSY.some(([a, b, c, d]) => lx > a && lx < b && lz > c && lz < d) || nearBridge(x, z, 5)) continue;
-      list.push([x, z, ['wt-a', 'wt-b', 'wt-c', 'wt-pink'][Math.floor(T() * 4)], 0.9 + T() * 0.4]);
-    }
-    list.sort((p, q) => p[1] - q[1]);
-    trees += list.map(([x, z, k, sc]) => `<use href="#${k}" transform="translate(${f(x)} ${f(z)}) scale(${f(sc)})"/>`).join(''); }
-  s += `<g class="wm-trees">${trees}</g>`;
-  // 橋（木の 板・てすり・まんなかの 休けい台）
-  s += `<g class="wm-bridges">${LINKS.map(bridgeSvg).join('')}</g>`;
-  // まちと しるしの 絵
-  s += `<g class="wm-town">${mainTown()}</g>`;
-  s += `<g class="wm-marks">${MAP_ISLANDS.filter((r) => r.id !== 'main').map((r) => `<g transform="translate(${f(r.x)} ${f(r.z - 2)}) scale(${r.id === 'park' ? 1.15 : 1})">${(LANDMARK[r.id] || defaultMark(r))()}</g>`).join('')}</g>`;
-  // ひこうきの のりば（✈）：メインの島と U-Speak島（rpg.js の fly が 出る 場所の 近く）
-  for (const [x, z] of [[22, 15], [MX + 64, MZ - 40]]) s += planeMark(x, z);   // U-Speak島の 東・メインの島の 北の ならび
+  // あんない（たいらな 地図）
+  let gd = `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#9fd3e6"/><rect x="-2000" y="-2000" width="4000" height="4000" fill="url(#wm-waves)"/>`;
+  gd += `<g stroke-linejoin="round" fill="#c4e9f3" stroke="#c4e9f3" stroke-width="26">${uses()}</g>`;
+  gd += `<g stroke-linejoin="round" fill="#ffffff" stroke="#ffffff" stroke-width="5">${uses()}</g>`;
+  gd += MAP_ISLANDS.map((r) => `<use href="#wms-${r.id}" fill="${guideOf(r)}"/>`).join('');
+  gd += MAP_ISLANDS.filter((r) => r.id !== 'main').map((r) => `<path d="${blob(r.x - r.rx * 0.08, r.z - r.rz * 0.1, r.rx * 0.56, r.rz * 0.5, seedOf(r.id) + 3, { wob: 0.12 })}" fill="#ffffff" fill-opacity=".22"/>`).join('');
+  { const x0 = MX + MAIN_BAY.x0, x1 = MX + MAIN_BAY.x1, z0 = MZ + MAIN_BAY.z0; gd += `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="40" rx="6" fill="#ffffff"/><rect x="${x0 + 2.5}" y="${z0 + 2.5}" width="${x1 - x0 - 5}" height="40" rx="5" fill="#c4e9f3"/>`; }
+  gd += `<g class="wm-gtown">${guideTown()}</g>`;
+  gd += `<g class="wm-gbridges">${LINKS.map(bridgeSvg).join('')}</g>`;
+  for (const [x, z] of [[22, 15], [MX + 64, MZ - 40]]) gd += planeMark(x, z);
+  gd += boat(MX + 40, MZ + 41, '#e27a2d', 1.3) + boat(MX - 2, MZ - 48, '#3f9a62', 1.3);
+  s += `<g class="wm-guide">${gd}</g>`;
+  // 海の 名前（どちらの 見せかたでも）
+  s += `<g class="wm-seas">${SEAS.map((q) => `<text class="wm-sea" transform="translate(${q.x} ${q.z}) rotate(${q.rot})" font-size="17" text-anchor="middle" dominant-baseline="central"><tspan class="en">${q.en}</tspan><tspan class="ja">${q.ja}</tspan></text>`).join('')}</g>`;
   s += '<g class="wm-live-under"></g>';
+  // あんないの まるい しるし（島の 絵）
+  s += `<g class="wm-markers">${MAP_ISLANDS.map((r) => { const [x, z] = r.id === 'main' ? [MX + 10, MZ - 2] : [r.x, r.z - 4]; return `<g class="wm-cs wm-marker" data-x="${f(x)}" data-y="${f(z)}" data-k=".85"><circle r="16.5" fill="#ffffff" stroke="${bannerOf(r)}" stroke-width="3"/><g clip-path="url(#wm-mclip)"><circle r="13" fill="${light(bannerOf(r), 0.78)}"/><g transform="translate(0 3) scale(.52)">${r.id === 'main' ? mainIcon() : (LANDMARK[r.id] || defaultMark(r))()}</g></g></g>`; }).join('')}</g>`;
   // メインの島の 中の 場所の 名前（ちかづけた ときだけ）
   s += `<g class="wm-places">${MAIN_PLACES.map((p) => { const [x, z] = MW(p.x, p.z); return `<g class="wm-cs wm-place" data-x="${x}" data-y="${z}" data-k=".9"><text class="wm-ptext" text-anchor="middle" dominant-baseline="central" font-size="14"><tspan class="en">${esc(p.en)}</tspan><tspan class="ja">${esc(p.ja)}</tspan></text></g>`; }).join('')}</g>`;
-  // 名前の 札（英語 ＋ 日本語・どちらの 言語でも 両方）と 番号の 赤い まる
   s += `<g class="wm-labels">${MAP_ISLANDS.map(labelSvg).join('')}</g>`;
   s += '<g class="wm-live-over"></g><g class="wm-hits"></g>';
-  // 方位（右下）
-  s += `<g transform="translate(${VIEW.x1 - 40} ${VIEW.z1 - 50})" class="wm-compass"><circle r="22" fill="#fff4d6" stroke="#1b3a2f" stroke-width="2"/><path d="M0-18 5 0 0 18-5 0Z" fill="#1b3a2f"/><path d="M0-18 5 0H-5Z" fill="#e27a2d"/><text y="-27" font-size="13" font-weight="900" text-anchor="middle" fill="#fff" class="wm-ink">N</text></g>`;
+  s += `<g transform="translate(${FIT.x1 - 18} ${FIT.z1 - 30})" class="wm-compass"><circle r="20" fill="#fff4d6" fill-opacity=".92" stroke="#1b3a2f" stroke-width="2"/><path d="M0-16 4.6 0 0 16-4.6 0Z" fill="#1b3a2f"/><path d="M0-16 4.6 0H-4.6Z" fill="#e27a2d"/><text y="-27" font-size="13" font-weight="900" text-anchor="middle" fill="#fff" class="wm-ink">N</text></g>`;
   cachedSvg = `<svg class="wm-svg" xmlns="http://www.w3.org/2000/svg" viewBox="${VIEW.x0} ${VIEW.z0} ${VIEW.x1 - VIEW.x0} ${VIEW.z1 - VIEW.z0}" font-family="'Hiragino Maru Gothic ProN','Arial Rounded MT Bold','M PLUS Rounded 1c','Noto Sans JP',sans-serif">${s}</svg>`;
   return cachedSvg;
 }
-// メインの島で 木を おかない ところ（まちの 中・道の まわり）。島の 中の 座標 [x0, x1, z0, z1]。
-const MAIN_BUSY = [[56, 72, -48, -34], [-80, -12, -76, 0], [-66, 62, 10, 24], [-34, -20, -30, -18], [-16, 0, -38, 8], [-8, 60, -42, -26], [0, 48, 2, 14], [-70, -14, 4, 40], [52, 90, -30, 34], [40, 50, 24, 36], [-22, -16, 6, 16]];
-function nearBridge(x, z, m) {
-  return LINKS.some((l) => { const dx = l.to.x - l.from.x, dz = l.to.z - l.from.z, L = Math.hypot(dx, dz) || 1, t = Math.max(0, Math.min(1, ((x - l.from.x) * dx + (z - l.from.z) * dz) / (L * L))); return Math.hypot(x - (l.from.x + dx * t), z - (l.from.z + dz * t)) < m; });
+// あんないの メインの島：白い 道・ビルの まちの 灰色・ひろばの まる
+function guideTown() {
+  let s = MAIN_RECTS.slice(2, 4).map((a) => `<rect x="${MX + a.x0 + 4}" y="${MZ + a.z0 + 4}" width="${a.x1 - a.x0 - 8}" height="${a.z1 - a.z0 - 8}" rx="5" fill="#d9dbe2"/>`).join('');
+  { const [x, z] = MW(71, 16); s += `<ellipse cx="${x}" cy="${z}" rx="13" ry="11" fill="#f3e6c8"/>`; }
+  { const [x, z] = MW(-28, -24.6); s += `<circle cx="${x}" cy="${z}" r="7" fill="#e6e8f2"/>`; }
+  s += `<g fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round">${MAIN_ROADS.map(([[x0, z0], [x1, z1]]) => { const [a, b] = MW(x0, z0), [c, d] = MW(x1, z1); return `<path d="M${a} ${b}L${c} ${d}"/>`; }).join('')}</g>`;
+  return s;
 }
-const nearLabel = (r, x, z) => Math.abs(x - r.x) < 18 && (LABEL_UP.has(r.id) ? z < r.z - r.rz * 0.6 : z > r.z + r.rz * 0.5);
+const mainIcon = () => box(-6, 8, 8, 18, 5, '#7fb8d8') + box(5, 8, 7, 12, 5, '#9cc8e0') + `<path d="M-14 8a6 5 0 0 1 12 0Z" fill="#e6e8f2" ${S(0.5)}/>`;
+// メインの島で 木を おかない ところ（まちの 中・道の まわり）。島の 中の 座標 [x0, x1, z0, z1]。
 function defaultMark(r) { return () => shadow(0, 4, 12) + house(0, 4, 10, 6, 6, '#fff4d6', bannerOf(r)); }
 function planeMark(x, z) {
   return `<g transform="translate(${f(x)} ${f(z)})"><rect x="-9" y="-2" width="18" height="4" rx="2" fill="#7a8a96" ${S(0.35)}/><path d="M-6 0h12" stroke="#fff" stroke-width=".5" stroke-dasharray="1.4 1"/>`
@@ -426,25 +334,21 @@ function bridgeSvg(l) {
   if (l.rest) g += `<rect x="${f(len / 2 - 6)}" y="${f(-w / 2 - 2.6)}" width="12" height="${f(w + 5.2)}" rx="1.6" fill="#c98a4b" stroke="#6b3f1c" stroke-width=".6"/><path d="M${f(len / 2 - 4.6)} ${f(-w / 2 - 1.4)}h9.2" stroke="#7a4a22" stroke-width="1.2"/>` + `<circle cx="${f(len / 2 + 5)}" cy="${f(w / 2 + 1.6)}" r="1" fill="#ffd84a" stroke="#6b3f1c" stroke-width=".3"/>`;
   return `<g class="wm-bridge" data-bridge="${esc(l.id)}" transform="translate(${f(l.from.x)} ${f(l.from.z)}) rotate(${f(ang)})">${g}</g>`;
 }
-// 名前の 札：リボン（島の 色）に 白い 英語・下に 日本語。ちかづけても 大きく なりすぎない（`wm-cs` が 大きさを なおす）。
+// 名前の 札：ふちどりの ある 白い 字（ゲームの 地図の ように）＋ 赤い 番号。ちかづけても 大きく なりすぎない（`wm-cs`）。
+// 英語の とき：英語・下に 日本語（よみ）。日本語の とき：日本語の 名前・下に よみ（同じなら 英語）。下の 行は ちかづけた ときだけ。
 const LABEL_UP = new Set(['meadow', 'desert', 'canyon']);   // となりの 島の 札と かさなる ので 上に
 function labelSvg(r) {
-  const big = r.id === 'main', c = bannerOf(r);
-  const y = big ? MZ + 49 : LABEL_UP.has(r.id) ? r.z - r.rz - 4 : r.z + r.rz * 0.72, x = big ? MX + 4 : r.x;
-  // 英語の とき：札は 英語・下に 日本語（よみ）。日本語の とき：札は 日本語の 名前・下に よみ（同じなら 英語）。下の 行は ちかづけた ときだけ。
+  const big = r.id === 'main';
+  const y = big ? MZ + 49 : LABEL_UP.has(r.id) ? r.z - r.rz - 4 : r.z + r.rz * 0.78, x = big ? MX + 4 : r.x;
   const yomi = r.yomi && r.yomi !== r.name ? r.yomi : shortName(r);
   const one = (main, sub, cls, jaMain) => {
-    const fs = big ? 17 : 13, sfs = big ? 13.5 : 12;
-    const w = main.length * fs * (jaMain ? 1.04 : 0.6) + 18, h = fs + 9;
-    const tail = (sx) => `<path d="M${f(sx * (w / 2 - 3))} ${f(-h / 2 + 4)}h${f(sx * 8)}l${f(-sx * 3)} ${f(h / 2 - 1)}l${f(sx * 3)} ${f(h / 2 - 1)}h${f(-sx * 8)}Z" fill="${dark(c, 0.35)}" stroke="${INK}" stroke-width="1"/>`;
-    return `<g class="${cls}">` + tail(-1) + tail(1)
-      + `<rect x="${f(-w / 2)}" y="${f(-h / 2)}" width="${f(w)}" height="${h}" rx="4" fill="${c}" stroke="${INK}" stroke-width="1.3"/>`
-      + `<rect x="${f(-w / 2 + 2)}" y="${f(-h / 2 + 2)}" width="${f(w - 4)}" height="${f(h / 2 - 2)}" rx="3" fill="#fff" fill-opacity=".16"/>`
-      + `<text class="wm-ltext" y="1" font-size="${fs}" text-anchor="middle" dominant-baseline="central">${esc(main)}</text>`
-      + `<text class="wm-jtext wm-sub" y="${f(h / 2 + sfs * 0.85)}" font-size="${sfs}" text-anchor="middle" dominant-baseline="central">${esc(sub)}</text>`
-      + `<g transform="translate(${f(-w / 2 - 3)} ${f(-h / 2 + 1)})"><circle r="${big ? 10 : 8.6}" fill="#e04a2f" stroke="#fff4d6" stroke-width="2"/><circle r="${big ? 10 : 8.6}" fill="none" stroke="${INK}" stroke-width=".8"/><text class="wm-ntext" font-size="${big ? 13 : 12}" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`;
+    const fs = big ? 19 : 14.5, sfs = big ? 13.5 : 12;
+    const w = main.length * fs * (jaMain ? 1.02 : 0.58);
+    return `<g class="${cls}"><text class="wm-ltext" y="0" font-size="${fs}" text-anchor="middle" dominant-baseline="central">${esc(main)}</text>`
+      + `<text class="wm-jtext wm-sub" y="${f(fs * 0.62 + sfs * 0.75)}" font-size="${sfs}" text-anchor="middle" dominant-baseline="central">${esc(sub)}</text>`
+      + `<g transform="translate(${f(-w / 2 - 12)} 0)"><circle r="${big ? 10 : 8.6}" fill="#e04a2f" stroke="#fff4d6" stroke-width="2"/><circle r="${big ? 10 : 8.6}" fill="none" stroke="${INK}" stroke-width=".8"/><text class="wm-ntext" font-size="${big ? 13 : 12}" text-anchor="middle" dominant-baseline="central" y=".5">${r.num}</text></g></g>`;
   };
-  return `<g class="wm-cs wm-label" data-island="${esc(r.id)}" data-x="${f(x)}" data-y="${f(y)}" data-k="${big ? 1.15 : 1}" translate="no">`
+  return `<g class="wm-cs wm-label" data-island="${esc(r.id)}" data-x="${f(x)}" data-y="${f(y)}" data-k="${big ? 1.1 : 1}" translate="no">`
     + one(shortName(r), r.yomi || r.name, 'en', false) + one(r.name, yomi, 'ja', true) + '</g>';
 }
 
@@ -459,7 +363,7 @@ function liveParts(state, kid, KIDS) {
     if (!open && !prem && !off) {   // まだ ひらいて いない：くもで かくす
       const C = rng(seedOf(r.id) + 5);
       let cl = ''; for (let i = 0; i < 9; i++) { const a = (i / 9) * Math.PI * 2; cl += `<circle cx="${f(r.x + Math.cos(a) * r.rx * 0.55)}" cy="${f(r.z + Math.sin(a) * r.rz * 0.5 - 4)}" r="${f(r.rx * (0.32 + C() * 0.14))}"/>`; }
-      under += `<g class="wm-cloud"><g fill="#c7d6dc" transform="translate(2 4)">${cl}</g><g fill="#f6fbfc">${cl}<circle cx="${r.x}" cy="${r.z - 4}" r="${f(r.rx * 0.6)}"/></g></g>`;
+      under += `<g class="wm-cloud" fill="url(#wm-cloudgrad)">${cl}<circle cx="${r.x}" cy="${r.z - 4}" r="${f(r.rx * 0.75)}"/></g>`;
       over += `<g class="wm-cs" data-x="${r.x}" data-y="${f(r.z - 6)}" data-k=".9"><circle r="11" fill="#7a8f9a" stroke="#fff" stroke-width="2"/><text class="wm-ntext" font-size="14" text-anchor="middle" dominant-baseline="central">?</text></g>`;
     }
     if (off) under += `<use href="#wms-${r.id}" class="wm-off"/>`;
@@ -478,11 +382,19 @@ const lockSvg = () => `<g><rect x="-8" y="-3" width="16" height="13" rx="3" fill
 // host に ちずを 出す。下絵の DOM は 1 回だけ 作って 使いまわす（ひらく たびに 文字から 作りなおさない）。
 // うごかして いる 間は SVG に CSS の transform を かけるだけ（GPU が うごかす・かきなおさない）。
 // 手を はなして 0.16 秒 たったら viewBox を なおして 1 回だけ かきなおす（くっきり・札の 大きさも なおす）。
-let svgNode = null;
-export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fresh = false }) {
+let svgNode = null, paintCache = null;
+export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fresh = false, style = 'paint' }) {
   if (!svgNode) { const tpl = document.createElement('template'); tpl.innerHTML = baseSvg(); svgNode = tpl.content.firstElementChild; }
   const svg = svgNode, view = host.querySelector('.wmap-view');
+  // ぬった 絵（world-paint.js・1 回だけ かく）。canvas を SVG の 下に おき、CSS の transform で 見え方に あわせる。
+  const paint = document.createElement('div'); paint.className = 'wmap-paint'; view.appendChild(paint);
   view.appendChild(svg);
+  const tiles = [];
+  const setStyle = (st) => { style = st; svg.dataset.style = st; host.dataset.style = st; placeTiles(); };
+  svg.dataset.ready = paintCache ? '1' : '';
+  const addTile = (t) => { if (!t?.canvas || tiles.some((q) => q.canvas === t.canvas)) return; t.canvas.className = t.soft ? 'wmap-tile soft' : t.ppu > 3 ? 'wmap-tile main' : 'wmap-tile'; paint.appendChild(t.canvas); tiles.push(t); placeTiles(); };
+  const useResult = (res) => { if (!res || dead) return; paintCache = res; svg.dataset.ready = '1'; host.dataset.ready = '1'; addTile(res.world); res.main?.then((m) => { if (!dead) addTile(m); }); };
+  let dead = false;
   const { under, over, hits, pin } = liveParts(state, kid, kids);
   svg.querySelector('.wm-live-under').innerHTML = under;
   svg.querySelector('.wm-live-over').innerHTML = over;
@@ -511,6 +423,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
   const v = nowView.w && !fresh ? { cx: nowView.cx, cy: nowView.cy, w: nowView.w } : fit();
   const cv = { ...v };
   const clampV = () => { v.w = Math.max(60, Math.min((VIEW.x1 - VIEW.x0) * 1.9, v.w)); v.cx = Math.max(VIEW.x0, Math.min(VIEW.x1, v.cx)); v.cy = Math.max(VIEW.z0, Math.min(VIEW.z1, v.cy)); };
+  function placeTiles() { if (!tiles.length) return; const [W, H] = size(), k = W / v.w; for (const t of tiles) { if (!t.canvas) continue; t.canvas.style.width = `${t.x1 - t.x0}px`; t.canvas.style.height = `${t.z1 - t.z0}px`; t.canvas.style.transform = `translate(${f(W / 2 + (t.x0 - v.cx) * k)}px, ${f(H / 2 + (t.z0 - v.cy) * k)}px) scale(${f(k * 10000) / 10000})`; } }
   const placePin = () => { if (!here) return; const [W, H] = size(), k = W / v.w; here.style.transform = `translate(${f(W / 2 + (pin.x - v.cx) * k)}px, ${f(H / 2 + (pin.y - v.cy) * k)}px)`; };
   const commit = () => {
     timer = 0; clampV(); Object.assign(cv, v);
@@ -523,17 +436,30 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
     for (const [n, x, y, k] of scaled) n.setAttribute('transform', `translate(${x} ${y}) scale(${f(sc * k * 100) / 100})`);
     svg.dataset.near = px > 2.2 ? '1' : ''; svg.dataset.mid = px > 1.25 ? '1' : '';
     nowView.cx = v.cx; nowView.cy = v.cy; nowView.w = v.w;
-    placePin();
+    placePin(); placeTiles();
+    if (px > 2.4 && paintCache) wantDetail();
+  };
+  // ちかづいたら、見えて いる 島の こまかい え を 1 つずつ かく（1 島 1 回だけ・world-paint.js が とっておく）。
+  let detailBusy = false;
+  const wantDetail = () => {
+    if (detailBusy || dead) return;
+    const [W, H] = size(), h = v.w * H / W;
+    const next = MAP_ISLANDS.find((r) => r.id !== 'main' && !tiles.some((t) => t.id === r.id) && Math.abs(r.x - v.cx) < v.w / 2 + r.rx && Math.abs(r.z - v.cy) < h / 2 + r.rz);
+    if (!next) return;
+    detailBusy = true;
+    import('./world-paint.js').then((m) => m.paintIsland(next.id)).then((t) => { detailBusy = false; if (dead) return; if (t) addTile(t); else tiles.push({ id: next.id, canvas: null }); wantDetail(); }).catch(() => { detailBusy = false; });
   };
   let timer = 0, raf = 0;
   const preview = () => {   // うごかして いる 間：transform だけ
     raf = 0; clampV();
     const [W] = size(), k = cv.w / v.w, s2 = W / v.w;
     svg.style.transform = `translate(${f((cv.cx - v.cx) * s2)}px, ${f((cv.cy - v.cy) * s2)}px) scale(${f(k * 1000) / 1000})`;
-    placePin();
+    placePin(); placeTiles();
   };
   const draw = () => { if (!raf) raf = requestAnimationFrame(preview); clearTimeout(timer); timer = setTimeout(commit, 160); };
-  commit();
+  commit(); setStyle(style);
+  if (paintCache) useResult(paintCache);
+  else { host.dataset.ready = ''; import('./world-paint.js').then((m) => m.paintWorld()).then(useResult).catch(() => {}); }
 
   // ── 指・マウス：ひっぱって うごかす・2 本指で ちかづける・ホイール
   const pts = new Map(); let moved = 0, pinch = null;
@@ -573,6 +499,7 @@ export function mountWorldMap(host, { state, onPick, kid = false, kids = [], fre
     reset: () => { Object.assign(v, fit()); draw(); },
     focus: (id, w = 250) => { const r = BY_ID[id]; if (!r) return; v.cx = r.id === 'main' ? MX + 5 : r.x; v.cy = r.id === 'main' ? MZ - 14 : r.z; v.w = w; draw(); },
     commit,
-    destroy: () => { ro?.disconnect(); if (raf) cancelAnimationFrame(raf); clearTimeout(timer); here?.remove(); },
+    setStyle,
+    destroy: () => { dead = true; paint.remove(); ro?.disconnect(); if (raf) cancelAnimationFrame(raf); clearTimeout(timer); here?.remove(); },
   };
 }

@@ -669,6 +669,10 @@ for(const [hub,mod,near,unwrap,least=3] of [['school','school','schoolNearby'],[
  if(MAP_ISLANDS.length!==HUBS.length+REGIONS.length)bad.push('島の 数が ちがう');
  if(/NaN|undefined/.test(svg))bad.push('SVG に NaN / undefined');
  if(baseSvg()!==svg)bad.push('下絵が 1 回で とっておかれて いない');
+ const {paintWorld,WORLD_TILE,MAIN_TILE}=await import('../dist/world-paint.js');   // ぬった え：canvas の ない 所では null（Node でも 読みこめる）
+ if(await paintWorld()!==null&&!globalThis.document?.createElement)bad.push('world-paint: canvas が ないのに null で ない');
+ for(const r of MAP_ISLANDS)if(r.x<WORLD_TILE.x0+60||r.x>WORLD_TILE.x1-60||r.z<WORLD_TILE.z0+60||r.z>WORLD_TILE.z1-60)bad.push(r.id+': ぬった えの 外');
+ if(!(MAIN_TILE.x0<-104&&MAIN_TILE.x1>62))bad.push('メインの島の こまかい え が 島を つつんで いない');
  if(bad.length){console.error('FAIL: せかいの ちず\n  '+bad.join('\n  '));process.exit(1);}
  console.log('PASS: せかいの ちず — '+MAP_ISLANDS.length+' islands and '+LINKS.length+' bridges drawn ('+Math.round(svg.length/1024)+' KB, built once).');
 }

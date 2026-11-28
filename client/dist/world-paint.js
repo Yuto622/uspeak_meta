@@ -11,7 +11,7 @@
 import { MAP_ISLANDS, MAIN_RECTS, MAIN_BAY, MAIN_ROADS, MX, MZ } from './world-map.js';
 import { LINKS } from './bridges-data.js';
 
-export const WORLD_TILE = { x0: -560, x1: 540, z0: -640, z1: 530, ppu: 1.3, clouds: true };
+export const WORLD_TILE = { x0: -780, x1: 760, z0: -660, z1: 560, ppu: 1.3, clouds: true };
 export const MAIN_TILE = { x0: MX - 92, x1: MX + 100, z0: MZ - 86, z1: MZ + 58, ppu: 5, clouds: false };
 
 // ── ノイズ（決まった 乱数・value noise と fbm）──────────────────
@@ -47,7 +47,7 @@ const PAL = [
   ['#8cbb52', '#6e9e40', '#8d7a62', '#d8c26a'], ['#6fae4c', '#4f8d3a', '#8d7a62', '#9cc45a'], ['#78b04e', '#5e9840', '#a57d5c', '#a9cf6a'],
 ].map((p) => p.map(RGB));
 const SAND = RGB('#ecd9a2'), SAND_WET = RGB('#d6bd84'), FOAM = RGB('#ffffff');
-const DEEP = RGB('#0b3566'), MID = RGB('#135f95'), SHAL = RGB('#1f9fbd'), LAGOON = RGB('#4fd0d2'), NEAR = RGB('#86e6dc');
+const DEEP = RGB('#0e4479'), MID = RGB('#176fa6'), SHAL = RGB('#1f9fbd'), LAGOON = RGB('#4fd0d2'), NEAR = RGB('#86e6dc');
 
 // メインの島の 陸らしさ：角まるの 四角（54×43）と つき出した 土地（四角の 角まる）。
 function mainL(x, z) {
@@ -65,13 +65,16 @@ function mainL(x, z) {
 }
 
 const now = () => globalThis.performance?.now?.() ?? Date.now();
-const slice = () => new Promise((r) => (globalThis.requestIdleCallback ? requestIdleCallback(() => r(), { timeout: 60 }) : setTimeout(r, 0)));
+// ひと休み（ほかの 仕事を 先に させる）。MessageChannel は setTimeout の 4ms の 待ちが ない。
+const chan = globalThis.MessageChannel ? new MessageChannel() : null, waiting = [];
+if (chan) chan.port1.onmessage = () => waiting.shift()?.();
+const slice = () => new Promise((r) => { if (chan) { waiting.push(r); chan.port2.postMessage(0); } else setTimeout(r, 0); });
 
 // ひとつの 四角（tile）を かく。かえすのは canvas。
 async function paintTile(T) {
   const W = Math.round((T.x1 - T.x0) * T.ppu), H = Math.round((T.z1 - T.z0) * T.ppu), N = W * H, u = 1 / T.ppu;
   const L = new Float32Array(N).fill(-2.4), K = new Uint8Array(N), I = new Uint8Array(N), Hh = new Float32Array(N);
-  let t0 = now();
+  let t0 = now(); const tStart = t0;
   const yieldIf = async () => { if (now() - t0 > 24) { await slice(); t0 = now(); } };
   // 1. 陸らしさ（島ごとに まわり だけ）
   for (let ii = 0; ii < MAP_ISLANDS.length; ii++) {
@@ -96,6 +99,7 @@ async function paintTile(T) {
       if ((py & 7) === 0) await yieldIf();
     }
   }
+  const tm = [tStart, now()];
   // 2. 高さ（しゅるいごと）
   for (let py = 0; py < H; py++) {
     const z = T.z0 + (py + 0.5) * u;
@@ -125,6 +129,7 @@ async function paintTile(T) {
     }
     if ((py & 15) === 0) await yieldIf();
   }
+  tm.push(now());
   // 3. 光・かげ・色
   const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
   const g = cv.getContext('2d'); const img = g.createImageData(W, H), D = img.data;
@@ -134,15 +139,26 @@ async function paintTile(T) {
     const z = T.z0 + (py + 0.5) * u;
     for (let px = 0; px < W; px++) {
       const i = py * W + px, l = L[i], x = T.x0 + (px + 0.5) * u;
-      let c;
+      let c, cd = 0, cloud = null;
+      if (T.clouds) {   // まわりの 雲（うずまく ノイズ・左上が あかるい）。こい ところは 下を かかない。
+        const od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1);
+        if (od > -110) {
+          const wx = x / 85 + fbm(x / 160, z / 160, 2) * 1.4, wz = z / 85 + fbm(x / 160 + 7, z / 160, 2) * 1.4;   // うず（ずらした ノイズ）
+          const F = (od + 30) / 150 + fbm(wx, wz, 5) * 0.75;
+          cd = sstep(0.12, 0.42, F);
+          if (cd > 0) { const Fl = (od + 30 - 5) / 150 + fbm(wx - 0.07, wz - 0.07, 5) * 0.75; const cc = 1.0 - Math.max(0, Math.min(0.24, (Fl - F) * 2.2)) + Math.max(0, Math.min(0.03, (F - Fl) * 0.5)); cloud = [246 * cc, 249 * cc, 253 * Math.min(1, cc + 0.02)]; }
+          if (cd > 0.995) { const o = i * 4; D[o] = cloud[0]; D[o + 1] = cloud[1]; D[o + 2] = cloud[2]; D[o + 3] = 255; continue; }
+        }
+      }
       const h = Hh[i];
-      if (l < -0.02 || h < 0) {
+      if (l <= -2.3) { const k = noise(x / 13, z / 6) * 9; c = [DEEP[0] + k, DEEP[1] + k, DEEP[2] + k]; }   // とおい ふかい 海（はやい 道）
+      else if (l < -0.02 || h < 0) {
         // 海（ふかさで 色）と 波・あわ
         const d = l < -0.02 ? -l : 0.05 + Math.min(0.2, -h * 0.1);
         const inner = h < 0 && l >= -0.02;
         c = inner ? mixc(NEAR, LAGOON, sstep(0, 0.6, -h)) : d < 0.3 ? mixc(NEAR, SHAL, sstep(0.02, 0.3, d)) : d < 0.85 ? mixc(SHAL, MID, sstep(0.3, 0.85, d)) : mixc(MID, DEEP, sstep(0.85, 1.4, d));
         const w = noise(x / 3 + z / 9, z / 2.2) * 0.5 + noise(x / 13, z / 6) * 0.5;
-        const k = (w * 0.06 + (hash(px, py) - 0.5) * 0.03) * 255;
+        const k = (w * (d > 0.9 ? 0.035 : 0.06) + (hash(px, py) - 0.5) * 0.015) * 255;
         c = [c[0] + k, c[1] + k, c[2] + k];
         if (!inner && d < 0.09) { const f = (1 - d / 0.09) * (0.55 + 0.45 * noise(x / 2, z / 2)); c = mixc(c, FOAM, Math.max(0, Math.min(0.85, f))); }
         else if (!inner && d < 0.22 && noise(x / 2.4 + 9, z / 2.4) > 0.55) c = mixc(c, FOAM, 0.35);
@@ -179,18 +195,12 @@ async function paintTile(T) {
         const f = Math.max(0.35, Math.min(1.35, 0.42 + lit * 0.78)) * shade;
         c = [base[0] * f + tex, base[1] * f + tex, base[2] * f + tex];
       }
-      if (T.clouds) {   // まわりの 雲（うずまく ノイズ・左上が あかるい）
-        const od = Math.max(CF.x0 - x, x - CF.x1, CF.z0 - z, z - CF.z1);
-        if (od > -110) {
-          const n = fbm(x / 70 + 11, z / 70, 5), sw = fbm(x / 34 + n * 2.2, z / 34 - n * 2.2, 3);
-          const dens = sstep(-0.1, 0.45, (od + 60) / 150 + n * 0.55 + sw * 0.3);
-          if (dens > 0) { const lt = 0.82 + (fbm((x - 6) / 34 + n * 2.2, (z - 6) / 34 - n * 2.2, 3) - sw) * 2.4 + n * 0.25; const cc = Math.max(0.62, Math.min(1.04, lt)); c = mixc(c, [255 * cc, 255 * Math.min(1.02, cc + 0.01), 255 * Math.min(1.03, cc + 0.03)], dens); }
-        }
-      }
+      if (cd > 0) c = mixc(c, cloud, cd);
       const o = i * 4; D[o] = c[0]; D[o + 1] = c[1]; D[o + 2] = c[2]; D[o + 3] = 255;
     }
     if ((py & 7) === 0) await yieldIf();
   }
+  tm.push(now());
   g.putImageData(img, 0, 0);
   await slice();
   // 4. 2D の 絵（世界の 座標で かく）
@@ -199,6 +209,7 @@ async function paintTile(T) {
   drawBridges(g); await slice();
   drawMain(g); await slice();
   g.restore();
+  tm.push(now()); cv.timing = tm.map((v, i) => (i ? Math.round(v - tm[i - 1]) : 0)).slice(1);
   return cv;
 }
 
@@ -330,42 +341,30 @@ function boat(g, x, z) {
   g.fillStyle = '#fff4d6'; g.beginPath(); g.ellipse(x, z, 2.6, 1.1, 0, 0, 6.283); g.fill(); g.strokeStyle = '#6b3f1c'; g.lineWidth = 0.15; g.stroke();
   g.fillStyle = '#e27a2d'; g.beginPath(); g.moveTo(x, z); g.lineTo(x + 2, z - 2.6); g.lineTo(x, z - 2.6); g.closePath(); g.fill();
 }
-// まわりの 雲（ぜんぶの 島の わくの 外を うずまく 雲で かこむ）
-function drawClouds(g, T) {
-  const F = { x0: -400, x1: 395, z0: -480, z1: 390 };
-  const R = rnd(7);
-  for (let i = 0; i < 520; i++) {
-    const side = i % 4; let x, z;
-    const out = 10 + R() * 120;
-    if (side === 0) { x = F.x0 - out; z = F.z0 + R() * (F.z1 - F.z0); } else if (side === 1) { x = F.x1 + out; z = F.z0 + R() * (F.z1 - F.z0); }
-    else if (side === 2) { z = F.z0 - out; x = F.x0 + R() * (F.x1 - F.x0); } else { z = F.z1 + out; x = F.x0 + R() * (F.x1 - F.x0); }
-    const r = 14 + R() * 30 + out * 0.25;
-    const gr = g.createRadialGradient(x - r * 0.25, z - r * 0.3, r * 0.1, x, z, r);
-    gr.addColorStop(0, 'rgba(255,255,255,.95)'); gr.addColorStop(0.55, 'rgba(246,250,252,.75)'); gr.addColorStop(0.85, 'rgba(210,225,235,.35)'); gr.addColorStop(1, 'rgba(200,215,230,0)');
-    g.fillStyle = gr; g.beginPath(); g.arc(x, z, r, 0, 6.283); g.fill();
-  }
-  // かどは もっと 厚く
-  for (const [cx, cz] of [[F.x0, F.z0], [F.x1, F.z0], [F.x0, F.z1], [F.x1, F.z1]]) for (let i = 0; i < 40; i++) {
-    const x = cx + (R() - 0.5) * 160, z = cz + (R() - 0.5) * 160, r = 20 + R() * 30;
-    const gr = g.createRadialGradient(x, z, r * 0.1, x, z, r); gr.addColorStop(0, 'rgba(255,255,255,.9)'); gr.addColorStop(1, 'rgba(225,235,242,0)'); g.fillStyle = gr; g.beginPath(); g.arc(x, z, r, 0, 6.283); g.fill();
-  }
-}
-
 // ── 1 回だけ ──────────────────────────────────────────────────
+// ちかづいた ときの 島の え（1 島ずつ・はじめて ちかづいた ときに 1 回だけ）。
+const detail = new Map();
+export const DETAIL_PPU = 4;
+export function paintIsland(id) {
+  if (detail.has(id)) return detail.get(id);
+  const r = MAP_ISLANDS.find((q) => q.id === id);
+  if (!r || r.id === 'main') return Promise.resolve(null);
+  const T = { x0: r.x - r.rx * 1.9, x1: r.x + r.rx * 1.9, z0: r.z - r.rz * 1.9, z1: r.z + r.rz * 1.9, ppu: DETAIL_PPU, clouds: false, soft: true };
+  const p = (job || Promise.resolve()).then(() => paintTile(T)).then((cv) => ({ canvas: cv, ...T, id })).catch(() => null);
+  detail.set(id, p);
+  return p;
+}
 let job = null;
-const toUrl = (cv) => new Promise((res) => { try { cv.toBlob((b) => res(b ? URL.createObjectURL(b) : cv.toDataURL('image/jpeg', 0.9)), 'image/jpeg', 0.9); } catch { res(null); } });
-// かえす：{ world: {url, ...WORLD_TILE}, main: {url, ...MAIN_TILE}, ms }。かけない 端末（canvas が ない）は null。
+// かえす：{ world: {canvas, ...WORLD_TILE}, main: Promise<{canvas, ...MAIN_TILE}>, ms }。かけない 端末（canvas が ない）は null。
+// canvas は そのまま 画面に 出す（画像に しなおさない＝JPEG に する 時間が いらない）。せかいが 先、メインの島は あとから。
 export function paintWorld() {
   if (job) return job;
   job = (async () => {
     if (!globalThis.document?.createElement('canvas').getContext?.('2d')) return null;
     const t = now();
     const world = await paintTile(WORLD_TILE);
-    const wUrl = await toUrl(world); const wMs = Math.round(now() - t);
-    const out = { world: { url: wUrl, ...WORLD_TILE }, main: null, ms: 0 };
-    const main = await paintTile(MAIN_TILE);
-    out.main = { url: await toUrl(main), ...MAIN_TILE };
-    out.ms = Math.round(now() - t); out.worldMs = wMs;
+    const out = { world: { canvas: world, ...WORLD_TILE }, ms: Math.round(now() - t), timing: world.timing, main: null };
+    out.main = paintTile(MAIN_TILE).then((cv) => ({ canvas: cv, ...MAIN_TILE, ms: Math.round(now() - t) })).catch(() => null);
     return out;
   })().catch((e) => { console.warn('[world-paint]', e); return null; });
   return job;

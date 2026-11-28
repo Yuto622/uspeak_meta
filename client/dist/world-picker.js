@@ -11,9 +11,10 @@ import { KIDS_ISLANDS, kidsOn } from './kids.js';
 import { neighboursOf } from './bridges-data.js';
 import { MAP_ISLANDS, mountWorldMap, shortName } from './world-map.js';
 
-// 「🗺 ちず」（えの ちず＝world-map.js・はじめは こちら）と「🃏 カード」（いままでの カード）。えらんだ ほうを この 端末に 覚える。
+// 「🗺 ちず」（ぬった 地形の ちず＝world-paint.js・はじめは こちら）・「📍 あんない」（たいらな あんないの ちず＝world-map.js の SVG）・
+// 「🃏 カード」（いままでの カード）。えらんだ ものを この 端末に 覚える。
 const VIEW_KEY = 'uspeak-worldmap-view-v1';
-const readView = () => { try { return globalThis.localStorage?.getItem(VIEW_KEY) === 'cards' ? 'cards' : 'map'; } catch { return 'map'; } };
+const readView = () => { try { const v = globalThis.localStorage?.getItem(VIEW_KEY); return v === 'cards' || v === 'guide' ? v : 'map'; } catch { return 'map'; } };
 const saveView = (v) => { try { globalThis.localStorage?.setItem(VIEW_KEY, v); } catch { /* 保存 できない 端末でも うごく */ } };
 let mapCtl = null;
 // せつめい（KEY）の 小さな 絵（ちずの 絵と 同じ 形）。
@@ -103,10 +104,11 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   };
   const small = globalThis.matchMedia?.('(max-height: 560px), (max-width: 640px)').matches;
   const keyRow = (icon, en, ja) => `<li><span class="wk-i" aria-hidden="true">${KEY_ICONS[icon]}</span><span><b class="en">${en}</b><i class="ja">${ja}</i></span></li>`;
-  host.innerHTML = `<section class="wm ${view === 'map' ? 'is-map' : 'is-cards'}">
+  host.innerHTML = `<section class="wm ${view === 'cards' ? 'is-cards' : 'is-map'}">
     <header class="wm-head">
       <div class="wm-views" role="group" aria-label="ちずの 見せかた" data-t-label="ちずの 見せかた">
         <button type="button" data-wm-view="map" aria-pressed="${view === 'map'}"><b class="en">🗺 Map</b><i class="ja">🗺 ちず</i></button>
+        <button type="button" data-wm-view="guide" aria-pressed="${view === 'guide'}"><b class="en">📍 Guide</b><i class="ja">📍 あんない</i></button>
         <button type="button" data-wm-view="cards" aria-pressed="${view === 'cards'}"><b class="en">🃏 Cards</b><i class="ja">🃏 カード</i></button>
       </div>
       <h2><b class="en">Choose a World</b><i class="ja">せかいを えらぼう</i></h2>
@@ -114,6 +116,7 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
     </header>
     <div class="wmap">
       <div class="wmap-view" tabindex="0" role="region" aria-label="せかいの ちず（ひっぱって うごかす・ゆびで 大きく）" data-t-label="せかいの ちず（ひっぱって うごかす・ゆびで 大きく）"></div>
+      <div class="wmap-loading" role="status" data-t="ちずの えを かいて います…">ちずの えを かいて います…</div>
       <div class="wmap-title" aria-hidden="true"><span class="wt-in"><b>U-SPEAK WORLD</b><small translate="no">ユースピーク ワールド</small></span></div>
       <details class="wmap-panel wmap-list"${small ? '' : ' open'}>
         <summary><b class="en">Islands</b><i class="ja">しまの いちらん</i></summary>
@@ -151,13 +154,13 @@ export function renderWorldPicker(host, { destinations, state, onPick, onClose, 
   const wm = host.querySelector('.wm');
   const mount = (first) => {
     if (mapCtl) return;
-    mapCtl = mountWorldMap(host.querySelector('.wmap'), { state: { ...state, isJa: isJa() }, onPick, kid, kids: KIDS_ISLANDS, fresh: first });
+    mapCtl = mountWorldMap(host.querySelector('.wmap'), { state: { ...state, isJa: isJa() }, onPick, kid, kids: KIDS_ISLANDS, fresh: first, style: view === 'guide' ? 'guide' : 'paint' });
   };
   const setView = (v, save) => {
-    view = v; wm.classList.toggle('is-map', v === 'map'); wm.classList.toggle('is-cards', v !== 'map');
+    view = v; wm.classList.toggle('is-map', v !== 'cards'); wm.classList.toggle('is-cards', v === 'cards');
     host.querySelectorAll('[data-wm-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.wmView === v)));
     if (save) saveView(v);
-    if (v === 'map') mount(fresh);
+    if (v !== 'cards') { mount(fresh); mapCtl.setStyle(v === 'guide' ? 'guide' : 'paint'); }
   };
   host.querySelectorAll('[data-wm-view]').forEach((b) => { b.onclick = () => setView(b.dataset.wmView, true); });
   host.querySelectorAll('[data-wm-zoom]').forEach((b) => { b.onclick = () => { const z = b.dataset.wmZoom; if (!mapCtl) return; z === 'in' ? mapCtl.zoom(1.5) : z === 'out' ? mapCtl.zoom(1 / 1.5) : z === 'main' ? mapCtl.focus('main') : mapCtl.reset(); }; });

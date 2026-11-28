@@ -186,7 +186,7 @@ html:not([data-lang=ja]) .wm .en, html[data-lang=ja] .wm .ja { display: inline; 
 .wm.is-map .wm-head h2 { display: none; }
 .wm.is-map .wm-close { position: static; width: 50px; height: 50px; font-size: 20px; border-width: 4px; }
 .wmap { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: #17839e; border-radius: 28px; }
-.wmap-view { position: absolute; inset: 0; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; }
+.wmap-view { position: absolute; inset: 0; z-index: 0; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; }
 .wmap-view.drag { cursor: grabbing; }
 .wmap-view:focus-visible { box-shadow: inset 0 0 0 4px #ffd246; }
 .wm-svg { display: block; width: 100%; height: 100%; }
@@ -296,3 +296,25 @@ html:not([data-lang=ja]) .wm-svg .en, html[data-lang=ja] .wm-svg .ja { display: 
 @media (prefers-reduced-motion: reduce) { .wmap-here .wh-pin { animation: none; } }
 .wm-svg .wm-sub { display: none; }
 .wm-svg[data-mid="1"] .wm-sub { display: inline; }
+/* ── ぬった 地形（🗺 ちず）と あんない（📍）・2026-11 ── */
+.wmap { background: #f1f6f9; }
+.wmap[data-style="guide"] { background: #9fd3e6; }
+.wmap-paint { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.wmap-tile { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.wmap[data-style="guide"] .wmap-paint { display: none; }
+.wm-svg { position: relative; z-index: 3; }
+.wm-svg[data-style="paint"][data-ready="1"] .wm-guide { display: none; }
+.wm-svg:not([data-style="guide"]) .wm-markers { display: none; }
+.wm-svg[data-style="guide"] .wm-compass { display: none; }
+.wm-svg .wm-ltext { stroke: #0c241c; stroke-width: 4px; }
+.wm-svg .wm-jtext { fill: #fff4d6; stroke: #0c241c; stroke-width: 3.6px; }
+.wm-svg[data-style="guide"] .wm-ltext { fill: #1b3a2f; stroke: #ffffff; stroke-width: 4.4px; }
+.wm-svg[data-style="guide"] .wm-jtext { fill: #1b3a2f; stroke: #ffffff; }
+.wm-svg .wm-sea { fill: #e6f6ff; fill-opacity: .9; font-style: italic; font-weight: 800; letter-spacing: .18em; paint-order: stroke; stroke: #0e4479; stroke-width: 3px; stroke-opacity: .55; pointer-events: none; }
+.wm-svg[data-style="guide"] .wm-sea { fill: #4f8fb0; stroke: #ffffff; stroke-opacity: .8; }
+.wm-svg .wm-marker { pointer-events: none; }
+.wmap-loading { position: absolute; z-index: 3; left: 50%; bottom: 16px; transform: translateX(-50%); padding: 7px 16px; border-radius: 99px; background: #0c241ccc; color: #fff4d6; font-size: 14px; font-weight: 800; pointer-events: none; display: none; }
+.wmap[data-style="paint"][data-ready=""] .wmap-loading { display: block; }
+.wm-svg .wm-here-ring { vector-effect: non-scaling-stroke; stroke-width: 4px; stroke-dasharray: 10 7; }
+.wmap-tile.soft { z-index: 1; -webkit-mask-image: radial-gradient(ellipse closest-side, #000 72%, transparent 100%); mask-image: radial-gradient(ellipse closest-side, #000 72%, transparent 100%); }
+.wmap-tile.main { z-index: 2; }
